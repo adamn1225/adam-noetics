@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
 import { v4 as uuidv4 } from 'uuid';
+import DashboardLayout from '../UserLayout';
 
 type File = Database['public']['Tables']['files']['Row'];
 
@@ -197,7 +198,7 @@ const FilesPage = () => {
     };
 
     return (
-        <div>
+        <DashboardLayout>
             <h1 className="text-2xl font-bold mb-4">Upload Files</h1>
             <input
                 type="file"
@@ -239,7 +240,7 @@ const FilesPage = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </DashboardLayout>
     );
 };
 

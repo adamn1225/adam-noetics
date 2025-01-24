@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import withAuth from '@utils/withAuth';
 import Image from 'next/image';
+import DashboardLayout from '../UserLayout';
 
 const UserProfilePage = () => {
     const [profile, setProfile] = useState<any>(null);
@@ -97,7 +98,7 @@ const UserProfilePage = () => {
     }
 
     return (
-        <div className="container mx-auto p-4">
+        <DashboardLayout>
             <h1 className="text-2xl font-bold mb-4">Your Profile</h1>
             <div className="bg-white p-4 rounded-lg shadow">
                 <div className="flex items-center mb-4">
@@ -145,7 +146,7 @@ const UserProfilePage = () => {
                     <p className="mt-1 text-gray-900">{profile.role || 'N/A'}</p>
                 </div>
             </div>
-        </div>
+        </DashboardLayout>
     );
 };
 

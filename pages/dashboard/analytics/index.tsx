@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import DashboardLayout from '../UserLayout';
 
 const AdminAnalyticsPage = () => {
     const [googleAnalyticsKey, setGoogleAnalyticsKey] = useState('');
@@ -27,7 +28,7 @@ const AdminAnalyticsPage = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <DashboardLayout>
             <h1 className="text-2xl font-bold mb-4">Analytics Integration</h1>
             {message && <div className="mb-4 text-green-500">{message}</div>}
             <div className="mb-8">
@@ -107,7 +108,7 @@ const AdminAnalyticsPage = () => {
                 <h2 className="text-xl font-semibold mb-2">Hotjar (Coming Soon)</h2>
                 <p className="text-gray-600">Integration with Hotjar will be available soon.</p>
             </div>
-        </div>
+        </DashboardLayout>
     );
 };
 

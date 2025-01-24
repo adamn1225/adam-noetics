@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
 import { v4 as uuidv4 } from 'uuid';
+import AdminLayout from '../../AdminLayout';
 
 type File = Database['public']['Tables']['files']['Row'];
 type Profile = Database['public']['Tables']['profiles']['Row'];
@@ -213,7 +214,7 @@ const ClientFiles = () => {
     };
 
     return (
-        <div>
+        <AdminLayout>
             <h1 className="text-2xl font-bold mb-4">Client Files</h1>
             <div className="mb-4">
                 <label htmlFor="client-select" className="block text-sm font-medium text-gray-700">
@@ -278,7 +279,7 @@ const ClientFiles = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </AdminLayout>
     );
 };
 

@@ -3,6 +3,7 @@
 
 import React, { useState } from 'react';
 import { onboardNewClient } from '@lib/onboardClient';
+import AdminLayout from '../../AdminLayout';
 
 const OnboardClientPage = () => {
     const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ const OnboardClientPage = () => {
     };
 
     return (
-        <>
+        <AdminLayout>
             <div className="container mx-auto p-4">
                 <h1 className="text-2xl font-bold mb-4">Onboard New Client</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -116,7 +117,7 @@ const OnboardClientPage = () => {
                 </form>
                 {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
             </div>
-        </>
+        </AdminLayout>
     );
 };
 

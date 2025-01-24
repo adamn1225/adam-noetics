@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import withAuth from '@utils/withAuth';
+import DashboardLayout from './UserLayout';
 
 const DashboardPage = () => {
     const [userName, setUserName] = useState<string | null>(null);
@@ -109,7 +110,7 @@ const DashboardPage = () => {
     }
 
     return (
-        <>
+        <DashboardLayout>
             <h1 className="text-2xl font-bold mb-4">Welcome {userName} to Your Dashboard</h1>
             <p className="text-gray-700">
                 Here you can manage your tasks, upload files, and track the progress of your projects.
@@ -153,7 +154,7 @@ const DashboardPage = () => {
                     </svg>
                 </div>
             </div>
-        </>
+        </DashboardLayout>
     );
 };
 

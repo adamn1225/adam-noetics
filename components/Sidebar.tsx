@@ -57,12 +57,12 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className={`bg-gray-900 text-white transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-56'}`}>
+    <aside className={`bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-12' : 'w-44'} overflow-hidden`}>
       <div className="flex items-center justify-between p-4">
         <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>
           Dashboard
         </h2>
-        <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-white focus:outline-none">
+        <button onClick={() => setIsCollapsed(!isCollapsed)} className="text-white font-bold underline text-xl focus:outline-none">
           {isCollapsed ? '>' : '<'}
         </button>
       </div>
@@ -72,13 +72,13 @@ const Sidebar = () => {
             <li key={item.name} className="mb-2">
               <a href={item.href} className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded">
                 <item.icon className="mr-2" />
-                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
+                <span className={` text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
               </a>
             </li>
           ))}
           {role === 'admin' && adminNavItems.map((item) => (
             <li key={item.name} className="mb-2">
-              <a href={item.href} className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded">
+              <a href={item.href} className="flex items-center p-2 text-base font-medium hover:bg-gray-700 rounded">
                 <item.icon className="mr-2" />
                 <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
               </a>
@@ -87,13 +87,13 @@ const Sidebar = () => {
         </ul>
         <ul>
           <li className="mb-2">
-            <a href="/dashboard/settings" className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded">
+            <a href="/dashboard/settings" className="flex items-center p-2 text-base font-medium hover:bg-gray-700 rounded">
               <Settings className="mr-2" />
               <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Settings</span>
             </a>
           </li>
           <li className="mb-2">
-            <button onClick={handleLogout} className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded w-full text-left">
+            <button onClick={handleLogout} className="flex items-center p-2 text-base font-medium hover:bg-gray-700 rounded w-full text-left">
               <LogOut className="mr-2" />
               <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Logout</span>
             </button>
