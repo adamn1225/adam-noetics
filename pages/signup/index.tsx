@@ -30,6 +30,9 @@ const SignupPage: React.FC = () => {
     const handleGoogleSignup = async () => {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
+            options: {
+                redirectTo: 'https://www.adam-noah.com/dashboard',
+            },
         });
 
         if (error) {

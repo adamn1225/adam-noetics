@@ -7,6 +7,18 @@ const nextConfig: NextConfig = {
     config.resolve.plugins.push(new TsconfigPathsPlugin());
     return config;
   },
+  trailingSlash: true,
+  exportPathMap: async function (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId }
+  ) {
+    return {
+      '/': { page: '/' },
+      '/signup': { page: '/signup' },
+      '/dashboard': { page: '/dashboard' },
+      // Add other pages here
+    }
+  },
 };
 
 export default nextConfig;
