@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 
@@ -67,7 +66,7 @@ const HeroSection = () => {
         <section id="hero" className="bg-gray-900 text-white py-20">
             <div className="container mx-auto px-4 text-center">
                 <h1 className="text-5xl font-bold mb-4">
-                    Transform Your Ideas Into Reality
+                    Transform Your Ideas
                 </h1>
                 <p className="text-lg mb-6">
                     Expert in building web applications, automations, and tools tailored
@@ -118,7 +117,7 @@ const HeroSection = () => {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-base font-medium text-gray-700"
                                 >
                                     Email
                                 </label>
@@ -137,7 +136,7 @@ const HeroSection = () => {
                             <div>
                                 <label
                                     htmlFor="phone"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-base font-medium text-gray-700"
                                 >
                                     Phone (Optional)
                                 </label>
@@ -155,7 +154,7 @@ const HeroSection = () => {
                             <div>
                                 <label
                                     htmlFor="service"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-base font-medium text-gray-700"
                                 >
                                     What Service Are You Interested In?
                                 </label>
@@ -184,9 +183,9 @@ const HeroSection = () => {
                             <div>
                                 <label
                                     htmlFor="message"
-                                    className="block text-sm font-medium text-gray-700"
+                                    className="block text-sm text-nowrap font-medium text-gray-700 dark:text-gray-300"
                                 >
-                                    Message
+                                    Feel free to provide more details on what you&apos;re trying to achieve
                                 </label>
                                 <textarea
                                     id="message"

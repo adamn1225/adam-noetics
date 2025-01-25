@@ -61,7 +61,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <div className="bg-white p-8 rounded-lg shadow-md w-5/6 md:w-full max-w-md">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Client Login
         </h1>
@@ -118,9 +118,12 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md"
+            className="onboardbutton flex justify-center w-full text-white font-bold py-3 px-6 rounded-lg"
           >
             {loading ? "Logging in..." : "Log In"}
+            <div className="arrow-wrapper">
+              <div className="arrow"></div>
+            </div>
           </button>
           <p className="text-lg text-center text-blue-600 underline hover:text-blue-600/80">
             <Link href="/">Go back to homepage</Link>

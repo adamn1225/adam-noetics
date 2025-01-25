@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../motionConfig";
@@ -13,7 +12,7 @@ const CallToActionSection = () => {
   return (
     <motion.section
       id="contact"
-      className="bg-blue-600 text-white py-20"
+      className="bg-blue-600 dark:bg-gray-700 text-white py-20"
       {...fadeInUp}
     >
       <div className="container mx-auto px-4 text-center">
@@ -27,21 +26,21 @@ const CallToActionSection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() =>
-              (window.location.href = "mailto:yourname@example.com")
+              (window.location.href = "mailto:anoah1225@gmail.com")
             }
-            className="bg-white text-blue-600 font-bold py-3 px-6 rounded-full"
+            className="bg-white text-blue-600 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
           >
             Email Us
           </button>
           <button
             onClick={() => (window.location.href = "tel:+1234567890")}
-            className="bg-white text-blue-600 font-bold py-3 px-6 rounded-full"
+            className="bg-white text-blue-600 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
           >
             Call Us
           </button>
           <button
             onClick={handleModalToggle}
-            className="bg-white text-blue-600 font-bold py-3 px-6 rounded-full"
+            className="bg-white text-blue-600 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
           >
             Fill Out a Form
           </button>

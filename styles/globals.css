@@ -23,12 +23,123 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
-  /* Ensure body takes full viewport height */
   margin: 0;
-  /* Remove default margin */
 }
 
 * {
   box-sizing: border-box;
-  /* Ensure consistent box-sizing */
+}
+
+.dark body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* From Uiverse.io by satyamchaudharydev */ 
+.onboardbutton {
+  --primary-color: #2563eb;
+  --secondary-color: #fff;
+  --hover-color: #111827;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  color: var(--secondary-color);
+  background: var(--primary-color);
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+.onboardbutton .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.onboardbutton .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: var(--primary-color);
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+.onboardbutton .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid var(--secondary-color);
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.onboardbutton:hover {
+  background-color: var(--hover-color);
+}
+
+.onboardbutton:hover .arrow {
+  background: var(--secondary-color);
+}
+
+.onboardbutton:hover .arrow:before {
+  right: 0;
+}
+
+/* Dark Mode Toggle Styles */
+.dark body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Dark Mode Toggle Styles */
+.theme {
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme__toggle-wrap {
+  position: relative;
+}
+
+.theme__toggle {
+  background-color: hsl(55, 69%, 90%);
+  border-radius: 25% / 50%;
+  padding: 0.25em;
+  width: 4em;
+  height: 2em;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.theme__toggle:before {
+  background-color: hsl(54, 94%, 58%);
+  border-radius: 50%;
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  transition: transform 0.3s ease-in-out;
+}
+
+.theme__toggle:checked {
+  background-color: hsl(210, 50%, 50%);
+}
+
+.theme__toggle:checked:before {
+  transform: translateX(2em);
+}
+
+.theme__toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.125em hsl(210, 50%, 70%);
 }

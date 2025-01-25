@@ -3,17 +3,18 @@ import AboutSection from "@components/AboutSection";
 import ServicesSection from "@components/ServicesSection";
 import PortfolioSection from "@components/PortfolioSection";
 import CallToActionSection from "@components/CallToActionSection";
-import Navigation from '@components/Navigation';
+import RootLayout from './layout';
 
 export default function Home() {
   return (
-    <div className="space-y-20">
-      <Navigation />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <PortfolioSection />
-      <CallToActionSection />
-    </div>
+    <RootLayout>
+      <div className="space-y-20">
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        <PortfolioSection />
+        <CallToActionSection />
+      </div>
+    </RootLayout>
   );
 }
