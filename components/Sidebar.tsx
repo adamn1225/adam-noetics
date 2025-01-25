@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 const navItems = [
-  { name: 'Overview', href: '/dashboard/', icon: Home },
+  { name: 'Overview', href: '/dashboard', icon: Home },
   { name: 'File Uploads', href: '/dashboard/files', icon: FileText },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardList },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart },

@@ -72,12 +72,21 @@ const HeroSection = () => {
                     Expert in building web applications, automations, and tools tailored
                     to your business needs.
                 </p>
-                <button
-                    onClick={handleModalToggle}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
-                >
-                    Let&apos;s Work Together
-                </button>
+                <div className="flex flex-col items-center space-y-4">
+                    <button
+                        onClick={handleModalToggle}
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
+                    >
+                        Request more information
+                    </button>
+                    <a href="/signup">
+                        <button
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
+                        >
+                            Create an account
+                        </button>
+                    </a>
+                </div>
             </div>
 
             {/* Modal */}

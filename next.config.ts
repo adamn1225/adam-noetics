@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
       // Add other pages here
     }
   },
+  experimental: {
+    turbo: {
+      // Add valid ExperimentalTurboOptions properties here
+    },
+  },
 };
 
 export default nextConfig;

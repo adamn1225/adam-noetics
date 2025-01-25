@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { supabase } from "@lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
+import { Eye, EyeOff } from 'lucide-react';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -10,6 +11,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,6 +65,19 @@ const LoginPage = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'https://www.noetics.io/dashboard',
+      },
+    });
+
+    if (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-5/6 md:w-full max-w-md">
@@ -87,7 +102,7 @@ const LoginPage = () => {
               placeholder="you@example.com"
             />
           </div>
-          <div>
+          <div className="relative">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -95,7 +110,7 @@ const LoginPage = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -103,6 +118,13 @@ const LoginPage = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="Enter your password"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-gray-500"
+            >
+              {showPassword ? <EyeOff /> : <Eye />}
+            </button>
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-sm text-blue-600 hover:underline">
@@ -129,6 +151,21 @@ const LoginPage = () => {
               <div className="arrow"></div>
             </div>
           </button>
+          <div className="mt-6">
+            <button
+              onClick={handleGoogleLogin}
+              className="flex items-center shadow-md justify-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 w-full"
+            >
+              <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
+                <path fill="#4285F4" d="M24 9.5c3.1 0 5.7 1.1 7.8 3.1l5.8-5.8C33.9 3.5 29.3 1.5 24 1.5 14.8 1.5 7.3 7.9 4.5 16.1l6.9 5.4C13.1 15.1 18 9.5 24 9.5z" />
+                <path fill="#34A853" d="M46.5 24c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3.1-2.4 5.7-4.9 7.4l7.5 5.8c4.4-4.1 7.2-10.1 7.2-17.7z" />
+                <path fill="#FBBC05" d="M11.4 28.5c-1-3.1-1-6.4 0-9.5l-6.9-5.4C1.2 17.1 0 20.4 0 24s1.2 6.9 3.5 10l7.9-5.5z" />
+                <path fill="#EA4335" d="M24 46.5c5.3 0 9.9-1.8 13.2-4.9l-7.5-5.8c-2.1 1.4-4.7 2.2-7.7 2.2-6 0-11-4.1-12.8-9.6l-7.9 5.5c3.2 6.3 9.7 10.6 17.7 10.6z" />
+                <path fill="none" d="M0 0h48v48H0z" />
+              </svg>
+              Log In with Google
+            </button>
+          </div>
           <p className="text-lg text-center text-blue-600 underline hover:text-blue-600/80">
             <Link href="/">Go back to homepage</Link>
           </p>

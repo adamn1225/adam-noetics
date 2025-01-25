@@ -206,9 +206,11 @@ export type Database = {
       }
       profiles: {
         Row: {
+          ahrefs_key: string | null
           company_name: string | null
           created_at: string | null
           email: string
+          google_analytics_key: string | null
           id: string
           name: string
           onboarding_completed: boolean | null
@@ -216,13 +218,16 @@ export type Database = {
           phone: string | null
           profile_image: string | null
           role: string | null
+          semrush_key: string | null
           updated_at: string | null
           user_id: string | null
         }
         Insert: {
+          ahrefs_key?: string | null
           company_name?: string | null
           created_at?: string | null
           email: string
+          google_analytics_key?: string | null
           id?: string
           name: string
           onboarding_completed?: boolean | null
@@ -230,13 +235,16 @@ export type Database = {
           phone?: string | null
           profile_image?: string | null
           role?: string | null
+          semrush_key?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
         Update: {
+          ahrefs_key?: string | null
           company_name?: string | null
           created_at?: string | null
           email?: string
+          google_analytics_key?: string | null
           id?: string
           name?: string
           onboarding_completed?: boolean | null
@@ -244,6 +252,7 @@ export type Database = {
           phone?: string | null
           profile_image?: string | null
           role?: string | null
+          semrush_key?: string | null
           updated_at?: string | null
           user_id?: string | null
         }

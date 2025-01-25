@@ -204,7 +204,7 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                     <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Client Project Plan</h1>
                     <div className='flex flex-col gap-1 pt-8'>
                         <span className='font-extrabold text-xl underline underline-offset-4'>Important: </span>
-                        <h2 className='text-lg font-semibold mb-2 text-gray-900 dark:text-white italic underline underline-offset-2'>
+                        <h2 className='text-base font-semibold mb-2 text-gray-900 dark:text-white italic underline underline-offset-2'>
                             Make sure to fill out all fields to the best of your ability. The more information we have, the better your dream outcome will be!
                         </h2>
                     </div>
