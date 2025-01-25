@@ -24,7 +24,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
       <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <span className="flex items-center gap-4">
-          <a href="/"><h1 className="text-2xl font-bold tracking-widest dark:text-white">Noah&apos;s Noetic&apos;s</h1></a>
+          <a href="/"><h1 className="text-2xl font-bold tracking-widest dark:text-white">Noah&apos;s Noetics</h1></a>
           <DarkModeToggle />
         </span>
         {/* Hamburger Menu for Smaller Screens */}

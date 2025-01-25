@@ -113,7 +113,7 @@ const ClientTasksPage = () => {
 
     return (
         <DashboardLayout>
-            <div>
+            <div className='px-8 py-12'>
                 <h1 className="text-2xl font-bold mb-4">Project Tasks</h1>
                 <div className='container mx-auto'>
                     <table className="min-w-full  border border-gray-200 bg-white divide-y divide-gray-200">

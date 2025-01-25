@@ -99,55 +99,57 @@ const UserProfilePage = () => {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-4">Your Profile</h1>
-            <div className="bg-white p-4 rounded-lg shadow w-2/5">
-                <div className="flex items-center mb-4">
-                    {avatarUrl ? (
-                        <Image
-                            src={`${supabase.storage.from('profile-pictures').getPublicUrl(avatarUrl).data.publicUrl}`}
-                            alt="Avatar"
-                            width={96}
-                            height={96}
-                            className="rounded-full mr-4"
-                        />
-                    ) : (
-                        <div className="w-24 h-24 rounded-full bg-gray-200 mr-4 flex items-center justify-center">
-                            <span className="text-gray-500">No Avatar</span>
-                        </div>
-                    )}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Upload Avatar</label>
-                        <div className="relative mt-1">
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleAvatarUpload}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            <div className="p-8 flex flex-col items-start">
+                <h1 className="text-2xl font-bold mb-4">Your Profile</h1>
+                <div className="bg-white p-4 rounded-lg shadow w-2/5">
+                    <div className="flex items-center mb-4">
+                        {avatarUrl ? (
+                            <Image
+                                src={`${supabase.storage.from('profile-pictures').getPublicUrl(avatarUrl).data.publicUrl}`}
+                                alt="Avatar"
+                                width={96}
+                                height={96}
+                                className="rounded-full mr-4"
                             />
-                            <button
-                                type="button"
-                                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Upload Photo
-                            </button>
+                        ) : (
+                            <div className="w-24 h-24 rounded-full bg-gray-200 mr-4 flex items-center justify-center">
+                                <span className="text-gray-500">No Avatar</span>
+                            </div>
+                        )}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Upload Avatar</label>
+                            <div className="relative mt-1">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleAvatarUpload}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                                <button
+                                    type="button"
+                                    className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Upload Photo
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Name</label>
-                    <p className="mt-1 text-gray-900">{profile.name}</p>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Email</label>
-                    <p className="mt-1 text-gray-900">{profile.email}</p>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Phone</label>
-                    <p className="mt-1 text-gray-900">{profile.phone || 'N/A'}</p>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold text-gray-700">Company Name</label>
-                    <p className="mt-1 text-gray-900">{profile.company_name || 'N/A'}</p>
+                    <div className="mb-4">
+                        <label className="block text-sm font-semibold text-gray-700">Name</label>
+                        <p className="mt-1 text-gray-900">{profile.name}</p>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-semibold text-gray-700">Email</label>
+                        <p className="mt-1 text-gray-900">{profile.email}</p>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-semibold text-gray-700">Phone</label>
+                        <p className="mt-1 text-gray-900">{profile.phone || 'N/A'}</p>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-semibold text-gray-700">Company Name</label>
+                        <p className="mt-1 text-gray-900">{profile.company_name || 'N/A'}</p>
+                    </div>
                 </div>
             </div>
         </DashboardLayout>

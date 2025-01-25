@@ -141,7 +141,7 @@ const DashboardPage = () => {
 
     return (
         <DashboardLayout>
-            <div className="p-4">
+            <div className="p-2">
                 {!isOnboardingCompleted ? (
                     <OnboardingForm onComplete={handleOnboardingComplete} />
                 ) : (

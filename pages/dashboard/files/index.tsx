@@ -199,46 +199,48 @@ const FilesPage = () => {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-4 pt-6">Upload Files</h1>
-            <input
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="mb-4"
-            />
-            <input
-                type="text"
-                value={fileDescription}
-                onChange={(e) => setFileDescription(e.target.value)}
-                placeholder="File description"
-                className="mb-4 p-2 border border-gray-300 rounded"
-            />
-            <button
-                onClick={() => uploadFiles([])}
-                disabled={uploading}
-                className="bg-blue-600 text-white py-2 px-4 rounded"
-            >
-                {uploading ? 'Uploading...' : 'Upload'}
-            </button>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {files.map((file) => (
-                    <div key={file.file_id} className="border bg-white p-4 rounded shadow">
-                        <h2 className="text-lg font-bold">{file.file_name}</h2>
-                        <p className="text-sm text-gray-600">{file.file_description}</p>
-                        <p className="text-sm text-gray-600">{new Date(file.created_at!).toLocaleDateString()}</p>
-                        <div className='flex justify-between items-center mt-4'>
-                            <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                                View File
-                            </a>
-                            <button
-                                onClick={() => handleDeleteFile(file.file_id)}
-                                className="bg-red-600 text-white py-1 px-2 rounded mt-2"
-                            >
-                                Delete
-                            </button>
+            <div className="p-8">
+                <h1 className="text-2xl font-bold mb-4 pt-6">Upload Files</h1>
+                <input
+                    type="file"
+                    multiple
+                    onChange={handleFileChange}
+                    className="mb-4"
+                />
+                <input
+                    type="text"
+                    value={fileDescription}
+                    onChange={(e) => setFileDescription(e.target.value)}
+                    placeholder="File description"
+                    className="mb-4 p-2 border border-gray-300 rounded"
+                />
+                <button
+                    onClick={() => uploadFiles([])}
+                    disabled={uploading}
+                    className="bg-blue-600 text-white py-2 px-4 rounded"
+                >
+                    {uploading ? 'Uploading...' : 'Upload'}
+                </button>
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {files.map((file) => (
+                        <div key={file.file_id} className="border bg-white p-4 rounded shadow">
+                            <h2 className="text-lg font-bold">{file.file_name}</h2>
+                            <p className="text-sm text-gray-600">{file.file_description}</p>
+                            <p className="text-sm text-gray-600">{new Date(file.created_at!).toLocaleDateString()}</p>
+                            <div className='flex justify-between items-center mt-4'>
+                                <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                    View File
+                                </a>
+                                <button
+                                    onClick={() => handleDeleteFile(file.file_id)}
+                                    className="bg-red-600 text-white py-1 px-2 rounded mt-2"
+                                >
+                                    Delete
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </DashboardLayout>
     );
