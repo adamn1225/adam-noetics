@@ -12,7 +12,7 @@ const LandingNavigation = () => {
 
     return (
         <motion.header
-            className="bg-white py-4 fixed top-0 left-0 w-full z-50 dark:border-2 dark:border-b-zinc-950 shadow-2xl dark:bg-gray-900"
+            className="bg-white py-4 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl dark:bg-gray-950"
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -38,7 +38,7 @@ const LandingNavigation = () => {
                     <li>
                         <a
                             href="#cta"
-                            className="hover:underline text-gray-800"
+                            className="text-base hover:underline underline-offset-4 text-gray-800 dark:text-white font-semibold"
                             onClick={toggleMenu}
                         >
                             Learn More
