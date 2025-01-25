@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 
-const Navigation = () => {
+interface NavigationProps {
+  isFixed?: boolean;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -12,7 +16,7 @@ const Navigation = () => {
 
   return (
     <motion.header
-      className="bg-white dark:bg-gray-900 py-4 fixed top-0 left-0 w-full z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl"
+      className={`bg-white dark:bg-gray-900 py-4 ${isFixed ? 'fixed top-0 left-0 w-full z-50' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -20,7 +24,7 @@ const Navigation = () => {
       <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <span className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold tracking-widest dark:text-white">Adam Noetic&apos;s</h1>
+          <a href="/"><h1 className="text-2xl font-bold tracking-widest dark:text-white">Noah&apos;s Noetic&apos;s</h1></a>
           <DarkModeToggle />
         </span>
         {/* Hamburger Menu for Smaller Screens */}

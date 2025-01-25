@@ -9,6 +9,96 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      client_project_plan: {
+        Row: {
+          additional_services: string | null
+          analytics: string | null
+          branding_materials: string | null
+          budget_range: string | null
+          business_description: string | null
+          business_name: string | null
+          color_preferences: string | null
+          content_management: string | null
+          content_ready: string | null
+          created_at: string | null
+          design_style: string | null
+          domain_info: string | null
+          ecommerce_needs: string | null
+          features: string | null
+          hosting_info: string | null
+          id: number
+          inspiration: string | null
+          integrations: string | null
+          maintenance_needs: string | null
+          other_info: string | null
+          page_count: string | null
+          project_goals: string | null
+          seo_assistance: string | null
+          target_audience: string | null
+          timeline: string | null
+          training: string | null
+          user_authentication: string | null
+        }
+        Insert: {
+          additional_services?: string | null
+          analytics?: string | null
+          branding_materials?: string | null
+          budget_range?: string | null
+          business_description?: string | null
+          business_name?: string | null
+          color_preferences?: string | null
+          content_management?: string | null
+          content_ready?: string | null
+          created_at?: string | null
+          design_style?: string | null
+          domain_info?: string | null
+          ecommerce_needs?: string | null
+          features?: string | null
+          hosting_info?: string | null
+          id?: number
+          inspiration?: string | null
+          integrations?: string | null
+          maintenance_needs?: string | null
+          other_info?: string | null
+          page_count?: string | null
+          project_goals?: string | null
+          seo_assistance?: string | null
+          target_audience?: string | null
+          timeline?: string | null
+          training?: string | null
+          user_authentication?: string | null
+        }
+        Update: {
+          additional_services?: string | null
+          analytics?: string | null
+          branding_materials?: string | null
+          budget_range?: string | null
+          business_description?: string | null
+          business_name?: string | null
+          color_preferences?: string | null
+          content_management?: string | null
+          content_ready?: string | null
+          created_at?: string | null
+          design_style?: string | null
+          domain_info?: string | null
+          ecommerce_needs?: string | null
+          features?: string | null
+          hosting_info?: string | null
+          id?: number
+          inspiration?: string | null
+          integrations?: string | null
+          maintenance_needs?: string | null
+          other_info?: string | null
+          page_count?: string | null
+          project_goals?: string | null
+          seo_assistance?: string | null
+          target_audience?: string | null
+          timeline?: string | null
+          training?: string | null
+          user_authentication?: string | null
+        }
+        Relationships: []
+      }
       files: {
         Row: {
           created_at: string | null
