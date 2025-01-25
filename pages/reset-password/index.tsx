@@ -1,25 +1,29 @@
-"use client";
-import React, { useState } from "react";
-import resetPassword from "@lib/resetPassword";
+'use client';
+
+import React, { useState } from 'react';
+import { supabase } from '@lib/supabaseClient';
 
 const ResetPasswordPage = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setError('');
     setSuccess(false);
 
     try {
-      await resetPassword(email);
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://www.noetics.io/reset-password',
+      });
+      if (error) throw error;
       setSuccess(true);
-      setEmail(""); // Clear the email field
+      setEmail(''); // Clear the email field
     } catch (err: any) {
-      setError(err.message || "Failed to send reset email");
+      setError(err.message || 'Failed to send reset email');
     } finally {
       setLoading(false);
     }
@@ -32,15 +36,11 @@ const ResetPasswordPage = () => {
           Reset Your Password
         </h1>
         <p className="text-gray-600 text-center mb-4">
-          Enter your email address below, and we’ll send you a link to reset
-          your password.
+          Enter your email address below, and we’ll send you a link to reset your password.
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email Address
             </label>
             <input
@@ -64,11 +64,11 @@ const ResetPasswordPage = () => {
             disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md"
           >
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading ? 'Sending...' : 'Send Reset Link'}
           </button>
         </form>
         <p className="text-sm text-gray-600 mt-4 text-center">
-          Remember your password?{" "}
+          Remember your password?{' '}
           <a href="/login" className="text-blue-600 hover:underline">
             Log In
           </a>
