@@ -92,6 +92,7 @@ export type Database = {
           description: string | null
           due_date: string | null
           id: number
+          is_request: boolean | null
           notes: string | null
           status: string | null
           title: string
@@ -102,6 +103,7 @@ export type Database = {
           description?: string | null
           due_date?: string | null
           id?: number
+          is_request?: boolean | null
           notes?: string | null
           status?: string | null
           title: string
@@ -112,6 +114,7 @@ export type Database = {
           description?: string | null
           due_date?: string | null
           id?: number
+          is_request?: boolean | null
           notes?: string | null
           status?: string | null
           title?: string

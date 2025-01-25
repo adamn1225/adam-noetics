@@ -7,7 +7,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
-    <div className="grid grid-cols-[200px,1fr] h-screen overflow-hidden">
+    <div className="grid grid-cols-[200px,1fr] bg-gray-100 h-screen overflow-hidden">
       <Sidebar />
       <main className="mt-20 relative overflow-auto">
         {children}

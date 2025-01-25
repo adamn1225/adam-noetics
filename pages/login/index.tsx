@@ -17,6 +17,7 @@ const LoginPage = () => {
     setError("");
 
     try {
+      console.log("Attempting to log in...");
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -24,6 +25,7 @@ const LoginPage = () => {
 
       if (error) throw error;
 
+      console.log("Login successful, fetching user profile...");
       // Fetch the user's profile to determine their role
       const { data: authData } = await supabase.auth.getUser();
       const userId = authData?.user?.id;
@@ -46,6 +48,7 @@ const LoginPage = () => {
         throw new Error("No profile data found");
       }
 
+      console.log("Profile data found, redirecting...");
       // Redirect based on user role
       if (profileData.role === "admin") {
         router.push("/admin/clients/admindash");
@@ -53,6 +56,7 @@ const LoginPage = () => {
         router.push("/dashboard");
       }
     } catch (err: any) {
+      console.error("Login failed:", err);
       setError(err.message || "Failed to log in");
     } finally {
       setLoading(false);
@@ -60,16 +64,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-5/6 md:w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-5/6 md:w-full max-w-md">
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white text-center mb-6">
           Client Login
         </h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Email
             </label>
@@ -79,14 +83,14 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="you@example.com"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Password
             </label>
@@ -96,7 +100,7 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="Enter your password"
             />
           </div>
@@ -104,7 +108,7 @@ const LoginPage = () => {
             <p className="text-sm text-blue-600 hover:underline">
               <Link href="/reset-password">Forgot Password?</Link>
             </p>
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-gray-800 dark:text-gray-300">
               Not a customer?{" "}
               <a
                 className="text-sm text-blue-600 hover:underline"

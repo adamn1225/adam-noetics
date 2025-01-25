@@ -32,9 +32,10 @@ const AdminAnalyticsPage = () => {
             <h1 className="text-2xl font-bold mb-4">Analytics Integration</h1>
             {message && <div className="mb-4 text-green-500">{message}</div>}
             <div className="mb-8">
-                <h2 className="text-xl font-semibold mb-2">Google Analytics</h2>
+                <h2 className="text-xl font-semibold">Google Analytics</h2>
+                <p className="text-gray-600 mb-4">To integrate to any of your analytic tools, enter your API Key below. Don't have any analytic tools or not sure where to find your API Key? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
                 <form onSubmit={handleGoogleAnalyticsSubmit}>
-                    <label htmlFor="googleAnalyticsKey" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="googleAnalyticsKey" className="block text-sm font-semibold text-gray-700">
                         Google Analytics API Key
                     </label>
                     <input
@@ -57,7 +58,7 @@ const AdminAnalyticsPage = () => {
             <div className="mb-8">
                 <h2 className="text-xl font-semibold mb-2">SEMrush</h2>
                 <form onSubmit={handleSemrushSubmit}>
-                    <label htmlFor="semrushKey" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="semrushKey" className="block text-sm font-semibold text-gray-700">
                         SEMrush API Key
                     </label>
                     <input
@@ -80,7 +81,7 @@ const AdminAnalyticsPage = () => {
             <div className="mb-8">
                 <h2 className="text-xl font-semibold mb-2">Ahrefs</h2>
                 <form onSubmit={handleAhrefsSubmit}>
-                    <label htmlFor="ahrefsKey" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="ahrefsKey" className="block text-sm font-semibold text-gray-700">
                         Ahrefs API Key
                     </label>
                     <input
