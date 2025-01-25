@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Home, FileText, ClipboardList, BarChart, User, LogOut, List, UserPlus } from "lucide-react";
+import { Home, FileText, ClipboardList, BarChart, User, LogOut, List, UserPlus, Moon, Sun } from "lucide-react";
 import { supabase } from "@lib/supabaseClient";
 import { useRouter } from "next/navigation";
 
@@ -17,6 +17,7 @@ const adminNavItems = [
 
 const AdminSidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const router = useRouter();
 
     const handleLogout = async () => {
@@ -26,6 +27,11 @@ const AdminSidebar = () => {
         } else {
             console.error("Error logging out:", error.message);
         }
+    };
+
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        document.documentElement.classList.toggle('dark', !isDarkMode);
     };
 
     return (
@@ -49,6 +55,15 @@ const AdminSidebar = () => {
             </div>
             <nav className="mt-4">
                 <ul>
+                    <li className="mb-2">
+                        <button
+                            onClick={toggleDarkMode}
+                            className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded w-full text-left"
+                        >
+                            {isDarkMode ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
+                            <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+                        </button>
+                    </li>
                     {adminNavItems.map((item) => (
                         <li key={item.name} className="mb-2">
                             <a

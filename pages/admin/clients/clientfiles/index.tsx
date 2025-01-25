@@ -123,6 +123,7 @@ const ClientFiles = () => {
                 const { error: insertError } = await supabase.from('files').insert([
                     {
                         user_id: selectedClient.id,
+                        organization_id: selectedClient.organization_id,
                         file_name: file.name,
                         file_id: fileId,
                         file_url: fileUrl,

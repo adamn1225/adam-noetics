@@ -7,7 +7,7 @@ import DashboardLayout from '../UserLayout';
 
 type Task = Database['public']['Tables']['tasks']['Row'];
 
-const ClientTasksPage = () => {
+const TasksPage = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -16,13 +16,44 @@ const ClientTasksPage = () => {
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskDueDate, setTaskDueDate] = useState('');
+    const [profile, setProfile] = useState<any>(null);
 
     useEffect(() => {
         const fetchTasks = async () => {
             try {
+                // Get the current user
+                const { data: authData, error: authError } = await supabase.auth.getUser();
+                if (authError) {
+                    throw authError;
+                }
+
+                const userId = authData?.user?.id;
+                if (!userId) {
+                    throw new Error('User ID not found');
+                }
+
+                // Fetch user profile
+                const { data: profileData, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .single();
+
+                if (profileError) {
+                    throw profileError;
+                }
+
+                if (!profileData.organization_id) {
+                    throw new Error('Organization ID not found for user');
+                }
+
+                setProfile(profileData);
+
+                // Fetch tasks for the organization
                 const { data: tasksData, error: tasksError } = await supabase
                     .from('tasks')
                     .select('*')
+                    .eq('organization_id', profileData.organization_id)
                     .order('created_at', { ascending: false });
 
                 if (tasksError) {
@@ -84,7 +115,7 @@ const ClientTasksPage = () => {
         try {
             const { data, error } = await supabase
                 .from('tasks')
-                .insert([{ title: taskTitle, description: taskDescription, due_date: taskDueDate, is_request: true, status: 'Pending' }]);
+                .insert([{ title: taskTitle, description: taskDescription, due_date: taskDueDate, is_request: true, status: 'Pending', organization_id: profile.organization_id }]);
 
             if (error) {
                 throw error;
@@ -231,4 +262,4 @@ const ClientTasksPage = () => {
     );
 };
 
-export default ClientTasksPage;
+export default TasksPage;

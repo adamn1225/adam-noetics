@@ -10,6 +10,8 @@ const SettingsPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [confirmationText, setConfirmationText] = useState('');
+    const [teamMembers, setTeamMembers] = useState<{ email: string; name: string }[]>([]);
+    const [newMemberEmail, setNewMemberEmail] = useState('');
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -26,6 +28,16 @@ const SettingsPage = () => {
                 if (profileError) throw profileError;
 
                 setProfile(profile);
+
+                // Fetch team members
+                const { data: members, error: membersError } = await supabase
+                    .from('organization_members')
+                    .select('users(email, name)')
+                    .eq('organization_id', profile.organization_id);
+
+                if (membersError) throw membersError;
+
+                setTeamMembers(members.map((member: any) => member.users));
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -35,6 +47,30 @@ const SettingsPage = () => {
 
         fetchProfile();
     }, []);
+
+    const handleAddTeamMember = async () => {
+        try {
+            const { data: { user }, error: userError } = await supabase.auth.signUp({
+                email: newMemberEmail,
+                password: 'defaultpassword', // You should handle password securely
+            });
+
+            if (userError || !user) throw userError || new Error('User not created');
+
+            const { error: memberError } = await supabase
+                .from('organization_members')
+                .insert([
+                    { organization_id: profile.organization_id, user_id: user.id, role: 'member' }
+                ]);
+
+            if (memberError) throw memberError;
+
+            setTeamMembers([...teamMembers, { email: newMemberEmail, name: '' }]);
+            setNewMemberEmail('');
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
 
     const handlePasswordReset = async () => {
         try {
@@ -131,6 +167,35 @@ const SettingsPage = () => {
                                     value={profile.additional_email}
                                     onChange={(e) => setProfile({ ...profile, additional_email: e.target.value })}
                                 />
+                            </div>
+                        </div>
+                        <div className="mt-8">
+                            <h2 className="text-xl font-semibold">Team Members</h2>
+                            <div className="mt-4">
+                                <label className="block text-sm font-medium text-gray-700">Add Team Member</label>
+                                <input
+                                    type="email"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    value={newMemberEmail}
+                                    onChange={(e) => setNewMemberEmail(e.target.value)}
+                                    placeholder="team-member@example.com"
+                                />
+                                <button
+                                    onClick={handleAddTeamMember}
+                                    className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                >
+                                    Add Member
+                                </button>
+                            </div>
+                            <div className="mt-4">
+                                <h3 className="text-lg font-semibold">Current Team Members</h3>
+                                <ul className="mt-2">
+                                    {teamMembers.map((member, index) => (
+                                        <li key={index} className="text-sm text-gray-900">
+                                            {member.email} - {member.name}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
                         <div className="mt-8">

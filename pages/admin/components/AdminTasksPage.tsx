@@ -7,8 +7,11 @@ import AdminLayout from '../AdminLayout';
 
 type Task = Database['public']['Tables']['tasks']['Row'];
 type Profile = Database['public']['Tables']['profiles']['Row'];
+type Organization = Database['public']['Tables']['organizations']['Row'];
 
 const AdminTasksPage = () => {
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const [selectedOrganization, setSelectedOrganization] = useState<Organization | null>(null);
     const [clients, setClients] = useState<Profile[]>([]);
     const [selectedClient, setSelectedClient] = useState<Profile | null>(null);
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -25,13 +28,42 @@ const AdminTasksPage = () => {
     const [editingTaskNotes, setEditingTaskNotes] = useState<string>('');
 
     useEffect(() => {
-        const fetchClients = async () => {
+        const fetchOrganizations = async () => {
             try {
-                // Fetch clients
+                // Fetch organizations
+                const { data: organizationsData, error: organizationsError } = await supabase
+                    .from('organizations')
+                    .select('*');
+
+                if (organizationsError) {
+                    throw new Error('Failed to fetch organizations');
+                }
+
+                setOrganizations(organizationsData || []);
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error(error.message);
+                } else {
+                    console.error('An unknown error occurred');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrganizations();
+    }, []);
+
+    useEffect(() => {
+        const fetchClients = async () => {
+            if (!selectedOrganization) return;
+
+            try {
+                // Fetch clients for the selected organization
                 const { data: clientsData, error: clientsError } = await supabase
                     .from('profiles')
                     .select('*')
-                    .eq('role', 'client');
+                    .eq('organization_id', selectedOrganization.id);
 
                 if (clientsError) {
                     throw new Error('Failed to fetch clients');
@@ -44,13 +76,11 @@ const AdminTasksPage = () => {
                 } else {
                     console.error('An unknown error occurred');
                 }
-            } finally {
-                setLoading(false);
             }
         };
 
         fetchClients();
-    }, []);
+    }, [selectedOrganization]);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -99,6 +129,12 @@ const AdminTasksPage = () => {
             supabase.removeChannel(taskSubscription);
         };
     }, [selectedClient]);
+
+    const handleOrganizationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const organization = organizations.find(o => o.id === event.target.value) || null;
+        setSelectedOrganization(organization);
+        setSelectedClient(null); // Reset selected client when organization changes
+    };
 
     const handleClientChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const client = clients.find(c => c.id === event.target.value) || null;
@@ -190,23 +226,43 @@ const AdminTasksPage = () => {
             <div>
                 <h1 className="text-2xl font-bold mb-4">Admin Tasks</h1>
                 <div className="mb-4">
-                    <label htmlFor="client-select" className="block text-sm font-medium text-gray-700">
-                        Select Client
+                    <label htmlFor="organization-select" className="block text-sm font-medium text-gray-700">
+                        Select Organization
                     </label>
                     <select
-                        id="client-select"
-                        value={selectedClient?.id || ''}
-                        onChange={handleClientChange}
+                        id="organization-select"
+                        value={selectedOrganization?.id || ''}
+                        onChange={handleOrganizationChange}
                         className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                     >
-                        <option value="">Select a client</option>
-                        {clients.map((client) => (
-                            <option key={client.id} value={client.id}>
-                                {client.name}
+                        <option value="">Select an organization</option>
+                        {organizations.map((organization) => (
+                            <option key={organization.id} value={organization.id}>
+                                {organization.name}
                             </option>
                         ))}
                     </select>
                 </div>
+                {selectedOrganization && (
+                    <div className="mb-4">
+                        <label htmlFor="client-select" className="block text-sm font-medium text-gray-700">
+                            Select Client
+                        </label>
+                        <select
+                            id="client-select"
+                            value={selectedClient?.id || ''}
+                            onChange={handleClientChange}
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        >
+                            <option value="">Select a client</option>
+                            {clients.map((client) => (
+                                <option key={client.id} value={client.id}>
+                                    {client.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
                 {selectedClient && (
                     <div className="mb-4">
                         <h2 className="text-xl font-bold mb-2">Add New Task</h2>

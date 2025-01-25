@@ -11,6 +11,7 @@ const UserProfilePage = () => {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [teamMembers, setTeamMembers] = useState<{ email: string; name: string }[]>([]);
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -39,6 +40,16 @@ const UserProfilePage = () => {
 
                 setProfile(profileData);
                 setAvatarUrl(profileData?.profile_image || null);
+
+                // Fetch team members
+                const { data: members, error: membersError } = await supabase
+                    .from('organization_members')
+                    .select('profiles(email, name)')
+                    .eq('organization_id', profileData.organization_id);
+
+                if (membersError) throw membersError;
+
+                setTeamMembers(members.map((member: any) => member.profiles));
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -149,6 +160,22 @@ const UserProfilePage = () => {
                     <div className="mb-4">
                         <label className="block text-sm font-semibold text-gray-700">Company Name</label>
                         <p className="mt-1 text-gray-900">{profile.company_name || 'N/A'}</p>
+                    </div>
+                    <div className="mb-4">
+                        <h2 className="text-xl font-semibold underline">Team Members</h2>
+                        <ul className="mt-2">
+                            {teamMembers.length > 0 ? (
+                                teamMembers.map((member, index) => (
+                                    <li key={index} className="text-sm text-gray-900">
+                                        {member.email} - {member.name}
+                                    </li>
+                                ))
+                            ) : (
+                                <button className="mt-2 bg-blue-600 text-white py-2 px-4 rounded">
+                                    Invite Team Members
+                                </button>
+                            )}
+                        </ul>
                     </div>
                 </div>
             </div>

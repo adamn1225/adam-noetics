@@ -19,17 +19,34 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
     };
 
     const handleSave = async () => {
-        const { error } = await supabase
-            .from('client-project-plan')
-            .update(updatedFormData)
-            .eq('id', formData.id);
+        try {
+            // Update the organization name if it has changed
+            if (updatedFormData.businessName !== formData.businessName) {
+                const { error: orgError } = await supabase
+                    .from('organizations')
+                    .update({ name: updatedFormData.businessName })
+                    .eq('id', formData.organization_id);
 
-        if (error) {
-            console.error('Error updating form:', error.message);
-            alert('There was an error updating the form. Please try again.');
-        } else {
+                if (orgError) {
+                    throw orgError;
+                }
+            }
+
+            // Update the client-project-plan table with the updated form data
+            const { error: formError } = await supabase
+                .from('client-project-plan')
+                .update(updatedFormData)
+                .eq('id', formData.id);
+
+            if (formError) {
+                throw formError;
+            }
+
             onEdit(updatedFormData);
             setIsEditing(false);
+        } catch (error: any) {
+            console.error('Error updating form:', error.message);
+            alert('There was an error updating the form. Please try again.');
         }
     };
 

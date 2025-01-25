@@ -8,13 +8,14 @@ import DashboardLayout from '../UserLayout';
 
 type File = Database['public']['Tables']['files']['Row'];
 
-// Extend the File type to include signedURL
-type FileWithSignedURL = File & { signedURL: string };
+// Extend the File type to include signedURL and category
+type FileWithSignedURL = File & { signedURL: string; category: string };
 
 const FilesPage = () => {
     const [files, setFiles] = useState<FileWithSignedURL[]>([]);
     const [uploading, setUploading] = useState(false);
     const [fileDescription, setFileDescription] = useState('');
+    const [category, setCategory] = useState('all');
 
     // Define the bucket name
     const BUCKET_NAME = 'client-files';
@@ -28,11 +29,22 @@ const FilesPage = () => {
                     throw new Error('User not authenticated');
                 }
 
-                // Fetch files for the logged-in user
+                // Fetch user profile
+                const { data: profileData, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', user.user.id)
+                    .single();
+
+                if (profileError) {
+                    throw profileError;
+                }
+
+                // Fetch files for the organization
                 const { data: filesData, error: filesError } = await supabase
                     .from('files')
                     .select('*')
-                    .eq('user_id', user.user.id);
+                    .eq('user_id', profileData.id);
 
                 if (filesError) {
                     throw new Error('Failed to fetch files');
@@ -51,7 +63,7 @@ const FilesPage = () => {
                         }
 
                         console.log(`Generated signed URL for file ${file.file_id}: ${data.signedUrl}`);
-                        return { ...file, signedURL: data.signedUrl };
+                        return { ...file, signedURL: data.signedUrl, category: file.category || 'content' };
                     })
                 );
 
@@ -80,6 +92,17 @@ const FilesPage = () => {
                 throw new Error('User not authenticated');
             }
 
+            // Fetch user profile
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', user.user.id)
+                .single();
+
+            if (profileError) {
+                throw profileError;
+            }
+
             for (const file of filesArray) {
                 const fileId = uuidv4(); // Generate a UUID for the file_id
                 console.log(`Uploading file: ${file.name} with fileId: ${fileId}`);
@@ -102,10 +125,12 @@ const FilesPage = () => {
                 const { error: insertError } = await supabase.from('files').insert([
                     {
                         user_id: user.user.id,
+                        organization_id: profileData.organization_id,
                         file_name: file.name,
                         file_id: fileId,
                         file_url: fileUrl,
                         file_description: fileDescription,
+                        category: 'content', // Default category, can be changed as needed
                     },
                 ]);
 
@@ -119,7 +144,7 @@ const FilesPage = () => {
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
-                .eq('user_id', user.user.id);
+                .eq('user_id', profileData.id);
 
             if (filesError) {
                 throw new Error('Failed to fetch files');
@@ -138,7 +163,7 @@ const FilesPage = () => {
                     }
 
                     console.log(`Generated signed URL for file ${file.file_id}: ${data.signedUrl}`);
-                    return { ...file, signedURL: data.signedUrl };
+                    return { ...file, signedURL: data.signedUrl, category: file.category || 'content' };
                 })
             );
 
@@ -164,10 +189,20 @@ const FilesPage = () => {
                 throw new Error('User not authenticated');
             }
 
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', user.user.id)
+                .single();
+
+            if (profileError) {
+                throw profileError;
+            }
+
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
-                .eq('user_id', user.user.id);
+                .eq('user_id', profileData.id);
 
             if (filesError) {
                 throw new Error('Failed to fetch files');
@@ -186,7 +221,7 @@ const FilesPage = () => {
                     }
 
                     console.log(`Generated signed URL for file ${file.file_id}: ${data.signedUrl}`);
-                    return { ...file, signedURL: data.signedUrl };
+                    return { ...file, signedURL: data.signedUrl, category: file.category || 'content' };
                 })
             );
 
@@ -196,6 +231,8 @@ const FilesPage = () => {
             alert('Error deleting file: ' + error.message);
         }
     };
+
+    const filteredFiles = files.filter(file => category === 'all' || file.category === category);
 
     return (
         <DashboardLayout>
@@ -221,25 +258,59 @@ const FilesPage = () => {
                 >
                     {uploading ? 'Uploading...' : 'Upload'}
                 </button>
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {files.map((file) => (
-                        <div key={file.file_id} className="border bg-white p-4 rounded shadow">
-                            <h2 className="text-lg font-bold">{file.file_name}</h2>
-                            <p className="text-sm text-gray-600">{file.file_description}</p>
-                            <p className="text-sm text-gray-600">{new Date(file.created_at!).toLocaleDateString()}</p>
-                            <div className='flex justify-between items-center mt-4'>
-                                <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                                    View File
-                                </a>
-                                <button
-                                    onClick={() => handleDeleteFile(file.file_id)}
-                                    className="bg-red-600 text-white py-1 px-2 rounded mt-2"
-                                >
-                                    Delete
-                                </button>
+                <div className="mt-8">
+                    <nav className="mb-4 flex space-x-4">
+                        <button
+                            onClick={() => setCategory('all')}
+                            className={`px-4 py-2 rounded-t-lg ${category === 'all' ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'}`}
+                        >
+                            All
+                        </button>
+                        <button
+                            onClick={() => setCategory('favorites')}
+                            className={`px-4 py-2 rounded-t-lg ${category === 'favorites' ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'}`}
+                        >
+                            Favorites
+                        </button>
+                        <button
+                            onClick={() => setCategory('content')}
+                            className={`px-4 py-2 rounded-t-lg ${category === 'content' ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'}`}
+                        >
+                            Content
+                        </button>
+                        <button
+                            onClick={() => setCategory('images')}
+                            className={`px-4 py-2 rounded-t-lg ${category === 'images' ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'}`}
+                        >
+                            Images
+                        </button>
+                        <button
+                            onClick={() => setCategory('data-files')}
+                            className={`px-4 py-2 rounded-t-lg ${category === 'data-files' ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'}`}
+                        >
+                            Data Files
+                        </button>
+                    </nav>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filteredFiles.map((file) => (
+                            <div key={file.file_id} className="border bg-white p-4 rounded shadow">
+                                <h2 className="text-lg font-bold">{file.file_name}</h2>
+                                <p className="text-sm text-gray-600">{file.file_description}</p>
+                                <p className="text-sm text-gray-600">{new Date(file.created_at!).toLocaleDateString()}</p>
+                                <div className='flex justify-between items-center mt-4'>
+                                    <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                        View File
+                                    </a>
+                                    <button
+                                        onClick={() => handleDeleteFile(file.file_id)}
+                                        className="bg-red-600 text-white py-1 px-2 rounded mt-2"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </DashboardLayout>

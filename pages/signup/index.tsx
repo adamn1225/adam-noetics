@@ -7,6 +7,7 @@ import Navigation from '@components/Navigation';
 const SignupPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [organizationName, setOrganizationName] = useState('');
     const [token, setToken] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -17,16 +18,44 @@ const SignupPage: React.FC = () => {
         setError(null);
         setSuccessMessage(null);
 
-        const { error } = await supabase.auth.signUp({
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
             email,
             password,
         });
 
-        if (error) {
-            setError(error.message);
+        if (signUpError) {
+            setError(signUpError.message);
         } else {
-            setIsTokenSent(true);
-            setSuccessMessage('Signup successful! Please check your email for the 6-digit token.');
+            const userId = signUpData.user?.id;
+
+            if (userId) {
+                // Create organization if not provided
+                const orgName = organizationName || `${email.split('@')[0]}'s Organization`;
+                const { data: orgData, error: orgError } = await supabase
+                    .from('organizations')
+                    .insert([{ name: orgName }])
+                    .select()
+                    .single();
+
+                if (orgError) {
+                    setError(orgError.message);
+                } else {
+                    const organizationId = orgData.id;
+
+                    // Update profile with organization_id
+                    const { error: profileError } = await supabase
+                        .from('profiles')
+                        .update({ organization_id: organizationId })
+                        .eq('user_id', userId);
+
+                    if (profileError) {
+                        setError(profileError.message);
+                    } else {
+                        setIsTokenSent(true);
+                        setSuccessMessage('Signup successful! Please check your email for the 6-digit token.');
+                    }
+                }
+            }
         }
     };
 
@@ -93,6 +122,17 @@ const SignupPage: React.FC = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
                                     required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="organizationName" className="block font-medium text-gray-900 dark:text-white">Organization Name (optional)</label>
+                                <input
+                                    type="text"
+                                    id="organizationName"
+                                    name="organizationName"
+                                    value={organizationName}
+                                    onChange={(e) => setOrganizationName(e.target.value)}
+                                    className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
                                 />
                             </div>
                             <button

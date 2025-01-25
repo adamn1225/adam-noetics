@@ -145,17 +145,53 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
         setIsSubmitting(true);
         setSuccessMessage('');
 
-        const { error } = await supabase.from('client-project-plan').insert([formData]);
+        try {
+            // Get the current user
+            const { data: user, error: userError } = await supabase.auth.getUser();
+            if (userError || !user) {
+                throw new Error('User not authenticated');
+            }
 
-        if (error) {
-            console.error('Error submitting form:', error.message);
-            alert('There was an error submitting the form. Please try again.');
-        } else {
+            // Create or update the organization
+            const { data: orgData, error: orgError } = await supabase
+                .from('organizations')
+                .upsert([{ name: formData.businessName }])
+                .select()
+                .single();
+
+            if (orgError) {
+                throw orgError;
+            }
+
+            const organizationId = orgData.id;
+
+            // Update profile with organization_id
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .update({ organization_id: organizationId })
+                .eq('user_id', user.user.id);
+
+            if (profileError) {
+                throw profileError;
+            }
+
+            // Insert the form data into the client-project-plan table
+            const { error: formError } = await supabase.from('client-project-plan').insert([
+                { ...formData, organization_id: organizationId }
+            ]);
+
+            if (formError) {
+                throw formError;
+            }
+
             setSuccessMessage('Your project plan has been successfully submitted!');
             onComplete(formData);
+        } catch (error: any) {
+            console.error('Error submitting form:', error.message);
+            alert('There was an error submitting the form. Please try again.');
+        } finally {
+            setIsSubmitting(false);
         }
-
-        setIsSubmitting(false);
     };
 
     return (
