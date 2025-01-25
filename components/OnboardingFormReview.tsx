@@ -1,117 +1,52 @@
-'use client';
-
 import React, { useState } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import Navigation from '@components/Navigation';
 
-const ClientProjectPlanForm = () => {
-    const [formData, setFormData] = useState({
-        businessName: '',
-        businessDescription: '',
-        targetAudience: '',
-        projectGoals: '',
-        designStyle: '',
-        brandingMaterials: '',
-        inspiration: '',
-        colorPreferences: '',
-        features: '',
-        userAuthentication: '',
-        contentManagement: '',
-        ecommerceNeeds: '',
-        integrations: '',
-        contentReady: '',
-        pageCount: '',
-        seoAssistance: '',
-        domainInfo: '',
-        hostingInfo: '',
-        maintenanceNeeds: '',
-        budgetRange: '',
-        timeline: '',
-        analytics: '',
-        training: '',
-        additionalServices: '',
-        otherInfo: ''
-    });
+interface OnboardingFormReviewProps {
+    formData: any;
+    onEdit: (updatedFormData: any) => void;
+}
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [successMessage, setSuccessMessage] = useState('');
+const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, onEdit }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [updatedFormData, setUpdatedFormData] = useState(formData);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
+        setUpdatedFormData((prev: typeof formData) => ({
             ...prev,
             [name]: value
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setSuccessMessage('');
-
-        const { error } = await supabase.from('client-project-plan').insert([formData]);
+    const handleSave = async () => {
+        const { error } = await supabase
+            .from('client-project-plan')
+            .update(updatedFormData)
+            .eq('id', formData.id);
 
         if (error) {
-            console.error('Error submitting form:', error.message);
-            alert('There was an error submitting the form. Please try again.');
+            console.error('Error updating form:', error.message);
+            alert('There was an error updating the form. Please try again.');
         } else {
-            setSuccessMessage('Your project plan has been successfully submitted!');
-            setFormData({
-                businessName: '',
-                businessDescription: '',
-                targetAudience: '',
-                projectGoals: '',
-                designStyle: '',
-                brandingMaterials: '',
-                inspiration: '',
-                colorPreferences: '',
-                features: '',
-                userAuthentication: '',
-                contentManagement: '',
-                ecommerceNeeds: '',
-                integrations: '',
-                contentReady: '',
-                pageCount: '',
-                seoAssistance: '',
-                domainInfo: '',
-                hostingInfo: '',
-                maintenanceNeeds: '',
-                budgetRange: '',
-                timeline: '',
-                analytics: '',
-                training: '',
-                additionalServices: '',
-                otherInfo: ''
-            });
+            onEdit(updatedFormData);
+            setIsEditing(false);
         }
-
-        setIsSubmitting(false);
     };
 
     return (
-        <>
-            <div className="bg-gray-200 dark:bg-gray-900 min-h-screen pb-20">
-                <Navigation isFixed={false} />
-                <div className="w-[70vw] h-fit mx-auto p-8 bg-white mt-12 mb-4 dark:bg-gray-800 rounded shadow">
-
-                    {successMessage && <p className="text-green-600 dark:text-green-400 mb-4">{successMessage}</p>}
-                    <form onSubmit={handleSubmit} className="space-y-2 w-full mt-12 mb-4">
+        <div className="bg-gray-200 dark:bg-gray-900 min-h-screen pb-20">
+            <div className="w-[70vw] h-fit mx-auto p-8 bg-white mt-12 mb-4 dark:bg-gray-800 rounded shadow">
+                <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Review Your Project Plan</h1>
+                {isEditing ? (
+                    <form className="space-y-2 w-full mt-12 mb-4">
                         {/* General Business Information */}
-                        <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Client Project Plan</h1>
-                        <div className='flex flex-col gap-1 pt-8'>
-                            <span className='font-extrabold text-xl underline underline-offset-4'>Important: </span>
-                            <h2 className='text-lg font-semibold mb-2 text-gray-900 dark:text-white italic underline underline-offset-2'>
-                                Make sure to fill out all fields to the best of your ability. The more information we have, the better your dream outcome will be!
-                            </h2>
-                        </div>
                         <div className='mt-4'>
                             <label htmlFor="businessName" className="block font-semibold mt-4 text-gray-900 dark:text-white">Business Name</label>
                             <input
                                 type="text"
                                 id="businessName"
                                 name="businessName"
-                                placeholder='Acme Inc.'
-                                value={formData.businessName}
+                                value={updatedFormData.businessName}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 required
@@ -123,8 +58,7 @@ const ClientProjectPlanForm = () => {
                             <textarea
                                 id="businessDescription"
                                 name="businessDescription"
-                                placeholder='Give us the best description of your business or project; the more we know, the better.'
-                                value={formData.businessDescription}
+                                value={updatedFormData.businessDescription}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 rows={3}
@@ -137,8 +71,7 @@ const ClientProjectPlanForm = () => {
                             <input
                                 id="targetAudience"
                                 name="targetAudience"
-                                placeholder="Who&apos;s attention are you trying to capture?"
-                                value={formData.targetAudience}
+                                value={updatedFormData.targetAudience}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 required
@@ -151,8 +84,7 @@ const ClientProjectPlanForm = () => {
                             <textarea
                                 id="projectGoals"
                                 name="projectGoals"
-                                placeholder='Tell us your dreams... specifically related to this project.'
-                                value={formData.projectGoals}
+                                value={updatedFormData.projectGoals}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 rows={2}
@@ -165,8 +97,7 @@ const ClientProjectPlanForm = () => {
                             <textarea
                                 id="designStyle"
                                 name="designStyle"
-                                placeholder='Modern, minimal, eccentric etc. - be as specific as you&apos;d like (just remember to read the note we made on top of this form).'
-                                value={formData.designStyle}
+                                value={updatedFormData.designStyle}
                                 onChange={handleChange}
                                 rows={2}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
@@ -178,8 +109,7 @@ const ClientProjectPlanForm = () => {
                             <textarea
                                 id="brandingMaterials"
                                 name="brandingMaterials"
-                                placeholder='Logo, color scheme, fonts, etc.'
-                                value={formData.brandingMaterials}
+                                value={updatedFormData.brandingMaterials}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                             />
@@ -190,8 +120,7 @@ const ClientProjectPlanForm = () => {
                             <textarea
                                 id="inspiration"
                                 name="inspiration"
-                                placeholder='List some websites (comma seperated)'
-                                value={formData.inspiration}
+                                value={updatedFormData.inspiration}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 rows={1}
@@ -205,8 +134,7 @@ const ClientProjectPlanForm = () => {
                                 type="text"
                                 id="budgetRange"
                                 name="budgetRange"
-                                placeholder='this is optional - but it helps us understand if what you&apos;re looking for is going to be feasible'
-                                value={formData.budgetRange}
+                                value={updatedFormData.budgetRange}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
                             />
@@ -218,8 +146,7 @@ const ClientProjectPlanForm = () => {
                                 type="text"
                                 id="timeline"
                                 name="timeline"
-                                placeholder='When would you -like- to have this project completed? We&apos;ll let you know if we can meet your deadline.'
-                                value={formData.timeline}
+                                value={updatedFormData.timeline}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                             />
@@ -231,8 +158,7 @@ const ClientProjectPlanForm = () => {
                             <textarea
                                 id="otherInfo"
                                 name="otherInfo"
-                                placeholder='Feel free to write anything else you think we should know, or anything else, poetry, what you had for breakfast, etc.'
-                                value={formData.otherInfo}
+                                value={updatedFormData.otherInfo}
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 rows={2}
@@ -240,17 +166,59 @@ const ClientProjectPlanForm = () => {
                         </div>
 
                         <button
-                            type="submit"
-                            disabled={isSubmitting}
+                            type="button"
+                            onClick={handleSave}
                             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                         >
-                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                            Save Changes
                         </button>
                     </form>
-                </div>
-            </div>
-        </>
-    );
-};
+                ) : (
+                    <div className="space-y-2 w-full mt-12 mb-4">
+                        {/* General Business Information */}
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Business Name</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.businessName}</p>
 
-export default ClientProjectPlanForm;
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Describe Your Business/Project</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.businessDescription}</p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Target Audience</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.targetAudience}</p>
+
+                        {/* Project Details */}
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Project Goals</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.projectGoals}</p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Preferred Design Style</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.designStyle}</p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Do you have branding materials?</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.brandingMaterials}</p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Websites/Apps You Like (Inspiration)</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.inspiration}</p>
+
+                        {/* Budget and Timeline */}
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Budget Range (USD)</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.budgetRange}</p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Ideal Timeline</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.timeline}</p>
+
+                        {/* Additional Information */}
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Other Information</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.otherInfo}</p>
+                        <button
+                            onClick={() => setIsEditing(true)}
+                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        >
+                            Edit
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+export default OnboardingFormReview;

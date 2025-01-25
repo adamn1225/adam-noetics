@@ -199,7 +199,7 @@ const FilesPage = () => {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-4">Upload Files</h1>
+            <h1 className="text-2xl font-bold mb-4 pt-6">Upload Files</h1>
             <input
                 type="file"
                 multiple
@@ -222,7 +222,7 @@ const FilesPage = () => {
             </button>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {files.map((file) => (
-                    <div key={file.file_id} className="border p-4 rounded shadow">
+                    <div key={file.file_id} className="border bg-white p-4 rounded shadow">
                         <h2 className="text-lg font-bold">{file.file_name}</h2>
                         <p className="text-sm text-gray-600">{file.file_description}</p>
                         <p className="text-sm text-gray-600">{new Date(file.created_at!).toLocaleDateString()}</p>

@@ -144,6 +144,7 @@ export type Database = {
           email: string
           id: string
           name: string
+          onboarding_completed: boolean | null
           phone: string | null
           profile_image: string | null
           role: string | null
@@ -156,6 +157,7 @@ export type Database = {
           email: string
           id?: string
           name: string
+          onboarding_completed?: boolean | null
           phone?: string | null
           profile_image?: string | null
           role?: string | null
@@ -168,6 +170,7 @@ export type Database = {
           email?: string
           id?: string
           name?: string
+          onboarding_completed?: boolean | null
           phone?: string | null
           profile_image?: string | null
           role?: string | null
