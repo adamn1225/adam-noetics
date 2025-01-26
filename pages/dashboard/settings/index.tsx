@@ -111,12 +111,12 @@ const SettingsPage = () => {
     return (
         <DashboardLayout>
             <div className="container mx-auto pt-4 pb-8">
-                <h1 className="text-3xl font-semibold mt-8 dark:text-white">Settings</h1>
+                <h1 className="text-3xl font-semibold mt-8 text-gray-900 dark:text-white">Settings</h1>
                 {loading && <p>Loading...</p>}
                 {error && <p className="text-red-500">{error}</p>}
                 {profile && (
                     <div className="mt-8">
-                        <h2 className="text-xl font-semibold dark:text-white">Profile</h2>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Profile</h2>
                         <div className="mt-4">
                             <label className="block text-lg font-semibold text-gray-800 dark:text-white">Name</label>
                             <p className="mt-1 text-base text-gray-900 dark:text-white">{profile.name}</p>
@@ -134,7 +134,7 @@ const SettingsPage = () => {
                             </button>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold dark:text-white">Notification Settings</h2>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Notification Settings</h2>
                             <div className="mt-4 flex gap-2 items-baseline">
                                 <label className="block text-lg font-semibold text-gray-800 dark:text-white">Email Notifications</label>
                                 <input
@@ -155,7 +155,7 @@ const SettingsPage = () => {
                             </div>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold dark:text-white">Contact Information</h2>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Contact Information</h2>
                             <div className="mt-4">
                                 <label className="block text-sm font-semibold text-gray-800 dark:text-white">Phone Number</label>
                                 <input
@@ -169,14 +169,14 @@ const SettingsPage = () => {
                                 <label className="block text-sm font-semibold text-gray-800 dark:text-white">Additional Email</label>
                                 <input
                                     type="email"
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    className="mt-1 block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     value={profile.additional_email}
                                     onChange={(e) => setProfile({ ...profile, additional_email: e.target.value })}
                                 />
                             </div>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold dark:text-white">Team Members</h2>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Team Members</h2>
                             <div className="mt-4">
                                 <label className="block text-sm font-semibold text-gray-800 dark:text-white">Add Team Member</label>
                                 <input
@@ -194,7 +194,7 @@ const SettingsPage = () => {
                                 </button>
                             </div>
                             <div className="mt-4">
-                                <h3 className="text-lg font-semibold dark:text-white">Current Team Members</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Current Team Members</h3>
                                 <ul className="mt-2">
                                     {teamMembers.map((member, index) => (
                                         <li key={index} className="text-sm text-gray-900 dark:text-white">
@@ -205,7 +205,7 @@ const SettingsPage = () => {
                             </div>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold dark:text-white">Account Management</h2>
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Account Management</h2>
                             <div className="mt-4">
                                 <button
                                     onClick={() => setIsModalOpen(true)}
