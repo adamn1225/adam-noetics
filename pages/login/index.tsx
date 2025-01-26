@@ -130,15 +130,6 @@ const LoginPage = () => {
             <p className="text-sm text-blue-600 hover:underline">
               <Link href="/reset-password">Forgot Password?</Link>
             </p>
-            <p className="text-sm text-gray-800 dark:text-gray-300">
-              Not a customer?{" "}
-              <a
-                className="text-sm text-blue-600 hover:underline"
-                href="tel:+19548264318"
-              >
-                Call Us
-              </a>
-            </p>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <button

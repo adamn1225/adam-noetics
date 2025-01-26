@@ -175,7 +175,7 @@ const DashboardPage = () => {
                     <OnboardingForm onComplete={handleOnboardingComplete} />
                 ) : (
                     <>
-                        <h1 className="text-2xl font-bold mb-4 dark:text-white">Welcome {userName} to Your Dashboard</h1>
+                        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Welcome {userName} to Your Dashboard</h1>
                         <p className="text-gray-700 dark:text-white">
                             Here you can manage your tasks, upload files, and track the progress of your projects.
                         </p>
