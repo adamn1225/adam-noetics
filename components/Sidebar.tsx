@@ -122,13 +122,13 @@ const Sidebar = () => {
         </ul>
         <div className="mb-20">
           <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
-            <li className="mb-20">
+            <li className="mb-6">
               <button
                 onClick={toggleDarkMode}
-                className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded w-full text-left"
+                className="flex items-center justify-start p-2 text-nowrap text-sm font-semibold text-gray-800 bg-gray-300 dark:bg-gray-800 dark:text-gray-200 rounded w-full text-left"
               >
-                {isDarkMode ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
-                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+                {isDarkMode ? <Sun className="mr-1" /> : <Moon className="mr-1" />}
+                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Enable Light Mode' : 'Enable Dark Mode'}</span>
               </button>
             </li>
             <li className="mb-2">
