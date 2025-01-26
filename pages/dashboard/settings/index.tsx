@@ -37,7 +37,7 @@ const SettingsPage = () => {
 
                 if (membersError) throw membersError;
 
-                setTeamMembers(members.map((member: any) => member.users));
+                setTeamMembers(members.map((member: any) => member.profiles));
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -50,11 +50,17 @@ const SettingsPage = () => {
 
     const handleAddTeamMember = async () => {
         try {
-            const { data: { user }, error: userError } = await supabase.auth.signUp({
+            const { error: inviteError } = await supabase.auth.signInWithOtp({
                 email: newMemberEmail,
-                password: 'defaultpassword', // You should handle password securely
+                options: {
+                    emailRedirectTo: 'https://www.noetics.io/setup-password', // Redirect URL to the password setup page
+                },
             });
 
+            if (inviteError) throw inviteError;
+
+            // Add the new member to the organization
+            const { data: { user }, error: userError } = await supabase.auth.getUser();
             if (userError || !user) throw userError || new Error('User not created');
 
             const { error: memberError } = await supabase
@@ -191,7 +197,7 @@ const SettingsPage = () => {
                                 <h3 className="text-lg font-semibold dark:text-white">Current Team Members</h3>
                                 <ul className="mt-2">
                                     {teamMembers.map((member, index) => (
-                                        <li key={index} className="text-sm text-gray-900">
+                                        <li key={index} className="text-sm text-gray-900 dark:text-white">
                                             {member.email} - {member.name}
                                         </li>
                                     ))}
