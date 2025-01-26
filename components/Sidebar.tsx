@@ -99,15 +99,6 @@ const Sidebar = () => {
       </div>
       <nav className="mt-4 flex flex-col justify-between h-full">
         <ul>
-          <li className="mb-2">
-            <button
-              onClick={toggleDarkMode}
-              className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded w-full text-left"
-            >
-              {isDarkMode ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
-              <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-            </button>
-          </li>
           {navItems.map((item) => (
             <li key={item.name} className="mb-2">
               <Link href={item.href} passHref legacyBehavior>
@@ -131,6 +122,15 @@ const Sidebar = () => {
         </ul>
         <div className="mb-20">
           <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
+            <li className="mb-20">
+              <button
+                onClick={toggleDarkMode}
+                className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded w-full text-left"
+              >
+                {isDarkMode ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
+                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+              </button>
+            </li>
             <li className="mb-2">
               <Link href="/dashboard/settings" passHref legacyBehavior>
                 <a className="flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded">
