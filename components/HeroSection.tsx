@@ -57,12 +57,17 @@ const HeroSection = () => {
                 Message: ${formData.message}
             `;
 
-            await fetch('/.netlify/functions/sendEmail', {
+            const functionUrl = process.env.NODE_ENV === 'development'
+                ? 'http://localhost:8888/.netlify/functions/sendEmail'
+                : '/.netlify/functions/sendEmail';
+
+            await fetch(functionUrl, {
                 method: 'POST',
                 body: JSON.stringify({
                     to: 'your-email@example.com',
                     subject: 'New Contact Form Submission',
                     text: emailText,
+                    userEmail: formData.email,
                 }),
             });
 
