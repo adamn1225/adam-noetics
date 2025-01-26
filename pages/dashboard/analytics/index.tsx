@@ -13,7 +13,12 @@ const AdminAnalyticsPage = () => {
     const [showGoogleAnalyticsKey, setShowGoogleAnalyticsKey] = useState(false);
     const [showSemrushKey, setShowSemrushKey] = useState(false);
     const [showAhrefsKey, setShowAhrefsKey] = useState(false);
-    const [ga4Data, setGa4Data] = useState(null);
+    interface GA4Data {
+        error?: string;
+        [key: string]: any;
+    }
+
+    const [ga4Data, setGa4Data] = useState<GA4Data | null>(null);
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -217,7 +222,7 @@ const AdminAnalyticsPage = () => {
                     <h2 className="text-xl font-semibold mb-2 dark:text-gray-100">Hotjar (Coming Soon)</h2>
                     <p className="text-gray-600 dark:text-gray-200">Integration with Hotjar will be available soon.</p>
                 </div>
-                {ga4Data && (
+                {ga4Data && !ga4Data.error && (
                     <div className="mt-8">
                         <h2 className="text-xl font-semibold mb-2 dark:text-gray-200">Google Analytics Data</h2>
                         <pre className="bg-gray-100 p-4 rounded">{JSON.stringify(ga4Data, null, 2)}</pre>
