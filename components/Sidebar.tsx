@@ -97,8 +97,8 @@ const Sidebar = () => {
             className="rounded-full"
           />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-500 text-[10px]">No Avatar</span>
+          <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-gray-200 flex items-center justify-center">
+            <span className="text-gray-500 text-nowrap text-[10px] md:text-sm">No Avatar</span>
           </div>
         )}
         <div className={` ${isCollapsed ? 'hidden' : 'flex flex-nowrap justify-center gap-1'}`}>
@@ -111,8 +111,8 @@ const Sidebar = () => {
           {navItems.map((item) => (
             <li key={item.name} className="mb-2">
               <Link href={item.href} passHref legacyBehavior>
-                <a className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded">
-                  <item.icon className="mr-2" />
+                <a className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 text-sm font-medium hover:bg-gray-700 rounded`}>
+                  <item.icon className="md:mr-2" />
                   <span className={`text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
                 </a>
               </Link>
@@ -121,8 +121,8 @@ const Sidebar = () => {
           {profile?.role === 'admin' && adminNavItems.map((item) => (
             <li key={item.name} className="mb-2">
               <Link href={item.href} passHref legacyBehavior>
-                <a className={`flex ${isCollapsed ? 'justify-center' : 'justify-normal'} items-center p-2 text-base font-medium hover:bg-gray-700 rounded`}>
-                  <item.icon className="mr-2" />
+                <a className={`flex ${isCollapsed ? 'justify-end' : 'justify-normal'} items-center p-2 text-base font-medium hover:bg-gray-700 rounded`}>
+                  <item.icon className="mr-0 md:mr-2" />
                   <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
                 </a>
               </Link>
