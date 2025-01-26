@@ -6,6 +6,7 @@ import withAuth from '@utils/withAuth';
 import DashboardLayout from './UserLayout';
 import OnboardingForm from '@components/OnboardingForm';
 import OnboardingFormReview from '@components/OnboardingFormReview';
+import Spinner from '@components/ui/Spinner'; // Import Spinner component
 
 const DashboardPage = () => {
     const [userName, setUserName] = useState<string | null>(null);
@@ -161,11 +162,23 @@ const DashboardPage = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <DashboardLayout>
+                <div className="flex items-center justify-center h-full">
+                    <Spinner />
+                </div>
+            </DashboardLayout>
+        );
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return (
+            <DashboardLayout>
+                <div className="flex items-center justify-center h-full">
+                    <p>Error: {error}</p>
+                </div>
+            </DashboardLayout>
+        );
     }
 
     return (

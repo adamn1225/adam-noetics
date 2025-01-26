@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import { Home, FileText, Folder, ClipboardList, BarChart, User, LogOut, List, Settings, Moon, Sun } from 'lucide-react';
 import { supabase } from '@lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import Spinner from './ui/Spinner'; // Import Spinner component
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -23,6 +24,8 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [profile, setProfile] = useState<any>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   useEffect(() => {
@@ -50,10 +53,16 @@ const Sidebar = () => {
     fetchUserProfile();
   }, []);
 
+  useEffect(() => {
+    setLoading(isPending);
+  }, [isPending]);
+
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
-      router.push('/login');
+      startTransition(() => {
+        router.push('/login');
+      });
     } else {
       console.error('Error logging out:', error.message);
     }
@@ -148,6 +157,11 @@ const Sidebar = () => {
           </ul>
         </div>
       </nav>
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <Spinner />
+        </div>
+      )}
     </aside>
   );
 };
