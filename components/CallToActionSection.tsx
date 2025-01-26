@@ -4,9 +4,62 @@ import { fadeInUp } from "../motionConfig";
 
 const CallToActionSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleModalToggle = () => {
     setIsModalOpen((prev) => !prev);
+    setSuccess(false);
+    setError("");
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess(false);
+
+    try {
+      // Send email notification
+      const emailText = `
+        New contact form submission:
+        Name: ${formData.name}
+        Email: ${formData.email}
+        Message: ${formData.message}
+      `;
+
+      await fetch('/.netlify/functions/sendEmail', {
+        method: 'POST',
+        body: JSON.stringify({
+          to: 'your-email@example.com',
+          subject: 'New Contact Form Submission',
+          text: emailText,
+        }),
+      });
+
+      setSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (err: any) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -60,7 +113,7 @@ const CallToActionSection = () => {
                 ×
               </button>
             </div>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Field */}
               <div>
                 <label
@@ -72,6 +125,8 @@ const CallToActionSection = () => {
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   placeholder="Your Name"
@@ -89,6 +144,8 @@ const CallToActionSection = () => {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   placeholder="you@example.com"
@@ -106,6 +163,8 @@ const CallToActionSection = () => {
                 <textarea
                   id="message"
                   rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   placeholder="Tell us about your project..."
@@ -115,10 +174,18 @@ const CallToActionSection = () => {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md"
               >
-                Send Message
+                {loading ? "Submitting..." : "Send Message"}
               </button>
+
+              {success && (
+                <p className="text-green-500 mt-2">
+                  Message sent successfully!
+                </p>
+              )}
+              {error && <p className="text-red-500 mt-2">{error}</p>}
             </form>
           </div>
         </div>

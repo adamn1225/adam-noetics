@@ -47,6 +47,25 @@ const HeroSection = () => {
 
             if (error) throw error;
 
+            // Send email notification
+            const emailText = `
+                New contact form submission:
+                Name: ${formData.name}
+                Email: ${formData.email}
+                Phone: ${formData.phone}
+                Service: ${formData.service}
+                Message: ${formData.message}
+            `;
+
+            await fetch('/.netlify/functions/sendEmail', {
+                method: 'POST',
+                body: JSON.stringify({
+                    to: 'your-email@example.com',
+                    subject: 'New Contact Form Submission',
+                    text: emailText,
+                }),
+            });
+
             setSuccess(true);
             setFormData({
                 name: "",

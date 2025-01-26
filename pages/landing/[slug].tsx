@@ -3,6 +3,7 @@ import React from "react";
 import LandingNavigation from "@components/LandingNavigation";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../../motionConfig";
+import CallToActionSection from "@components/CallToActionSection";
 
 const services = [
     {
@@ -123,17 +124,7 @@ const LandingPage = () => {
                     </section>
 
                     {/* CTA Section */}
-                    <section className="bg-blue-600 text-white py-12 text-center">
-                        <div className="max-w-4xl mx-auto">
-                            <h2 className="text-3xl font-bold">Ready to Get Started?</h2>
-                            <p className="mt-4 text-lg">
-                                Let’s build something amazing together. Reach out to us today to discuss your project.
-                            </p>
-                            <button className="mt-6 bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition">
-                                Contact Us
-                            </button>
-                        </div>
-                    </section>
+                    <CallToActionSection />
                 </div>
 
             </motion.section>
