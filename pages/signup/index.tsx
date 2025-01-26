@@ -99,6 +99,22 @@ const SignupPage: React.FC = () => {
         }
     };
 
+    const handleResendOtp = async () => {
+        setError(null);
+        setSuccessMessage(null);
+
+        const { error } = await supabase.auth.resend({
+            email,
+            type: 'signup',
+        });
+
+        if (error) {
+            setError(error.message);
+        } else {
+            setSuccessMessage('OTP has been resent. Please check your email.');
+        }
+    };
+
     return (
         <>
             <Navigation isFixed={false} />
@@ -200,6 +216,13 @@ const SignupPage: React.FC = () => {
                                 className="shadow-md bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
                             >
                                 Verify Token
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleResendOtp}
+                                className="mt-4 shadow-md bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 w-full"
+                            >
+                                Resend OTP
                             </button>
                         </form>
                     )}
