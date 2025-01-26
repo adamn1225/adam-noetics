@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,31 +10,32 @@ interface OnboardingFormProps {
 
 const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
     const [formData, setFormData] = useState({
-        businessName: '',
-        businessDescription: '',
-        targetAudience: '',
-        projectGoals: '',
-        designStyle: '',
-        brandingMaterials: '',
+        business_name: '',
+        business_description: '',
+        target_audience: '',
+        project_goals: '',
+        design_style: '',
+        branding_materials: '',
         inspiration: '',
-        colorPreferences: '',
+        color_preferences: '',
         features: '',
-        userAuthentication: '',
-        contentManagement: '',
-        ecommerceNeeds: '',
+        user_authentication: '',
+        content_management: '',
+        ecommerce_needs: '',
         integrations: '',
-        contentReady: '',
-        pageCount: '',
-        seoAssistance: '',
-        domainInfo: '',
-        hostingInfo: '',
-        maintenanceNeeds: '',
-        budgetRange: '',
+        content_ready: '',
+        page_count: '',
+        seo_assistance: '',
+        domain_info: '',
+        hosting_info: '',
+        maintenance_needs: '',
+        budget_range: '',
         timeline: '',
         analytics: '',
         training: '',
-        additionalServices: '',
-        otherInfo: ''
+        additional_services: '',
+        other_info: '',
+        organization_id: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,6 +45,66 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
     const [files, setFiles] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const { data: user, error: userError } = await supabase.auth.getUser();
+            if (userError || !user) {
+                setError('User not authenticated');
+                return;
+            }
+
+            const { data: profile, error: profileError } = await supabase
+                .from('profiles')
+                .select('organization_id')
+                .eq('user_id', user.user.id)
+                .single();
+
+            if (profileError) {
+                setError('Failed to fetch profile');
+                return;
+            }
+
+            if (!profile.organization_id) {
+                // Create a new organization if the user doesn't have one
+                const { data: orgData, error: orgError } = await supabase
+                    .from('organizations')
+                    .insert([{ name: formData.business_name }])
+                    .select()
+                    .single();
+
+                if (orgError) {
+                    setError('Failed to create organization');
+                    return;
+                }
+
+                const organization_id = orgData.id;
+
+                // Update profile with organization_id
+                const { error: profileUpdateError } = await supabase
+                    .from('profiles')
+                    .update({ organization_id })
+                    .eq('user_id', user.user.id);
+
+                if (profileUpdateError) {
+                    setError('Failed to update profile with organization_id');
+                    return;
+                }
+
+                setFormData((prev) => ({
+                    ...prev,
+                    organization_id
+                }));
+            } else {
+                setFormData((prev) => ({
+                    ...prev,
+                    organization_id: profile.organization_id
+                }));
+            }
+        };
+
+        fetchProfile();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -63,27 +124,22 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
     const uploadFiles = async (filesArray: globalThis.File[]) => {
         setUploading(true);
         try {
-            // Get the current user
             const { data: user, error: userError } = await supabase.auth.getUser();
             if (userError || !user) {
                 throw new Error('User not authenticated');
             }
 
             for (const file of filesArray) {
-                const fileId = uuidv4(); // Generate a UUID for the file_id
-                console.log(`Uploading file: ${file.name} with fileId: ${fileId}`);
+                const fileId = uuidv4();
                 const { data, error } = await supabase.storage
                     .from('client-files')
                     .upload(`public/${fileId}`, file);
 
                 if (error) {
-                    console.error('Error uploading file:', error);
                     throw error;
                 }
 
                 const fileUrl = data?.path;
-                console.log(`File uploaded successfully: ${fileUrl}`);
-
                 if (!fileUrl) {
                     throw new Error('File upload failed, no path returned');
                 }
@@ -99,12 +155,10 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                 ]);
 
                 if (insertError) {
-                    console.error('Error inserting file record:', insertError);
                     throw insertError;
                 }
             }
 
-            // Refresh the files list
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
@@ -114,26 +168,22 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                 throw new Error('Failed to fetch files');
             }
 
-            // Generate signed URLs for the files
             const filesWithSignedUrls = await Promise.all(
                 filesData.map(async (file) => {
                     const { data, error } = await supabase.storage
                         .from('client-files')
-                        .createSignedUrl(`public/${file.file_id}`, 60); // URL valid for 60 seconds
+                        .createSignedUrl(`public/${file.file_id}`, 60);
 
                     if (error) {
-                        console.error('Error generating signed URL:', error);
                         throw error;
                     }
 
-                    console.log(`Generated signed URL for file ${file.file_id}: ${data.signedUrl}`);
                     return { ...file, signedURL: data.signedUrl };
                 })
             );
 
             setFiles(filesWithSignedUrls);
         } catch (error: any) {
-            console.error('Error uploading files:', error);
             alert('Error uploading files: ' + error.message);
         } finally {
             setUploading(false);
@@ -145,39 +195,20 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
         setIsSubmitting(true);
         setSuccessMessage('');
 
+        if (!formData.organization_id) {
+            alert('Organization ID is not set. Please try again.');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
-            // Get the current user
             const { data: user, error: userError } = await supabase.auth.getUser();
             if (userError || !user) {
                 throw new Error('User not authenticated');
             }
 
-            // Create or update the organization
-            const { data: orgData, error: orgError } = await supabase
-                .from('organizations')
-                .upsert([{ name: formData.businessName }])
-                .select()
-                .single();
-
-            if (orgError) {
-                throw orgError;
-            }
-
-            const organizationId = orgData.id;
-
-            // Update profile with organization_id
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .update({ organization_id: organizationId })
-                .eq('user_id', user.user.id);
-
-            if (profileError) {
-                throw profileError;
-            }
-
-            // Insert the form data into the client-project-plan table
-            const { error: formError } = await supabase.from('client-project-plan').insert([
-                { ...formData, organization_id: organizationId }
+            const { error: formError } = await supabase.from('client_project_plan').insert([
+                { ...formData, organization_id: formData.organization_id }
             ]);
 
             if (formError) {
@@ -187,7 +218,6 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
             setSuccessMessage('Your project plan has been successfully submitted!');
             onComplete(formData);
         } catch (error: any) {
-            console.error('Error submitting form:', error.message);
             alert('There was an error submitting the form. Please try again.');
         } finally {
             setIsSubmitting(false);
@@ -197,10 +227,8 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
     return (
         <>
             <div className="w-[70vw] h-fit mx-auto p-8 bg-white mt-12 mb-12 dark:bg-gray-700 rounded shadow">
-
                 {successMessage && <p className="text-green-600 dark:text-green-400 mb-4">{successMessage}</p>}
                 <form onSubmit={handleSubmit} className="space-y-2 w-full mt-12 mb-4">
-                    {/* General Business Information */}
                     <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Client Project Plan</h1>
                     <div className='flex flex-col gap-1 pt-8'>
                         <span className='font-extrabold text-xl underline underline-offset-4 dark:text-white'>Important: </span>
@@ -209,13 +237,13 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                         </h2>
                     </div>
                     <div className='mt-4'>
-                        <label htmlFor="businessName" className="block font-semibold mt-4 text-gray-900 dark:text-white">Business Name</label>
+                        <label htmlFor="business_name" className="block font-semibold mt-4 text-gray-900 dark:text-white">Business Name</label>
                         <input
                             type="text"
-                            id="businessName"
-                            name="businessName"
+                            id="business_name"
+                            name="business_name"
                             placeholder='Acme Inc.'
-                            value={formData.businessName}
+                            value={formData.business_name}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                             required
@@ -223,12 +251,12 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="businessDescription" className="block font-semibold text-gray-900 dark:text-white">Describe Your Business/Project</label>
+                        <label htmlFor="business_description" className="block font-semibold text-gray-900 dark:text-white">Describe Your Business/Project</label>
                         <textarea
-                            id="businessDescription"
-                            name="businessDescription"
+                            id="business_description"
+                            name="business_description"
                             placeholder='Give us the best description of your business or project; the more we know, the better.'
-                            value={formData.businessDescription}
+                            value={formData.business_description}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                             rows={3}
@@ -236,25 +264,24 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="targetAudience" className="block font-semibold text-gray-900 dark:text-white">Target Audience</label>
+                        <label htmlFor="target_audience" className="block font-semibold text-gray-900 dark:text-white">Target Audience</label>
                         <input
-                            id="targetAudience"
-                            name="targetAudience"
+                            id="target_audience"
+                            name="target_audience"
                             placeholder="Who&apos;s attention are you trying to capture?"
-                            value={formData.targetAudience}
+                            value={formData.target_audience}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         ></input>
                     </div>
 
-                    {/* Project Details */}
                     <div>
-                        <label htmlFor="projectGoals" className="block font-semibold text-gray-900 dark:text-white">Project Goals</label>
+                        <label htmlFor="project_goals" className="block font-semibold text-gray-900 dark:text-white">Project Goals</label>
                         <textarea
-                            id="projectGoals"
-                            name="projectGoals"
+                            id="project_goals"
+                            name="project_goals"
                             placeholder='Tell us your dreams... specifically related to this project.'
-                            value={formData.projectGoals}
+                            value={formData.project_goals}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                             rows={2}
@@ -262,12 +289,12 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="designStyle" className="block font-semibold text-gray-900 dark:text-white">Preferred Design Style</label>
+                        <label htmlFor="design_style" className="block font-semibold text-gray-900 dark:text-white">Preferred Design Style</label>
                         <textarea
-                            id="designStyle"
-                            name="designStyle"
+                            id="design_style"
+                            name="design_style"
                             placeholder='Modern, minimal, eccentric etc. - be as specific as you&apos;d like (just remember to read the note we made on top of this form).'
-                            value={formData.designStyle}
+                            value={formData.design_style}
                             onChange={handleChange}
                             rows={2}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
@@ -275,12 +302,12 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="brandingMaterials" className="block font-semibold text-gray-900 dark:text-white">Do you have branding materials? (If no, what are you missing?)</label>
+                        <label htmlFor="branding_materials" className="block font-semibold text-gray-900 dark:text-white">Do you have branding materials? (If no, what are you missing?)</label>
                         <textarea
-                            id="brandingMaterials"
-                            name="brandingMaterials"
+                            id="branding_materials"
+                            name="branding_materials"
                             placeholder='Logo, color scheme, fonts, etc.'
-                            value={formData.brandingMaterials}
+                            value={formData.branding_materials}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         />
@@ -321,15 +348,14 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                         ></textarea>
                     </div>
 
-                    {/* Budget and Timeline */}
                     <div>
-                        <label htmlFor="budgetRange" className="block font-semibold text-gray-900 dark:text-white">Budget Range (USD)</label>
+                        <label htmlFor="budget_range" className="block font-semibold text-gray-900 dark:text-white">Budget Range (USD)</label>
                         <input
                             type="text"
-                            id="budgetRange"
-                            name="budgetRange"
+                            id="budget_range"
+                            name="budget_range"
                             placeholder='this is optional - but it helps us understand if what you&apos;re looking for is going to be feasible'
-                            value={formData.budgetRange}
+                            value={formData.budget_range}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
                         />
@@ -348,14 +374,13 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                         />
                     </div>
 
-                    {/* Additional Information */}
                     <div>
-                        <label htmlFor="otherInfo" className="block font-semibold text-gray-900 dark:text-white">Other Information</label>
+                        <label htmlFor="other_info" className="block font-semibold text-gray-900 dark:text-white">Other Information</label>
                         <textarea
-                            id="otherInfo"
-                            name="otherInfo"
+                            id="other_info"
+                            name="other_info"
                             placeholder='Feel free to write anything else you think we should know, or anything else, poetry, what you had for breakfast, etc.'
-                            value={formData.otherInfo}
+                            value={formData.other_info}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                             rows={2}
