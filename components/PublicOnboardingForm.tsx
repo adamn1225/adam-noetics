@@ -36,6 +36,7 @@ const PublicOnboardingForm: React.FC = () => {
         create_account: false,
         current_website: false,
         website_name: '',
+        service_type: '', // Add service_type to formData
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -99,6 +100,7 @@ const PublicOnboardingForm: React.FC = () => {
                 Training: ${formData.training}
                 Additional Services: ${formData.additional_services}
                 Other Info: ${formData.other_info}
+                Service Type: ${formData.service_type}
             `;
 
             await fetch('/.netlify/functions/sendEmail', {
@@ -347,6 +349,24 @@ const PublicOnboardingForm: React.FC = () => {
                         className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         rows={2}
                     ></textarea>
+                </div>
+
+                <div>
+                    <label htmlFor="service_type" className="block font-semibold text-gray-900 dark:text-white">Service Type</label>
+                    <select
+                        id="service_type"
+                        name="service_type"
+                        value={formData.service_type}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        required
+                    >
+                        <option value="" disabled>Select a service</option>
+                        <option value="web_app">Custom Web App or Web Site Development</option>
+                        <option value="web_scraping">Web Scraping</option>
+                        <option value="chrome_extensions">Chrome Extensions</option>
+                        <option value="custom_tools">Custom Tools (Automations, calculators, directories, ticket support systems, etc)</option>
+                    </select>
                 </div>
 
                 <div>

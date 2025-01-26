@@ -334,6 +334,7 @@ export type Database = {
           phone_number: string | null
           project_goals: string | null
           seo_assistance: string | null
+          service_type: string | null
           target_audience: string | null
           timeline: string | null
           training: string | null
@@ -366,6 +367,7 @@ export type Database = {
           phone_number?: string | null
           project_goals?: string | null
           seo_assistance?: string | null
+          service_type?: string | null
           target_audience?: string | null
           timeline?: string | null
           training?: string | null
@@ -398,6 +400,7 @@ export type Database = {
           phone_number?: string | null
           project_goals?: string | null
           seo_assistance?: string | null
+          service_type?: string | null
           target_audience?: string | null
           timeline?: string | null
           training?: string | null
