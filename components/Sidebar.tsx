@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Home, FileText, ClipboardList, BarChart, User, LogOut, List, Settings, Moon, Sun } from 'lucide-react';
+import { Home, FileText, Folder, ClipboardList, BarChart, User, LogOut, List, Settings, Moon, Sun } from 'lucide-react';
 import { supabase } from '@lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
-  { name: 'File Uploads', href: '/dashboard/files', icon: FileText },
+  { name: 'File Uploads', href: '/dashboard/files', icon: Folder },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardList },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart },
   { name: 'Profile', href: '/dashboard/profile', icon: User },

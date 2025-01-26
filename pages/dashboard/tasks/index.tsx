@@ -146,56 +146,58 @@ const TasksPage = () => {
 
     return (
         <DashboardLayout>
-            <div className='px-8 py-12'>
+            <div className='px-4 py-6 md:px-8 md:py-12'>
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">Project Tasks</h1>
                 <div className='container mx-auto'>
-                    <table className="min-w-full  border border-gray-200 bg-white divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
-                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
-                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Status</th>
-                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Due Date</th>
-                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Notes</th>
-                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
-                            {projectTasks.map((task) => (
-                                <tr key={task.id} className="divide-x divide-gray-200">
-                                    <td className="py-2 px-4 whitespace-nowrap text-center">{task.title}</td>
-                                    <td className="py-2 px-4 text-center">{task.description}</td>
-                                    <td className="py-2 px-4 whitespace-nowrap text-center">{task.status}</td>
-                                    <td className="py-2 px-4 text-center">{task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'}</td>
-                                    <td className="py-2 px-4 text-center">{task.notes}</td>
-                                    <td className="py-2 px-4 whitespace-nowrap text-center">
-                                        <button
-                                            onClick={() => setSelectedTaskId(task.id)}
-                                            className="bg-blue-600 text-white py-1 px-2 rounded"
-                                        >
-                                            Add Note
-                                        </button>
-                                        {selectedTaskId === task.id && (
-                                            <div className="mt-4">
-                                                <textarea
-                                                    value={newNote}
-                                                    onChange={(e) => setNewNote(e.target.value)}
-                                                    placeholder="Add a note"
-                                                    className="w-full p-2 border border-gray-300 rounded"
-                                                />
-                                                <button
-                                                    onClick={() => handleAddNote(task.id)}
-                                                    className="bg-green-600 text-white py-1 px-2 rounded mt-2"
-                                                >
-                                                    Save Note
-                                                </button>
-                                            </div>
-                                        )}
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Status</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Due Date</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Notes</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
+                                {projectTasks.map((task) => (
+                                    <tr key={task.id} className="divide-x divide-gray-200">
+                                        <td className="py-2 px-4 whitespace-nowrap text-center">{task.title}</td>
+                                        <td className="py-2 px-4 text-center">{task.description}</td>
+                                        <td className="py-2 px-4 whitespace-nowrap text-center">{task.status}</td>
+                                        <td className="py-2 px-4 text-center">{task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'}</td>
+                                        <td className="py-2 px-4 text-center">{task.notes}</td>
+                                        <td className="py-2 px-4 whitespace-nowrap text-center">
+                                            <button
+                                                onClick={() => setSelectedTaskId(task.id)}
+                                                className="bg-blue-600 text-white py-1 px-2 rounded"
+                                            >
+                                                Add Note
+                                            </button>
+                                            {selectedTaskId === task.id && (
+                                                <div className="mt-4">
+                                                    <textarea
+                                                        value={newNote}
+                                                        onChange={(e) => setNewNote(e.target.value)}
+                                                        placeholder="Add a note"
+                                                        className="w-full p-2 border border-gray-300 rounded"
+                                                    />
+                                                    <button
+                                                        onClick={() => handleAddNote(task.id)}
+                                                        className="bg-green-600 text-white py-1 px-2 rounded mt-2"
+                                                    >
+                                                        Save Note
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <h2 className="text-2xl font-bold mt-8 mb-4 dark:text-white">Request a Task</h2>
                 <button
@@ -206,7 +208,7 @@ const TasksPage = () => {
                 </button>
                 {isModalOpen && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                        <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4">
                             <h2 className="text-xl font-bold mb-4">Request a Task</h2>
                             <form onSubmit={handleTaskRequest} className="flex flex-col gap-6">
                                 <div className="mb-4 flex flex-col gap-1">
@@ -257,26 +259,28 @@ const TasksPage = () => {
                 <div className="mt-8">
                     <h2 className="text-2xl font-bold mb-4 dark:text-white">Requested Tasks</h2>
                     <div className='container mx-auto'>
-                        <table className="min-w-full  border border-gray-200 bg-white divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
-                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
-                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Requested Due Date</th>
-                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
-                                {taskRequests.map((taskRequest) => (
-                                    <tr key={taskRequest.id} className="divide-x divide-gray-200">
-                                        <td className="py-2 px-4 whitespace-nowrap text-center">{taskRequest.title}</td>
-                                        <td className="py-2 px-4 text-center">{taskRequest.description}</td>
-                                        <td className="py-2 px-4 text-center">{taskRequest.due_date ? new Date(taskRequest.due_date).toLocaleString() : 'No due date'}</td>
-                                        <td className="py-2 px-4 text-center">{taskRequest.status || 'Pending'}</td>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
+                                        <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
+                                        <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Requested Due Date</th>
+                                        <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Status</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
+                                    {taskRequests.map((taskRequest) => (
+                                        <tr key={taskRequest.id} className="divide-x divide-gray-200">
+                                            <td className="py-2 px-4 whitespace-nowrap text-center">{taskRequest.title}</td>
+                                            <td className="py-2 px-4 text-center">{taskRequest.description}</td>
+                                            <td className="py-2 px-4 text-center">{taskRequest.due_date ? new Date(taskRequest.due_date).toLocaleString() : 'No due date'}</td>
+                                            <td className="py-2 px-4 text-center">{taskRequest.status || 'Pending'}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
