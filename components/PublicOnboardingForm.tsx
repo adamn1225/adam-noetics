@@ -34,6 +34,8 @@ const PublicOnboardingForm: React.FC = () => {
         additional_services: '',
         other_info: '',
         create_account: false,
+        current_website: false,
+        website_name: '',
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -135,19 +137,175 @@ const PublicOnboardingForm: React.FC = () => {
                         required
                     />
                 </div>
-                {/* Add the rest of the form fields here, similar to the original OnboardingForm */}
                 <div>
-                    <label className="block font-semibold text-gray-900 dark:text-white">Business Name</label>
+                    <label className="block font-semibold text-gray-900 dark:text-white">Do you have a website?</label>
+                    <div className="flex items-center">
+                        <input
+                            type="radio"
+                            id="current_website_yes"
+                            name="current_website"
+                            value="true"
+                            checked={formData.current_website === true}
+                            onChange={() => setFormData((prev) => ({ ...prev, current_website: true }))}
+                            className="mr-2"
+                        />
+                        <label htmlFor="current_website_yes" className="mr-4 text-gray-900 dark:text-white">Yes</label>
+                        <input
+                            type="radio"
+                            id="current_website_no"
+                            name="current_website"
+                            value="false"
+                            checked={formData.current_website === false}
+                            onChange={() => setFormData((prev) => ({ ...prev, current_website: false, website_name: '' }))}
+                            className="mr-2"
+                        />
+                        <label htmlFor="current_website_no" className="text-gray-900 dark:text-white">No</label>
+                    </div>
+                </div>
+
+                {formData.current_website && (
+                    <div>
+                        <label htmlFor="website_name" className="block font-semibold text-gray-900 dark:text-white">Website Domain Name</label>
+                        <input
+                            type="text"
+                            id="website_name"
+                            name="website_name"
+                            placeholder='e.g., www.example.com'
+                            value={formData.website_name}
+                            onChange={handleChange}
+                            className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        />
+                    </div>
+                )}
+                <div className='mt-4'>
+                    <label htmlFor="business_name" className="block font-semibold mt-4 text-gray-900 dark:text-white">Business Name</label>
                     <input
                         type="text"
+                        id="business_name"
                         name="business_name"
+                        placeholder='Acme Inc.'
                         value={formData.business_name}
                         onChange={handleChange}
                         className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         required
                     />
                 </div>
-                {/* Add other form fields here */}
+
+                <div>
+                    <label htmlFor="business_description" className="block font-semibold text-gray-900 dark:text-white">Describe Your Business/Project</label>
+                    <textarea
+                        id="business_description"
+                        name="business_description"
+                        placeholder='Give us the best description of your business or project; the more we know, the better.'
+                        value={formData.business_description}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        rows={3}
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label htmlFor="target_audience" className="block font-semibold text-gray-900 dark:text-white">Target Audience</label>
+                    <input
+                        id="target_audience"
+                        name="target_audience"
+                        placeholder="Who&apos;s attention are you trying to capture?"
+                        value={formData.target_audience}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                    ></input>
+                </div>
+
+                <div>
+                    <label htmlFor="project_goals" className="block font-semibold text-gray-900 dark:text-white">Project Goals</label>
+                    <textarea
+                        id="project_goals"
+                        name="project_goals"
+                        placeholder='Tell us your dreams... specifically related to this project.'
+                        value={formData.project_goals}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        rows={2}
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label htmlFor="design_style" className="block font-semibold text-gray-900 dark:text-white">Preferred Design Style</label>
+                    <textarea
+                        id="design_style"
+                        name="design_style"
+                        placeholder='Modern, minimal, eccentric etc. - be as specific as you&apos;d like (just remember to read the note we made on top of this form).'
+                        value={formData.design_style}
+                        onChange={handleChange}
+                        rows={2}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="branding_materials" className="block font-semibold text-gray-900 dark:text-white">Do you have branding materials? (If no, what are you missing?)</label>
+                    <textarea
+                        id="branding_materials"
+                        name="branding_materials"
+                        placeholder='Logo, color scheme, fonts, etc.'
+                        value={formData.branding_materials}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="inspiration" className="block font-semibold text-gray-900 dark:text-white">Websites/Apps You Like (Inspiration)</label>
+                    <textarea
+                        id="inspiration"
+                        name="inspiration"
+                        placeholder='List some websites (comma separated)'
+                        value={formData.inspiration}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        rows={1}
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label htmlFor="budget_range" className="block font-semibold text-gray-900 dark:text-white">Budget Range (USD)</label>
+                    <input
+                        type="text"
+                        id="budget_range"
+                        name="budget_range"
+                        placeholder='this is optional - but it helps us understand if what you&apos;re looking for is going to be feasible'
+                        value={formData.budget_range}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="timeline" className="block font-semibold text-gray-900 dark:text-white">Ideal Timeline</label>
+                    <input
+                        type="text"
+                        id="timeline"
+                        name="timeline"
+                        placeholder='When would you -like- to have this project completed? We&apos;ll let you know if we can meet your deadline.'
+                        value={formData.timeline}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="other_info" className="block font-semibold text-gray-900 dark:text-white">Other Information</label>
+                    <textarea
+                        id="other_info"
+                        name="other_info"
+                        placeholder='Feel free to write anything else you think we should know, or anything else, poetry, what you had for breakfast, etc.'
+                        value={formData.other_info}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        rows={2}
+                    ></textarea>
+                </div>
+
                 <div>
                     <label className="block font-semibold text-gray-900 dark:text-white">Would you like to create an account?</label>
                     <div className="flex items-center">
