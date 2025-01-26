@@ -237,12 +237,12 @@ const FilesPage = () => {
     return (
         <DashboardLayout>
             <div className="p-8">
-                <h1 className="text-2xl font-bold mb-4 pt-6">Upload Files</h1>
+                <h1 className="text-2xl font-bold mb-4 dark:text-white pt-6">Upload Files</h1>
                 <input
                     type="file"
                     multiple
                     onChange={handleFileChange}
-                    className="mb-4"
+                    className="mb-4 dark:text-white"
                 />
                 <input
                     type="text"
@@ -259,10 +259,10 @@ const FilesPage = () => {
                     {uploading ? 'Uploading...' : 'Upload'}
                 </button>
                 <div className="mt-8">
-                    <nav className="mb-4 flex space-x-4">
+                    <nav className="mb-4 flex space-x-4 border border-t-0 border-x-0 border-b-gray-300">
                         <button
                             onClick={() => setCategory('all')}
-                            className={`px-4 py-2 rounded-t-lg ${category === 'all' ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'}`}
+                            className={`px-4 py-2 rounded-t-lg ${category === 'all' ? 'bg-gray-800 dark:bg-gray-700 text-white' : 'bg-gray-300 text-gray-800'}`}
                         >
                             All
                         </button>

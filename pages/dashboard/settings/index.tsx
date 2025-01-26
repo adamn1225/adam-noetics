@@ -32,7 +32,7 @@ const SettingsPage = () => {
                 // Fetch team members
                 const { data: members, error: membersError } = await supabase
                     .from('organization_members')
-                    .select('users(email, name)')
+                    .select('profiles(email, name)')
                     .eq('organization_id', profile.organization_id);
 
                 if (membersError) throw membersError;
@@ -104,42 +104,42 @@ const SettingsPage = () => {
 
     return (
         <DashboardLayout>
-            <div className="container mx-auto px-4">
-                <h1 className="text-3xl font-semibold mt-8">Settings</h1>
+            <div className="container mx-auto pt-4 pb-8">
+                <h1 className="text-3xl font-semibold mt-8 dark:text-white">Settings</h1>
                 {loading && <p>Loading...</p>}
                 {error && <p className="text-red-500">{error}</p>}
                 {profile && (
                     <div className="mt-8">
-                        <h2 className="text-xl font-semibold">Profile</h2>
+                        <h2 className="text-xl font-semibold dark:text-white">Profile</h2>
                         <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">Name</label>
-                            <p className="mt-1 text-sm text-gray-900">{profile.name}</p>
+                            <label className="block text-lg font-semibold text-gray-800 dark:text-white">Name</label>
+                            <p className="mt-1 text-base text-gray-900 dark:text-white">{profile.name}</p>
                         </div>
                         <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">Email</label>
-                            <p className="mt-1 text-sm text-gray-900">{profile.email}</p>
+                            <label className="block text-lg font-semibold text-gray-800 dark:text-white">Email</label>
+                            <p className="mt-1 text-base text-gray-900 dark:text-white">{profile.email}</p>
                         </div>
                         <div className="mt-4">
                             <button
                                 onClick={handlePasswordReset}
-                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800"
                             >
                                 Reset Password
                             </button>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold">Notification Settings</h2>
-                            <div className="mt-4">
-                                <label className="block text-sm font-medium text-gray-700">Email Notifications</label>
+                            <h2 className="text-xl font-semibold dark:text-white">Notification Settings</h2>
+                            <div className="mt-4 flex gap-2 items-baseline">
+                                <label className="block text-lg font-semibold text-gray-800 dark:text-white">Email Notifications</label>
                                 <input
                                     type="checkbox"
-                                    className="mt-1"
+                                    className="mt-1 dark:text-white"
                                     checked={profile.email_notifications}
                                     onChange={(e) => setProfile({ ...profile, email_notifications: e.target.checked })}
                                 />
                             </div>
-                            <div className="mt-4">
-                                <label className="block text-sm font-medium text-gray-700">SMS Notifications</label>
+                            <div className="mt-4 flex gap-2 items-baseline">
+                                <label className="block text-sm font-semibold text-gray-800 dark:text-white">SMS Notifications</label>
                                 <input
                                     type="checkbox"
                                     className="mt-1"
@@ -149,9 +149,9 @@ const SettingsPage = () => {
                             </div>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold">Contact Information</h2>
+                            <h2 className="text-xl font-semibold dark:text-white">Contact Information</h2>
                             <div className="mt-4">
-                                <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <label className="block text-sm font-semibold text-gray-800 dark:text-white">Phone Number</label>
                                 <input
                                     type="text"
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -160,7 +160,7 @@ const SettingsPage = () => {
                                 />
                             </div>
                             <div className="mt-4">
-                                <label className="block text-sm font-medium text-gray-700">Additional Email</label>
+                                <label className="block text-sm font-semibold text-gray-800 dark:text-white">Additional Email</label>
                                 <input
                                     type="email"
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -170,9 +170,9 @@ const SettingsPage = () => {
                             </div>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold">Team Members</h2>
+                            <h2 className="text-xl font-semibold dark:text-white">Team Members</h2>
                             <div className="mt-4">
-                                <label className="block text-sm font-medium text-gray-700">Add Team Member</label>
+                                <label className="block text-sm font-semibold text-gray-800 dark:text-white">Add Team Member</label>
                                 <input
                                     type="email"
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -182,13 +182,13 @@ const SettingsPage = () => {
                                 />
                                 <button
                                     onClick={handleAddTeamMember}
-                                    className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                    className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800"
                                 >
                                     Add Member
                                 </button>
                             </div>
                             <div className="mt-4">
-                                <h3 className="text-lg font-semibold">Current Team Members</h3>
+                                <h3 className="text-lg font-semibold dark:text-white">Current Team Members</h3>
                                 <ul className="mt-2">
                                     {teamMembers.map((member, index) => (
                                         <li key={index} className="text-sm text-gray-900">
@@ -199,11 +199,11 @@ const SettingsPage = () => {
                             </div>
                         </div>
                         <div className="mt-8">
-                            <h2 className="text-xl font-semibold">Account Management</h2>
+                            <h2 className="text-xl font-semibold dark:text-white">Account Management</h2>
                             <div className="mt-4">
                                 <button
                                     onClick={() => setIsModalOpen(true)}
-                                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-800"
                                 >
                                     Delete Account
                                 </button>

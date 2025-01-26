@@ -17,6 +17,7 @@ const TasksPage = () => {
     const [taskDescription, setTaskDescription] = useState('');
     const [taskDueDate, setTaskDueDate] = useState('');
     const [profile, setProfile] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -125,6 +126,7 @@ const TasksPage = () => {
             setTaskDescription('');
             setTaskDueDate('');
             setError(null);
+            setIsModalOpen(false);
             alert('Task request submitted successfully.');
         } catch (error: any) {
             setError(error.message);
@@ -145,7 +147,7 @@ const TasksPage = () => {
     return (
         <DashboardLayout>
             <div className='px-8 py-12'>
-                <h1 className="text-2xl font-bold mb-4">Project Tasks</h1>
+                <h1 className="text-2xl font-bold mb-4 dark:text-white">Project Tasks</h1>
                 <div className='container mx-auto'>
                     <table className="min-w-full  border border-gray-200 bg-white divide-y divide-gray-200">
                         <thead className="bg-gray-50">
@@ -195,45 +197,65 @@ const TasksPage = () => {
                         </tbody>
                     </table>
                 </div>
-                <h2 className="text-2xl font-bold mt-8 mb-4">Request a Task</h2>
-                <div className="container mx-auto">
-                    <form onSubmit={handleTaskRequest} className="bg-white flex gap-6 justify-stretch items-center p-4 rounded-lg shadow w-1/2">
-                        <div className="mb-4 flex flex-col gap-1">
-                            <label className="block text-sm font-medium text-gray-700">Task title
-                                <input
-                                    type="text"
-                                    value={taskTitle}
-                                    onChange={(e) => setTaskTitle(e.target.value)}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                    required
-                                /></label>
-                            <label className="block text-sm font-medium text-gray-700">Description
-                                <textarea
-                                    value={taskDescription}
-                                    onChange={(e) => setTaskDescription(e.target.value)}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                    required
-                                /></label>
+                <h2 className="text-2xl font-bold mt-8 mb-4 dark:text-white">Request a Task</h2>
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="bg-blue-600 text-white py-2 px-4 rounded"
+                >
+                    Request a Task
+                </button>
+                {isModalOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
+                            <h2 className="text-xl font-bold mb-4">Request a Task</h2>
+                            <form onSubmit={handleTaskRequest} className="flex flex-col gap-6">
+                                <div className="mb-4 flex flex-col gap-1">
+                                    <label className="block text-sm font-medium text-gray-700">Task title
+                                        <input
+                                            type="text"
+                                            value={taskTitle}
+                                            onChange={(e) => setTaskTitle(e.target.value)}
+                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                            required
+                                        /></label>
+                                    <label className="block text-sm font-medium text-gray-700">Description
+                                        <textarea
+                                            value={taskDescription}
+                                            onChange={(e) => setTaskDescription(e.target.value)}
+                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                            required
+                                        /></label>
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Requested Due Date</label>
+                                    <input
+                                        type="datetime-local"
+                                        value={taskDueDate}
+                                        onChange={(e) => setTaskDueDate(e.target.value)}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    />
+                                </div>
+                                <div className="flex justify-end gap-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsModalOpen(false)}
+                                        className="bg-gray-600 text-white py-2 px-4 rounded"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-600 text-white py-2 px-4 rounded"
+                                    >
+                                        Submit Task Request
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700">Requested Due Date</label>
-                            <input
-                                type="datetime-local"
-                                value={taskDueDate}
-                                onChange={(e) => setTaskDueDate(e.target.value)}
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="bg-blue-600 text-white py-2 px-4 rounded text-nowrap"
-                        >
-                            Submit Task Request
-                        </button>
-                    </form>
-                </div>
+                    </div>
+                )}
                 <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-4">Requested Tasks</h2>
+                    <h2 className="text-2xl font-bold mb-4 dark:text-white">Requested Tasks</h2>
                     <div className='container mx-auto'>
                         <table className="min-w-full  border border-gray-200 bg-white divide-y divide-gray-200">
                             <thead className="bg-gray-50">

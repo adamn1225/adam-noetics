@@ -110,13 +110,13 @@ const AdminAnalyticsPage = () => {
     return (
         <DashboardLayout>
             <div className="p-8">
-                <h1 className="text-2xl font-bold mb-4">Analytics Integration</h1>
+                <h1 className="text-2xl font-bold mb-4 dark:text-white">Analytics Integration</h1>
                 {message && <div className="mb-4 text-green-500">{message}</div>}
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold">Google Analytics</h2>
-                    <p className="text-gray-600 mb-4">To integrate to any of your analytic tools, enter your API Key below. Don't have any analytic tools or not sure where to find your API Key? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
+                    <h2 className="text-xl font-semibold dark:text-gray-100">Google Analytics</h2>
+                    <p className="text-gray-600 mb-4 dark:text-gray-200">To integrate to any of your analytic tools, enter your API Key below. Don't have any analytic tools or not sure where to find your API Key? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
                     <form onSubmit={handleGoogleAnalyticsSubmit}>
-                        <label htmlFor="googleAnalyticsKey" className="block text-sm font-semibold text-gray-700">
+                        <label htmlFor="googleAnalyticsKey" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
                             Google Analytics API Key
                         </label>
                         <div className="relative">
@@ -139,16 +139,16 @@ const AdminAnalyticsPage = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:text-gray-50"
                         >
                             Integrate Google Analytics
                         </button>
                     </form>
                 </div>
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">SEMrush</h2>
+                    <h2 className="text-xl font-semibold mb-2 dark:text-gray-100">SEMrush</h2>
                     <form onSubmit={handleSemrushSubmit}>
-                        <label htmlFor="semrushKey" className="block text-sm font-semibold text-gray-700">
+                        <label htmlFor="semrushKey" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
                             SEMrush API Key
                         </label>
                         <div className="relative">
@@ -171,16 +171,16 @@ const AdminAnalyticsPage = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
                         >
                             Integrate SEMrush
                         </button>
                     </form>
                 </div>
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">Ahrefs</h2>
+                    <h2 className="text-xl font-semibold mb-2 dark:text-gray-200">Ahrefs</h2>
                     <form onSubmit={handleAhrefsSubmit}>
-                        <label htmlFor="ahrefsKey" className="block text-sm font-semibold text-gray-700">
+                        <label htmlFor="ahrefsKey" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
                             Ahrefs API Key
                         </label>
                         <div className="relative">
@@ -209,17 +209,17 @@ const AdminAnalyticsPage = () => {
                         </button>
                     </form>
                 </div>
-                <div className="mb-8">
+                <div className="mb-8 dark:text-gray-100">
                     <h2 className="text-xl font-semibold mb-2">Moz (Coming Soon)</h2>
-                    <p className="text-gray-600">Integration with Moz will be available soon.</p>
+                    <p className="text-gray-600 dark:text-gray-200">Integration with Moz will be available soon.</p>
                 </div>
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">Hotjar (Coming Soon)</h2>
-                    <p className="text-gray-600">Integration with Hotjar will be available soon.</p>
+                    <h2 className="text-xl font-semibold mb-2 dark:text-gray-100">Hotjar (Coming Soon)</h2>
+                    <p className="text-gray-600 dark:text-gray-200">Integration with Hotjar will be available soon.</p>
                 </div>
                 {ga4Data && (
                     <div className="mt-8">
-                        <h2 className="text-xl font-semibold mb-2">Google Analytics Data</h2>
+                        <h2 className="text-xl font-semibold mb-2 dark:text-gray-200">Google Analytics Data</h2>
                         <pre className="bg-gray-100 p-4 rounded">{JSON.stringify(ga4Data, null, 2)}</pre>
                     </div>
                 )}

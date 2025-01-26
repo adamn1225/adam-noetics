@@ -111,8 +111,8 @@ const UserProfilePage = () => {
     return (
         <DashboardLayout>
             <div className="p-8 flex flex-col items-start">
-                <h1 className="text-2xl font-bold mb-4">Your Profile</h1>
-                <div className="bg-white p-4 rounded-lg shadow w-2/5">
+                <h1 className="text-2xl font-bold mb-4 dark:text-gray-200">Your Profile</h1>
+                <div className="bg-white dark:text-gray-200 dark:bg-gray-600 p-4 rounded-lg shadow w-2/5">
                     <div className="flex items-center mb-4">
                         {avatarUrl ? (
                             <Image
@@ -124,11 +124,11 @@ const UserProfilePage = () => {
                             />
                         ) : (
                             <div className="w-24 h-24 rounded-full bg-gray-200 mr-4 flex items-center justify-center">
-                                <span className="text-gray-500">No Avatar</span>
+                                <span className="text-gray-500 ">No Avatar</span>
                             </div>
                         )}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Upload Avatar</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Upload Avatar</label>
                             <div className="relative mt-1">
                                 <input
                                     type="file"
@@ -146,20 +146,20 @@ const UserProfilePage = () => {
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-semibold text-gray-700">Name</label>
-                        <p className="mt-1 text-gray-900">{profile.name}</p>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200">Name</label>
+                        <p className="mt-1 text-gray-900 dark:text-gray-50">{profile.name}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-semibold text-gray-700">Email</label>
-                        <p className="mt-1 text-gray-900">{profile.email}</p>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200">Email</label>
+                        <p className="mt-1 text-gray-900 dark:text-gray-50">{profile.email}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-semibold text-gray-700">Phone</label>
-                        <p className="mt-1 text-gray-900">{profile.phone || 'N/A'}</p>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200">Phone</label>
+                        <p className="mt-1 text-gray-900 dark:text-gray-50">{profile.phone || 'N/A'}</p>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-semibold text-gray-700">Company Name</label>
-                        <p className="mt-1 text-gray-900">{profile.company_name || 'N/A'}</p>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200">Company Name</label>
+                        <p className="mt-1 text-gray-900 dark:text-gray-50">{profile.company_name || 'N/A'}</p>
                     </div>
                     <div className="mb-4">
                         <h2 className="text-xl font-semibold underline">Team Members</h2>

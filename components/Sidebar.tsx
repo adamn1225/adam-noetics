@@ -5,6 +5,7 @@ import { Home, FileText, ClipboardList, BarChart, User, LogOut, List, Settings, 
 import { supabase } from '@lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -109,28 +110,34 @@ const Sidebar = () => {
           </li>
           {navItems.map((item) => (
             <li key={item.name} className="mb-2">
-              <a href={item.href} className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded">
-                <item.icon className="mr-2" />
-                <span className={`text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
-              </a>
+              <Link href={item.href} passHref legacyBehavior>
+                <a className="flex items-center p-2 text-sm font-medium hover:bg-gray-700 rounded">
+                  <item.icon className="mr-2" />
+                  <span className={`text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
+                </a>
+              </Link>
             </li>
           ))}
           {profile?.role === 'admin' && adminNavItems.map((item) => (
             <li key={item.name} className="mb-2">
-              <a href={item.href} className={`flex ${isCollapsed ? 'justify-center' : 'justify-normal'} items-center p-2 text-base font-medium hover:bg-gray-700 rounded`}>
-                <item.icon className="mr-2" />
-                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
-              </a>
+              <Link href={item.href} passHref legacyBehavior>
+                <a className={`flex ${isCollapsed ? 'justify-center' : 'justify-normal'} items-center p-2 text-base font-medium hover:bg-gray-700 rounded`}>
+                  <item.icon className="mr-2" />
+                  <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
         <div className="mb-20">
           <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
             <li className="mb-2">
-              <a href="/dashboard/settings" className="flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded">
-                <Settings className="mr-2" />
-                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Settings</span>
-              </a>
+              <Link href="/dashboard/settings" passHref legacyBehavior>
+                <a className="flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded">
+                  <Settings className="mr-2" />
+                  <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Settings</span>
+                </a>
+              </Link>
             </li>
             <li className="mb-2">
               <button onClick={handleLogout} className="flex items-center p-2 text-base font-medium hover:bg-gray-700 rounded w-full text-left">
