@@ -112,7 +112,7 @@ const UserProfilePage = () => {
         <DashboardLayout>
             <div className="p-8 flex flex-col items-start">
                 <h1 className="text-2xl font-bold mb-4 dark:text-gray-200">Your Profile</h1>
-                <div className="bg-white dark:text-gray-200 dark:bg-gray-600 p-4 rounded-lg shadow w-2/5">
+                <div className="bg-white w-fit dark:text-gray-200 dark:bg-gray-600 p-4 rounded-lg shadow md:w-2/5">
                     <div className="flex items-center mb-4">
                         {avatarUrl ? (
                             <Image
@@ -166,7 +166,7 @@ const UserProfilePage = () => {
                         <ul className="mt-2">
                             {teamMembers.length > 0 ? (
                                 teamMembers.map((member, index) => (
-                                    <li key={index} className="text-sm text-gray-900">
+                                    <li key={index} className="text-sm text-gray-900 dark:text-gray-200">
                                         {member.email} - {member.name}
                                     </li>
                                 ))

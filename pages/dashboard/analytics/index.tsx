@@ -127,19 +127,19 @@ const AdminAnalyticsPage = () => {
                                 onChange={(e) => setGoogleAnalyticsKey(e.target.value)}
                                 required
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                placeholder="Enter your Google Analytics API Key"
+                                placeholder="Your GA4 API Key"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowGoogleAnalyticsKey(!showGoogleAnalyticsKey)}
-                                className="absolute inset-y-0 right-0 top-1/3 pr-3 flex items-center text-gray-500"
+                                className="absolute inset-y-0 right-0 md:top-1/3 pr-3 flex items-center text-gray-500"
                             >
                                 {showGoogleAnalyticsKey ? <EyeOff /> : <Eye />}
                             </button>
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:text-gray-50"
+                            className="mt-4 bg-blue-600 text-nowrap text-sm md:text-normal hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:text-gray-50"
                         >
                             Integrate Google Analytics
                         </button>
@@ -159,19 +159,19 @@ const AdminAnalyticsPage = () => {
                                 onChange={(e) => setSemrushKey(e.target.value)}
                                 required
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                placeholder="Enter your SEMrush API Key"
+                                placeholder="Your SEMrush API Key"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowSemrushKey(!showSemrushKey)}
-                                className="absolute inset-y-0 right-0 top-1/3 pr-3 flex items-center text-gray-500"
+                                className="absolute inset-y-0 right-0 md:top-1/3 pr-3 flex items-center text-gray-500"
                             >
                                 {showSemrushKey ? <EyeOff /> : <Eye />}
                             </button>
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+                            className="mt-4 text-sm md:text-normal bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
                         >
                             Integrate SEMrush
                         </button>
@@ -191,19 +191,19 @@ const AdminAnalyticsPage = () => {
                                 onChange={(e) => setAhrefsKey(e.target.value)}
                                 required
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                placeholder="Enter your Ahrefs API Key"
+                                placeholder="Your Ahrefs API Key"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowAhrefsKey(!showAhrefsKey)}
-                                className="absolute inset-y-0 right-0 top-1/3 pr-3 flex items-center text-gray-500"
+                                className="absolute inset-y-0 right-0 md:top-1/3 pr-3 flex items-center text-gray-500"
                             >
                                 {showAhrefsKey ? <EyeOff /> : <Eye />}
                             </button>
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 text-sm md:text-normal bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Integrate Ahrefs
                         </button>
