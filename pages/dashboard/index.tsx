@@ -6,6 +6,7 @@ import withAuth from '@utils/withAuth';
 import DashboardLayout from './UserLayout';
 import OnboardingForm from '@components/OnboardingForm';
 import OnboardingFormReview from '@components/OnboardingFormReview';
+
 const DashboardPage = () => {
     const [userName, setUserName] = useState<string | null>(null);
     const [tasksInProgress, setTasksInProgress] = useState(0);
@@ -15,6 +16,33 @@ const DashboardPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isOnboardingCompleted, setIsOnboardingCompleted] = useState(false);
+    const [formData, setFormData] = useState<any>({
+        business_name: '',
+        business_description: '',
+        target_audience: '',
+        project_goals: '',
+        design_style: '',
+        branding_materials: '',
+        inspiration: '',
+        color_preferences: '',
+        features: '',
+        user_authentication: '',
+        content_management: '',
+        ecommerce_needs: '',
+        integrations: '',
+        content_ready: '',
+        page_count: '',
+        seo_assistance: '',
+        domain_info: '',
+        hosting_info: '',
+        maintenance_needs: '',
+        budget_range: '',
+        timeline: '',
+        analytics: '',
+        training: '',
+        additional_services: '',
+        other_info: ''
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -104,7 +132,7 @@ const DashboardPage = () => {
         fetchData();
     }, []);
 
-    const handleOnboardingComplete = async () => {
+    const handleOnboardingComplete = async (submittedFormData: any) => {
         try {
             const { data: authData, error: authError } = await supabase.auth.getUser();
             if (authError) {
@@ -126,6 +154,7 @@ const DashboardPage = () => {
             }
 
             setIsOnboardingCompleted(true);
+            setFormData(submittedFormData); // Set the submitted form data
         } catch (error: any) {
             setError(error.message);
         }
@@ -174,9 +203,9 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <div>
-                            <OnboardingFormReview formData={{}} onEdit={() => { }} />
-                        </div>
+
+                        <OnboardingFormReview formData={formData} onEdit={() => { }} />
+
 
                         {/* Analytics Section */}
                         <div className="bg-white w-2/3 h-96 p-4 rounded-lg shadow mt-6 flex items-center justify-center relative">

@@ -38,6 +38,7 @@ export type Database = {
           timeline: string | null
           training: string | null
           user_authentication: string | null
+          user_id: string | null
         }
         Insert: {
           additional_services?: string | null
@@ -67,6 +68,7 @@ export type Database = {
           timeline?: string | null
           training?: string | null
           user_authentication?: string | null
+          user_id?: string | null
         }
         Update: {
           additional_services?: string | null
@@ -96,8 +98,17 @@ export type Database = {
           timeline?: string | null
           training?: string | null
           user_authentication?: string | null
+          user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "client_project_plan_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
       }
       files: {
         Row: {

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import { v4 as uuidv4 } from 'uuid';
 
 interface OnboardingFormProps {
     onComplete: (formData: any) => void;
@@ -35,16 +34,12 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
         training: '',
         additional_services: '',
         other_info: '',
-        organization_id: ''
+        user_id: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
-    const [uploading, setUploading] = useState(false);
-    const [fileDescription, setFileDescription] = useState('');
-    const [files, setFiles] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -54,53 +49,10 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                 return;
             }
 
-            const { data: profile, error: profileError } = await supabase
-                .from('profiles')
-                .select('organization_id')
-                .eq('user_id', user.user.id)
-                .single();
-
-            if (profileError) {
-                setError('Failed to fetch profile');
-                return;
-            }
-
-            if (!profile.organization_id) {
-                // Create a new organization if the user doesn't have one
-                const { data: orgData, error: orgError } = await supabase
-                    .from('organizations')
-                    .insert([{ name: formData.business_name }])
-                    .select()
-                    .single();
-
-                if (orgError) {
-                    setError('Failed to create organization');
-                    return;
-                }
-
-                const organization_id = orgData.id;
-
-                // Update profile with organization_id
-                const { error: profileUpdateError } = await supabase
-                    .from('profiles')
-                    .update({ organization_id })
-                    .eq('user_id', user.user.id);
-
-                if (profileUpdateError) {
-                    setError('Failed to update profile with organization_id');
-                    return;
-                }
-
-                setFormData((prev) => ({
-                    ...prev,
-                    organization_id
-                }));
-            } else {
-                setFormData((prev) => ({
-                    ...prev,
-                    organization_id: profile.organization_id
-                }));
-            }
+            setFormData((prev) => ({
+                ...prev,
+                user_id: user.user.id
+            }));
         };
 
         fetchProfile();
@@ -114,110 +66,32 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
         }));
     };
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) {
-            const filesArray = Array.from(event.target.files);
-            uploadFiles(filesArray);
-        }
-    };
-
-    const uploadFiles = async (filesArray: globalThis.File[]) => {
-        setUploading(true);
-        try {
-            const { data: user, error: userError } = await supabase.auth.getUser();
-            if (userError || !user) {
-                throw new Error('User not authenticated');
-            }
-
-            for (const file of filesArray) {
-                const fileId = uuidv4();
-                const { data, error } = await supabase.storage
-                    .from('client-files')
-                    .upload(`public/${fileId}`, file);
-
-                if (error) {
-                    throw error;
-                }
-
-                const fileUrl = data?.path;
-                if (!fileUrl) {
-                    throw new Error('File upload failed, no path returned');
-                }
-
-                const { error: insertError } = await supabase.from('files').insert([
-                    {
-                        user_id: user.user.id,
-                        file_name: file.name,
-                        file_id: fileId,
-                        file_url: fileUrl,
-                        file_description: fileDescription,
-                    },
-                ]);
-
-                if (insertError) {
-                    throw insertError;
-                }
-            }
-
-            const { data: filesData, error: filesError } = await supabase
-                .from('files')
-                .select('*')
-                .eq('user_id', user.user.id);
-
-            if (filesError) {
-                throw new Error('Failed to fetch files');
-            }
-
-            const filesWithSignedUrls = await Promise.all(
-                filesData.map(async (file) => {
-                    const { data, error } = await supabase.storage
-                        .from('client-files')
-                        .createSignedUrl(`public/${file.file_id}`, 60);
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    return { ...file, signedURL: data.signedUrl };
-                })
-            );
-
-            setFiles(filesWithSignedUrls);
-        } catch (error: any) {
-            alert('Error uploading files: ' + error.message);
-        } finally {
-            setUploading(false);
-        }
-    };
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSuccessMessage('');
 
-        if (!formData.organization_id) {
-            alert('Organization ID is not set. Please try again.');
-            setIsSubmitting(false);
-            return;
-        }
-
         try {
             const { data: user, error: userError } = await supabase.auth.getUser();
             if (userError || !user) {
                 throw new Error('User not authenticated');
             }
 
-            const { error: formError } = await supabase.from('client_project_plan').insert([
-                { ...formData, organization_id: formData.organization_id }
-            ]);
+            console.log('Submitting form data:', formData); // Log the form data for debugging
+
+            const { data, error: formError } = await supabase.from('client_project_plan').insert([
+                formData
+            ]).select();
 
             if (formError) {
                 throw formError;
             }
 
+            const newRecord = data[0];
             setSuccessMessage('Your project plan has been successfully submitted!');
-            onComplete(formData);
+            onComplete(newRecord); // Pass the new record with the id to the onComplete handler
         } catch (error: any) {
+            console.error('Error submitting form:', error.message); // Log the error for debugging
             alert('There was an error submitting the form. Please try again.');
         } finally {
             setIsSubmitting(false);
@@ -310,28 +184,6 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                             value={formData.branding_materials}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                        />
-                        <div className="relative mt-2">
-                            <label className="block font-semibold text-gray-900 dark:text-white pb-2">Upload as many materials needed relevant to your project</label>
-                            <input
-                                type="file"
-                                multiple
-                                onChange={handleFileChange}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            />
-                            <button
-                                type="button"
-                                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Upload Files
-                            </button>
-                        </div>
-                        <textarea
-                            value={fileDescription}
-                            onChange={(e) => setFileDescription(e.target.value)}
-                            placeholder="File description"
-                            rows={2}
-                            className="shadow-sm mt-2 w-1/4 p-2 border border-gray-300 rounded bg-white dark:bg-gray-700 dark:text-white"
                         />
                     </div>
 
