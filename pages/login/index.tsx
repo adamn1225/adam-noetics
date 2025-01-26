@@ -12,6 +12,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isVerified, setIsVerified] = useState(true); // Add state to track verification status
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +51,12 @@ const LoginPage = () => {
         throw new Error("No profile data found");
       }
 
+      // Check if the user is verified
+      if (!authData.user || !authData.user.email_confirmed_at) {
+        setIsVerified(false);
+        throw new Error("Please verify your email to continue.");
+      }
+
       console.log("Profile data found, redirecting...");
       // Redirect based on user role
       if (profileData.role === "admin") {
@@ -60,6 +67,27 @@ const LoginPage = () => {
     } catch (err: any) {
       console.error("Login failed:", err);
       setError(err.message || "Failed to log in");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const { error } = await supabase.auth.resend({
+        type: "signup", // Add the type property
+        email,
+      });
+
+      if (error) throw error;
+
+      setError("Verification email resent. Please check your inbox.");
+    } catch (err: any) {
+      console.error("Resend verification failed:", err);
+      setError(err.message || "Failed to resend verification email");
     } finally {
       setLoading(false);
     }
@@ -142,6 +170,19 @@ const LoginPage = () => {
               <div className="arrow"></div>
             </div>
           </button>
+          {!isVerified && (
+            <div className="mt-4 text-center">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Didn't receive the verification email?</p>
+              <button
+                type="button"
+                onClick={handleResendVerification}
+                disabled={loading}
+                className="text-blue-600 hover:underline"
+              >
+                Resend Verification Email
+              </button>
+            </div>
+          )}
           <div className="mt-6">
             <button
               onClick={handleGoogleLogin}
