@@ -107,6 +107,7 @@ const PublicOnboardingForm: React.FC = () => {
                     to: 'your-email@example.com',
                     subject: 'New Project Plan Submission',
                     text: emailText,
+                    userEmail: formData.email,
                 }),
             });
 

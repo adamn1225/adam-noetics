@@ -116,6 +116,36 @@ export type Database = {
           },
         ]
       }
+      clients: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: number
+          message: string | null
+          name: string
+          phone: string | null
+          service: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: number
+          message?: string | null
+          name: string
+          phone?: string | null
+          service?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: number
+          message?: string | null
+          name?: string
+          phone?: string | null
+          service?: string | null
+        }
+        Relationships: []
+      }
       files: {
         Row: {
           category: string | null

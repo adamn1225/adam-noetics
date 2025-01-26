@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../motionConfig";
+import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 
 const CallToActionSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +33,16 @@ const CallToActionSection = () => {
     setSuccess(false);
 
     try {
+      const { data, error } = await supabase.from("clients").insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+      ]);
+
+      if (error) throw error;
+
       // Send email notification
       const emailText = `
         New contact form submission:
