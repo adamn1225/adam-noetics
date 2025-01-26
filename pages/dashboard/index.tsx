@@ -175,8 +175,8 @@ const DashboardPage = () => {
                     <OnboardingForm onComplete={handleOnboardingComplete} />
                 ) : (
                     <>
-                        <h1 className="text-2xl font-bold mb-4">Welcome {userName} to Your Dashboard</h1>
-                        <p className="text-gray-700">
+                        <h1 className="text-2xl font-bold mb-4 dark:text-white">Welcome {userName} to Your Dashboard</h1>
+                        <p className="text-gray-700 dark:text-white">
                             Here you can manage your tasks, upload files, and track the progress of your projects.
                         </p>
 
@@ -203,12 +203,10 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-
                         <OnboardingFormReview formData={formData} onEdit={() => { }} />
 
-
                         {/* Analytics Section */}
-                        <div className="bg-white w-2/3 h-96 p-4 rounded-lg shadow mt-6 flex items-center justify-center relative">
+                        <div className="bg-white w-full md:w-2/3 h-96 p-4 rounded-lg shadow mt-6 flex items-center justify-center relative">
                             <div className="absolute inset-0 bg-gray-200 opacity-50 flex items-center justify-center">
                                 <p className="text-gray-900 font-semibold">Integrate your analytic tools to see your data here</p>
                             </div>
