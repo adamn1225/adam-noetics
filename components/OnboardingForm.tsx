@@ -34,7 +34,9 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
         training: '',
         additional_services: '',
         other_info: '',
-        user_id: ''
+        user_id: '',
+        current_website: false,
+        website_name: ''
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,10 +61,11 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
+        const checked = (e.target as HTMLInputElement).checked;
         setFormData((prev) => ({
             ...prev,
-            [name]: value
+            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
@@ -103,13 +106,55 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
             <div className="w-[70vw] h-fit mx-auto p-8 bg-white mt-12 mb-12 dark:bg-gray-700 rounded shadow">
                 {successMessage && <p className="text-green-600 dark:text-green-400 mb-4">{successMessage}</p>}
                 <form onSubmit={handleSubmit} className="space-y-2 w-full mt-12 mb-4">
-                    <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Client Project Plan</h1>
+                    <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Your Project Plan</h1>
+                    <h3 className="text-lg font-bold mt-6 text-gray-700 dark:text-white">
+                        Complete this form before entering your dashboard</h3>
                     <div className='flex flex-col gap-1 pt-8'>
                         <span className='font-extrabold text-xl underline underline-offset-4 dark:text-white'>Important: </span>
                         <h2 className='text-base font-semibold mb-2 text-gray-900 dark:text-white italic underline underline-offset-2'>
                             Make sure to fill out all fields to the best of your ability. The more information we have, the better your dream outcome will be!
                         </h2>
                     </div>
+                    <div>
+                        <label className="block font-semibold text-gray-900 dark:text-white">Do you have a website?</label>
+                        <div className="flex items-center">
+                            <input
+                                type="radio"
+                                id="current_website_yes"
+                                name="current_website"
+                                value="true"
+                                checked={formData.current_website === true}
+                                onChange={() => setFormData((prev) => ({ ...prev, current_website: true }))}
+                                className="mr-2"
+                            />
+                            <label htmlFor="current_website_yes" className="mr-4 text-gray-900 dark:text-white">Yes</label>
+                            <input
+                                type="radio"
+                                id="current_website_no"
+                                name="current_website"
+                                value="false"
+                                checked={formData.current_website === false}
+                                onChange={() => setFormData((prev) => ({ ...prev, current_website: false, website_name: '' }))}
+                                className="mr-2"
+                            />
+                            <label htmlFor="current_website_no" className="text-gray-900 dark:text-white">No</label>
+                        </div>
+                    </div>
+
+                    {formData.current_website && (
+                        <div>
+                            <label htmlFor="website_name" className="block font-semibold text-gray-900 dark:text-white">Website Domain Name</label>
+                            <input
+                                type="text"
+                                id="website_name"
+                                name="website_name"
+                                placeholder='e.g., www.example.com'
+                                value={formData.website_name}
+                                onChange={handleChange}
+                                className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                            />
+                        </div>
+                    )}
                     <div className='mt-4'>
                         <label htmlFor="business_name" className="block font-semibold mt-4 text-gray-900 dark:text-white">Business Name</label>
                         <input
@@ -192,7 +237,7 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                         <textarea
                             id="inspiration"
                             name="inspiration"
-                            placeholder='List some websites (comma seperated)'
+                            placeholder='List some websites (comma separated)'
                             value={formData.inspiration}
                             onChange={handleChange}
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
@@ -225,6 +270,8 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                             className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         />
                     </div>
+
+
 
                     <div>
                         <label htmlFor="other_info" className="block font-semibold text-gray-900 dark:text-white">Other Information</label>

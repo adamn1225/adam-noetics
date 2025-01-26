@@ -21,6 +21,7 @@ export type Database = {
           content_management: string | null
           content_ready: string | null
           created_at: string | null
+          current_website: boolean | null
           design_style: string | null
           domain_info: string | null
           ecommerce_needs: string | null
@@ -39,6 +40,7 @@ export type Database = {
           training: string | null
           user_authentication: string | null
           user_id: string | null
+          website_name: string | null
         }
         Insert: {
           additional_services?: string | null
@@ -51,6 +53,7 @@ export type Database = {
           content_management?: string | null
           content_ready?: string | null
           created_at?: string | null
+          current_website?: boolean | null
           design_style?: string | null
           domain_info?: string | null
           ecommerce_needs?: string | null
@@ -69,6 +72,7 @@ export type Database = {
           training?: string | null
           user_authentication?: string | null
           user_id?: string | null
+          website_name?: string | null
         }
         Update: {
           additional_services?: string | null
@@ -81,6 +85,7 @@ export type Database = {
           content_management?: string | null
           content_ready?: string | null
           created_at?: string | null
+          current_website?: boolean | null
           design_style?: string | null
           domain_info?: string | null
           ecommerce_needs?: string | null
@@ -99,6 +104,7 @@ export type Database = {
           training?: string | null
           user_authentication?: string | null
           user_id?: string | null
+          website_name?: string | null
         }
         Relationships: [
           {

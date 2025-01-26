@@ -11,10 +11,11 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
     const [updatedFormData, setUpdatedFormData] = useState(formData);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
+        const checked = (e.target as HTMLInputElement).checked;
         setUpdatedFormData((prev: typeof formData) => ({
             ...prev,
-            [name]: value
+            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
@@ -161,6 +162,47 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                             />
                         </div>
 
+                        <div>
+                            <label className="block font-semibold text-gray-900 dark:text-white">Do you have a website?</label>
+                            <div className="flex items-center">
+                                <input
+                                    type="radio"
+                                    id="current_website_yes"
+                                    name="current_website"
+                                    value="true"
+                                    checked={updatedFormData.current_website === true}
+                                    onChange={() => setUpdatedFormData((prev: typeof formData) => ({ ...prev, current_website: true }))}
+                                    className="mr-2"
+                                />
+                                <label htmlFor="current_website_yes" className="mr-4 text-gray-900 dark:text-white">Yes</label>
+                                <input
+                                    type="radio"
+                                    id="current_website_no"
+                                    name="current_website"
+                                    value="false"
+                                    checked={updatedFormData.current_website === false}
+                                    onChange={() => setUpdatedFormData((prev: typeof formData) => ({ ...prev, current_website: false, website_name: '' }))}
+                                    className="mr-2"
+                                />
+                                <label htmlFor="current_website_no" className="text-gray-900 dark:text-white">No</label>
+                            </div>
+                        </div>
+
+                        {updatedFormData.current_website && (
+                            <div>
+                                <label htmlFor="website_name" className="block font-semibold text-gray-900 dark:text-white">Website Domain Name</label>
+                                <input
+                                    type="text"
+                                    id="website_name"
+                                    name="website_name"
+                                    placeholder='e.g., www.example.com'
+                                    value={updatedFormData.website_name}
+                                    onChange={handleChange}
+                                    className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                                />
+                            </div>
+                        )}
+
                         {/* Additional Information */}
                         <div>
                             <label htmlFor="other_info" className="block font-semibold text-gray-900 dark:text-white">Other Information</label>
@@ -213,6 +255,16 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Ideal Timeline</h2>
                         <p className="text-gray-700 dark:text-gray-300">{formData.timeline}</p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Do you have a website?</h2>
+                        <p className="text-gray-700 dark:text-gray-300">{formData.current_website ? 'Yes' : 'No'}</p>
+
+                        {formData.current_website && (
+                            <>
+                                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Website Domain Name</h2>
+                                <p className="text-gray-700 dark:text-gray-300">{formData.website_name}</p>
+                            </>
+                        )}
 
                         {/* Additional Information */}
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Other Information</h2>
