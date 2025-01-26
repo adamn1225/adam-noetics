@@ -237,7 +237,7 @@ const FilesPage = () => {
     return (
         <DashboardLayout>
             <div className="p-4 md:p-8">
-                <h1 className="text-2xl font-bold mb-4 dark:text-white">Upload Files</h1>
+                <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Upload Files</h1>
                 <input
                     type="file"
                     multiple
@@ -260,12 +260,12 @@ const FilesPage = () => {
                 </button>
                 <div className="mt-8">
                     <div className="mb-4">
-                        <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-white">Category</label>
+                        <label htmlFor="category" className="block text-sm font-medium text-gray-900 dark:text-white">Category</label>
                         <select
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            className="mt-1 block w-full p-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         >
                             <option value="all">All</option>
                             <option value="favorites">Favorites</option>
@@ -277,9 +277,9 @@ const FilesPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredFiles.map((file) => (
                             <div key={file.file_id} className="border bg-white p-4 rounded shadow">
-                                <h2 className="text-lg font-bold truncate">{file.file_name}</h2>
-                                <p className="text-sm text-gray-600">{file.file_description}</p>
-                                <p className="text-sm text-gray-600">{new Date(file.created_at!).toLocaleDateString()}</p>
+                                <h2 className="text-lg font-bold truncate text-gray-900">{file.file_name}</h2>
+                                <p className="text-sm text-gray-900">{file.file_description}</p>
+                                <p className="text-sm text-gray-900">{new Date(file.created_at!).toLocaleDateString()}</p>
                                 <div className='flex justify-between items-center mt-4'>
                                     <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                                         View File

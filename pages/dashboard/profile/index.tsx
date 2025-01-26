@@ -111,7 +111,7 @@ const UserProfilePage = () => {
     return (
         <DashboardLayout>
             <div className="p-8 flex flex-col items-start">
-                <h1 className="text-2xl font-bold mb-4 dark:text-gray-200">Your Profile</h1>
+                <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-200">Your Profile</h1>
                 <div className="bg-white w-fit dark:text-gray-200 dark:bg-gray-600 p-4 rounded-lg shadow md:w-2/5">
                     <div className="flex items-center mb-4">
                         {avatarUrl ? (
@@ -162,7 +162,7 @@ const UserProfilePage = () => {
                         <p className="mt-1 text-gray-900 dark:text-gray-50">{profile.company_name || 'N/A'}</p>
                     </div>
                     <div className="mb-4">
-                        <h2 className="text-xl font-semibold underline">Team Members</h2>
+                        <h2 className="text-xl font-semibold underline text-gray-900 dark:text-gray-50">Team Members</h2>
                         <ul className="mt-2">
                             {teamMembers.length > 0 ? (
                                 teamMembers.map((member, index) => (
@@ -183,5 +183,4 @@ const UserProfilePage = () => {
     );
 };
 
-const WrappedUserProfilePage = withAuth(UserProfilePage);
-export default WrappedUserProfilePage;
+export default UserProfilePage;
