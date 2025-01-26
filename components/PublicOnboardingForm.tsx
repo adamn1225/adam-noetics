@@ -106,7 +106,7 @@ const PublicOnboardingForm: React.FC = () => {
             await fetch('/.netlify/functions/sendEmail', {
                 method: 'POST',
                 body: JSON.stringify({
-                    to: 'your-email@example.com',
+                    to: 'noah@noetics.io',
                     subject: 'New Project Plan Submission',
                     text: emailText,
                     userEmail: formData.email,
@@ -124,6 +124,22 @@ const PublicOnboardingForm: React.FC = () => {
 
                 if (inviteError) {
                     throw inviteError;
+                }
+
+                // Update the profile to set onboarding_completed to true
+                const { data: authData, error: authError } = await supabase.auth.getUser();
+                if (authError || !authData.user) {
+                    throw new Error('User not authenticated');
+                }
+
+                const userId = authData.user.id;
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .update({ onboarding_completed: true })
+                    .eq('user_id', userId);
+
+                if (profileError) {
+                    throw profileError;
                 }
 
                 alert('Account creation link sent to your email.');

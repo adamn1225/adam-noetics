@@ -36,7 +36,8 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
         other_info: '',
         user_id: '',
         current_website: false,
-        website_name: ''
+        website_name: '',
+        service_type: '', // Add service_type to formData
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -271,7 +272,23 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
                         />
                     </div>
 
-
+                    <div>
+                        <label htmlFor="service_type" className="block font-semibold text-gray-900 dark:text-white">Service Type</label>
+                        <select
+                            id="service_type"
+                            name="service_type"
+                            value={formData.service_type}
+                            onChange={handleChange}
+                            className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                            required
+                        >
+                            <option value="" disabled>Select a service</option>
+                            <option value="web_app">Custom Web App or Web Site Development</option>
+                            <option value="web_scraping">Web Scraping</option>
+                            <option value="chrome_extensions">Chrome Extensions</option>
+                            <option value="custom_tools">Custom Tools (Automations, calculators, directories, ticket support systems, etc)</option>
+                        </select>
+                    </div>
 
                     <div>
                         <label htmlFor="other_info" className="block font-semibold text-gray-900 dark:text-white">Other Information</label>
