@@ -64,7 +64,7 @@ const HeroSection = () => {
             await fetch(functionUrl, {
                 method: 'POST',
                 body: JSON.stringify({
-                    to: 'your-email@example.com',
+                    to: 'noah@noetics.io',
                     subject: 'New Contact Form Submission',
                     text: emailText,
                     userEmail: formData.email,
