@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { fadeInUp } from "../motionConfig";
+import Image from "next/image";
 
 const PortfolioSection = () => {
   return (
@@ -11,17 +12,21 @@ const PortfolioSection = () => {
             {
               title: "Property Management App",
               desc: "A custom platform to manage listings and bookings.",
+              imgSrc: "/lp-modal.png",
             },
             {
               title: "Shipper’s Portal",
               desc: "Integrated with a TMS for logistics management.",
+              imgSrc: "/shipper-connect.png",
             },
             {
               title: "Chrome Extensions",
               desc: "Custom extensions for enhanced productivity",
+              imgSrc: "/chrome-ext.png",
             },
           ].map((project, idx) => (
             <div key={idx} className="bg-gray-100 dark:bg-gray-700 p-6 shadow rounded-lg">
+              <Image src={project.imgSrc} alt={project.title} width={500} height={300} className="mb-4 rounded-lg" />
               <h3 className="text-xl font-bold mb-4 dark:text-white">{project.title}</h3>
               <p className="text-gray-700 dark:text-gray-300">{project.desc}</p>
             </div>

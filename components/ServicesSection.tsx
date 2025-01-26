@@ -10,33 +10,33 @@ const ServicesSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              title: "Custom Web Apps",
+              title: "Noetic Web Apps",
               desc: "Feature-rich platforms tailored to your needs.",
-              list: ["Feature 1", "Feature 2", "Feature 3"],
+              list: ["Intuitive Interfaces", "Scalable Architecture", "Custom Features"],
               link: `/landing/noetic-web-apps`,
             },
             {
-              title: "Automation",
+              title: "Noetic Automation",
               desc: "Streamline workflows and eliminate repetitive tasks.",
-              list: ["Feature 1", "Feature 2", "Feature 3"],
+              list: ["Workflow Automation", "Task Scheduling", "Custom Triggers"],
               link: `/landing/noetic-automation`,
             },
             {
               title: "Custom Tools",
               desc: "Build calculators, directories, ticket support systems, and more.",
-              list: ["Feature 1", "Feature 2", "Feature 3"],
+              list: ["Support Systems", "Data Visualization", "Custom Calculators"],
               link: `/landing/noetic-custom-tools`,
             },
             {
               title: "API Integrations",
               desc: "Seamlessly connect systems for efficient workflows.",
-              list: ["Feature 1", "Feature 2", "Feature 3"],
+              list: ["Third-Party/Develop APIs", "Real-Time Sync", "Secure Connections"],
               link: `/landing/noetic-api-integrations`,
             },
             {
               title: "Web Scraping",
               desc: "Gather data automatically for actionable insights.",
-              list: ["Feature 1", "Feature 2", "Feature 3"],
+              list: ["Data Extraction", "Automated Scraping", "Real-Time Monitoring"],
               link: `/landing/noetic-web-scraping`,
             },
             {
