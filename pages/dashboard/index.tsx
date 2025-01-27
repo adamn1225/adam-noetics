@@ -145,13 +145,49 @@ const DashboardPage = () => {
                 throw new Error('User ID not found');
             }
 
-            const { error } = await supabase
+            // Update profile with onboarding_completed
+            const { error: profileError } = await supabase
                 .from('profiles')
                 .update({ onboarding_completed: true })
                 .eq('user_id', userId);
 
-            if (error) {
-                throw error;
+            if (profileError) {
+                throw profileError;
+            }
+
+            // Update organization_members with organization_name
+            const { data: profileData, error: profileFetchError } = await supabase
+                .from('profiles')
+                .select('organization_id')
+                .eq('user_id', userId)
+                .single();
+
+            if (profileFetchError) {
+                throw profileFetchError;
+            }
+
+            const organizationId = profileData.organization_id;
+
+            const { data: orgData, error: orgError } = await supabase
+                .from('organizations')
+                .select('name')
+                .eq('id', organizationId)
+                .single();
+
+            if (orgError) {
+                throw orgError;
+            }
+
+            const organizationName = orgData.name;
+
+            const { error: memberError } = await supabase
+                .from('organization_members')
+                .update({ organization_name: organizationName })
+                .eq('organization_id', organizationId)
+                .eq('user_id', userId);
+
+            if (memberError) {
+                throw memberError;
             }
 
             setIsOnboardingCompleted(true);

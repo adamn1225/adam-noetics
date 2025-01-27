@@ -6,25 +6,52 @@ import { Database } from '@lib/database.types';
 import AdminLayout from '../../AdminLayout';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
+type Organization = Database['public']['Tables']['organizations']['Row'];
+type OrganizationMember = Database['public']['Tables']['organization_members']['Row'];
 
 const AdminClientsPage = () => {
     const [clients, setClients] = useState<Profile[]>([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
+    const [organizationMembers, setOrganizationMembers] = useState<OrganizationMember[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchClients = async () => {
+        const fetchData = async () => {
             try {
-                const { data, error } = await supabase
+                // Fetch clients
+                const { data: clientsData, error: clientsError } = await supabase
                     .from('profiles')
                     .select('*')
                     .eq('role', 'client');
 
-                if (error) {
-                    throw error;
+                if (clientsError) {
+                    throw clientsError;
                 }
 
-                setClients(data || []);
+                setClients(clientsData || []);
+
+                // Fetch organizations
+                const { data: organizationsData, error: organizationsError } = await supabase
+                    .from('organizations')
+                    .select('*');
+
+                if (organizationsError) {
+                    throw organizationsError;
+                }
+
+                setOrganizations(organizationsData || []);
+
+                // Fetch organization members
+                const { data: organizationMembersData, error: organizationMembersError } = await supabase
+                    .from('organization_members')
+                    .select('*');
+
+                if (organizationMembersError) {
+                    throw organizationMembersError;
+                }
+
+                setOrganizationMembers(organizationMembersData || []);
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -32,7 +59,7 @@ const AdminClientsPage = () => {
             }
         };
 
-        fetchClients();
+        fetchData();
     }, []);
 
     if (loading) {
@@ -55,18 +82,25 @@ const AdminClientsPage = () => {
                             <th className="py-2 px-4 border-b">Phone</th>
                             <th className="py-2 px-4 border-b">Company</th>
                             <th className="py-2 px-4 border-b">Role</th>
+                            <th className="py-2 px-4 border-b">Organization</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {clients.map((client) => (
-                            <tr key={client.id}>
-                                <td className="py-2 px-4 border-b text-center">{client.name}</td>
-                                <td className="py-2 px-4 border-b text-center">{client.email}</td>
-                                <td className="py-2 px-4 border-b text-center">{client.phone}</td>
-                                <td className="py-2 px-4 border-b text-center">{client.company_name}</td>
-                                <td className="py-2 px-4 border-b text-center">{client.role}</td>
-                            </tr>
-                        ))}
+                        {clients.map((client) => {
+                            const organizationMember = organizationMembers.find(member => member.user_id === client.user_id);
+                            const organization = organizations.find(org => org.id === organizationMember?.organization_id);
+
+                            return (
+                                <tr key={client.id}>
+                                    <td className="py-2 px-4 border-b text-center">{client.name}</td>
+                                    <td className="py-2 px-4 border-b text-center">{client.email}</td>
+                                    <td className="py-2 px-4 border-b text-center">{client.phone}</td>
+                                    <td className="py-2 px-4 border-b text-center">{client.company_name}</td>
+                                    <td className="py-2 px-4 border-b text-center">{client.role}</td>
+                                    <td className="py-2 px-4 border-b text-center">{organization?.name || 'N/A'}</td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

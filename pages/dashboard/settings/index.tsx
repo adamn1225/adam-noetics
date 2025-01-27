@@ -22,7 +22,7 @@ const SettingsPage = () => {
                 const { data: profile, error: profileError } = await supabase
                     .from('profiles')
                     .select('*')
-                    .eq('id', user.id)
+                    .eq('user_id', user.id)
                     .single();
 
                 if (profileError) throw profileError;
@@ -66,7 +66,7 @@ const SettingsPage = () => {
             const { error: memberError } = await supabase
                 .from('organization_members')
                 .insert([
-                    { organization_id: profile.organization_id, user_id: user.id, role: 'member' }
+                    { organization_id: profile.organization_id, user_id: user.id, role: 'member', organization_name: profile.organization_name }
                 ]);
 
             if (memberError) throw memberError;

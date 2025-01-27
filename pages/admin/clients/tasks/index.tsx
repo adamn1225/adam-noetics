@@ -2,13 +2,12 @@
 "use client";
 import React from 'react';
 import AdminTasksPage from '../../components/AdminTasksPage';
-import AdminLayout from '../../AdminLayout';
 
 const Page = () => {
     return (
-        <AdminLayout>
+        <>
             <AdminTasksPage />
-        </AdminLayout>
+        </>
     );
 };
 

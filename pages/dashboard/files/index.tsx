@@ -44,7 +44,7 @@ const FilesPage = () => {
                 const { data: filesData, error: filesError } = await supabase
                     .from('files')
                     .select('*')
-                    .eq('user_id', profileData.id);
+                    .eq('organization_id', profileData.organization_id);
 
                 if (filesError) {
                     throw new Error('Failed to fetch files');
@@ -144,7 +144,7 @@ const FilesPage = () => {
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
-                .eq('user_id', profileData.id);
+                .eq('organization_id', profileData.organization_id);
 
             if (filesError) {
                 throw new Error('Failed to fetch files');
@@ -202,7 +202,7 @@ const FilesPage = () => {
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
-                .eq('user_id', profileData.id);
+                .eq('organization_id', profileData.organization_id);
 
             if (filesError) {
                 throw new Error('Failed to fetch files');
