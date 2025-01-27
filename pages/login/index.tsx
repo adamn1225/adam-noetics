@@ -60,7 +60,7 @@ const LoginPage = () => {
       console.log("Profile data found, redirecting...");
       // Redirect based on user role
       if (profileData.role === "admin") {
-        router.push("/admin/clients/admindash");
+        router.push("/admin");
       } else {
         router.push("/dashboard");
       }
