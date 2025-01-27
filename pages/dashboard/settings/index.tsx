@@ -109,7 +109,7 @@ const SettingsPage = () => {
     };
 
     return (
-        <DashboardLayout>
+        <>
             <div className="container mx-auto pt-4 pb-8">
                 <h1 className="text-3xl font-semibold mt-8 text-gray-900 dark:text-white">Settings</h1>
                 {loading && <p>Loading...</p>}
@@ -247,8 +247,9 @@ const SettingsPage = () => {
                     </div>
                 </div>
             )}
-        </DashboardLayout>
+        </>
     );
 };
 
+SettingsPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
 export default SettingsPage;

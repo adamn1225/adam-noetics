@@ -1,8 +1,6 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import withAuth from '@utils/withAuth';
 import DashboardLayout from './UserLayout';
 import OnboardingForm from '@components/OnboardingForm';
 import OnboardingFormReview from '@components/OnboardingFormReview';
@@ -218,65 +216,64 @@ const DashboardPage = () => {
     }
 
     return (
-        <DashboardLayout>
-            <div className="p-2">
-                {!isOnboardingCompleted ? (
-                    <OnboardingForm onComplete={handleOnboardingComplete} />
-                ) : (
-                    <>
-                        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Welcome {userName} to Your Dashboard</h1>
-                        <p className="text-gray-700 dark:text-white">
-                            Here you can manage your tasks, upload files, and track the progress of your projects.
-                        </p>
+        <div className="p-2">
+            {!isOnboardingCompleted ? (
+                <OnboardingForm onComplete={handleOnboardingComplete} />
+            ) : (
+                <>
+                    <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Welcome {userName} to Your Dashboard</h1>
+                    <p className="text-gray-700 dark:text-white">
+                        Here you can manage your tasks, upload files, and track the progress of your projects.
+                    </p>
 
-                        {/* Summary Boxes */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                            <div className="bg-white p-4 rounded-lg shadow">
-                                <h2 className="text-lg font-bold">Tasks</h2>
-                                <p className="text-sm text-gray-600">
-                                    <span className="inline-block w-4 h-4 rounded-full bg-blue-500 mr-2"></span>
-                                    {tasksInProgress} tasks in progress
-                                </p>
-                                <p className="text-sm text-gray-600">
-                                    <span className="inline-block w-4 h-4 rounded-full bg-yellow-500 mr-2"></span>
-                                    {tasksPending} tasks pending
-                                </p>
-                                <p className="text-sm text-gray-600">
-                                    <span className="inline-block w-4 h-4 rounded-full bg-green-500 mr-2"></span>
-                                    {tasksCompleted} tasks completed
-                                </p>
+                    {/* Summary Boxes */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                        <div className="bg-white p-4 rounded-lg shadow">
+                            <h2 className="text-lg font-bold">Tasks</h2>
+                            <p className="text-sm text-gray-600">
+                                <span className="inline-block w-4 h-4 rounded-full bg-blue-500 mr-2"></span>
+                                {tasksInProgress} tasks in progress
+                            </p>
+                            <p className="text-sm text-gray-600">
+                                <span className="inline-block w-4 h-4 rounded-full bg-yellow-500 mr-2"></span>
+                                {tasksPending} tasks pending
+                            </p>
+                            <p className="text-sm text-gray-600">
+                                <span className="inline-block w-4 h-4 rounded-full bg-green-500 mr-2"></span>
+                                {tasksCompleted} tasks completed
+                            </p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow">
+                            <h2 className="text-lg font-bold">Files</h2>
+                            <p className="text-sm text-gray-600">{filesUploaded} files uploaded</p>
+                        </div>
+                    </div>
+
+                    <OnboardingFormReview formData={formData} onEdit={() => { }} />
+
+                    {/* Analytics Section */}
+                    <div className='flex justify-center items-center w-full'>
+                        <div className="bg-white w-full md:w-2/3 h-96 p-4 rounded-lg shadow mt-6 flex items-center justify-center relative">
+                            <div className="absolute inset-0 bg-gray-200 opacity-50 flex items-center justify-center">
+                                <p className="text-gray-900 font-semibold text-center">Integrate your analytic tools to see your data here</p>
                             </div>
-                            <div className="bg-white p-4 rounded-lg shadow">
-                                <h2 className="text-lg font-bold">Files</h2>
-                                <p className="text-sm text-gray-600">{filesUploaded} files uploaded</p>
+                            <div className="opacity-25">
+                                {/* Placeholder for the empty graph */}
+                                <svg className="w-full h-64" viewBox="0 0 100 100">
+                                    <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" strokeWidth="2" />
+                                    <polyline points="10,90 30,70 50,80 70,50 90,60" fill="none" stroke="currentColor" strokeWidth="2" />
+                                    <line x1="10" y1="90" x2="90" y2="90" stroke="currentColor" strokeWidth="2" />
+                                    <line x1="10" y1="10" x2="10" y2="90" stroke="currentColor" strokeWidth="2" />
+                                </svg>
                             </div>
                         </div>
-
-                        <OnboardingFormReview formData={formData} onEdit={() => { }} />
-
-                        {/* Analytics Section */}
-                        <div className='flex justify-center items-center w-full'>
-                            <div className="bg-white w-full md:w-2/3 h-96 p-4 rounded-lg shadow mt-6 flex items-center justify-center relative">
-                                <div className="absolute inset-0 bg-gray-200 opacity-50 flex items-center justify-center">
-                                    <p className="text-gray-900 font-semibold text-center">Integrate your analytic tools to see your data here</p>
-                                </div>
-                                <div className="opacity-25">
-                                    {/* Placeholder for the empty graph */}
-                                    <svg className="w-full h-64" viewBox="0 0 100 100">
-                                        <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        <polyline points="10,90 30,70 50,80 70,50 90,60" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        <line x1="10" y1="90" x2="90" y2="90" stroke="currentColor" strokeWidth="2" />
-                                        <line x1="10" y1="10" x2="10" y2="90" stroke="currentColor" strokeWidth="2" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
-        </DashboardLayout>
+                    </div>
+                </>
+            )}
+        </div>
     );
 };
 
-const WrappedDashboardPage = withAuth(DashboardPage);
-export default WrappedDashboardPage;
+DashboardPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
+
+export default DashboardPage;

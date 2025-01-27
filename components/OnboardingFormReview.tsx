@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 
 interface OnboardingFormReviewProps {
@@ -9,6 +9,33 @@ interface OnboardingFormReviewProps {
 const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, onEdit }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [updatedFormData, setUpdatedFormData] = useState(formData);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data: user, error: userError } = await supabase.auth.getUser();
+                if (userError || !user) {
+                    throw new Error('User not authenticated');
+                }
+
+                const { data, error } = await supabase
+                    .from('client_project_plan')
+                    .select('*')
+                    .eq('user_id', user.user.id)
+                    .single();
+
+                if (error) {
+                    throw error;
+                }
+
+                setUpdatedFormData(data);
+            } catch (error: any) {
+                console.error('Error fetching form data:', error.message);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;

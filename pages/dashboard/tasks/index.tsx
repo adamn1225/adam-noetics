@@ -145,7 +145,7 @@ const TasksPage = () => {
     const taskRequests = tasks.filter(task => task.is_request);
 
     return (
-        <DashboardLayout>
+        <>
             <div className='px-4 py-6 md:px-8 md:py-12'>
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">Project Tasks</h1>
                 <div className='container mx-auto'>
@@ -284,8 +284,9 @@ const TasksPage = () => {
                     </div>
                 </div>
             </div>
-        </DashboardLayout>
+        </>
     );
 };
 
+TasksPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
 export default TasksPage;
