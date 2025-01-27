@@ -70,96 +70,10 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                                 name="business_description"
                                 value={updatedFormData.business_description}
                                 onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                                className="w-full p-2 border rounded bg-gray-50  text-gray-800 dark:bg-gray-700 dark:text-white"
                                 rows={3}
                                 required
                             ></textarea>
-                        </div>
-
-                        <div>
-                            <label htmlFor="target_audience" className="block font-semibold text-gray-900 dark:text-white">Target Audience</label>
-                            <input
-                                id="target_audience"
-                                name="target_audience"
-                                value={updatedFormData.target_audience}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                                required
-                            ></input>
-                        </div>
-
-                        {/* Project Details */}
-                        <div>
-                            <label htmlFor="project_goals" className="block font-semibold text-gray-900 dark:text-white">Project Goals</label>
-                            <textarea
-                                id="project_goals"
-                                name="project_goals"
-                                value={updatedFormData.project_goals}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                                rows={2}
-                                required
-                            ></textarea>
-                        </div>
-
-                        <div>
-                            <label htmlFor="design_style" className="block font-semibold text-gray-900 dark:text-white">Preferred Design Style</label>
-                            <textarea
-                                id="design_style"
-                                name="design_style"
-                                value={updatedFormData.design_style}
-                                onChange={handleChange}
-                                rows={2}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="branding_materials" className="block font-semibold text-gray-900 dark:text-white">Do you have branding materials? (If no, what are you missing?)</label>
-                            <textarea
-                                id="branding_materials"
-                                name="branding_materials"
-                                value={updatedFormData.branding_materials}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="inspiration" className="block font-semibold text-gray-900 dark:text-white">Websites/Apps You Like (Inspiration)</label>
-                            <textarea
-                                id="inspiration"
-                                name="inspiration"
-                                value={updatedFormData.inspiration}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                                rows={1}
-                            ></textarea>
-                        </div>
-
-                        {/* Budget and Timeline */}
-                        <div>
-                            <label htmlFor="budget_range" className="block font-semibold text-gray-900 dark:text-white">Budget Range (USD)</label>
-                            <input
-                                type="text"
-                                id="budget_range"
-                                name="budget_range"
-                                value={updatedFormData.budget_range}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="timeline" className="block font-semibold text-gray-900 dark:text-white">Ideal Timeline</label>
-                            <input
-                                type="text"
-                                id="timeline"
-                                name="timeline"
-                                value={updatedFormData.timeline}
-                                onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                            />
                         </div>
 
                         <div>
@@ -172,7 +86,7 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                                     value="true"
                                     checked={updatedFormData.current_website === true}
                                     onChange={() => setUpdatedFormData((prev: typeof formData) => ({ ...prev, current_website: true }))}
-                                    className="mr-2"
+                                    className="mr-2 text-gray-800"
                                 />
                                 <label htmlFor="current_website_yes" className="mr-4 text-gray-900 dark:text-white">Yes</label>
                                 <input
@@ -182,7 +96,7 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                                     value="false"
                                     checked={updatedFormData.current_website === false}
                                     onChange={() => setUpdatedFormData((prev: typeof formData) => ({ ...prev, current_website: false, website_name: '' }))}
-                                    className="mr-2"
+                                    className="mr-2 text-gray-800"
                                 />
                                 <label htmlFor="current_website_no" className="text-gray-900 dark:text-white">No</label>
                             </div>
@@ -198,10 +112,98 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                                     placeholder='e.g., www.example.com'
                                     value={updatedFormData.website_name}
                                     onChange={handleChange}
-                                    className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                                    className="w-full p-2 text-gray-800 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                                 />
                             </div>
                         )}
+
+                        <div>
+                            <label htmlFor="target_audience" className="block font-semibold text-gray-900 dark:text-white">Target Audience</label>
+                            <input
+                                id="target_audience"
+                                name="target_audience"
+                                value={updatedFormData.target_audience}
+                                onChange={handleChange}
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
+                                required
+                            ></input>
+                        </div>
+
+                        {/* Project Details */}
+                        <div>
+                            <label htmlFor="project_goals" className="block font-semiboldtext-gray-900 dark:text-white">Project Goals</label>
+                            <textarea
+                                id="project_goals"
+                                name="project_goals"
+                                value={updatedFormData.project_goals}
+                                onChange={handleChange}
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
+                                rows={2}
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div>
+                            <label htmlFor="design_style" className="block font-semibold text-gray-900 dark:text-white">Preferred Design Style</label>
+                            <textarea
+                                id="design_style"
+                                name="design_style"
+                                value={updatedFormData.design_style}
+                                onChange={handleChange}
+                                rows={2}
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="branding_materials" className="block font-semibold text-gray-900 dark:text-white">Do you have branding materials? (If no, what are you missing?)</label>
+                            <textarea
+                                id="branding_materials"
+                                name="branding_materials"
+                                value={updatedFormData.branding_materials}
+                                onChange={handleChange}
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="inspiration" className="block font-semibold text-gray-900 dark:text-white">Websites/Apps You Like (Inspiration)</label>
+                            <textarea
+                                id="inspiration"
+                                name="inspiration"
+                                value={updatedFormData.inspiration}
+                                onChange={handleChange}
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
+                                rows={1}
+                            ></textarea>
+                        </div>
+
+                        {/* Budget and Timeline */}
+                        <div>
+                            <label htmlFor="budget_range" className="block font-semibold text-gray-900 dark:text-white">Budget Range (USD)</label>
+                            <input
+                                type="text"
+                                id="budget_range"
+                                name="budget_range"
+                                value={updatedFormData.budget_range}
+                                onChange={handleChange}
+                                className="w-full p-2 border rounded bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="timeline" className="block font-semibold text-gray-900 dark:text-white">Ideal Timeline</label>
+                            <input
+                                type="text"
+                                id="timeline"
+                                name="timeline"
+                                value={updatedFormData.timeline}
+                                onChange={handleChange}
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
+                            />
+                        </div>
+
+
 
                         {/* Additional Information */}
                         <div>
@@ -211,7 +213,7 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                                 name="other_info"
                                 value={updatedFormData.other_info}
                                 onChange={handleChange}
-                                className="w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                                className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
                                 rows={2}
                             ></textarea>
                         </div>

@@ -161,7 +161,7 @@ const PublicOnboardingForm: React.FC = () => {
                     Complete this form to submit your project plan
                 </h3>
                 <div className='flex flex-col gap-1 pt-8'>
-                    <span className='font-extrabold text-xl underline underline-offset-4 dark:text-white'>Important: </span>
+                    <span className='font-extrabold text-xl underline underline-offset-4 text-gray-800 dark:text-white'>Important: </span>
                     <h2 className='text-base font-semibold mb-2 text-gray-900 dark:text-white italic underline underline-offset-2'>
                         Make sure to fill out all fields to the best of your ability. The more information we have, the better your dream outcome will be!
                     </h2>
