@@ -94,6 +94,46 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
             const newRecord = data[0];
             setSuccessMessage('Your project plan has been successfully submitted!');
             onComplete(newRecord); // Pass the new record with the id to the onComplete handler
+
+            // Upload the form data as a file to the client-files bucket
+            const fileName = `onboarding_form_${newRecord.id}.json`;
+            const fileContent = JSON.stringify(formData);
+            const { error: uploadError } = await supabase.storage
+                .from('client-files')
+                .upload(`public/${fileName}`, fileContent, {
+                    contentType: 'application/json',
+                });
+
+            if (uploadError) {
+                throw uploadError;
+            }
+
+            // Fetch user profile
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', user.user.id)
+                .single();
+
+            if (profileError) {
+                throw profileError;
+            }
+
+            // Add an entry to the files table
+            const { error: fileError } = await supabase.from('files').insert([
+                {
+                    file_id: fileName,
+                    user_id: user.user.id,
+                    organization_id: profileData.organization_id,
+                    description: 'Onboarding Form',
+                    category: 'onboarding',
+                },
+            ]);
+
+            if (fileError) {
+                throw fileError;
+            }
+
         } catch (error: any) {
             console.error('Error submitting form:', error.message); // Log the error for debugging
             alert('There was an error submitting the form. Please try again.');

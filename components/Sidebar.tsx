@@ -129,7 +129,7 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
-        <div className="mb-20">
+        <div className="mb-32">
           <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
             <li className="mb-6">
               <button
