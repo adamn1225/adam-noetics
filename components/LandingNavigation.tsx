@@ -38,15 +38,17 @@ const LandingNavigation = () => {
         >
             <nav className="container mx-auto px-4 flex text-gray-800 justify-between items-center ">
                 {/* Logo */}
-                <a href="/">
-                    <Image
-                        src={isDarkMode ? noeticsLogo : noeticsLogo}
-                        alt="Noetics.io Logo"
-                        width={250} // Adjust the width as needed
-                        height={100} // Adjust the height as needed
-                        className="rounded-full"
-                    />
-                </a>
+                <div className="flex items-center gap-4">
+                    <a href="/">
+                        <Image
+                            src={isDarkMode ? noeticsLogo : noeticsLogo}
+                            alt="Noetics.io Logo"
+                            width={250} // Adjust the width as needed
+                            height={100} // Adjust the height as needed
+                            className="rounded-full"
+                        />
+                    </a>
+                </div>
                 <span className="flex justify-end w-full mx-12 items-start gap-4">
                     <DarkModeToggle />
                 </span>
