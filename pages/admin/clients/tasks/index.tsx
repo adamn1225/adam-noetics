@@ -2,13 +2,14 @@
 "use client";
 import React from 'react';
 import AdminTasksPage from '../../components/AdminTasksPage';
+import AdminLayout from '@/admin/AdminLayout';
 
-const Page = () => {
+const AdminTaskPage = () => {
     return (
         <>
             <AdminTasksPage />
         </>
     );
 };
-
-export default Page;
+AdminTaskPage.getLayout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
+export default AdminTaskPage;

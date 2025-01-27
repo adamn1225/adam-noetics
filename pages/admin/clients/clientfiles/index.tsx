@@ -215,7 +215,7 @@ const ClientFiles = () => {
     };
 
     return (
-        <AdminLayout>
+        <>
             <h1 className="text-2xl font-bold mb-4">Client Files</h1>
             <div className="mb-4">
                 <label htmlFor="client-select" className="block text-sm font-medium text-gray-700">
@@ -280,8 +280,8 @@ const ClientFiles = () => {
                     </div>
                 ))}
             </div>
-        </AdminLayout>
+        </>
     );
 };
-
+ClientFiles.getLayout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
 export default ClientFiles;

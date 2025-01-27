@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Spinner from './ui/Spinner'; // Import Spinner component
+import placeholderAvatar from '@public/placeholder-avatar.png';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -45,6 +46,46 @@ const Sidebar = () => {
       if (profileError || !profile) {
         console.error('Failed to fetch user profile', profileError);
         return;
+      }
+
+      // Check if the user signed in with Google SSO and has a profile picture URL
+      if (user.user_metadata.avatar_url && !profile.profile_image) {
+        try {
+          const response = await fetch(user.user_metadata.avatar_url);
+          const blob = await response.blob();
+          const fileName = `${user.id}.jpg`;
+
+          const { error: uploadError } = await supabase.storage
+            .from('profile-pictures')
+            .upload(fileName, blob, {
+              cacheControl: '3600',
+              upsert: true,
+            });
+
+          if (uploadError) {
+            throw uploadError;
+          }
+
+          const { data: publicUrlData } = supabase.storage
+            .from('profile-pictures')
+            .getPublicUrl(fileName);
+
+          const publicUrl = publicUrlData.publicUrl;
+
+          // Update the profile with the new profile image URL
+          const { error: updateError } = await supabase
+            .from('profiles')
+            .update({ profile_image: publicUrl })
+            .eq('user_id', user.id);
+
+          if (updateError) {
+            throw updateError;
+          }
+
+          profile.profile_image = publicUrl;
+        } catch (error) {
+          console.error('Error uploading profile picture:', error);
+        }
       }
 
       setProfile(profile);
@@ -90,16 +131,20 @@ const Sidebar = () => {
       <div className="flex flex-col justify-start gap-1 items-center p-4">
         {profile?.profile_image ? (
           <Image
-            src={`${supabase.storage.from('profile-pictures').getPublicUrl(profile.profile_image).data.publicUrl}`}
+            src={profile.profile_image}
             alt="Avatar"
             width={40}
             height={40}
             className="rounded-full"
           />
         ) : (
-          <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-500 text-nowrap text-[10px] md:text-sm">No Avatar</span>
-          </div>
+          <Image
+            src={placeholderAvatar}
+            alt="Placeholder Avatar"
+            width={96}
+            height={96}
+            className="rounded-full mr-4"
+          />
         )}
         <div className={` ${isCollapsed ? 'hidden' : 'flex flex-nowrap justify-center gap-1'}`}>
           <p className="text-sm font-medium">Welcome,</p>

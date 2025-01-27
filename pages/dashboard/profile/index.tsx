@@ -5,6 +5,7 @@ import { supabase } from '@lib/supabaseClient';
 import withAuth from '@utils/withAuth';
 import Image from 'next/image';
 import DashboardLayout from '../UserLayout';
+import placeholderAvatar from '@public/placeholder-avatar.png'; // Import the placeholder image
 
 const UserProfilePage = () => {
     const [profile, setProfile] = useState<any>(null);
@@ -76,23 +77,33 @@ const UserProfilePage = () => {
             // Upload avatar to the bucket
             const { error: uploadError } = await supabase.storage
                 .from('profile-pictures')
-                .upload(filePath, file);
+                .upload(filePath, file, {
+                    cacheControl: '3600',
+                    upsert: true,
+                });
 
             if (uploadError) {
                 throw uploadError;
             }
 
+            // Get the public URL of the uploaded file
+            const { data: publicUrlData } = supabase.storage
+                .from('profile-pictures')
+                .getPublicUrl(filePath);
+
+            const publicUrl = publicUrlData.publicUrl;
+
             // Update profile with the new avatar URL
             const { error: updateError } = await supabase
                 .from('profiles')
-                .update({ profile_image: filePath })
+                .update({ profile_image: publicUrl })
                 .eq('user_id', profile.user_id);
 
             if (updateError) {
                 throw updateError;
             }
 
-            setAvatarUrl(filePath);
+            setAvatarUrl(publicUrl);
         } catch (error: any) {
             setError(error.message);
         } finally {
@@ -116,16 +127,20 @@ const UserProfilePage = () => {
                     <div className="flex items-center mb-4">
                         {avatarUrl ? (
                             <Image
-                                src={`${supabase.storage.from('profile-pictures').getPublicUrl(avatarUrl).data.publicUrl}`}
+                                src={avatarUrl}
                                 alt="Avatar"
                                 width={96}
                                 height={96}
                                 className="rounded-full mr-4"
                             />
                         ) : (
-                            <div className="w-24 h-24 rounded-full bg-gray-200 mr-4 flex items-center justify-center">
-                                <span className="text-gray-500 ">No Avatar</span>
-                            </div>
+                            <Image
+                                src={placeholderAvatar}
+                                alt="Placeholder Avatar"
+                                width={96}
+                                height={96}
+                                className="rounded-full mr-4"
+                            />
                         )}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Upload Avatar</label>

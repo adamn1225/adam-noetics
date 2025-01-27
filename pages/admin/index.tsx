@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
+import AdminLayout from './AdminLayout';
 
 type Task = Database['public']['Tables']['tasks']['Row'];
 
@@ -108,4 +109,6 @@ const AdminDashboardPage = () => {
     );
 };
 
+
+AdminDashboardPage.getLayout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
 export default AdminDashboardPage;

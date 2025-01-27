@@ -1,9 +1,7 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
-import AdminLayout from '../AdminLayout';
 
 type Task = Database['public']['Tables']['tasks']['Row'];
 type Profile = Database['public']['Tables']['profiles']['Row'];
@@ -222,7 +220,7 @@ const AdminTasksPage = () => {
     const taskRequests = tasks.filter(task => task.is_request);
 
     return (
-        <AdminLayout>
+        <>
             <div>
                 <h1 className="text-2xl font-bold mb-4">Admin Tasks</h1>
                 <div className="mb-4">
@@ -518,7 +516,7 @@ const AdminTasksPage = () => {
                     </table>
                 </div>
             </div>
-        </AdminLayout>
+        </>
     );
 };
 
