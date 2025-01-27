@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
+import Image from 'next/image';
+import noeticsLogo from '@public/noeticslogo.png';
+import noeticsLogoDark from '@public/noeticslogo-dark.png';
 
 interface NavigationProps {
   isFixed?: boolean;
@@ -9,6 +12,22 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(darkModeMediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+
+    darkModeMediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      darkModeMediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -24,7 +43,22 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
       <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <span className="flex items-center gap-4">
-          <a href="/"><h1 className="text-2xl font-bold text-gray-900 tracking-widest dark:text-white">Noetics.io</h1></a>
+          <a href="/">
+            <Image
+              src={noeticsLogo}
+              alt="Noetics.io Logo"
+              width={200} // Adjust the width as needed
+              height={40} // Adjust the height as needed
+              className={`rounded-full ${isDarkMode ? 'hidden' : 'block'}`}
+            />
+            <Image
+              src={noeticsLogoDark}
+              alt="Noetics.io Logo"
+              width={200} // Adjust the width as needed
+              height={40} // Adjust the height as needed
+              className={`rounded-full ${isDarkMode ? 'block' : 'hidden'}`}
+            />
+          </a>
           <DarkModeToggle />
         </span>
         {/* Hamburger Menu for Smaller Screens */}

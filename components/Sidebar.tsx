@@ -8,6 +8,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Spinner from './ui/Spinner'; // Import Spinner component
 import placeholderAvatar from '@public/placeholder-avatar.png';
+import noeticsLogo from '@public/noeticslogo.png';
+import noeticsLogoDark from '@public/noeticslogo-dark.png';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -117,6 +119,13 @@ const Sidebar = () => {
   return (
     <aside className={`bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
       <div className="flex items-center justify-between p-4">
+        <Image
+          src={isDarkMode ? noeticsLogoDark : noeticsLogo}
+          alt="Noetics.io Logo"
+          width={120} // Adjust the width as needed
+          height={40} // Adjust the height as needed
+          className="rounded-full"
+        />
         <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>
           Dashboard
         </h2>
