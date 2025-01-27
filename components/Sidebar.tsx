@@ -117,15 +117,18 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className={`bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
-      <div className="flex items-center justify-between p-4">
+    <aside className={`bg-gray-900 dark:bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
+      <div className='flex items-center justify-center p-4'>
         <Image
-          src={isDarkMode ? noeticsLogoDark : noeticsLogo}
+          src={isDarkMode ? noeticsLogoDark : noeticsLogoDark}
           alt="Noetics.io Logo"
-          width={120} // Adjust the width as needed
+          width={160} // Adjust the width as needed
           height={40} // Adjust the height as needed
           className="rounded-full"
         />
+      </div>
+      <div className="flex items-center justify-between p-4">
+
         <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>
           Dashboard
         </h2>

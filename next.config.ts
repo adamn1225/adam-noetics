@@ -24,6 +24,9 @@ const nextConfig: NextConfig = {
       // Add valid ExperimentalTurboOptions properties here
     },
   },
+  images: {
+    domains: ['hvgusjfevfbhfminbmtc.supabase.co'], // Add your Supabase domain here
+  },
 };
 
 export default nextConfig;

@@ -197,21 +197,17 @@ const DashboardPage = () => {
 
     if (loading) {
         return (
-            <DashboardLayout>
-                <div className="flex items-center justify-center h-full">
-                    <Spinner />
-                </div>
-            </DashboardLayout>
+            <div className="flex items-center justify-center h-full">
+                <Spinner />
+            </div>
         );
     }
 
     if (error) {
         return (
-            <DashboardLayout>
-                <div className="flex items-center justify-center h-full">
-                    <p>Error: {error}</p>
-                </div>
-            </DashboardLayout>
+            <div className="flex items-center justify-center h-full">
+                <p>Error: {error}</p>
+            </div>
         );
     }
 

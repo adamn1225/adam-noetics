@@ -4,7 +4,7 @@ import { Menu, X, MoreHorizontal, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
 import noeticsLogo from '@public/noeticslogo.png';
-import noeticsLogoDark from '@public/noeticslogo-dark.png';
+import noeticsLogoDark from '@public/darknoetics.png';
 
 const LandingNavigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ const LandingNavigation = () => {
 
     return (
         <motion.header
-            className="bg-white py-4 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl dark:bg-gray-950"
+            className="bg-white dark:bg-gray-500 py-4 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl"
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -40,14 +40,14 @@ const LandingNavigation = () => {
                 {/* Logo */}
                 <a href="/">
                     <Image
-                        src={isDarkMode ? noeticsLogoDark : noeticsLogo}
+                        src={isDarkMode ? noeticsLogoDark : noeticsLogoDark}
                         alt="Noetics.io Logo"
                         width={200} // Adjust the width as needed
                         height={40} // Adjust the height as needed
                         className="rounded-full"
                     />
                 </a>
-                <span className="flex items-center gap-4">
+                <span className="flex justify-end w-full mx-12 items-start gap-4">
                     <DarkModeToggle />
                 </span>
 
@@ -65,7 +65,7 @@ const LandingNavigation = () => {
                     <li>
                         <a
                             href="#cta"
-                            className="text-base hover:underline underline-offset-4 text-gray-800 dark:text-white underline font-semibold"
+                            className="text-base hover:underline text-nowrap underline-offset-4 text-gray-800 dark:text-white underline font-semibold"
                             onClick={toggleMenu}
                         >
                             Learn More

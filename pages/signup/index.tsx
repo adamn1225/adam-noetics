@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import Navigation from '@components/Navigation';
+import LandingNavigation from '@components/LandingNavigation';
 import { Eye, EyeOff } from 'lucide-react';
 
 const SignupPage: React.FC = () => {
@@ -180,7 +180,7 @@ const SignupPage: React.FC = () => {
 
     return (
         <>
-            <Navigation isFixed={false} />
+            <LandingNavigation />
             <div className="bg-gray-200 dark:bg-gray-900 min-h-screen flex items-center justify-center">
                 <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded shadow">
                     <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Sign Up</h1>
@@ -197,7 +197,7 @@ const SignupPage: React.FC = () => {
                                     placeholder='Your organization name (recommended)'
                                     value={organizationName}
                                     onChange={(e) => setOrganizationName(e.target.value)}
-                                    className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+                                    className="w-full p-2 border rounded bg-gray-100 text-gray-900"
                                 />
                             </div>
                             <div>
@@ -209,7 +209,7 @@ const SignupPage: React.FC = () => {
                                     placeholder="Enter a valid email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+                                    className="w-full p-2 border rounded bg-gray-100 text-gray-900"
                                     required
                                 />
                             </div>
@@ -222,7 +222,7 @@ const SignupPage: React.FC = () => {
                                     placeholder='At least 8 characters'
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="shadow-sm w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+                                    className="shadow-sm w-full p-2 border rounded bg-gray-100 text-gray-900"
                                     required
                                 />
                                 <button
@@ -242,7 +242,7 @@ const SignupPage: React.FC = () => {
                                     placeholder='Confirm your password'
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="shadow-sm w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+                                    className="shadow-sm w-full p-2 border rounded bg-gray-100 text-gray-900"
                                     required
                                 />
                                 <button

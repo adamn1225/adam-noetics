@@ -4,7 +4,7 @@ import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
 import noeticsLogo from '@public/noeticslogo.png';
-import noeticsLogoDark from '@public/noeticslogo-dark.png';
+import noeticsLogoDark from '@public/darknoetics.png';
 
 interface NavigationProps {
   isFixed?: boolean;
@@ -35,7 +35,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
   return (
     <motion.header
-      className={`bg-white dark:bg-gray-900 py-4 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
+      className={`bg-white dark:bg-gray-500 py-4 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -44,20 +44,23 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
         {/* Logo */}
         <span className="flex items-center gap-4">
           <a href="/">
-            <Image
-              src={noeticsLogo}
-              alt="Noetics.io Logo"
-              width={200} // Adjust the width as needed
-              height={40} // Adjust the height as needed
-              className={`rounded-full ${isDarkMode ? 'hidden' : 'block'}`}
-            />
-            <Image
-              src={noeticsLogoDark}
-              alt="Noetics.io Logo"
-              width={200} // Adjust the width as needed
-              height={40} // Adjust the height as needed
-              className={`rounded-full ${isDarkMode ? 'block' : 'hidden'}`}
-            />
+            {isDarkMode ? (
+              <Image
+                src={noeticsLogoDark}
+                alt="Noetics.io Logo"
+                width={200} // Adjust the width as needed
+                height={40} // Adjust the height as needed
+                className="rounded-full"
+              />
+            ) : (
+              <Image
+                src={noeticsLogo}
+                alt="Noetics.io Logo"
+                width={200} // Adjust the width as needed
+                height={40} // Adjust the height as needed
+                className="rounded-full"
+              />
+            )}
           </a>
           <DarkModeToggle />
         </span>
