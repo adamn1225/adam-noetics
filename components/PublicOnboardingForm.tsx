@@ -69,50 +69,6 @@ const PublicOnboardingForm: React.FC = () => {
             const newRecord = data[0];
             setSuccessMessage('Your project plan has been successfully submitted!');
 
-            // Send email notification
-            const emailText = `
-                New project plan submitted:
-                Full Name: ${formData.full_name}
-                Email: ${formData.email}
-                Phone Number: ${formData.phone_number}
-                Business Name: ${formData.business_name}
-                Business Description: ${formData.business_description}
-                Target Audience: ${formData.target_audience}
-                Project Goals: ${formData.project_goals}
-                Design Style: ${formData.design_style}
-                Branding Materials: ${formData.branding_materials}
-                Inspiration: ${formData.inspiration}
-                Color Preferences: ${formData.color_preferences}
-                Features: ${formData.features}
-                User Authentication: ${formData.user_authentication}
-                Content Management: ${formData.content_management}
-                Ecommerce Needs: ${formData.ecommerce_needs}
-                Integrations: ${formData.integrations}
-                Content Ready: ${formData.content_ready}
-                Page Count: ${formData.page_count}
-                SEO Assistance: ${formData.seo_assistance}
-                Domain Info: ${formData.domain_info}
-                Hosting Info: ${formData.hosting_info}
-                Maintenance Needs: ${formData.maintenance_needs}
-                Budget Range: ${formData.budget_range}
-                Timeline: ${formData.timeline}
-                Analytics: ${formData.analytics}
-                Training: ${formData.training}
-                Additional Services: ${formData.additional_services}
-                Other Info: ${formData.other_info}
-                Service Type: ${formData.service_type}
-            `;
-
-            await fetch('/.netlify/functions/sendEmail', {
-                method: 'POST',
-                body: JSON.stringify({
-                    to: 'noah@noetics.io',
-                    subject: 'New Project Plan Submission',
-                    text: emailText,
-                    userEmail: formData.email,
-                }),
-            });
-
             if (formData.create_account) {
                 // Handle account creation logic here
                 const { error: inviteError } = await supabase.auth.signInWithOtp({
@@ -174,6 +130,25 @@ const PublicOnboardingForm: React.FC = () => {
 
                 if (memberError) {
                     throw memberError;
+                }
+
+                // Move data from public_project_plan to client_project_plan
+                const { error: moveError } = await supabase
+                    .from('client_project_plan')
+                    .insert([{ ...formData, user_id: userId }]);
+
+                if (moveError) {
+                    throw moveError;
+                }
+
+                // Delete the entry from public_project_plan
+                const { error: deleteError } = await supabase
+                    .from('public_project_plan')
+                    .delete()
+                    .eq('id', newRecord.id);
+
+                if (deleteError) {
+                    throw deleteError;
                 }
 
                 alert('Account creation link sent to your email.');

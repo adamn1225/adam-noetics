@@ -25,6 +25,11 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                 throw new Error('Form data is missing an id');
             }
 
+            // Ensure user_id is included in the updated form data
+            if (!updatedFormData.user_id) {
+                throw new Error('Form data is missing a user_id');
+            }
+
             // Update the client_project_plan table with the updated form data
             const { error: formError } = await supabase
                 .from('client_project_plan')
@@ -131,7 +136,7 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
 
                         {/* Project Details */}
                         <div>
-                            <label htmlFor="project_goals" className="block font-semiboldtext-gray-900 dark:text-white">Project Goals</label>
+                            <label htmlFor="project_goals" className="block font-semibold text-gray-900 dark:text-white">Project Goals</label>
                             <textarea
                                 id="project_goals"
                                 name="project_goals"
@@ -202,8 +207,6 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                                 className="w-full p-2 border rounded bg-gray-50 text-gray-800 dark:bg-gray-700 dark:text-white"
                             />
                         </div>
-
-
 
                         {/* Additional Information */}
                         <div>
