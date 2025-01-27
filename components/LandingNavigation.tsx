@@ -42,8 +42,8 @@ const LandingNavigation = () => {
                     <Image
                         src={isDarkMode ? noeticsLogo : noeticsLogo}
                         alt="Noetics.io Logo"
-                        width={200} // Adjust the width as needed
-                        height={40} // Adjust the height as needed
+                        width={250} // Adjust the width as needed
+                        height={100} // Adjust the height as needed
                         className="rounded-full"
                     />
                 </a>

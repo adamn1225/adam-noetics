@@ -49,7 +49,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
                 src={noeticsLogoDark}
                 alt="Noetics.io Logo"
                 width={200} // Adjust the width as needed
-                height={40} // Adjust the height as needed
+                height={80} // Adjust the height as needed
                 className="rounded-full"
               />
             ) : (
@@ -57,7 +57,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
                 src={noeticsLogo}
                 alt="Noetics.io Logo"
                 width={200} // Adjust the width as needed
-                height={40} // Adjust the height as needed
+                height={80} // Adjust the height as needed
                 className="rounded-full"
               />
             )}
