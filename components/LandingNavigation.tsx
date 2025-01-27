@@ -40,7 +40,7 @@ const LandingNavigation = () => {
                 {/* Logo */}
                 <a href="/">
                     <Image
-                        src={isDarkMode ? noeticsLogoDark : noeticsLogoDark}
+                        src={isDarkMode ? noeticsLogo : noeticsLogo}
                         alt="Noetics.io Logo"
                         width={200} // Adjust the width as needed
                         height={40} // Adjust the height as needed
