@@ -16,28 +16,29 @@ const ServicesSection = () => {
               link: `/landing/noetic-web-apps`,
             },
             {
-              title: "Noetic Automation",
-              desc: "Streamline workflows and eliminate repetitive tasks.",
-              list: ["Workflow Automation", "Task Scheduling", "Custom Triggers"],
-              link: `/landing/noetic-automation`,
-            },
-            {
               title: "Custom Tools",
               desc: "Build calculators, directories, ticket support systems, and more.",
               list: ["Support Systems", "Data Visualization", "Custom Calculators"],
               link: `/landing/noetic-custom-tools`,
             },
             {
+              title: "Noetic Automation & Web Scraping",
+              desc: "Gather data automatically; streamline workflows and eliminate repetitive tasks.",
+              list: ["Workflow Automation", "Automated Scraping", "Data Extraction"],
+              link: `/landing/automation-and-web-scraping`,
+            },
+
+            {
+              title: "Noetic Marketing",
+              desc: "Strategies to help you reach your target audience.",
+              list: ["SMM/PPC Advertising", "SEO", "Backlinking"],
+              link: `/landing/noetic-marketing`,
+            },
+            {
               title: "API Integrations",
               desc: "Seamlessly connect systems for efficient workflows.",
               list: ["Third-Party/Develop APIs", "Real-Time Sync", "Secure Connections"],
               link: `/landing/noetic-api-integrations`,
-            },
-            {
-              title: "Web Scraping",
-              desc: "Gather data automatically for actionable insights.",
-              list: ["Data Extraction", "Automated Scraping", "Real-Time Monitoring"],
-              link: `/landing/noetic-web-scraping`,
             },
             {
               title: "Chrome Extensions",
@@ -54,8 +55,8 @@ const ServicesSection = () => {
                   <li key={idx}>{item}</li>
                 ))}
               </ul>
-              <div className="mt-4 text-blue-600 dark:text-blue-400">
-                <a href={service.link} className="hover:underline">
+              <div className="mt-4 text-blue-600 underline dark:text-blue-400">
+                <a href={service.link} className="hover:text-blue-800">
                   Learn More
                 </a>
               </div>

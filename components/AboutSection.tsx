@@ -31,6 +31,11 @@ const AboutSection = () => {
           </div>
           {/* Team Member 3 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
+            <h3 className="text-xl font-bold dark:text-white">Raz Fluxman</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Lead Marketer</p>
+          </div>
+          {/* Team Member 4 */}
+          <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <h3 className="text-xl font-bold dark:text-white">Lukas A.</h3>
             <p className="text-sm text-gray-600 dark:text-gray-300">Project Manager</p>
           </div>

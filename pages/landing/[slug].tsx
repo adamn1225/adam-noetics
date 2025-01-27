@@ -19,13 +19,13 @@ const services = [
     },
     {
         slug: "noetic-automation",
-        title: "Automation",
-        desc: "Simplify Workflows, Eliminate Repetition",
-        howItWorks: "Through innovative automation, we design systems that save you time, reduce errors, and keep operations running smoothly. Whether you need task scheduling, workflow triggers, or end-to-end automation, we’ve got you covered.",
+        title: "Noetic Marketing - SEO/SMM/PPC Advertising",
+        desc: "Strategies to Help You Reach Your Target Audience",
+        howItWorks: "We create marketing strategies that drive results. From SEO to PPC advertising, we help you reach your target audience and grow your business.",
         whatWeOffer: [
-            "Workflow Automation: Optimize and simplify processes.",
-            "Task Scheduling: Automate reminders and deadlines.",
-            "Custom Triggers: Automatically respond to critical actions.",
+            "SMM/PPC Advertising: Reach your audience on social media and search engines.",
+            "SEO: Improve your search engine rankings and drive organic traffic.",
+            "Backlinking: Build high-quality backlinks to boost your site's authority.",
         ],
     },
     {
@@ -51,14 +51,16 @@ const services = [
         ],
     },
     {
-        slug: "noetic-web-scraping",
-        title: "Web Scraping",
+        slug: "automation-and-web-scraping",
+        title: "Noetic Automation & Web Scraping",
         desc: "Data Gathering for Smarter Decisions",
         howItWorks: "We build automated tools that scrape, extract, and organize data from websites in real-time. Whether you need competitor analysis, pricing insights, or industry trends, we’ll deliver actionable results.",
         whatWeOffer: [
             "Automated Scraping: Collect data without manual effort.",
             "Data Extraction: Pinpoint the exact information you need.",
-            "Real-Time Monitoring: Stay updated with dynamic tracking.",
+            "Workflow Automation: Optimize and simplify processes.",
+            "Task Scheduling: Automate reminders and deadlines.",
+            "Custom Triggers: Automatically respond to critical actions.",
         ],
     },
     {
