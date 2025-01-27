@@ -60,8 +60,17 @@ const SignupPage: React.FC = () => {
                     if (profileError) {
                         setError(profileError.message);
                     } else {
-                        setIsTokenSent(true);
-                        setSuccessMessage('Signup successful! Please check your email for the 6-digit token.');
+                        // Insert into organization_members table
+                        const { error: memberError } = await supabase
+                            .from('organization_members')
+                            .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+
+                        if (memberError) {
+                            setError(memberError.message);
+                        } else {
+                            setIsTokenSent(true);
+                            setSuccessMessage('Signup successful! Please check your email for the 6-digit token.');
+                        }
                     }
                 }
             }
@@ -114,7 +123,40 @@ const SignupPage: React.FC = () => {
                 if (profileError) {
                     setError(profileError.message);
                 } else {
-                    setSuccessMessage('Google signup successful! You can now log in.');
+                    // Create organization if not provided
+                    const orgName = organizationName || `${userEmail.split('@')[0]}'s Organization`;
+                    const { data: orgData, error: orgError } = await supabase
+                        .from('organizations')
+                        .insert([{ name: orgName }])
+                        .select()
+                        .single();
+
+                    if (orgError) {
+                        setError(orgError.message);
+                    } else {
+                        const organizationId = orgData.id;
+
+                        // Update profile with organization_id
+                        const { error: profileUpdateError } = await supabase
+                            .from('profiles')
+                            .update({ organization_id: organizationId })
+                            .eq('user_id', userId);
+
+                        if (profileUpdateError) {
+                            setError(profileUpdateError.message);
+                        } else {
+                            // Insert into organization_members table
+                            const { error: memberError } = await supabase
+                                .from('organization_members')
+                                .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+
+                            if (memberError) {
+                                setError(memberError.message);
+                            } else {
+                                setSuccessMessage('Google signup successful! You can now log in.');
+                            }
+                        }
+                    }
                 }
             }
         }

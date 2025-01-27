@@ -133,13 +133,47 @@ const PublicOnboardingForm: React.FC = () => {
                 }
 
                 const userId = authData.user.id;
+
+                // Insert user into profiles table
                 const { error: profileError } = await supabase
                     .from('profiles')
-                    .update({ onboarding_completed: true })
-                    .eq('user_id', userId);
+                    .insert([{ user_id: userId, email: formData.email, name: formData.full_name }]);
 
                 if (profileError) {
                     throw profileError;
+                }
+
+                // Create organization if not provided
+                const orgName = formData.business_name || `${formData.email.split('@')[0]}'s Organization`;
+                const { data: orgData, error: orgError } = await supabase
+                    .from('organizations')
+                    .insert([{ name: orgName }])
+                    .select()
+                    .single();
+
+                if (orgError) {
+                    throw orgError;
+                }
+
+                const organizationId = orgData.id;
+
+                // Update profile with organization_id
+                const { error: profileUpdateError } = await supabase
+                    .from('profiles')
+                    .update({ organization_id: organizationId, onboarding_completed: true })
+                    .eq('user_id', userId);
+
+                if (profileUpdateError) {
+                    throw profileUpdateError;
+                }
+
+                // Insert into organization_members table
+                const { error: memberError } = await supabase
+                    .from('organization_members')
+                    .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+
+                if (memberError) {
+                    throw memberError;
                 }
 
                 alert('Account creation link sent to your email.');

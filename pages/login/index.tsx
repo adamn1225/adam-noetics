@@ -94,7 +94,7 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: 'https://www.noetics.io/dashboard',
@@ -103,6 +103,78 @@ const LoginPage = () => {
 
     if (error) {
       setError(error.message);
+    } else {
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (userError) {
+        setError(userError.message);
+        return;
+      }
+      const userId = userData.user?.id;
+      const userEmail = userData.user?.email;
+
+      if (userId && userEmail) {
+        // Check if user already exists in profiles table
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', userId)
+          .single();
+
+        if (profileError && profileError.code !== 'PGRST116') {
+          setError(profileError.message);
+          return;
+        }
+
+        if (!profileData) {
+          // Insert user into profiles table
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert([{ user_id: userId, email: userEmail, name: 'Default Name' }]);
+
+          if (insertError) {
+            setError(insertError.message);
+            return;
+          }
+
+          // Create organization if not provided
+          const orgName = `${userEmail.split('@')[0]}'s Organization`;
+          const { data: orgData, error: orgError } = await supabase
+            .from('organizations')
+            .insert([{ name: orgName }])
+            .select()
+            .single();
+
+          if (orgError) {
+            setError(orgError.message);
+            return;
+          }
+
+          const organizationId = orgData.id;
+
+          // Update profile with organization_id
+          const { error: profileUpdateError } = await supabase
+            .from('profiles')
+            .update({ organization_id: organizationId })
+            .eq('user_id', userId);
+
+          if (profileUpdateError) {
+            setError(profileUpdateError.message);
+            return;
+          }
+
+          // Insert into organization_members table
+          const { error: memberError } = await supabase
+            .from('organization_members')
+            .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+
+          if (memberError) {
+            setError(memberError.message);
+            return;
+          }
+        }
+
+        router.push('/dashboard');
+      }
     }
   };
 
