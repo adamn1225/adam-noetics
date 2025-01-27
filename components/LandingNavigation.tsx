@@ -17,10 +17,10 @@ const LandingNavigation = () => {
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <nav className="container mx-auto px-4 flex justify-between items-center ">
+            <nav className="container mx-auto px-4 flex text-gray-800 justify-between items-center ">
                 {/* Logo */}
                 <span className="flex items-center gap-4">
-                    <h1 className="text-2xl font-bold tracking-widest dark:text-white ">Adam Noetic&apos;s</h1>
+                    <h1 className="text-2xl font-bold tracking-widest text-gray-800 dark:text-white ">Adam Noetic&apos;s</h1>
                     <DarkModeToggle />
                 </span>
 
@@ -38,7 +38,7 @@ const LandingNavigation = () => {
                     <li>
                         <a
                             href="#cta"
-                            className="text-base hover:underline underline-offset-4 text-gray-800 dark:text-white font-semibold"
+                            className="text-base hover:underline underline-offset-4 text-gray-800 dark:text-white underline font-semibold"
                             onClick={toggleMenu}
                         >
                             Learn More
@@ -58,7 +58,7 @@ const LandingNavigation = () => {
                         <li>
                             <a
                                 href="login/"
-                                className="hover:underline text-gray-800"
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
                                 onClick={toggleMenu}
                             >
                                 Login
@@ -67,7 +67,7 @@ const LandingNavigation = () => {
                     </ul>
                 )}
             </nav>
-        </motion.header>
+        </motion.header >
     );
 };
 
