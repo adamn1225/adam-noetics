@@ -18,7 +18,7 @@ const services = [
         ],
     },
     {
-        slug: "noetic-automation",
+        slug: "noetic-marketing",
         title: "Noetic Marketing - SEO/SMM/PPC Advertising",
         desc: "Strategies to Help You Reach Your Target Audience",
         howItWorks: "We create marketing strategies that drive results. From SEO to PPC advertising, we help you reach your target audience and grow your business.",
