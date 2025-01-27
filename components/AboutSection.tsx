@@ -18,7 +18,7 @@ const AboutSection = () => {
           automations, we specialize in transforming ideas into impactful
           solutions.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
           {/* Team Member 1 */}
           <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
             <h3 className="text-xl font-bold dark:text-white">Adam Noah</h3>
