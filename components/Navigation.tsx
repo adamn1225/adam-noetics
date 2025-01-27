@@ -46,7 +46,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
           <a href="/">
             {isDarkMode ? (
               <Image
-                src={noeticsLogoDark}
+                src={noeticsLogo}
                 alt="Noetics.io Logo"
                 width={200} // Adjust the width as needed
                 height={40} // Adjust the height as needed
