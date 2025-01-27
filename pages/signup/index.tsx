@@ -87,7 +87,7 @@ const SignupPage: React.FC = () => {
     };
 
     const handleGoogleSignup = async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
+        const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: 'https://www.noetics.io/dashboard',
@@ -109,7 +109,7 @@ const SignupPage: React.FC = () => {
                 // Insert user into profiles table
                 const { error: profileError } = await supabase
                     .from('profiles')
-                    .insert([{ user_id: userId, email: userEmail }]);
+                    .insert([{ user_id: userId, email: userEmail, name: 'Default Name' }]);
 
                 if (profileError) {
                     setError(profileError.message);
