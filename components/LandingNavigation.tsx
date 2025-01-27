@@ -19,8 +19,7 @@ const LandingNavigation = () => {
         >
             <nav className="container mx-auto px-4 flex text-gray-800 justify-between items-center ">
                 {/* Logo */}
-                <span className="flex items-center gap-4">
-                    <h1 className="text-2xl font-bold tracking-widest text-gray-800 dark:text-white ">Adam Noetic&apos;s</h1>
+                <span className="flex items-center gap-4"><a href="/"><h1 className="text-2xl font-bold text-gray-900 tracking-widest dark:text-white">Noetics.io</h1></a>
                     <DarkModeToggle />
                 </span>
 
