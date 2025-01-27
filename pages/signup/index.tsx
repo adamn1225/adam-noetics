@@ -96,6 +96,27 @@ const SignupPage: React.FC = () => {
 
         if (error) {
             setError(error.message);
+        } else {
+            const { data: userData, error: userError } = await supabase.auth.getUser();
+            if (userError) {
+                setError(userError.message);
+                return;
+            }
+            const userId = userData.user?.id;
+            const userEmail = userData.user?.email;
+
+            if (userId && userEmail) {
+                // Insert user into profiles table
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .insert([{ user_id: userId, email: userEmail }]);
+
+                if (profileError) {
+                    setError(profileError.message);
+                } else {
+                    setSuccessMessage('Google signup successful! You can now log in.');
+                }
+            }
         }
     };
 
