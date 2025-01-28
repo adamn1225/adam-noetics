@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    domains: ['hvgusjfevfbhfminbmtc.supabase.co'], // Add your Supabase domain here
+    domains: ['hvgusjfevfbhfminbmtc.supabase.co'],
   },
 };
 

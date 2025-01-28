@@ -8,19 +8,9 @@ interface RootLayoutProps {
     children: ReactNode;
 }
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
-
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     return (
-        <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white`}>
+        <div className="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="description" content="Noetic Software and Web Key Solutions" />

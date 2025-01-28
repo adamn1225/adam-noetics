@@ -300,6 +300,4 @@ const FilesPage = () => {
     );
 };
 
-FilesPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
-
 export default FilesPage;

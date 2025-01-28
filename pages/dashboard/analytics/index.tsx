@@ -233,6 +233,4 @@ const AdminAnalyticsPage = () => {
     );
 };
 
-AdminAnalyticsPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
-
 export default AdminAnalyticsPage;

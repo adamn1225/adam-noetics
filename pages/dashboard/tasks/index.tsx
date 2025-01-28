@@ -288,5 +288,4 @@ const TasksPage = () => {
     );
 };
 
-TasksPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
 export default TasksPage;

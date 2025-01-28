@@ -94,21 +94,25 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'https://www.noetics.io/dashboard',
-      },
-    });
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: 'https://www.noetics.io/dashboard',
+        },
+      });
 
-    if (error) {
-      setError(error.message);
-    } else {
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
       const { data: userData, error: userError } = await supabase.auth.getUser();
       if (userError) {
         setError(userError.message);
         return;
       }
+
       const userId = userData.user?.id;
       const userEmail = userData.user?.email;
 
@@ -118,9 +122,9 @@ const LoginPage = () => {
           .from('profiles')
           .select('*')
           .eq('user_id', userId)
-          .single();
+          .maybeSingle(); // Use maybeSingle to handle zero or one row
 
-        if (profileError && profileError.code !== 'PGRST116') {
+        if (profileError) {
           setError(profileError.message);
           return;
         }
@@ -175,6 +179,9 @@ const LoginPage = () => {
 
         router.push('/dashboard');
       }
+    } catch (err: any) {
+      console.error("Google login failed:", err);
+      setError(err.message || "Failed to log in with Google");
     }
   };
 
@@ -257,6 +264,7 @@ const LoginPage = () => {
           )}
           <div className="mt-6">
             <button
+              type="button" // Change to type="button" to prevent form submission
               onClick={handleGoogleLogin}
               className="flex items-center shadow-md justify-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 w-full"
             >

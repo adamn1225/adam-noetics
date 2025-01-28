@@ -105,60 +105,80 @@ const SignupPage: React.FC = () => {
 
         if (error) {
             setError(error.message);
-        } else {
-            const { data: userData, error: userError } = await supabase.auth.getUser();
-            if (userError) {
-                setError(userError.message);
+            return;
+        }
+
+        const { data: userData, error: userError } = await supabase.auth.getUser();
+        if (userError) {
+            setError(userError.message);
+            return;
+        }
+
+        const userId = userData.user?.id;
+        const userEmail = userData.user?.email;
+
+        if (userId && userEmail) {
+            // Check if user already exists in profiles table
+            const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', userId)
+                .maybeSingle(); // Use maybeSingle to handle zero or one row
+
+            if (profileError) {
+                setError(profileError.message);
                 return;
             }
-            const userId = userData.user?.id;
-            const userEmail = userData.user?.email;
 
-            if (userId && userEmail) {
+            if (!profileData) {
                 // Insert user into profiles table
-                const { error: profileError } = await supabase
+                const { error: insertError } = await supabase
                     .from('profiles')
                     .insert([{ user_id: userId, email: userEmail, name: 'Default Name' }]);
 
-                if (profileError) {
-                    setError(profileError.message);
-                } else {
-                    // Create organization if not provided
-                    const orgName = organizationName || `${userEmail.split('@')[0]}'s Organization`;
-                    const { data: orgData, error: orgError } = await supabase
-                        .from('organizations')
-                        .insert([{ name: orgName }])
-                        .select()
-                        .single();
+                if (insertError) {
+                    setError(insertError.message);
+                    return;
+                }
 
-                    if (orgError) {
-                        setError(orgError.message);
-                    } else {
-                        const organizationId = orgData.id;
+                // Create organization if not provided
+                const orgName = organizationName || `${userEmail.split('@')[0]}'s Organization`;
+                const { data: orgData, error: orgError } = await supabase
+                    .from('organizations')
+                    .insert([{ name: orgName }])
+                    .select()
+                    .single();
 
-                        // Update profile with organization_id
-                        const { error: profileUpdateError } = await supabase
-                            .from('profiles')
-                            .update({ organization_id: organizationId })
-                            .eq('user_id', userId);
+                if (orgError) {
+                    setError(orgError.message);
+                    return;
+                }
 
-                        if (profileUpdateError) {
-                            setError(profileUpdateError.message);
-                        } else {
-                            // Insert into organization_members table
-                            const { error: memberError } = await supabase
-                                .from('organization_members')
-                                .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+                const organizationId = orgData.id;
 
-                            if (memberError) {
-                                setError(memberError.message);
-                            } else {
-                                setSuccessMessage('Google signup successful! You can now log in.');
-                            }
-                        }
-                    }
+                // Update profile with organization_id
+                const { error: profileUpdateError } = await supabase
+                    .from('profiles')
+                    .update({ organization_id: organizationId })
+                    .eq('user_id', userId);
+
+                if (profileUpdateError) {
+                    setError(profileUpdateError.message);
+                    return;
+                }
+
+                // Insert into organization_members table
+                const { error: memberError } = await supabase
+                    .from('organization_members')
+                    .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+
+                if (memberError) {
+                    setError(memberError.message);
+                    return;
                 }
             }
+
+            setSuccessMessage('Google signup successful! You can now log in.');
         }
     };
 
@@ -291,6 +311,7 @@ const SignupPage: React.FC = () => {
                     )}
                     <div className="mt-6">
                         <button
+                            type="button" // Change to type="button" to prevent form submission
                             onClick={handleGoogleSignup}
                             className="flex items-center shadow-md justify-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 w-full"
                         >

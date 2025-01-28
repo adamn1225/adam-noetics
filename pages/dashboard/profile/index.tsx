@@ -198,6 +198,4 @@ const UserProfilePage = () => {
     );
 };
 
-UserProfilePage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
-
 export default UserProfilePage;

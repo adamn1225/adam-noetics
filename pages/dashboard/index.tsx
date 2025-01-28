@@ -4,7 +4,7 @@ import { supabase } from '@lib/supabaseClient';
 import DashboardLayout from './UserLayout';
 import OnboardingForm from '@components/OnboardingForm';
 import OnboardingFormReview from '@components/OnboardingFormReview';
-import Spinner from '@components/ui/Spinner'; // Import Spinner component
+import Spinner from '@components/ui/Spinner';
 
 const DashboardPage = () => {
     const [userName, setUserName] = useState<string | null>(null);
