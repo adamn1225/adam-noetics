@@ -1,9 +1,12 @@
 import { useRouter } from "next/router";
 import React from "react";
+import Head from 'next/head';
 import LandingNavigation from "@components/LandingNavigation";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../../motionConfig";
 import CallToActionSection from "@components/CallToActionSection";
+import { NextSeo } from 'next-seo';
+import CanonicalURL from '@components/CanonicalURL';
 
 const services = [
     {
@@ -86,8 +89,33 @@ const LandingPage = () => {
         return <p className="text-center mt-20">Service not found</p>;
     }
 
+    const customSEO = {
+        title: `${service.title} - Noetic Software and Web Key Solutions`,
+        description: service.desc,
+        openGraph: {
+            title: `${service.title} - Noetic Software and Web Key Solutions`,
+            description: service.desc,
+            url: `https://noetics.io/landing/${slug}`,
+            images: [
+                {
+                    url: 'https://noetics.io/og-image.jpg', // Update with your actual Open Graph image URL
+                    width: 800,
+                    height: 600,
+                    alt: 'Noetics Open Graph Image',
+                    type: 'image/jpeg',
+                },
+            ],
+        },
+    };
+
     return (
         <>
+            <NextSeo {...customSEO} />
+            <Head>
+                <title>{service.title} - Noetic Software and Web Key Solutions</title>
+                <meta name="description" content={service.desc} />
+            </Head>
+            <CanonicalURL url={`https://noetics.io/landing/${slug}`} />
             <LandingNavigation />
             <motion.section
                 className="bg-white text-gray-800 dark:bg-gray-900 dark:text-white"
