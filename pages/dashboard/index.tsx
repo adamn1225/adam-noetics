@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import DashboardLayout from './UserLayout';
@@ -121,6 +122,21 @@ const DashboardPage = () => {
                 }
 
                 setFilesUploaded(filesCount || 0);
+
+                // Fetch onboarding form data
+                const { data: formData, error: formError } = await supabase
+                    .from('client_project_plan')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .single();
+
+                if (formError && formError.code !== 'PGRST116') {
+                    throw formError;
+                }
+
+                if (formData) {
+                    setFormData(formData);
+                }
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -247,24 +263,6 @@ const DashboardPage = () => {
                         </div>
 
                         <OnboardingFormReview formData={formData} onEdit={() => { }} />
-
-                        {/* Analytics Section */}
-                        <div className='flex justify-center items-center w-full'>
-                            <div className="bg-white w-full md:w-2/3 h-96 p-4 rounded-lg shadow mt-6 flex items-center justify-center relative">
-                                <div className="absolute inset-0 bg-gray-200 opacity-50 flex items-center justify-center">
-                                    <p className="text-gray-900 font-semibold text-center">Integrate your analytic tools to see your data here</p>
-                                </div>
-                                <div className="opacity-25">
-                                    {/* Placeholder for the empty graph */}
-                                    <svg className="w-full h-64" viewBox="0 0 100 100">
-                                        <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        <polyline points="10,90 30,70 50,80 70,50 90,60" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        <line x1="10" y1="90" x2="90" y2="90" stroke="currentColor" strokeWidth="2" />
-                                        <line x1="10" y1="10" x2="10" y2="90" stroke="currentColor" strokeWidth="2" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
                     </>
                 )}
             </div>

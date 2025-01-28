@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@lib/supabaseClient';
+import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
 
 interface OnboardingFormReviewProps {
     formData: any;
@@ -9,33 +9,44 @@ interface OnboardingFormReviewProps {
 const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, onEdit }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [updatedFormData, setUpdatedFormData] = useState(formData);
+    const supabase = useSupabaseClient();
+    const session = useSession();
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!session) {
+                console.error('User not authenticated');
+                return;
+            }
+
             try {
-                const { data: user, error: userError } = await supabase.auth.getUser();
-                if (userError || !user) {
-                    throw new Error('User not authenticated');
-                }
+                console.log('Fetching data for user ID:', session.user.id);
 
                 const { data, error } = await supabase
                     .from('client_project_plan')
                     .select('*')
-                    .eq('user_id', user.user.id)
+                    .eq('user_id', session.user.id)
                     .single();
 
                 if (error) {
-                    throw error;
+                    if (error.code === 'PGRST116') {
+                        console.log('No data found for user');
+                    } else {
+                        throw error;
+                    }
                 }
 
-                setUpdatedFormData(data);
+                if (data) {
+                    console.log('Fetched data:', data);
+                    setUpdatedFormData(data);
+                }
             } catch (error: any) {
                 console.error('Error fetching form data:', error.message);
             }
         };
 
         fetchData();
-    }, []);
+    }, [session, supabase]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -47,31 +58,50 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
     };
 
     const handleSave = async () => {
+        if (!session) {
+            console.error('User not authenticated');
+            return;
+        }
+
         try {
-            if (!updatedFormData.id) {
-                throw new Error('Form data is missing an id');
-            }
+            const userId = session.user.id;
 
-            // Ensure user_id is included in the updated form data
-            if (!updatedFormData.user_id) {
-                throw new Error('Form data is missing a user_id');
-            }
-
-            // Update the client_project_plan table with the updated form data
-            const { error: formError } = await supabase
+            const { data, error } = await supabase
                 .from('client_project_plan')
-                .update(updatedFormData)
-                .eq('id', updatedFormData.id);
+                .select('*')
+                .eq('user_id', userId)
+                .single();
 
-            if (formError) {
-                throw formError;
+            if (error && error.code !== 'PGRST116') {
+                throw error;
+            }
+
+            if (data) {
+                // Update existing entry
+                const { error: updateError } = await supabase
+                    .from('client_project_plan')
+                    .update(updatedFormData)
+                    .eq('user_id', userId);
+
+                if (updateError) {
+                    throw updateError;
+                }
+            } else {
+                // Insert new entry
+                const { error: insertError } = await supabase
+                    .from('client_project_plan')
+                    .insert({ ...updatedFormData, user_id: userId });
+
+                if (insertError) {
+                    throw insertError;
+                }
             }
 
             onEdit(updatedFormData);
             setIsEditing(false);
         } catch (error: any) {
-            console.error('Error updating form:', error.message);
-            alert('There was an error updating the form. Please try again.');
+            console.error('Error saving form:', error.message);
+            alert('There was an error saving the form. Please try again.');
         }
     };
 
@@ -260,47 +290,47 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                     <div className="space-y-2 w-full mt-12 mb-4">
                         {/* General Business Information */}
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Business Name</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.business_name}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.business_name}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Describe Your Business/Project</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.business_description}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.business_description}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Target Audience</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.target_audience}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.target_audience}</p>
 
                         {/* Project Details */}
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Project Goals</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.project_goals}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.project_goals}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Preferred Design Style</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.design_style}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.design_style}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Do you have branding materials?</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.branding_materials}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.branding_materials}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Websites/Apps You Like (Inspiration)</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.inspiration}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.inspiration}</p>
 
                         {/* Budget and Timeline */}
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Budget Range (USD)</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.budget_range}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.budget_range}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Ideal Timeline</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.timeline}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.timeline}</p>
 
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Do you have a website?</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.current_website ? 'Yes' : 'No'}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.current_website ? 'Yes' : 'No'}</p>
 
-                        {formData.current_website && (
+                        {updatedFormData.current_website && (
                             <>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">Website Domain Name</h2>
-                                <p className="text-gray-700 dark:text-gray-300">{formData.website_name}</p>
+                                <p className="text-gray-700 dark:text-gray-300">{updatedFormData.website_name}</p>
                             </>
                         )}
 
                         {/* Additional Information */}
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Other Information</h2>
-                        <p className="text-gray-700 dark:text-gray-300">{formData.other_info}</p>
+                        <p className="text-gray-700 dark:text-gray-300">{updatedFormData.other_info}</p>
                         <button
                             onClick={() => setIsEditing(true)}
                             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
