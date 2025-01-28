@@ -162,7 +162,7 @@ const PublicOnboardingForm: React.FC = () => {
     };
 
     return (
-        <div className="w-[70vw] h-fit mx-auto p-8 bg-white mt-12 mb-12 dark:bg-gray-700 rounded shadow">
+        <div className="w-[90vw] md:w-[70vw] h-fit mx-auto p-4 md:p-8 bg-white mt-12 mb-12 dark:bg-gray-700 rounded shadow">
             {successMessage && <p className="text-green-600 dark:text-green-400 mb-4">{successMessage}</p>}
             <form onSubmit={handleSubmit} className="space-y-2 w-full mt-12 mb-4">
                 <h1 className="text-2xl font-bold mt-6 text-gray-900 dark:text-white">Your Project Plan</h1>

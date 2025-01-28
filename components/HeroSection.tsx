@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { supabase } from "@lib/supabaseClient"; // Import Supabase client
+import AnimatedBackground from "./ui/AnimatedBackground"; // Import the AnimatedBackground component
+import { motion } from "motion/react";
+import { fadeInUp } from "../motionConfig"; // Import the fadeInUp configuration
 
 const HeroSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,29 +90,31 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="bg-gray-900 text-white py-20">
-            <div className="container mx-auto px-4 text-center">
-                <h1 className="text-5xl font-bold mb-4">
+        <section id="hero" className="relative bg-gray-900 py-20 border">
+            <AnimatedBackground />
+            <div className="container mx-auto px-4 text-center relative z-10">
+                <motion.h1 className="text-5xl font-bold mb-4" {...fadeInUp}>
                     Transform Your Ideas
-                </h1>
-                <p className="text-lg mb-6">
+                </motion.h1>
+                <motion.p className="text-lg mb-6" {...fadeInUp}>
                     Expert in building web applications, automations, and tools tailored
                     to your business needs.
-                </p>
+                </motion.p>
                 <div className="flex flex-col items-center space-y-4">
-                    <button
+                    <motion.button
                         onClick={handleModalToggle}
                         className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
+                        {...fadeInUp}
                     >
                         Request more information
-                    </button>
-                    <a href="/signup">
+                    </motion.button>
+                    <motion.a href="/signup" {...fadeInUp}>
                         <button
                             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
                         >
                             Create an account
                         </button>
-                    </a>
+                    </motion.a>
                 </div>
             </div>
 
