@@ -113,7 +113,7 @@ const AdminAnalyticsPage = () => {
     }, []);
 
     return (
-        <>
+        <DashboardLayout>
             <div className="p-8">
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">Analytics Integration</h1>
                 {message && <div className="mb-4 text-green-500">{message}</div>}
@@ -229,7 +229,7 @@ const AdminAnalyticsPage = () => {
                     </div>
                 )}
             </div>
-        </>
+        </DashboardLayout >
     );
 };
 

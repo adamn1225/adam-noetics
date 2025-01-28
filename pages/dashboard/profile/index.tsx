@@ -120,7 +120,7 @@ const UserProfilePage = () => {
     }
 
     return (
-        <>
+        <DashboardLayout>
             <div className="p-8 flex flex-col items-start">
                 <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-200">Your Profile</h1>
                 <div className="bg-white w-fit dark:text-gray-200 dark:bg-gray-600 p-4 rounded-lg shadow md:w-2/5">
@@ -194,7 +194,7 @@ const UserProfilePage = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </DashboardLayout>
     );
 };
 

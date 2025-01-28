@@ -235,7 +235,7 @@ const FilesPage = () => {
     const filteredFiles = files.filter(file => category === 'all' || file.category === category);
 
     return (
-        <>
+        <DashboardLayout>
             <div className="p-4 md:p-8">
                 <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Upload Files</h1>
                 <input
@@ -296,7 +296,7 @@ const FilesPage = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </DashboardLayout>
     );
 };
 
