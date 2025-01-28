@@ -176,36 +176,23 @@ const PublicOnboardingForm: React.FC = () => {
                     </h2>
                 </div>
                 <div>
-                    <label className="block font-semibold text-gray-900 dark:text-white">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
+                    <label htmlFor="service_type" className="block font-semibold text-gray-900 dark:text-white">Service Type</label>
+                    <select
+                        id="service_type"
+                        name="service_type"
+                        value={formData.service_type}
                         onChange={handleChange}
                         className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         required
-                    />
-                </div>
-                <div>
-                    <label className="block font-semibold text-gray-900 dark:text-white">Phone Number</label>
-                    <input
-                        type="text"
-                        name="phone_number"
-                        value={formData.phone_number}
-                        onChange={handleChange}
-                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                    />
-                </div>
-                <div>
-                    <label className="block font-semibold text-gray-900 dark:text-white">Full Name</label>
-                    <input
-                        type="text"
-                        name="full_name"
-                        value={formData.full_name}
-                        onChange={handleChange}
-                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
-                        required
-                    />
+                    >
+                        <option value="" disabled>Select a service</option>
+                        <option value="web_app">Custom Web App or Web Site Development</option>
+                        <option value="web_scraping">Web Scraping</option>
+                        <option value="chrome_extensions">Chrome Extensions</option>
+                        <option value="custom_tools">Custom Tools (Automations, calculators, directories, ticket support systems, etc)</option>
+                        <option value="smm">Social Media Marketing</option>
+                        <option value="seo_ppc">SEO/PPC Advertising</option>
+                    </select>
                 </div>
                 <div>
                     <label className="block font-semibold text-gray-900 dark:text-white">Do you have a website?</label>
@@ -375,25 +362,38 @@ const PublicOnboardingForm: React.FC = () => {
                         rows={2}
                     ></textarea>
                 </div>
-
                 <div>
-                    <label htmlFor="service_type" className="block font-semibold text-gray-900 dark:text-white">Service Type</label>
-                    <select
-                        id="service_type"
-                        name="service_type"
-                        value={formData.service_type}
+                    <label className="block font-semibold text-gray-900 dark:text-white">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
                         onChange={handleChange}
                         className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
                         required
-                    >
-                        <option value="" disabled>Select a service</option>
-                        <option value="web_app">Custom Web App or Web Site Development</option>
-                        <option value="web_scraping">Web Scraping</option>
-                        <option value="chrome_extensions">Chrome Extensions</option>
-                        <option value="custom_tools">Custom Tools (Automations, calculators, directories, ticket support systems, etc)</option>
-                    </select>
+                    />
                 </div>
-
+                <div>
+                    <label className="block font-semibold text-gray-900 dark:text-white">Phone Number</label>
+                    <input
+                        type="text"
+                        name="phone_number"
+                        value={formData.phone_number}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                    />
+                </div>
+                <div>
+                    <label className="block font-semibold text-gray-900 dark:text-white">Full Name</label>
+                    <input
+                        type="text"
+                        name="full_name"
+                        value={formData.full_name}
+                        onChange={handleChange}
+                        className="shadow-sm w-full p-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white"
+                        required
+                    />
+                </div>
                 <div>
                     <label className="block font-semibold text-gray-900 dark:text-white">Would you like to create an account?</label>
                     <div className="flex items-center">

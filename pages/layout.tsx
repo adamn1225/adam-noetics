@@ -21,18 +21,25 @@ const geistMono = Geist_Mono({
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     return (
         <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white`}>
-            <Script
-                src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
-                strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-                {`
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content="Noetic Software and Web Key Solutions" />
+                <link rel="canonical" href="https://noetics.io" />
+                <title>Noetics Web Creations</title>
+                <Script
+                    src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
+                    strategy="afterInteractive"
+                />
+                <Script id="ga4-init" strategy="afterInteractive">
+                    {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
                     gtag('config', 'G-S9Q4511QJC');
                 `}
-            </Script>
+                </Script>
+            </Head>
+
             <Navigation />
             <div className="flex flex-col mt-16 min-h-screen">
                 {children}
