@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navigation from '@components/Navigation';
-import Head from 'next/head';
 import Script from 'next/script';
+import "@styles/globals.css";
 
 interface RootLayoutProps {
     children: ReactNode;
@@ -21,12 +21,7 @@ const geistMono = Geist_Mono({
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     return (
         <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white`}>
-            <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="description" content="Noetic Software and Web Key Solutions" />
-                <link rel="canonical" href="https://noetics.io" />
-                <title>Noetics Web Creations</title>
-            </Head>
+
             <Script
                 src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
                 strategy="afterInteractive"
