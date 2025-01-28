@@ -35,7 +35,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
   return (
     <motion.header
-      className={`bg-white dark:bg-gray-500 pt-2 pb-12 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
+      className={`bg-white dark:bg-gray-500 z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
