@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Navigation from '@components/Navigation';
 import Head from 'next/head';
 import Script from 'next/script';
+import Link from 'next/link';
 
 interface RootLayoutProps {
     children: ReactNode;
@@ -39,6 +40,9 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                     <p className="text-sm">
                         &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
                     </p>
+                    <Link className='underline' href="/privacy-policy">
+                        Privacy Policy
+                    </Link>
                 </div>
             </footer>
         </div>

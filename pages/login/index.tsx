@@ -98,7 +98,7 @@ const LoginPage = () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://www.noetics.io/dashboard',
+          redirectTo: 'https://www.noetics.io/dashboard', // Ensure this matches the configured URL
         },
       });
 
@@ -281,8 +281,15 @@ const LoginPage = () => {
           <p className="text-lg text-center text-blue-600 underline hover:text-blue-600/80">
             <Link href="/">Go back to homepage</Link>
           </p>
+          <p className="text-lg text-center">
+            <Link className='underline text-sm' href="/privacy-policy">
+              Privacy Policy
+            </Link>
+          </p>
         </form>
+
       </div>
+
     </div>
   );
 };

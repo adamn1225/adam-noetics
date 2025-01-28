@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import LandingNavigation from '@components/LandingNavigation';
 import { Eye, EyeOff } from 'lucide-react';
+import Link from 'next/link';
 
 const SignupPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -96,90 +97,12 @@ const SignupPage: React.FC = () => {
     };
 
     const handleGoogleSignup = async () => {
-        const { data, error } = await supabase.auth.signInWithOAuth({
+        await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: 'https://www.noetics.io/dashboard',
             },
         });
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        const { data: userData, error: userError } = await supabase.auth.getUser();
-        if (userError) {
-            setError(userError.message);
-            return;
-        }
-
-        const userId = userData.user?.id;
-        const userEmail = userData.user?.email;
-
-        if (userId && userEmail) {
-            // Check if user already exists in profiles table
-            const { data: profileData, error: profileError } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('user_id', userId)
-                .maybeSingle(); // Use maybeSingle to handle zero or one row
-
-            if (profileError) {
-                setError(profileError.message);
-                return;
-            }
-
-            if (!profileData) {
-                // Insert user into profiles table
-                const { error: insertError } = await supabase
-                    .from('profiles')
-                    .insert([{ user_id: userId, email: userEmail, name: 'Default Name' }]);
-
-                if (insertError) {
-                    setError(insertError.message);
-                    return;
-                }
-
-                // Create organization if not provided
-                const orgName = organizationName || `${userEmail.split('@')[0]}'s Organization`;
-                const { data: orgData, error: orgError } = await supabase
-                    .from('organizations')
-                    .insert([{ name: orgName }])
-                    .select()
-                    .single();
-
-                if (orgError) {
-                    setError(orgError.message);
-                    return;
-                }
-
-                const organizationId = orgData.id;
-
-                // Update profile with organization_id
-                const { error: profileUpdateError } = await supabase
-                    .from('profiles')
-                    .update({ organization_id: organizationId })
-                    .eq('user_id', userId);
-
-                if (profileUpdateError) {
-                    setError(profileUpdateError.message);
-                    return;
-                }
-
-                // Insert into organization_members table
-                const { error: memberError } = await supabase
-                    .from('organization_members')
-                    .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
-
-                if (memberError) {
-                    setError(memberError.message);
-                    return;
-                }
-            }
-
-            setSuccessMessage('Google signup successful! You can now log in.');
-        }
     };
 
     const handleResendOtp = async () => {
@@ -324,7 +247,13 @@ const SignupPage: React.FC = () => {
                             </svg>
                             Sign Up with Google
                         </button>
+                        <p className="text-lg text-center mt-8">
+                            <Link className='underline text-normal' href="/privacy-policy">
+                                Privacy Policy
+                            </Link>
+                        </p>
                     </div>
+
                 </div>
             </div>
         </>
