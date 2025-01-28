@@ -272,6 +272,4 @@ const DashboardPage = () => {
     );
 };
 
-DashboardPage.getLayout = (page: React.ReactNode) => <DashboardLayout>{page}</DashboardLayout>;
-
 export default DashboardPage;
