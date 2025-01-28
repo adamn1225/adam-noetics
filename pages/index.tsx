@@ -13,10 +13,6 @@ const Home = () => {
   return (
     <RootLayout>
       <NextSeo {...SEO} />
-      <Head>
-        <title>Home - Noetics Web and Software Optimization</title>
-        <meta name="description" content="About Noetic Software Services - Software Solutions, Web Apps, Sites, and Marketing." />
-      </Head>
       <CanonicalURL url="https://noetics.io" />
       <div className="space-y-20">
         <HeroSection />
