@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navigation from '@components/Navigation';
 import Script from 'next/script';
-import "@styles/globals.css";
 
 interface RootLayoutProps {
     children: ReactNode;
