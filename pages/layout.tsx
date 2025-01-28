@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Navigation from '@components/Navigation';
-import Script from 'next/script';
+import Head from 'next/head';
 
 interface RootLayoutProps {
     children: ReactNode;
@@ -20,19 +20,12 @@ const geistMono = Geist_Mono({
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     return (
         <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white`}>
-
-            <Script
-                src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
-                strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-                {`
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', 'G-S9Q4511QJC');
-                `}
-            </Script>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content="Your site description" />
+                <link rel="canonical" href="https://yourdomain.com" />
+                <title>Your Site Title</title>
+            </Head>
             <Navigation />
             <div className="flex flex-col mt-16 min-h-screen">
                 {children}
