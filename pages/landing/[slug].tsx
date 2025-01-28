@@ -96,15 +96,6 @@ const LandingPage = () => {
             title: `${service.title} - Noetic Software and Web Key Solutions`,
             description: service.desc,
             url: `https://noetics.io/landing/${slug}`,
-            images: [
-                {
-                    url: 'https://noetics.io/og-image.jpg', // Update with your actual Open Graph image URL
-                    width: 800,
-                    height: 600,
-                    alt: 'Noetics Open Graph Image',
-                    type: 'image/jpeg',
-                },
-            ],
         },
     };
 
