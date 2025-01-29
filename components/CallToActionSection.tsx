@@ -86,7 +86,7 @@ const CallToActionSection = () => {
     >
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-6">
-          Let&apos;s Build Something Amazing
+          Let&apos;s Build
         </h2>
         <p className="text-lg mb-6">
           Ready to take your business to the next level? Get in touch today, and
