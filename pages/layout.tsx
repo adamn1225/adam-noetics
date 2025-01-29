@@ -12,7 +12,7 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     return (
         <div className="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
-            <Head>
+            <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="description" content="Noetic Software and Web Key Solutions" />
                 <link rel="canonical" href="https://noetics.io" />
@@ -29,7 +29,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                     gtag('config', 'G-S9Q4511QJC');
                 `}
                 </Script>
-            </Head>
+            </head>
 
             <Navigation />
             <div className="flex flex-col mt-16 min-h-screen">
