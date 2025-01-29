@@ -21,17 +21,6 @@ const services = [
         ],
     },
     {
-        slug: "noetic-marketing",
-        title: "Noetic Marketing - SEO/SMM/PPC Advertising",
-        desc: "Strategies to Help You Reach Your Target Audience",
-        howItWorks: "We create marketing strategies that drive results. From SEO to PPC advertising, we help you reach your target audience and grow your business.",
-        whatWeOffer: [
-            "SMM/PPC Advertising: Reach your audience on social media and search engines.",
-            "SEO: Improve your search engine rankings and drive organic traffic.",
-            "Backlinking: Build high-quality backlinks to boost your site's authority.",
-        ],
-    },
-    {
         slug: "noetic-custom-tools",
         title: "Custom Tools",
         desc: "Build Tools That Empower Your Team",
@@ -51,6 +40,17 @@ const services = [
             "Third-Party APIs: Integrate popular tools and services.",
             "Secure Connections: Safeguard data during transfers.",
             "Real-Time Sync: Keep everything up-to-date, always.",
+        ],
+    },
+    {
+        slug: "noetic-marketing",
+        title: "Noetic Marketing - SEO/SMM/PPC Advertising",
+        desc: "Strategies to Help You Reach Your Target Audience",
+        howItWorks: "We create marketing strategies that drive results. From SEO to PPC advertising, we help you reach your target audience and grow your business.",
+        whatWeOffer: [
+            "SMM/PPC Advertising: Reach your audience on social media and search engines.",
+            "SEO: Improve your search engine rankings and drive organic traffic.",
+            "Backlinking: Build high-quality backlinks to boost your site's authority.",
         ],
     },
     {
@@ -101,7 +101,6 @@ const LandingPage = () => {
 
     return (
         <>
-            <NextSeo {...customSEO} />
             <Head>
                 <title>{service.title} - Noetic Software and Web Key Solutions</title>
                 <meta name="description" content={service.desc} />

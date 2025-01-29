@@ -106,7 +106,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <ul className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 py-4 sm:hidden">
+          <ul className="absolute top-14 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 py-4 sm:hidden">
             <li>
               <a
                 href="#about"

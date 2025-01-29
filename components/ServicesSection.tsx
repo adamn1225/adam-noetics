@@ -10,7 +10,7 @@ const ServicesSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              title: "Noetic Web Apps",
+              title: "Custom Web Apps",
               desc: "Feature-rich platforms tailored to your needs.",
               list: ["Intuitive Interfaces", "Scalable Architecture", "Custom Features"],
               link: `/landing/noetic-web-apps`,
