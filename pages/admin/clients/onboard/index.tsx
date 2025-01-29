@@ -38,8 +38,8 @@ const OnboardClientPage = () => {
     };
 
     return (
-        <>
-            <div className="container mx-auto p-4">
+        <AdminLayout>
+            <div className=" p-4 w-1/3 border border-gray-300 shadow-sm">
                 <h1 className="text-2xl font-bold mb-4">Onboard New Client</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -52,7 +52,7 @@ const OnboardClientPage = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                         />
                     </div>
                     <div>
@@ -65,7 +65,7 @@ const OnboardClientPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                         />
                     </div>
                     <div>
@@ -78,7 +78,7 @@ const OnboardClientPage = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                         />
                     </div>
                     <div>
@@ -90,7 +90,7 @@ const OnboardClientPage = () => {
                             id="companyName"
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                         />
                     </div>
                     <div>
@@ -102,7 +102,7 @@ const OnboardClientPage = () => {
                             id="phone"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                         />
                     </div>
                     <div>
@@ -117,9 +117,8 @@ const OnboardClientPage = () => {
                 </form>
                 {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
             </div>
-        </>
+        </AdminLayout >
     );
 };
-OnboardClientPage.getLayout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
 
 export default OnboardClientPage;

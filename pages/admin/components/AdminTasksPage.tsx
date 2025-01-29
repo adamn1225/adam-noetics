@@ -89,7 +89,7 @@ const AdminTasksPage = () => {
                 const { data: tasksData, error: tasksError } = await supabase
                     .from('tasks')
                     .select('*')
-                    .eq('user_id', selectedClient.id);
+                    .eq('user_id', selectedClient.user_id); // Ensure correct reference
 
                 if (tasksError) {
                     throw new Error('Failed to fetch tasks');
@@ -135,12 +135,24 @@ const AdminTasksPage = () => {
     };
 
     const handleClientChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const client = clients.find(c => c.id === event.target.value) || null;
+        const client = clients.find(c => c.user_id === event.target.value) || null; // Ensure correct reference
         setSelectedClient(client);
     };
 
     const handleAddTask = async () => {
         if (!selectedClient || newTaskTitle.trim() === '') return;
+
+        // Check if the user is part of the organization
+        const { data: memberData, error: memberError } = await supabase
+            .from('organization_members')
+            .select('*')
+            .eq('user_id', selectedClient.user_id)
+            .eq('organization_id', selectedOrganization?.id);
+
+        if (memberError || memberData.length === 0) {
+            console.error('User is not part of the organization');
+            return;
+        }
 
         const { data, error } = await supabase.from('tasks').insert([
             {
@@ -148,7 +160,7 @@ const AdminTasksPage = () => {
                 description: newTaskDescription,
                 status: newTaskStatus,
                 due_date: newTaskDueDate,
-                user_id: selectedClient.id,
+                user_id: selectedClient.user_id, // Ensure correct reference
                 is_request: false, // Admin added tasks are not requests
             },
         ]);

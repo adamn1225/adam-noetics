@@ -133,7 +133,7 @@ const LoginPage = () => {
           // Insert user into profiles table
           const { error: insertError } = await supabase
             .from('profiles')
-            .insert([{ user_id: userId, email: userEmail, name: 'Default Name' }]);
+            .insert([{ user_id: userId, email: userEmail, name: userEmail.split('@')[0] }]);
 
           if (insertError) {
             setError(insertError.message);
@@ -169,7 +169,7 @@ const LoginPage = () => {
           // Insert into organization_members table
           const { error: memberError } = await supabase
             .from('organization_members')
-            .insert([{ organization_id: organizationId, user_id: userId, role: 'client', organization_name: orgName }]);
+            .insert([{ organization_id: organizationId, user_id: userId, role: 'client' }]);
 
           if (memberError) {
             setError(memberError.message);

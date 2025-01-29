@@ -6,10 +6,10 @@ import AdminLayout from '@/admin/AdminLayout';
 
 const AdminTaskPage = () => {
     return (
-        <>
+        <AdminLayout>
             <AdminTasksPage />
-        </>
+        </AdminLayout>
     );
 };
-AdminTaskPage.getLayout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
+
 export default AdminTaskPage;
