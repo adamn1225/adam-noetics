@@ -13,7 +13,10 @@ const Home = () => {
         <AboutSection />
         <ServicesSection />
         <PortfolioSection />
-        <CallToActionSection />
+        <CallToActionSection
+          title="Ready to Build Your Online Presence?"
+          subtitle="Let's Build Something. Contact us today to get started!"
+        />
       </div>
     </RootLayout>
   );

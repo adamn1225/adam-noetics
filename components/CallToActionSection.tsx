@@ -3,7 +3,12 @@ import { motion } from "framer-motion";
 import { fadeInUp } from "../motionConfig";
 import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 
-const CallToActionSection = () => {
+interface CallToActionSectionProps {
+  title: string;
+  subtitle: string;
+}
+
+const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtitle }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -86,11 +91,10 @@ const CallToActionSection = () => {
     >
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-6">
-          Let&apos;s Build
+          {title}
         </h2>
         <p className="text-lg mb-6">
-          Ready to take your business to the next level? Get in touch today, and
-          let&apos;s make it happen!
+          {subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button

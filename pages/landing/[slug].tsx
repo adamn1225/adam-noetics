@@ -144,7 +144,10 @@ const LandingPage = () => {
                     </section>
 
                     {/* CTA Section */}
-                    <CallToActionSection />
+                    <CallToActionSection
+                        title={`Looking for ${service.title}?`}
+                        subtitle="Contact us today to get started!"
+                    />
                 </div>
 
             </motion.section>
