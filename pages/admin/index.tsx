@@ -74,41 +74,42 @@ const AdminDashboardPage = () => {
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b">Priority</th>
-                        <th className="py-2 px-4 border-b">Task</th>
-                        <th className="py-2 px-4 border-b">Description</th>
-                        <th className="py-2 px-4 border-b">Due Date</th>
-                        <th className="py-2 px-4 border-b">Status</th>
-                        <th className="py-2 px-4 border-b">Notes</th>
-                        <th className="py-2 px-4 border-b">Client Name</th>
-                    </tr>
-                </thead>
-                <tbody className='divide-y divide-gray-400'>
-                    {tasks.map((task) => (
-                        <tr key={task.id} className="text-gray-950 font-semibold">
-                            <td className="py-2 px-4 border-b text-center">
-                                <span className={`inline-block w-4 h-4 rounded-full ${getPriorityColor(task.due_date || '')}`}></span>
-                            </td>
-                            <td className="py-2 px-4 border-b text-center">{task.title}</td>
-                            <td className="py-2 px-4 border-b text-center">{task.description}</td>
-                            <td className="py-2 px-4 border-b text-center">{task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'}</td>
-                            <td className="py-2 px-4 border-b text-center">{task.status}</td>
-                            <td className="py-2 px-4 border-b text-center">{task.notes}</td>
-                            <td className="py-2 px-4 border-b text-center">{task.client_name}</td>
-
+        <AdminLayout>
+            <div className="container mx-auto p-4">
+                <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+                <table className="min-w-full bg-white border border-gray-200">
+                    <thead>
+                        <tr>
+                            <th className="py-2 px-4 border-b">Priority</th>
+                            <th className="py-2 px-4 border-b">Task</th>
+                            <th className="py-2 px-4 border-b">Description</th>
+                            <th className="py-2 px-4 border-b">Due Date</th>
+                            <th className="py-2 px-4 border-b">Status</th>
+                            <th className="py-2 px-4 border-b">Notes</th>
+                            <th className="py-2 px-4 border-b">Client Name</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody className='divide-y divide-gray-400'>
+                        {tasks.map((task) => (
+                            <tr key={task.id} className="text-gray-950 font-semibold">
+                                <td className="py-2 px-4 border-b text-center">
+                                    <span className={`inline-block w-4 h-4 rounded-full ${getPriorityColor(task.due_date || '')}`}></span>
+                                </td>
+                                <td className="py-2 px-4 border-b text-center">{task.title}</td>
+                                <td className="py-2 px-4 border-b text-center">{task.description}</td>
+                                <td className="py-2 px-4 border-b text-center">{task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'}</td>
+                                <td className="py-2 px-4 border-b text-center">{task.status}</td>
+                                <td className="py-2 px-4 border-b text-center">{task.notes}</td>
+                                <td className="py-2 px-4 border-b text-center">{task.client_name}</td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </AdminLayout>
     );
 };
 
 
-AdminDashboardPage.getLayout = (page: React.ReactNode) => <AdminLayout>{page}</AdminLayout>;
 export default AdminDashboardPage;
