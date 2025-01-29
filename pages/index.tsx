@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import HeroSection from "@components/HeroSection";
 import AboutSection from "@components/AboutSection";
 import ServicesSection from "@components/ServicesSection";

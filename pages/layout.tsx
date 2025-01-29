@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { Geist, Geist_Mono } from 'next/font/google';
 import Navigation from '@components/Navigation';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -11,8 +10,8 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     return (
-        <div className="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
-            <head>
+        <>
+            <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="description" content="Noetic Software and Web Key Solutions" />
                 <link rel="canonical" href="https://noetics.io" />
@@ -29,23 +28,26 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                     gtag('config', 'G-S9Q4511QJC');
                 `}
                 </Script>
-            </head>
-
-            <Navigation />
-            <div className="flex flex-col mt-16 min-h-screen">
-                {children}
+            </Head>
+            <div className="antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
+                <header className="bg-white dark:bg-gray-500 z-50 pt-2 fixed top-0 left-0 w-full dark:border-0 dark:border-gray-700">
+                    <Navigation />
+                </header>
+                <main className="flex flex-col mt-16 min-h-screen">
+                    {children}
+                </main>
+                <footer className="bg-gray-900 text-white py-6">
+                    <div className="container mx-auto text-center">
+                        <p className="text-sm">
+                            &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
+                        </p>
+                        <Link className='underline' href="/privacy-policy">
+                            Privacy Policy
+                        </Link>
+                    </div>
+                </footer>
             </div>
-            <footer className="bg-gray-900 text-white py-6">
-                <div className="container mx-auto text-center">
-                    <p className="text-sm">
-                        &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
-                    </p>
-                    <Link className='underline' href="/privacy-policy">
-                        Privacy Policy
-                    </Link>
-                </div>
-            </footer>
-        </div>
+        </>
     );
 };
 
