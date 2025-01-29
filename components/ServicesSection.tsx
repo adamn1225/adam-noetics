@@ -27,7 +27,6 @@ const ServicesSection = () => {
               list: ["Workflow Automation", "Automated Scraping", "Data Extraction"],
               link: `/landing/automation-and-web-scraping`,
             },
-
             {
               title: "Noetic Marketing",
               desc: "Strategies to help you reach your target audience.",
