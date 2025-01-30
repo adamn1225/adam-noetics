@@ -158,3 +158,9 @@ a.active::after {
   height: 2px;
   @apply bg-cyan-700;
 }
+
+.custom-calendar .ant-picker-cell-inner {
+  min-width: 120px;
+  /* Adjust the width as needed */
+  white-space: nowrap;
+}

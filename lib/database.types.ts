@@ -438,6 +438,63 @@ export type Database = {
         }
         Relationships: []
       }
+      smm_calendar: {
+        Row: {
+          created_date: string | null
+          description: string | null
+          id: number
+          media_url: string | null
+          organization_id: string | null
+          post_due_date: string
+          sm_platform: string
+          status: string | null
+          tags: string | null
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          created_date?: string | null
+          description?: string | null
+          id?: number
+          media_url?: string | null
+          organization_id?: string | null
+          post_due_date: string
+          sm_platform: string
+          status?: string | null
+          tags?: string | null
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          created_date?: string | null
+          description?: string | null
+          id?: number
+          media_url?: string | null
+          organization_id?: string | null
+          post_due_date?: string
+          sm_platform?: string
+          status?: string | null
+          tags?: string | null
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "smm_calendar_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "smm_calendar_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           created_at: string | null
