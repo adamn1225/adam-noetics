@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const dotenv = require('dotenv');
+dotenv.config();
 
 exports.handler = async (event) => {
     const { status } = JSON.parse(event.body);

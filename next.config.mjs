@@ -3,7 +3,18 @@ const nextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   images: {
-    domains: ['hvgusjfevfbhfminbmtc.supabase.co', 'www.gravatar.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'hvgusjfevfbhfminbmtc.supabase.co',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.gravatar.com',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

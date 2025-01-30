@@ -1,9 +1,9 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Input, Button, Form, Select, message, Checkbox } from 'antd';
-import dynamic from 'next/dynamic';
+
+
+const { Option } = Select;
 
 interface Post {
     id: number;
@@ -20,12 +20,7 @@ interface FormValues {
     triggerWebhook: boolean;
 }
 
-const { TextArea } = Input;
-const { Option } = Select;
-const Editor = dynamic(() => import('react-quill'), { ssr: false });
-import 'react-quill/dist/quill.snow.css';
-
-const CMSDashboard = () => {
+const CmsDashboard = () => {
     const [posts, setPosts] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [editingPost, setEditingPost] = useState<any>(null);
@@ -95,6 +90,8 @@ const CMSDashboard = () => {
         }
     };
 
+
+
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
@@ -103,7 +100,10 @@ const CMSDashboard = () => {
                     <Input placeholder="Enter post title" />
                 </Form.Item>
                 <Form.Item name="content" label="Content" rules={[{ required: true, message: 'Please enter content' }]}>
-                    <Editor theme="snow" style={{ height: '300px' }} />
+                    <Input.TextArea
+                        className="h-40"
+                        onChange={(e) => form.setFieldsValue({ content: e.target.value })}
+                    />
                 </Form.Item>
                 <Form.Item name="status" label="Status" rules={[{ required: true }]}>
                     <Select>
@@ -135,4 +135,4 @@ const CMSDashboard = () => {
     );
 };
 
-export default CMSDashboard;
+export default CmsDashboard;

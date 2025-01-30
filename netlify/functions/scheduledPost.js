@@ -1,6 +1,8 @@
 const { createClient } = require('@supabase/supabase-js');
 const fetch = require('node-fetch');
 const dayjs = require('dayjs');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
