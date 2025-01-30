@@ -13,7 +13,7 @@ const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
   { name: 'File Uploads', href: '/dashboard/files', icon: Folder },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardList },
-  { name: 'Calendar', href: '/dashboard/calendar', icon: Calendar },
+  { name: 'Calendar', href: '/dashboard/sm-calendar', icon: Calendar },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart },
   { name: 'Profile', href: '/dashboard/profile', icon: User },
 ];

@@ -1,8 +1,14 @@
-# example netlify.toml
 [build]
   command = "npm run build"
   functions = "netlify/functions"
   publish = ".next"
+
+[functions]
+  directory = "netlify/functions"
+
+# Schedule the function to run every hour at minute 5
+[functions.scheduledPost]
+  schedule = "5 * * * *"
 
 # Uncomment to use this redirect for Single Page Applications like create-react-app.
 # Not needed for static site generators.
@@ -11,11 +17,6 @@
 #  to = "/index.html"
 #  status = 200
 
-# Add any additional configuration for functions if needed
-[functions]
-  # Specify the directory for functions
-  directory = "netlify/functions"
-
-  # Add environment variables if needed
-  # [functions.environment]
-  #   MY_ENV_VAR = "value"
+# Add environment variables if needed
+#[functions.environment]
+#  MY_ENV_VAR = "value"

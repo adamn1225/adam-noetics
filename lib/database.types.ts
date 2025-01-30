@@ -552,6 +552,30 @@ export type Database = {
           },
         ]
       }
+      user_tokens: {
+        Row: {
+          access_token: string
+          expires_at: string | null
+          id: string
+          platform: string
+          user_id: string | null
+        }
+        Insert: {
+          access_token: string
+          expires_at?: string | null
+          id?: string
+          platform: string
+          user_id?: string | null
+        }
+        Update: {
+          access_token?: string
+          expires_at?: string | null
+          id?: string
+          platform?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, Badge, Modal, Form, Input, DatePicker, Select, Button, Card, List } from "antd";
+import { Calendar, Badge, Modal, Form, Input, DatePicker, Select, Button, Card, List, Switch } from "antd";
 import { motion } from "framer-motion";
 import DashboardLayout from "../UserLayout";
 import { supabase } from "@lib/supabaseClient";
 import dayjs from "dayjs";
+import AddAccessToken from "@components/AddAccessToken";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -12,6 +13,7 @@ const SmCalendar = () => {
     const [events, setEvents] = useState<any[]>([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isEventDetailsModalVisible, setIsEventDetailsModalVisible] = useState(false);
+    const [isAccessTokenModalVisible, setIsAccessTokenModalVisible] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<any>(null);
     const [form] = Form.useForm();
     const [eventForm] = Form.useForm();
@@ -35,6 +37,8 @@ const SmCalendar = () => {
         post_due_date: string;
         sm_platform: string;
         status: string;
+        post_automatically: boolean;
+        user_id: string;
     }
 
     const cellRender = (current: dayjs.Dayjs, info: { type: string }) => {
@@ -64,13 +68,35 @@ const SmCalendar = () => {
             post_due_date: dayjs(event.post_due_date),
             sm_platform: event.sm_platform,
             status: event.status,
+            post_automatically: event.post_automatically,
         });
     };
 
+    const postToSocialMedia = async (event: Event) => {
+        try {
+            const response = await fetch('/.netlify/functions/postToSocialMedia', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ event }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to post on ${event.sm_platform}`);
+            }
+
+            console.log(`Post successfully published on ${event.sm_platform}`);
+        } catch (error) {
+            console.error("Error posting:", error);
+        }
+    };
+
     const handleAddEvent = async (values: any) => {
-        const { title, description, post_due_date, sm_platform, status } = values;
+        const { title, description, post_due_date, sm_platform, status, post_automatically } = values;
+        const user_id = "current-user-id"; // Replace with actual user ID
         const { data, error } = await supabase.from("smm_calendar").insert([
-            { title, description, post_due_date, sm_platform, status },
+            { title, description, post_due_date, sm_platform, status, post_automatically, user_id },
         ]);
 
         if (error) {
@@ -78,6 +104,9 @@ const SmCalendar = () => {
         } else {
             if (data) {
                 setEvents([...events, ...data]);
+                if (post_automatically) {
+                    postToSocialMedia(data[0]);
+                }
             }
             setIsModalVisible(false);
             form.resetFields();
@@ -85,10 +114,11 @@ const SmCalendar = () => {
     };
 
     const handleUpdateEvent = async (values: any) => {
-        const { title, description, post_due_date, sm_platform, status } = values;
+        const { title, description, post_due_date, sm_platform, status, post_automatically } = values;
+        const user_id = "current-user-id"; // Replace with actual user ID
         const { data, error } = await supabase
             .from("smm_calendar")
-            .update({ title, description, post_due_date, sm_platform, status })
+            .update({ title, description, post_due_date, sm_platform, status, post_automatically, user_id })
             .eq("id", selectedEvent.id);
 
         if (error) {
@@ -112,6 +142,25 @@ const SmCalendar = () => {
             setSelectedEvent(null);
         }
     };
+
+    const callScheduledPostFunction = async () => {
+        if (process.env.NODE_ENV === 'development') {
+            try {
+                const response = await fetch('/.netlify/functions/scheduledPost');
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to call scheduled post function: ${errorText}`);
+                }
+                console.log('Scheduled post function called successfully');
+            } catch (error) {
+                console.error('Error calling scheduled post function:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        callScheduledPostFunction();
+    }, []);
 
     const upcomingEvents = events
         .filter((event) => dayjs(event.post_due_date).isAfter(dayjs()))
@@ -148,18 +197,30 @@ const SmCalendar = () => {
                                 )}
                             />
                         </Card>
+                        <div className="bg-white px-2 py-4 shadow-md mt-3 flex flex-col items-start justify-start gap-2 rounded-md">
+                            <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">
+                                Connect to Your Social Media Platforms
+                            </h2>
+                            <button
+                                className="text-base bg-blue-950 mv-2 self-center w-full text-white font-semibold px-3 py-1 shadow-md rounded-md"
+                                onClick={() => setIsAccessTokenModalVisible(true)}
+                            >
+                                Add Access Token
+                            </button>
+                        </div>
+
                     </div>
                     {/* Calendar Section */}
                     <div className="flex-1">
-                        <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-white">
+                        <h2 className="text-2xl font-semibold text-center my-4 text-gray-800 dark:text-white">
                             Social Media Calendar
                         </h2>
                         <div className="flex items-center justify-start mb-2 w-full">
                             <button
-                                className="text-base bg-blue-500 text-white px-3 py-1 shadow-md rounded-md"
+                                className="text-lg bg-blue-950 text-white px-3 py-1 shadow-md rounded-md"
                                 onClick={() => setIsModalVisible(true)}
                             >
-                                Add Event
+                                Add SMM Event
                             </button>
 
                         </div>
@@ -177,7 +238,7 @@ const SmCalendar = () => {
 
                 </div>
 
-                {/* Modals (Add Event & Edit Event) */}
+                {/* Modals (Add Event, Edit Event & Add Access Token) */}
                 <Modal title="Add Event" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={null}>
                     <Form form={form} onFinish={handleAddEvent} layout="vertical">
                         <Form.Item name="title" label="Title" rules={[{ required: true, message: "Please enter the title" }]}>
@@ -197,6 +258,9 @@ const SmCalendar = () => {
                                 <Option value="LinkedIn">LinkedIn</Option>
                                 <Option value="TikTok">TikTok</Option>
                             </Select>
+                        </Form.Item>
+                        <Form.Item name="post_automatically" label="Auto Post?" valuePropName="checked">
+                            <Switch />
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
@@ -237,6 +301,9 @@ const SmCalendar = () => {
                                 <Option value="Published">Published</Option>
                             </Select>
                         </Form.Item>
+                        <Form.Item name="post_automatically" label="Auto Post?" valuePropName="checked">
+                            <Switch />
+                        </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 Update Event
@@ -246,6 +313,14 @@ const SmCalendar = () => {
                             </Button>
                         </Form.Item>
                     </Form>
+                </Modal>
+                <Modal
+                    title="Add Access Token"
+                    visible={isAccessTokenModalVisible}
+                    onCancel={() => setIsAccessTokenModalVisible(false)}
+                    footer={null}
+                >
+                    <AddAccessToken />
                 </Modal>
             </motion.div>
             <style jsx>{`
