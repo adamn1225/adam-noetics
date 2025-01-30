@@ -1,9 +1,11 @@
+// Inside /pages/api/clientblog/route.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@lib/supabaseClient';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
     if (req.method === 'GET') {
-        // Fetch only published blog posts
         const { data, error } = await supabase.from('blog_posts').select('*').eq('status', 'published');
 
         if (error) return res.status(500).json({ error: error.message });
