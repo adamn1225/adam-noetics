@@ -6,9 +6,9 @@
 [functions]
   directory = "netlify/functions"
 
-# Schedule the function to run every hour at minute 5
+# Schedule the function to run every hour
 [functions.scheduledPost]
-  schedule = "5 * * * *"
+  schedule = "@hourly"
 
 # Uncomment to use this redirect for Single Page Applications like create-react-app.
 # Not needed for static site generators.

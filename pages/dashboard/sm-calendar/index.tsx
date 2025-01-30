@@ -190,8 +190,7 @@ const SmCalendar = () => {
                                     >
                                         <List.Item.Meta
                                             title={<span className="font-semibold text-nowrap">{event.title}</span>}
-                                            description={`${dayjs(event.post_due_date).format("MMMM D, YYYY")} • ${event.sm_platform
-                                                }`}
+                                            description={`${dayjs(event.post_due_date).format("MMMM D, YYYY")} • ${event.sm_platform}`}
                                         />
                                     </List.Item>
                                 )}
