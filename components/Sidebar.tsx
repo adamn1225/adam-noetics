@@ -6,7 +6,6 @@ import { supabase } from '@lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import Spinner from './ui/Spinner'; // Import Spinner component
 import placeholderAvatar from '@public/placeholder-avatar.png';
 import noeticsLogoDark from '@public/noeticslogo-dark.png';
 
@@ -114,6 +113,9 @@ const Sidebar = () => {
 
   return (
     <aside className={`bg-gray-900 dark:bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
+      {loading && (
+        <div className="absolute top-0 left-0 w-full h-1 bg-blue-500 animate-pulse"></div>
+      )}
       <div className='flex items-center justify-center p-4'>
         <Image
           src={isDarkMode ? noeticsLogoDark : noeticsLogoDark}
@@ -200,11 +202,6 @@ const Sidebar = () => {
           </ul>
         </div>
       </nav>
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <Spinner />
-        </div>
-      )}
     </aside>
   );
 };
