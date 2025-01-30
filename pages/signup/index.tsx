@@ -5,7 +5,6 @@ import { supabase } from '@lib/supabaseClient';
 import LandingNavigation from '@components/LandingNavigation';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import '../../styles/globals.css'
 
 const SignupPage: React.FC = () => {
     const [email, setEmail] = useState('');
