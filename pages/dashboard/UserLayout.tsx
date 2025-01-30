@@ -1,6 +1,6 @@
 import Sidebar from '@components/Sidebar'; // Adjust path if needed
 import React, { ReactNode } from 'react';
-import '../../styles/globals.css';
+import './client.css';
 
 interface DashboardLayoutProps {
   children: ReactNode;
