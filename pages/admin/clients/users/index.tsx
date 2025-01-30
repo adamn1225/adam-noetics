@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
-import AdminLayout from '../AdminLayout';
+import AdminLayout from '../../AdminLayout';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 type Organization = Database['public']['Tables']['organizations']['Row'];

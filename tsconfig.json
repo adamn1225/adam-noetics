@@ -40,20 +40,13 @@
       "@public/*": [
         "public/*"
       ]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    }
   },
   "include": [
+    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts",
-    "next.config.mjs",
-    ".next/types/**/*.ts",
-    "pages/api/blog"
+    "next.config.mjs"
   ],
   "exclude": [
     "node_modules"

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import { Input, Button, Form, Select, message } from 'antd';
+import { Input, Button, Form, Select, message, Checkbox } from 'antd';
 import dynamic from 'next/dynamic';
 
 interface Post {
@@ -17,6 +17,7 @@ interface FormValues {
     title: string;
     content: string;
     status: string;
+    triggerWebhook: boolean;
 }
 
 const { TextArea } = Input;
@@ -55,11 +56,20 @@ const CMSDashboard = () => {
             message.success('Post saved successfully');
 
             // Trigger Netlify build when publishing
-            if (values.status === 'published') {
-                if (process.env.NEXT_NETLIFY_WEBHOOK) {
-                    await fetch(process.env.NEXT_NETLIFY_WEBHOOK, { method: 'POST' });
-                } else {
-                    message.error('Netlify webhook URL is not defined');
+            if (values.status === 'published' && values.triggerWebhook) {
+                try {
+                    const response = await fetch('/.netlify/functions/triggerWebhook', {
+                        method: 'POST',
+                        body: JSON.stringify({ status: values.status }),
+                    });
+                    const result = await response.json();
+                    if (response.ok) {
+                        message.success(result.message);
+                    } else {
+                        message.error(result.error);
+                    }
+                } catch (error) {
+                    message.error('Failed to trigger Netlify build');
                 }
             }
         }
@@ -69,7 +79,6 @@ const CMSDashboard = () => {
         setEditingPost(null);
         fetchPosts();
     };
-
 
     const handleEdit = (post: Post) => {
         setEditingPost(post);
@@ -101,6 +110,9 @@ const CMSDashboard = () => {
                         <Option value="draft">Draft</Option>
                         <Option value="published">Published</Option>
                     </Select>
+                </Form.Item>
+                <Form.Item name="triggerWebhook" valuePropName="checked">
+                    <Checkbox>Trigger Netlify build on publish</Checkbox>
                 </Form.Item>
                 <Button type="primary" htmlType="submit" loading={loading}>
                     {editingPost ? 'Update Post' : 'Add Post'}

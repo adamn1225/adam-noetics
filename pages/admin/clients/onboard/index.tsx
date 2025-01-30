@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { onboardNewClient } from '@lib/onboardClient';
-import AdminLayout from '../AdminLayout';
+import AdminLayout from '../../AdminLayout';
 
 const OnboardClientPage = () => {
     const [email, setEmail] = useState('');

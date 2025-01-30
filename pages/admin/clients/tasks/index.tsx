@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminTasksPage from '../../../components/AdminTasksPage';
+import AdminTasksPage from '../../../../components/AdminTasksPage';
 import AdminLayout from '@/admin/AdminLayout';
 
 const AdminTaskPage = () => {

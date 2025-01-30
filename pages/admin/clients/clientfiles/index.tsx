@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
 import { v4 as uuidv4 } from 'uuid';
-import AdminLayout from '../AdminLayout';
+import AdminLayout from '../../AdminLayout';
 
 type File = Database['public']['Tables']['files']['Row'];
 type Profile = Database['public']['Tables']['profiles']['Row'];

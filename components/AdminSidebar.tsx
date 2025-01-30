@@ -13,11 +13,11 @@ import noeticsLogoDark from '@public/noeticslogo-dark.png';
 
 const adminNavItems = [
     { name: "Dashboard", href: "/admin", icon: Home },
-    { name: "Admin Tasks", href: "/admin/tasks", icon: List },
-    { name: "Client Files", href: "/admin/clientfiles", icon: ClipboardList },
-    { name: "Analytics", href: "/admin/analytics", icon: BarChart },
-    { name: "Users", href: "/admin/users", icon: User },
-    { name: "Onboard Clients", href: "/admin/onboard", icon: UserPlus },
+    { name: "Admin Tasks", href: "/admin/clients/tasks", icon: List },
+    { name: "Client Files", href: "/admin/clients/clientfiles", icon: ClipboardList },
+    { name: "Analytics", href: "/admin/clients/analytics", icon: BarChart },
+    { name: "Users", href: "/admin/clients/users", icon: User },
+    { name: "Onboard Clients", href: "/admin/clients/onboard", icon: UserPlus },
 ];
 
 const AdminSidebar = () => {

@@ -88,8 +88,13 @@ exports.handler = async (event, context) => {
         }
 
         for (const event of events) {
-            await postToSocialMedia(event);
-            await supabase.from("smm_calendar").update({ status: "Published" }).eq("id", event.id);
+            const accessToken = await getUserAccessToken(event.user_id, event.sm_platform);
+            if (accessToken) {
+                await postToSocialMedia(event);
+                await supabase.from("smm_calendar").update({ status: "Published" }).eq("id", event.id);
+            } else {
+                console.log(`Skipping event ${event.id} due to missing access token`);
+            }
         }
 
         return {
@@ -104,6 +109,6 @@ exports.handler = async (event, context) => {
     }
 };
 
-export const config = {
+module.exports.config = {
     schedule: '@hourly' // Runs every hour
 };
