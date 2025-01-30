@@ -1,14 +1,10 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import { Calendar, Badge, Modal, Form, Input, DatePicker, Select, Button, Card, List, Switch } from 'antd';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import { motion } from 'framer-motion';
 import dayjs from 'dayjs';
 import AddAccessToken from '@components/AddAccessToken';
-
-const { TextArea } = Input;
-const { Option } = Select;
 
 const SMMCalendar = () => {
     const [events, setEvents] = useState<any[]>([]);
@@ -16,8 +12,14 @@ const SMMCalendar = () => {
     const [isEventDetailsModalVisible, setIsEventDetailsModalVisible] = useState(false);
     const [isAccessTokenModalVisible, setIsAccessTokenModalVisible] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<any>(null);
-    const [form] = Form.useForm();
-    const [eventForm] = Form.useForm();
+    const [formValues, setFormValues] = useState({
+        title: '',
+        description: '',
+        post_due_date: '',
+        sm_platform: 'Facebook',
+        status: 'Draft',
+        post_automatically: false,
+    });
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -42,31 +44,13 @@ const SMMCalendar = () => {
         user_id: string;
     }
 
-    const cellRender = (current: dayjs.Dayjs, info: { type: string }) => {
-        if (info.type === 'date') {
-            const listData = events.filter((event: Event) =>
-                dayjs(event.post_due_date).isSame(current, "day")
-            );
-            return (
-                <ul className="events">
-                    {listData.map((item: Event) => (
-                        <li key={item.id} onClick={() => handleEventClick(item)}>
-                            <Badge status={item.status === "Published" ? "success" : "warning"} text={item.title} />
-                        </li>
-                    ))}
-                </ul>
-            );
-        }
-        return <div>{current.date()}</div>;
-    };
-
     const handleEventClick = (event: Event) => {
         setSelectedEvent(event);
         setIsEventDetailsModalVisible(true);
-        eventForm.setFieldsValue({
+        setFormValues({
             title: event.title,
             description: event.description,
-            post_due_date: dayjs(event.post_due_date),
+            post_due_date: event.post_due_date,
             sm_platform: event.sm_platform,
             status: event.status,
             post_automatically: event.post_automatically,
@@ -93,10 +77,11 @@ const SMMCalendar = () => {
         }
     };
 
-    const handleAddEvent = async (values: any) => {
-        const { title, description, post_due_date, sm_platform, status, post_automatically } = values;
+    const handleAddEvent = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const { title, description, post_due_date, sm_platform, status, post_automatically } = formValues;
         const { data, error } = await supabase.from("smm_calendar").insert([
-            { title, description, post_due_date, sm_platform, status, post_automatically, user_id: selectedEvent.user_id },
+            { title, description, post_due_date, sm_platform, status, post_automatically, user_id: selectedEvent?.user_id },
         ]);
 
         if (error) {
@@ -109,12 +94,20 @@ const SMMCalendar = () => {
                 }
             }
             setIsModalVisible(false);
-            form.resetFields();
+            setFormValues({
+                title: '',
+                description: '',
+                post_due_date: '',
+                sm_platform: 'Facebook',
+                status: 'Draft',
+                post_automatically: false,
+            });
         }
     };
 
-    const handleUpdateEvent = async (values: any) => {
-        const { title, description, post_due_date, sm_platform, status, post_automatically } = values;
+    const handleUpdateEvent = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const { title, description, post_due_date, sm_platform, status, post_automatically } = formValues;
         const { data, error } = await supabase
             .from("smm_calendar")
             .update({ title, description, post_due_date, sm_platform, status, post_automatically, user_id: selectedEvent.user_id })
@@ -123,10 +116,17 @@ const SMMCalendar = () => {
         if (error) {
             console.error("Error updating event:", error);
         } else {
-            setEvents(events.map((event) => (event.id === selectedEvent.id ? { ...event, ...values } : event)));
+            setEvents(events.map((event) => (event.id === selectedEvent.id ? { ...event, ...formValues } : event)));
             setIsEventDetailsModalVisible(false);
             setSelectedEvent(null);
-            eventForm.resetFields();
+            setFormValues({
+                title: '',
+                description: '',
+                post_due_date: '',
+                sm_platform: 'Facebook',
+                status: 'Draft',
+                post_automatically: false,
+            });
         }
     };
 
@@ -166,6 +166,15 @@ const SMMCalendar = () => {
         .sort((a, b) => dayjs(a.post_due_date).diff(dayjs(b.post_due_date)))
         .slice(0, 5);
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+        const checked = (e.target as HTMLInputElement).checked;
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
+
     return (
         <>
             <motion.div
@@ -177,25 +186,24 @@ const SMMCalendar = () => {
             >
                 <div className="flex flex-col lg:flex-row gap-6">
                     <div className="lg:w-1/6">
-
-                        <Card title="Upcoming Posts" bordered={false}>
-                            <List
-                                itemLayout="horizontal"
-                                dataSource={upcomingEvents}
-                                renderItem={(event) => (
-                                    <List.Item
+                        <div className="bg-white px-4 py-4 shadow-md rounded-md">
+                            <h2 className="text-xl font-semibold mb-4">Upcoming Posts</h2>
+                            <ul className="space-y-2">
+                                {upcomingEvents.map((event) => (
+                                    <li
+                                        key={event.id}
                                         className="cursor-pointer hover:bg-gray-100 p-2 rounded-md"
                                         onClick={() => handleEventClick(event)}
                                     >
-                                        <List.Item.Meta
-                                            title={<span className="font-semibold text-nowrap">{event.title}</span>}
-                                            description={`${dayjs(event.post_due_date).format("MMMM D, YYYY")} • ${event.sm_platform}`}
-                                        />
-                                    </List.Item>
-                                )}
-                            />
-                        </Card>
-                        <div className="bg-white px-2 py-4 shadow-md mt-3 flex flex-col items-start justify-start gap-2 rounded-md">
+                                        <div className="font-semibold">{event.title}</div>
+                                        <div className="text-sm text-gray-500">
+                                            {dayjs(event.post_due_date).format("MMMM D, YYYY")} • {event.sm_platform}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="bg-white px-4 py-4 shadow-md mt-3 flex flex-col items-start justify-start gap-2 rounded-md">
                             <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">
                                 Connect to Your Social Media Platforms
                             </h2>
@@ -206,7 +214,6 @@ const SMMCalendar = () => {
                                 Add Access Token
                             </button>
                         </div>
-
                     </div>
                     {/* Calendar Section */}
                     <div className="flex-1">
@@ -220,106 +227,245 @@ const SMMCalendar = () => {
                             >
                                 Add SMM Event
                             </button>
-
                         </div>
-
-
                         <div className="p-1 bg-white text-nowrap rounded-lg shadow-md">
                             <Calendar
-                                cellRender={cellRender}
-                                style={{ maxWidth: "100%", maxHeight: "100%" }}
-                                className="custom-calendar"
+                                onClickDay={(value) => {
+                                    const eventsOnDay = events.filter((event) =>
+                                        dayjs(event.post_due_date).isSame(value, 'day')
+                                    );
+                                    if (eventsOnDay.length > 0) {
+                                        handleEventClick(eventsOnDay[0]);
+                                    }
+                                }}
+                                tileContent={({ date, view }) => {
+                                    if (view === 'month') {
+                                        const eventsOnDay = events.filter((event) =>
+                                            dayjs(event.post_due_date).isSame(date, 'day')
+                                        );
+                                        return (
+                                            <ul className="events">
+                                                {eventsOnDay.map((item) => (
+                                                    <li key={item.id}>
+                                                        <span className={`badge ${item.status === "Published" ? "bg-green-500" : "bg-yellow-500"}`}>
+                                                            {item.title}
+                                                        </span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        );
+                                    }
+                                }}
                             />
                         </div>
                     </div>
-
-
                 </div>
 
+
                 {/* Modals (Add Event, Edit Event & Add Access Token) */}
-                <Modal title="Add Event" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={null}>
-                    <Form form={form} onFinish={handleAddEvent} layout="vertical">
-                        <Form.Item name="title" label="Title" rules={[{ required: true, message: "Please enter the title" }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="description" label="Description">
-                            <TextArea rows={4} />
-                        </Form.Item>
-                        <Form.Item name="post_due_date" label="Post Due Date" rules={[{ required: true }]}>
-                            <DatePicker showTime />
-                        </Form.Item>
-                        <Form.Item name="sm_platform" label="Social Media Platform" rules={[{ required: true }]}>
-                            <Select>
-                                <Option value="Facebook">Facebook</Option>
-                                <Option value="Twitter">Twitter</Option>
-                                <Option value="Instagram">Instagram</Option>
-                                <Option value="LinkedIn">LinkedIn</Option>
-                                <Option value="TikTok">TikTok</Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item name="post_automatically" label="Auto Post?" valuePropName="checked">
-                            <Switch />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Add Event
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
-                <Modal
-                    title="Event Details"
-                    visible={isEventDetailsModalVisible}
-                    onCancel={() => setIsEventDetailsModalVisible(false)}
-                    footer={null}
-                >
-                    <Form form={eventForm} onFinish={handleUpdateEvent} layout="vertical">
-                        <Form.Item name="title" label="Title" rules={[{ required: true, message: "Please enter the title" }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="description" label="Description">
-                            <TextArea rows={4} />
-                        </Form.Item>
-                        <Form.Item name="post_due_date" label="Post Due Date" rules={[{ required: true }]}>
-                            <DatePicker showTime />
-                        </Form.Item>
-                        <Form.Item name="sm_platform" label="Social Media Platform" rules={[{ required: true }]}>
-                            <Select>
-                                <Option value="Facebook">Facebook</Option>
-                                <Option value="Twitter">Twitter</Option>
-                                <Option value="Instagram">Instagram</Option>
-                                <Option value="LinkedIn">LinkedIn</Option>
-                                <Option value="TikTok">TikTok</Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item name="status" label="Status" rules={[{ required: true }]}>
-                            <Select>
-                                <Option value="Draft">Draft</Option>
-                                <Option value="Scheduled">Scheduled</Option>
-                                <Option value="Published">Published</Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item name="post_automatically" label="Auto Post?" valuePropName="checked">
-                            <Switch />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Update Event
-                            </Button>
-                            <Button danger={true} onClick={handleDeleteEvent} style={{ marginLeft: "10px" }}>
-                                Delete Event
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
-                <Modal
-                    title="Add Access Token"
-                    visible={isAccessTokenModalVisible}
-                    onCancel={() => setIsAccessTokenModalVisible(false)}
-                    footer={null}
-                >
-                    <AddAccessToken />
-                </Modal>
+                <div className={`modal ${isModalVisible ? 'modal-open' : ''}`}>
+                    <div className="modal-box">
+                        <h2 className="font-bold text-lg">Add Event</h2>
+                        <form onSubmit={handleAddEvent} className="space-y-4">
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Title</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={formValues.title}
+                                    onChange={handleChange}
+                                    className="input input-bordered"
+                                    required
+                                />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Description</span>
+                                </label>
+                                <textarea
+                                    name="description"
+                                    value={formValues.description}
+                                    onChange={handleChange}
+                                    className="textarea textarea-bordered"
+                                    rows={4}
+                                />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Post Due Date</span>
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    name="post_due_date"
+                                    value={formValues.post_due_date}
+                                    onChange={handleChange}
+                                    className="input input-bordered"
+                                    required
+                                />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Social Media Platform</span>
+                                </label>
+                                <select
+                                    name="sm_platform"
+                                    value={formValues.sm_platform}
+                                    onChange={handleChange}
+                                    className="select select-bordered"
+                                    required
+                                >
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Twitter">Twitter</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="LinkedIn">LinkedIn</option>
+                                    <option value="TikTok">TikTok</option>
+                                </select>
+                            </div>
+                            <div className="form-control">
+                                <label className="cursor-pointer label">
+                                    <span className="label-text">Auto Post?</span>
+                                    <input
+                                        type="checkbox"
+                                        name="post_automatically"
+                                        checked={formValues.post_automatically}
+                                        onChange={handleChange}
+                                        className="checkbox"
+                                    />
+                                </label>
+                            </div>
+                            <div className="modal-action">
+                                <button type="submit" className="btn btn-primary">
+                                    Add Event
+                                </button>
+                                <button type="button" className="btn" onClick={() => setIsModalVisible(false)}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {isEventDetailsModalVisible && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                            <h2 className="text-xl font-bold mb-4">Event Details</h2>
+                            <form onSubmit={handleUpdateEvent} className="space-y-4">
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Title</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        value={formValues.title}
+                                        onChange={handleChange}
+                                        className="input input-bordered"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Description</span>
+                                    </label>
+                                    <textarea
+                                        name="description"
+                                        value={formValues.description}
+                                        onChange={handleChange}
+                                        className="textarea textarea-bordered"
+                                        rows={4}
+                                    />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Post Due Date</span>
+                                    </label>
+                                    <input
+                                        type="datetime-local"
+                                        name="post_due_date"
+                                        value={formValues.post_due_date}
+                                        onChange={handleChange}
+                                        className="input input-bordered"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Social Media Platform</span>
+                                    </label>
+                                    <select
+                                        name="sm_platform"
+                                        value={formValues.sm_platform}
+                                        onChange={handleChange}
+                                        className="select select-bordered"
+                                        required
+                                    >
+                                        <option value="Facebook">Facebook</option>
+                                        <option value="Twitter">Twitter</option>
+                                        <option value="Instagram">Instagram</option>
+                                        <option value="LinkedIn">LinkedIn</option>
+                                        <option value="TikTok">TikTok</option>
+                                    </select>
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Status</span>
+                                    </label>
+                                    <select
+                                        name="status"
+                                        value={formValues.status}
+                                        onChange={handleChange}
+                                        className="select select-bordered"
+                                        required
+                                    >
+                                        <option value="Draft">Draft</option>
+                                        <option value="Scheduled">Scheduled</option>
+                                        <option value="Published">Published</option>
+                                    </select>
+                                </div>
+                                <div className="form-control">
+                                    <label className="cursor-pointer label">
+                                        <span className="label-text">Auto Post?</span>
+                                        <input
+                                            type="checkbox"
+                                            name="post_automatically"
+                                            checked={formValues.post_automatically}
+                                            onChange={handleChange}
+                                            className="checkbox"
+                                        />
+                                    </label>
+                                </div>
+                                <div className="flex justify-end space-x-2">
+                                    <button type="submit" className="btn btn-primary">
+                                        Update Event
+                                    </button>
+                                    <button type="button" className="btn btn-danger" onClick={handleDeleteEvent}>
+                                        Delete Event
+                                    </button>
+                                    <button type="button" className="btn" onClick={() => setIsEventDetailsModalVisible(false)}>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+                {isAccessTokenModalVisible && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                            <h2 className="text-xl font-bold mb-4">Add Access Token</h2>
+                            <AddAccessToken />
+                            <div className="flex justify-end mt-4">
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={() => setIsAccessTokenModalVisible(false)}
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </motion.div>
             <style jsx>{`
                 .custom-calendar .ant-picker-cell-inner {
