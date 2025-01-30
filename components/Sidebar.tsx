@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useTransition } from 'react';
-import { Home, FileText, Folder, ClipboardList, BarChart, User, LogOut, List, Settings, Moon, Sun } from 'lucide-react';
+import { Home, Folder, ClipboardList, BarChart, User, LogOut, Settings, Moon, Sun } from 'lucide-react';
 import { supabase } from '@lib/supabaseClient';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Spinner from './ui/Spinner'; // Import Spinner component
 import placeholderAvatar from '@public/placeholder-avatar.png';
-import noeticsLogo from '@public/noeticslogo.png';
 import noeticsLogoDark from '@public/noeticslogo-dark.png';
 
 const navItems = [
@@ -19,10 +18,6 @@ const navItems = [
   { name: 'Profile', href: '/dashboard/profile', icon: User },
 ];
 
-const adminNavItems = [
-  { name: 'Admin Tasks', href: '/admin/clients/tasks', icon: List },
-];
-
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [profile, setProfile] = useState<any>(null);
@@ -30,6 +25,7 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const currentPath = usePathname();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -168,19 +164,9 @@ const Sidebar = () => {
           {navItems.map((item) => (
             <li key={item.name} className="mb-2">
               <Link href={item.href} passHref legacyBehavior>
-                <a className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 text-sm font-medium hover:bg-gray-700 rounded`}>
+                <a className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 text-sm font-medium hover:bg-gray-700 rounded ${currentPath === item.href ? 'active' : ''}`}>
                   <item.icon className="md:mr-2" />
                   <span className={`text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
-                </a>
-              </Link>
-            </li>
-          ))}
-          {profile?.role === 'admin' && adminNavItems.map((item) => (
-            <li key={item.name} className="mb-2">
-              <Link href={item.href} passHref legacyBehavior>
-                <a className={`flex ${isCollapsed ? 'justify-end' : 'justify-normal'} items-center p-2 text-base font-medium hover:bg-gray-700 rounded`}>
-                  <item.icon className="mr-0 md:mr-2" />
-                  <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
                 </a>
               </Link>
             </li>
@@ -199,7 +185,7 @@ const Sidebar = () => {
             </li>
             <li className="mb-2">
               <Link href="/dashboard/settings" passHref legacyBehavior>
-                <a className="flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded">
+                <a className={`flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded ${currentPath === '/dashboard/settings' ? 'active' : ''}`}>
                   <Settings className="mr-2" />
                   <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Settings</span>
                 </a>

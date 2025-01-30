@@ -8,22 +8,6 @@ const nextConfig: NextConfig = {
     return config;
   },
   trailingSlash: true,
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    return {
-      '/': { page: '/' },
-      '/signup': { page: '/signup' },
-      '/dashboard': { page: '/dashboard' },
-      // Add other pages here
-    }
-  },
-  experimental: {
-    turbo: {
-      // Add valid ExperimentalTurboOptions properties here
-    },
-  },
   images: {
     domains: ['hvgusjfevfbhfminbmtc.supabase.co'],
   },

@@ -2,13 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import { Database } from '@lib/database.types';
 import DashboardLayout from '../UserLayout';
 
-type Task = Database['public']['Tables']['tasks']['Row'];
-
 const TasksPage = () => {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [newNote, setNewNote] = useState('');
@@ -50,18 +47,34 @@ const TasksPage = () => {
 
                 setProfile(profileData);
 
-                // Fetch tasks for the organization
-                const { data: tasksData, error: tasksError } = await supabase
-                    .from('tasks')
-                    .select('*')
-                    .eq('organization_id', profileData.organization_id)
-                    .order('created_at', { ascending: false });
+                // Manually add default tasks
+                const defaultTasks = [
+                    {
+                        id: 1,
+                        title: 'Finish the onboarding form',
+                        description: 'Complete the onboarding form in the dashboard. <a href="/dashboard/index.tsx" class="text-blue-600 underline">Go to Onboarding Form</a>',
+                        due_date: null,
+                        is_request: false,
+                        status: profileData.onboarding_completed ? 'Completed' : 'Pending',
+                        organization_id: profileData.organization_id,
+                        user_id: userId,
+                    },
+                    {
+                        id: 2,
+                        title: 'Upload branding content',
+                        description: 'Go to the files page and upload any branding content you have. <a href="/dashboard/files/index.tsx" class="text-blue-600 underline">Go to Files Page</a>',
+                        due_date: null,
+                        is_request: false,
+                        status: profileData.branding_content_uploaded ? 'Completed' : 'Pending',
+                        organization_id: profileData.organization_id,
+                        user_id: userId,
+                    },
+                ];
 
-                if (tasksError) {
-                    throw tasksError;
-                }
+                // Filter out completed tasks
+                const pendingTasks = defaultTasks.filter(task => task.status !== 'Completed');
 
-                setTasks(tasksData);
+                setTasks(pendingTasks);
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -70,18 +83,6 @@ const TasksPage = () => {
         };
 
         fetchTasks();
-
-        const taskSubscription = supabase
-            .channel('public:tasks')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tasks' }, payload => {
-                const newTask: Task = payload.new as Task;
-                setTasks(prevTasks => [newTask, ...prevTasks]);
-            })
-            .subscribe();
-
-        return () => {
-            supabase.removeChannel(taskSubscription);
-        };
     }, []);
 
     const handleAddNote = async (taskId: number) => {
@@ -165,7 +166,9 @@ const TasksPage = () => {
                                 {projectTasks.map((task) => (
                                     <tr key={task.id} className="divide-x divide-gray-200">
                                         <td className="py-2 px-4 whitespace-nowrap text-center">{task.title}</td>
-                                        <td className="py-2 px-4 text-center">{task.description}</td>
+                                        <td className="py-2 px-4 text-center">
+                                            <div dangerouslySetInnerHTML={{ __html: task.description || '' }}></div>
+                                        </td>
                                         <td className="py-2 px-4 whitespace-nowrap text-center">{task.status}</td>
                                         <td className="py-2 px-4 text-center">{task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'}</td>
                                         <td className="py-2 px-4 text-center">{task.notes}</td>

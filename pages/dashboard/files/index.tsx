@@ -140,6 +140,17 @@ const FilesPage = () => {
                 }
             }
 
+            // Update branding_content_uploaded to true
+            const { error: updateProfileError } = await supabase
+                .from('profiles')
+                .update({ branding_content_uploaded: true })
+                .eq('user_id', user.user.id);
+
+            if (updateProfileError) {
+                console.error('Error updating profile:', updateProfileError);
+                throw updateProfileError;
+            }
+
             // Refresh the files list
             const { data: filesData, error: filesError } = await supabase
                 .from('files')

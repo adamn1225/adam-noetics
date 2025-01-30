@@ -62,7 +62,7 @@ const LoginPage = () => {
       if (profileData.role === "admin") {
         router.push("/admin");
       } else {
-        router.push("/dashboard");
+        router.push("/dashboard/tasks");
       }
     } catch (err: any) {
       console.error("Login failed:", err);
@@ -98,7 +98,7 @@ const LoginPage = () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://www.noetics.io/dashboard', // Ensure this matches the configured URL
+          redirectTo: 'https://www.noetics.io/dashboard/tasks',
         },
       });
 
