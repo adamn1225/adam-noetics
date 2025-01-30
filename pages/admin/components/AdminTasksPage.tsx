@@ -162,6 +162,7 @@ const AdminTasksPage = () => {
                 due_date: newTaskDueDate,
                 user_id: selectedClient.user_id, // Ensure correct reference
                 is_request: false, // Admin added tasks are not requests
+                task_type: 'developer', // Admin added tasks are for developers
             },
         ]);
 
@@ -228,7 +229,8 @@ const AdminTasksPage = () => {
         return <p>Loading...</p>;
     }
 
-    const projectTasks = tasks.filter(task => !task.is_request);
+    const clientTasks = tasks.filter(task => task.task_type === 'client');
+    const developerTasks = tasks.filter(task => task.task_type === 'developer');
     const taskRequests = tasks.filter(task => task.is_request);
 
     return (
@@ -316,7 +318,7 @@ const AdminTasksPage = () => {
                     </div>
                 )}
                 <div className='container mx-auto'>
-                    <h2 className="text-xl font-bold mb-4">Project Tasks</h2>
+                    <h2 className="text-xl font-bold mb-4">Client Tasks</h2>
                     <table className="min-w-full bg-white divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr>
@@ -329,7 +331,113 @@ const AdminTasksPage = () => {
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {projectTasks.map((task) => (
+                            {clientTasks.map((task) => (
+                                <tr key={task.id} className="divide-x divide-gray-200">
+                                    <td className="py-2 px-4 whitespace-nowrap text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <input
+                                                type="text"
+                                                value={editingTaskTitle}
+                                                onChange={(e) => setEditingTaskTitle(e.target.value)}
+                                                className="p-2 border border-gray-300 rounded mr-2"
+                                            />
+                                        ) : (
+                                            task.title
+                                        )}
+                                    </td>
+                                    <td className="py-2 px-4 text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <textarea
+                                                value={editingTaskDescription}
+                                                onChange={(e) => setEditingTaskDescription(e.target.value)}
+                                                className="p-2 border border-gray-300 rounded mr-2"
+                                            />
+                                        ) : (
+                                            task.description
+                                        )}
+                                    </td>
+                                    <td className="py-2 px-4 whitespace-nowrap text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <select
+                                                value={editingTaskStatus}
+                                                onChange={(e) => setEditingTaskStatus(e.target.value)}
+                                                className="p-2 border border-gray-300 rounded mr-2"
+                                            >
+                                                <option value="Pending">Pending</option>
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Issue">Issue</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        ) : (
+                                            task.status
+                                        )}
+                                    </td>
+                                    <td className="py-2 px-4 text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <input
+                                                type="datetime-local"
+                                                value={editingTaskDueDate}
+                                                onChange={(e) => setEditingTaskDueDate(e.target.value)}
+                                                className="p-2 border border-gray-300 rounded mr-2"
+                                            />
+                                        ) : (
+                                            task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'
+                                        )}
+                                    </td>
+                                    <td className="py-2 px-4 text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <textarea
+                                                value={editingTaskNotes}
+                                                onChange={(e) => setEditingTaskNotes(e.target.value)}
+                                                className="p-2 border border-gray-300 rounded mr-2"
+                                            />
+                                        ) : (
+                                            task.notes
+                                        )}
+                                    </td>
+                                    <td className="py-2 px-4 whitespace-nowrap text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <button
+                                                onClick={() => handleSaveTask(task.id.toString())}
+                                                className="bg-green-500 text-white px-2 py-1 rounded mr-2"
+                                            >
+                                                Save
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() => handleUpdateTask(task.id.toString())}
+                                                className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
+                                            >
+                                                Update
+                                            </button>
+                                        )}
+                                        <button
+                                            onClick={() => handleDeleteTask(task.id.toString())}
+                                            className="bg-red-600 text-white px-2 py-1 rounded"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className='container mx-auto mt-8'>
+                    <h2 className="text-xl font-bold mb-4">Developer Tasks</h2>
+                    <table className="min-w-full bg-white divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                            <tr>
+                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
+                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
+                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Status</th>
+                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Due Date</th>
+                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Notes</th>
+                                <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {developerTasks.map((task) => (
                                 <tr key={task.id} className="divide-x divide-gray-200">
                                     <td className="py-2 px-4 whitespace-nowrap text-center">
                                         {editingTaskId === task.id.toString() ? (

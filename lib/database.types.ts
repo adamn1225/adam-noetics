@@ -448,6 +448,7 @@ export type Database = {
           notes: string | null
           organization_id: string | null
           status: string | null
+          task_type: string | null
           title: string
           user_id: string | null
         }
@@ -460,6 +461,7 @@ export type Database = {
           notes?: string | null
           organization_id?: string | null
           status?: string | null
+          task_type?: string | null
           title: string
           user_id?: string | null
         }
@@ -472,6 +474,7 @@ export type Database = {
           notes?: string | null
           organization_id?: string | null
           status?: string | null
+          task_type?: string | null
           title?: string
           user_id?: string | null
         }

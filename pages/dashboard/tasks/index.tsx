@@ -52,27 +52,42 @@ const TasksPage = () => {
                     {
                         id: 1,
                         title: 'Finish the onboarding form',
-                        description: 'Complete the onboarding form in the dashboard. <a href="/dashboard/index.tsx" class="text-blue-600 underline">Go to Onboarding Form</a>',
+                        description: 'Complete the <a href="/dashboard/index.tsx" class="text-blue-600 font-semibold underline">Onboarding Form</a> in the dashboard.',
                         due_date: null,
                         is_request: false,
                         status: profileData.onboarding_completed ? 'Completed' : 'Pending',
                         organization_id: profileData.organization_id,
                         user_id: userId,
+                        task_type: 'client', // Add task type
                     },
                     {
                         id: 2,
                         title: 'Upload branding content',
-                        description: 'Go to the files page and upload any branding content you have. <a href="/dashboard/files/index.tsx" class="text-blue-600 underline">Go to Files Page</a>',
+                        description: '<a href="/dashboard/files/index.tsx" class="text-blue-600 font-semibold underline">Go to Files Page</a> page and upload any branding content you have. ',
                         due_date: null,
                         is_request: false,
                         status: profileData.branding_content_uploaded ? 'Completed' : 'Pending',
                         organization_id: profileData.organization_id,
                         user_id: userId,
+                        task_type: 'client', // Add task type
                     },
                 ];
 
+                // Fetch developer tasks from the database
+                const { data: developerTasks, error: developerTasksError } = await supabase
+                    .from('tasks')
+                    .select('*')
+                    .eq('organization_id', profileData.organization_id);
+
+                if (developerTasksError) {
+                    throw developerTasksError;
+                }
+
+                // Combine default tasks and developer tasks
+                const allTasks = [...defaultTasks, ...developerTasks];
+
                 // Filter out completed tasks
-                const pendingTasks = defaultTasks.filter(task => task.status !== 'Completed');
+                const pendingTasks = allTasks.filter(task => task.status !== 'Completed');
 
                 setTasks(pendingTasks);
             } catch (error: any) {
@@ -117,7 +132,7 @@ const TasksPage = () => {
         try {
             const { data, error } = await supabase
                 .from('tasks')
-                .insert([{ title: taskTitle, description: taskDescription, due_date: taskDueDate, is_request: true, status: 'Pending', organization_id: profile.organization_id }]);
+                .insert([{ title: taskTitle, description: taskDescription, due_date: taskDueDate, is_request: true, status: 'Pending', organization_id: profile.organization_id, task_type: 'client' }]);
 
             if (error) {
                 throw error;
@@ -142,13 +157,14 @@ const TasksPage = () => {
         return <div>Error: {error}</div>;
     }
 
-    const projectTasks = tasks.filter(task => !task.is_request);
+    const clientTasks = tasks.filter(task => task.task_type === 'client');
+    const developerTasks = tasks.filter(task => task.task_type === 'developer');
     const taskRequests = tasks.filter(task => task.is_request);
 
     return (
         <DashboardLayout>
             <div className='px-4 py-6 md:px-8 md:py-12'>
-                <h1 className="text-2xl font-bold mb-4 dark:text-white">Project Tasks</h1>
+                <h1 className="text-2xl font-bold mb-4 dark:text-white">Your Tasks</h1>
                 <div className='container mx-auto'>
                     <div className="overflow-x-auto">
                         <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
@@ -163,7 +179,61 @@ const TasksPage = () => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
-                                {projectTasks.map((task) => (
+                                {clientTasks.map((task) => (
+                                    <tr key={task.id} className="divide-x divide-gray-200">
+                                        <td className="py-2 px-4 whitespace-nowrap text-center">{task.title}</td>
+                                        <td className="py-2 px-4 text-center">
+                                            <div dangerouslySetInnerHTML={{ __html: task.description || '' }}></div>
+                                        </td>
+                                        <td className="py-2 px-4 whitespace-nowrap text-center">{task.status}</td>
+                                        <td className="py-2 px-4 text-center">{task.due_date ? new Date(task.due_date).toLocaleString() : 'No due date'}</td>
+                                        <td className="py-2 px-4 text-center">{task.notes}</td>
+                                        <td className="py-2 px-4 whitespace-nowrap text-center">
+                                            <button
+                                                onClick={() => setSelectedTaskId(task.id)}
+                                                className="bg-blue-600 text-white py-1 px-2 rounded"
+                                            >
+                                                Add Note
+                                            </button>
+                                            {selectedTaskId === task.id && (
+                                                <div className="mt-4">
+                                                    <textarea
+                                                        value={newNote}
+                                                        onChange={(e) => setNewNote(e.target.value)}
+                                                        placeholder="Add a note"
+                                                        className="w-full p-2 border border-gray-300 rounded"
+                                                    />
+                                                    <button
+                                                        onClick={() => handleAddNote(task.id)}
+                                                        className="bg-green-600 text-white py-1 px-2 rounded mt-2"
+                                                    >
+                                                        Save Note
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <h2 className="text-2xl font-bold mt-8 mb-4 dark:text-white">Developer Tasks</h2>
+                <div className='container mx-auto'>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Status</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Due Date</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Notes</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
+                                {developerTasks.map((task) => (
                                     <tr key={task.id} className="divide-x divide-gray-200">
                                         <td className="py-2 px-4 whitespace-nowrap text-center">{task.title}</td>
                                         <td className="py-2 px-4 text-center">
