@@ -103,3 +103,7 @@ exports.handler = async (event, context) => {
         };
     }
 };
+
+export const config = {
+    schedule: '@hourly' // Runs every hour
+};

@@ -10,8 +10,8 @@ const nextConfig = {
     domains: ['hvgusjfevfbhfminbmtc.supabase.co', 'www.gravatar.com'],
   },
   env: {
-    SUPABASE_URL: process.env.SUPABASE_URL,
-    SUPABASE_KEY: process.env.SUPABASE_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_KEY: process.env.SUPABASE_KEY,
   },
 };
 
