@@ -141,7 +141,7 @@ const CMSDashboard = () => {
                         </label>
                         <div className="border border-gray-300 rounded-md shadow-sm p-2">
                             <Editor
-                                apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
+                                apiKey='xuegfwom0nawuekck2prc9yboegxm372icviucpytplmzjr7'
                                 value={formValues.content}
                                 onEditorChange={handleContentChange}
                                 init={{
