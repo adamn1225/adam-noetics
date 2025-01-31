@@ -22,6 +22,7 @@ export type Database = {
           smm_calendar_id: number | null
           status: string | null
           tags: string[] | null
+          template: string | null
           title: string
           updated_at: string | null
           user_id: string | null
@@ -38,6 +39,7 @@ export type Database = {
           smm_calendar_id?: number | null
           status?: string | null
           tags?: string[] | null
+          template?: string | null
           title: string
           updated_at?: string | null
           user_id?: string | null
@@ -54,6 +56,7 @@ export type Database = {
           smm_calendar_id?: number | null
           status?: string | null
           tags?: string[] | null
+          template?: string | null
           title?: string
           updated_at?: string | null
           user_id?: string | null
@@ -382,6 +385,7 @@ export type Database = {
         Row: {
           ahrefs_key: string | null
           branding_content_uploaded: boolean | null
+          cms_enabled: boolean | null
           company_name: string | null
           created_at: string | null
           email: string
@@ -400,6 +404,7 @@ export type Database = {
         Insert: {
           ahrefs_key?: string | null
           branding_content_uploaded?: boolean | null
+          cms_enabled?: boolean | null
           company_name?: string | null
           created_at?: string | null
           email: string
@@ -418,6 +423,7 @@ export type Database = {
         Update: {
           ahrefs_key?: string | null
           branding_content_uploaded?: boolean | null
+          cms_enabled?: boolean | null
           company_name?: string | null
           created_at?: string | null
           email?: string

@@ -10,20 +10,28 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.handler = async (event, context) => {
-    const { to, subject, text, userEmail } = JSON.parse(event.body);
+    const { websiteUrl, platformType, hostingProvider, setupEmail, preferredTemplates, customDomain, additionalNotes } = JSON.parse(event.body);
 
     const mailOptionsToOwner = {
         from: process.env.SUPABASE_SMTP_SENDER,
-        to,
-        subject,
-        text,
+        to: process.env.SUPABASE_SMTP_RECEIVER,
+        subject: 'CMS Setup Request',
+        text: `
+            Website URL: ${websiteUrl}
+            Platform Type: ${platformType}
+            Hosting Provider: ${hostingProvider}
+            Setup Email: ${setupEmail}
+            Preferred CMS Templates: ${preferredTemplates.join(', ')}
+            Custom Domain Setup Needed: ${customDomain ? 'Yes' : 'No'}
+            Additional Notes: ${additionalNotes}
+        `,
     };
 
     const mailOptionsToUser = {
         from: process.env.SUPABASE_SMTP_SENDER,
-        to: userEmail,
-        subject: 'Thank you for your inquiry',
-        text: 'Thanks for your inquiry. One of our professionals will get back to you as soon as possible.',
+        to: setupEmail,
+        subject: 'Thank you for your CMS setup request',
+        text: 'Thanks for your CMS setup request. One of our professionals will get back to you as soon as possible.',
     };
 
     try {
