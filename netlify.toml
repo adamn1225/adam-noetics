@@ -9,3 +9,7 @@
 # Schedule the function to run every hour
 [functions.scheduledPost]
   schedule = "@hourly"
+
+# Schedule the notifyUpcomingEvents function to run daily at midnight
+[functions.notifyUpcomingEvents]
+  schedule = "0 0 * * *"

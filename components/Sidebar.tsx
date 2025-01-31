@@ -116,7 +116,7 @@ const Sidebar = () => {
   return (
     <aside className={`bg-gray-900 dark:bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
       {loading && (
-        <div className="absolute top-0 left-0 w-full h-1 bg-blue-500 animate-pulse"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-blue-700 animate-pulse"></div>
       )}
       <div className='flex items-center justify-center p-4'>
         <Image

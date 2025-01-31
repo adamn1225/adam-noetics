@@ -309,7 +309,7 @@ const AdminTasksPage = () => {
                             />
                             <button
                                 onClick={handleAddTask}
-                                className="bg-blue-600 text-white px-4 py-2 rounded"
+                                className="bg-blue-700 text-white px-4 py-2 rounded"
                             >
                                 Add Task
                             </button>

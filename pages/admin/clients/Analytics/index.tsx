@@ -137,7 +137,7 @@ const AdminAnalyticsPage = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Integrate Google Analytics
                         </button>
@@ -169,7 +169,7 @@ const AdminAnalyticsPage = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Integrate SEMrush
                         </button>
@@ -201,7 +201,7 @@ const AdminAnalyticsPage = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Integrate Ahrefs
                         </button>

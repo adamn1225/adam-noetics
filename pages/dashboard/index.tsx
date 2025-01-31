@@ -244,7 +244,7 @@ const DashboardPage = () => {
                             <div className="bg-white p-4 rounded-lg shadow">
                                 <h2 className="text-lg font-bold">Tasks</h2>
                                 <p className="text-sm text-gray-600">
-                                    <span className="inline-block w-4 h-4 rounded-full bg-blue-500 mr-2"></span>
+                                    <span className="inline-block w-4 h-4 rounded-full bg-blue-700 mr-2"></span>
                                     {tasksInProgress} tasks in progress
                                 </p>
                                 <p className="text-sm text-gray-600">

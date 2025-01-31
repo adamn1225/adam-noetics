@@ -191,7 +191,7 @@ const TasksPage = () => {
                                         <td className="py-2 px-4 whitespace-nowrap text-center">
                                             <button
                                                 onClick={() => setSelectedTaskId(task.id)}
-                                                className="bg-blue-600 text-white py-1 px-2 rounded"
+                                                className="bg-blue-700 text-white py-1 px-2 rounded"
                                             >
                                                 Add Note
                                             </button>
@@ -245,7 +245,7 @@ const TasksPage = () => {
                                         <td className="py-2 px-4 whitespace-nowrap text-center">
                                             <button
                                                 onClick={() => setSelectedTaskId(task.id)}
-                                                className="bg-blue-600 text-white py-1 px-2 rounded"
+                                                className="bg-blue-700 text-white py-1 px-2 rounded"
                                             >
                                                 Add Note
                                             </button>
@@ -275,7 +275,7 @@ const TasksPage = () => {
                 <h2 className="text-2xl font-bold mt-8 mb-4 dark:text-white">Request a Task</h2>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-600 text-white py-2 px-4 rounded"
+                    className="bg-blue-700 text-white py-2 px-4 rounded"
                 >
                     Request a Task
                 </button>
@@ -320,7 +320,7 @@ const TasksPage = () => {
                                     </button>
                                     <button
                                         type="submit"
-                                        className="bg-blue-600 text-white py-2 px-4 rounded"
+                                        className="bg-blue-700 text-white py-2 px-4 rounded"
                                     >
                                         Submit Task Request
                                     </button>

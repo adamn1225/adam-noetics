@@ -253,7 +253,7 @@ const ClientFiles = () => {
                         <button
                             onClick={() => uploadFiles([])}
                             disabled={uploading}
-                            className="bg-blue-600 text-white py-2 px-4 rounded"
+                            className="bg-blue-700 text-white py-2 px-4 rounded"
                         >
                             {uploading ? 'Uploading...' : 'Upload'}
                         </button>

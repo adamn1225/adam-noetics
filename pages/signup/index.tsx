@@ -269,7 +269,7 @@ const SignupPage: React.FC = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="shadow-md bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+                                className="shadow-md bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
                             >
                                 Sign Up
                             </button>
@@ -290,7 +290,7 @@ const SignupPage: React.FC = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="shadow-md bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+                                className="shadow-md bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
                             >
                                 Verify Token
                             </button>

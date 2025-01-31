@@ -6,6 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { motion } from 'framer-motion';
 import AddAccessToken from '@components/AddAccessToken';
 import { Database } from '@lib/database.types';
+import { X, CircleX } from 'lucide-react';
 
 const localizer = momentLocalizer(moment);
 
@@ -183,7 +184,7 @@ const SMMCalendar = () => {
                             Connect to Your Social Media Platforms
                         </h2>
                         <button
-                            className="text-base bg-blue-950 mv-2 self-center w-full text-white font-semibold px-3 py-1 shadow-md rounded-md"
+                            className="text-base bg-blue-700 mv-2 self-center w-full text-white font-semibold px-3 py-1 shadow-md rounded-md"
                             onClick={() => setIsAccessTokenModalVisible(true)}
                         >
                             Add Access Token
@@ -196,7 +197,7 @@ const SMMCalendar = () => {
                     </h2>
                     <div className="flex items-center justify-start mb-2 w-full">
                         <button
-                            className="text-lg bg-blue-950 text-white px-3 py-1 shadow-md rounded-md"
+                            className="text-lg bg-blue-700 text-white px-3 py-1 shadow-md rounded-md"
                             onClick={() => setIsModalVisible(true)}
                         >
                             Add SMM Event
@@ -219,7 +220,7 @@ const SMMCalendar = () => {
             {isModalVisible && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <span className="text-gray-500 cursor-pointer float-right" onClick={() => setIsModalVisible(false)}>&times;</span>
+                        <span className="text-gray-600 cursor-pointer float-right mb-2" onClick={() => setIsModalVisible(false)}><CircleX /></span>
                         <form onSubmit={handleAddEvent} className="space-y-4">
                             <div>
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
@@ -230,7 +231,7 @@ const SMMCalendar = () => {
                                     value={formValues.title || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
@@ -241,7 +242,7 @@ const SMMCalendar = () => {
                                     value={formValues.description || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
@@ -253,7 +254,7 @@ const SMMCalendar = () => {
                                     value={formValues.post_due_date || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
@@ -264,7 +265,7 @@ const SMMCalendar = () => {
                                     value={formValues.sm_platform || 'Facebook'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Facebook">Facebook</option>
                                     <option value="Twitter">Twitter</option>
@@ -281,7 +282,7 @@ const SMMCalendar = () => {
                                     value={formValues.status || 'Draft'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Draft">Draft</option>
                                     <option value="Scheduled">Scheduled</option>
@@ -306,7 +307,7 @@ const SMMCalendar = () => {
                                     name="blog_post_id"
                                     value={formValues.blog_post_id || ''}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="">None</option>
                                     {posts.map((post) => (
@@ -317,7 +318,7 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div className="flex justify-end">
-                                <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Add Event</button>
+                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700">Add Event</button>
                             </div>
                         </form>
                     </div>
@@ -327,7 +328,7 @@ const SMMCalendar = () => {
             {isEventDetailsModalVisible && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <span className="text-gray-500 cursor-pointer float-right" onClick={() => setIsEventDetailsModalVisible(false)}>&times;</span>
+                        <span className="text-gray-600 cursor-pointer float-right mb-2" onClick={() => setIsModalVisible(false)}><CircleX /></span>
                         <form onSubmit={handleUpdateEvent} className="space-y-4">
                             <div>
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
@@ -338,7 +339,7 @@ const SMMCalendar = () => {
                                     value={formValues.title || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border p-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
@@ -349,7 +350,7 @@ const SMMCalendar = () => {
                                     value={formValues.description || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border p-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
@@ -361,7 +362,7 @@ const SMMCalendar = () => {
                                     value={formValues.post_due_date || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border p-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
@@ -372,7 +373,7 @@ const SMMCalendar = () => {
                                     value={formValues.sm_platform || 'Facebook'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Facebook">Facebook</option>
                                     <option value="Twitter">Twitter</option>
@@ -382,7 +383,7 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+                                <label htmlFor="status" className="block p-1 text-sm font-medium text-gray-700">Status</label>
                                 <select
                                     id="status"
                                     name="status"
@@ -414,7 +415,7 @@ const SMMCalendar = () => {
                                     name="blog_post_id"
                                     value={formValues.blog_post_id || ''}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="">None</option>
                                     {posts.map((post) => (
@@ -425,7 +426,7 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div className="flex justify-end space-x-4">
-                                <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Update Event</button>
+                                <button type="submit" className="bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700">Update Event</button>
                                 <button type="button" onClick={handleDeleteEvent} className="bg-red-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-700">Delete Event</button>
                             </div>
                         </form>
