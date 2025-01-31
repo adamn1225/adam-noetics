@@ -40,7 +40,7 @@ const AddAccessToken = () => {
         <form onSubmit={handleAddToken} className="space-y-4">
             <div>
                 <label htmlFor="platform" className="block text-sm font-medium text-gray-700">
-                    Social Media Platform
+                    Platform
                 </label>
                 <select
                     id="platform"
@@ -50,7 +50,7 @@ const AddAccessToken = () => {
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                     required
                 >
-                    <option value="">Select a platform</option>
+                    <option value="">Select Platform</option>
                     <option value="Facebook">Facebook</option>
                     <option value="Twitter">Twitter</option>
                     <option value="Instagram">Instagram</option>
@@ -63,7 +63,7 @@ const AddAccessToken = () => {
                     Access Token
                 </label>
                 <input
-                    type="password"
+                    type="text"
                     id="access_token"
                     name="access_token"
                     value={formValues.access_token}
@@ -77,7 +77,7 @@ const AddAccessToken = () => {
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
                 disabled={loading}
             >
-                Add Access Token
+                {loading ? 'Adding...' : 'Add Access Token'}
             </button>
         </form>
     );

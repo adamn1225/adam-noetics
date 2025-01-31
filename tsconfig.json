@@ -40,7 +40,11 @@
       "@public/*": [
         "public/*"
       ]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./lib"
+    ],
   },
   "include": [
     "next-env.d.ts",

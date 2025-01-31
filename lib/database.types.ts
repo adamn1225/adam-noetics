@@ -17,7 +17,9 @@ export type Database = {
           featured_image: string | null
           id: string
           published_at: string | null
+          scheduled_publish_date: string | null
           slug: string
+          smm_calendar_id: number | null
           status: string | null
           tags: string[] | null
           title: string
@@ -31,7 +33,9 @@ export type Database = {
           featured_image?: string | null
           id?: string
           published_at?: string | null
+          scheduled_publish_date?: string | null
           slug: string
+          smm_calendar_id?: number | null
           status?: string | null
           tags?: string[] | null
           title: string
@@ -45,7 +49,9 @@ export type Database = {
           featured_image?: string | null
           id?: string
           published_at?: string | null
+          scheduled_publish_date?: string | null
           slug?: string
+          smm_calendar_id?: number | null
           status?: string | null
           tags?: string[] | null
           title?: string
@@ -53,6 +59,13 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "blog_posts_smm_calendar_id_fkey"
+            columns: ["smm_calendar_id"]
+            isOneToOne: false
+            referencedRelation: "smm_calendar"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "blog_posts_user_id_fkey"
             columns: ["user_id"]
@@ -493,11 +506,13 @@ export type Database = {
       }
       smm_calendar: {
         Row: {
+          blog_post_id: string | null
           created_date: string | null
           description: string | null
           id: number
           media_url: string | null
           organization_id: string | null
+          post_automatically: boolean | null
           post_due_date: string
           sm_platform: string
           status: string | null
@@ -506,11 +521,13 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          blog_post_id?: string | null
           created_date?: string | null
           description?: string | null
           id?: number
           media_url?: string | null
           organization_id?: string | null
+          post_automatically?: boolean | null
           post_due_date: string
           sm_platform: string
           status?: string | null
@@ -519,11 +536,13 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          blog_post_id?: string | null
           created_date?: string | null
           description?: string | null
           id?: number
           media_url?: string | null
           organization_id?: string | null
+          post_automatically?: boolean | null
           post_due_date?: string
           sm_platform?: string
           status?: string | null
@@ -532,6 +551,13 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_blog_post"
+            columns: ["blog_post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "smm_calendar_organization_id_fkey"
             columns: ["organization_id"]
