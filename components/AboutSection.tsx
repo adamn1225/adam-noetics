@@ -6,41 +6,53 @@ const AboutSection = () => {
   return (
     <motion.section
       id="about"
-      className="bg-white text-gray-800 dark:bg-gray-800 dark:text-white py-20"
+      className="bg-zinc-950 text-zinc-100 dark:bg-zinc-800 dark:text-white py-20"
       {...fadeInUp}
     >
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-6">About Us</h2>
-        <p className="text-lg leading-relaxed mb-8">
-          We’re a dedicated team of web developers, designers, and
-          problem-solvers committed to helping businesses thrive in the digital
-          world. From building feature-rich web applications to creating smart
-          automations, we specialize in transforming ideas into impactful
-          solutions.
-        </p>
+        <motion.h2 className="text-4xl text-red-500 font-bold mb-6" {...fadeInUp}>
+          The Foundry
+        </motion.h2>
+        <motion.p className="text-lg leading-relaxed mb-8 max-w-3xl mx-auto" {...fadeInUp}>
+          We’re not just creators—we’re **curators of the digital wild**. We uproot the stale, the safe, and the forgettable, making room for **brands that demand attention**. From high-impact web apps to automated efficiency, we build digital experiences that refuse to blend in.
+        </motion.p>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
           {/* Team Member 1 */}
-          <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
-            <h3 className="text-xl font-bold dark:text-white">Adam Noah</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Founder & Lead Developer</p>
-          </div>
+          <motion.div className="p-6 bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg" {...fadeInUp}>
+            <h3 className="text-xl font-bold text-zinc-950 dark:text-white">Adam Noah</h3>
+            <p className="text-lg text-red-500 dark:text-red-300">Founder & Lead Developer</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+              Architect of the unconventional. Turns wild ideas into working realities.
+            </p>
+          </motion.div>
           {/* Team Member 2 */}
-          <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
+          <motion.div className="p-6 bg-zinc-100 text-zinc-950 dark:bg-zinc-800 rounded-lg shadow-lg" {...fadeInUp}>
             <h3 className="text-xl font-bold dark:text-white">Julian Fox</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">CIO</p>
-          </div>
+            <p className="text-lg text-red-500 dark:text-red-300">CIO</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+              The mind behind the tech. Keeps innovation running at full throttle.
+            </p>
+          </motion.div>
           {/* Team Member 3 */}
-          <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
+          <motion.div className="p-6 bg-zinc-100 text-zinc-950 dark:bg-zinc-800 rounded-lg shadow-lg" {...fadeInUp}>
             <h3 className="text-xl font-bold dark:text-white">Raz Fluxman</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Lead Marketer</p>
-          </div>
+            <p className="text-lg text-red-500 dark:text-red-300">Lead Marketer</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+              Strategy disruptor. Turns brands into movements.
+            </p>
+          </motion.div>
           {/* Team Member 4 */}
-          <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow">
+          <motion.div className="p-6 bg-zinc-100 text-zinc-950 dark:bg-zinc-800 rounded-lg shadow-lg" {...fadeInUp}>
             <h3 className="text-xl font-bold dark:text-white">Lukas A.</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Project Manager</p>
-          </div>
+            <p className="text-lg text-red-500 dark:text-red-300">Project Manager</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+              The orchestrator. Ensures chaos turns into perfection.
+            </p>
+          </motion.div>
         </div>
       </div>
+
     </motion.section>
   );
 };

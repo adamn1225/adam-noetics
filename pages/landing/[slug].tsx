@@ -7,77 +7,84 @@ import { fadeInUp } from "../../motionConfig";
 import CallToActionSection from "@components/CallToActionSection";
 import { NextSeo } from 'next-seo';
 import CanonicalURL from '@components/CanonicalURL';
+import { Quantico } from "next/font/google";
+
+const quantico = Quantico({
+    subsets: ["latin"],
+    weight: ["400", "700"],
+    style: ["normal", "italic"],
+    display: "swap",
+});
 
 const services = [
     {
         slug: "noetic-web-apps",
         title: "Custom Web Apps",
-        desc: "Tailored, Feature-Rich Platforms Built for You",
-        howItWorks: "We design and develop custom web applications that simplify processes, boost productivity, and meet your specific business needs. Say goodbye to manual tasks and hello to automated, intuitive solutions.",
+        desc: "Beyond Templates. Tailored, Scalable, and Built for Impact.",
+        howItWorks: "We don’t do one-size-fits-all. We build web applications designed around your business, helping you automate tasks, optimize workflows, and scale effortlessly. Whether you're launching a startup, managing operations, or creating a customer portal, we craft solutions that work exactly how you need them to.",
         whatWeOffer: [
-            "Intuitive Interfaces: User-centric designs for effortless navigation.",
-            "Scalable Architecture: Built to grow with your business.",
-            "Custom Features: Tailored tools to fit your unique workflows.",
+            "User-First Design: Interfaces built for seamless, intuitive navigation.",
+            "Scalable Architecture: Future-proof platforms that grow with your business.",
+            "Custom Features: No unnecessary fluff—just the tools you need to succeed.",
         ],
     },
     {
         slug: "noetic-custom-tools",
         title: "Custom Tools",
-        desc: "Build Tools That Empower Your Team",
-        howItWorks: "We design tools that solve real business challenges. By focusing on user needs, we create solutions that improve workflows and provide meaningful results.",
+        desc: "Smart Digital Tools That Make Your Workflow Unstoppable.",
+        howItWorks: "We develop custom tools that tackle real-world problems. Whether you need a financial calculator, an internal dashboard, or a dynamic directory, we build solutions that improve efficiency and help teams make smarter decisions.",
         whatWeOffer: [
-            "Custom Calculators: Precise tools for unique calculations.",
-            "Data Visualization: Transform data into actionable insights.",
-            "Support Systems: Build directories, ticket systems, and chatbots.",
+            "Dynamic Calculators: Custom computation tools tailored to your needs.",
+            "Data Dashboards: Interactive visualizations that bring numbers to life.",
+            "Automated Support Systems: Build ticketing tools, chatbots, and knowledge bases.",
         ],
     },
     {
         slug: "noetic-api-integrations",
         title: "API Integrations",
-        desc: "Seamless Connectivity for Smarter Operations",
-        howItWorks: "We identify key connection points between platforms and create reliable, secure integrations. From real-time syncing to custom API solutions, we ensure seamless communication between systems.",
+        desc: "Unifying Systems. Connecting Data. Powering Efficiency.",
+        howItWorks: "Disjointed tools and manual data entry slow businesses down. We bridge the gap by integrating your systems, ensuring real-time syncing, seamless communication, and automated workflows across platforms.",
         whatWeOffer: [
-            "Third-Party APIs: Integrate popular tools and services.",
-            "Secure Connections: Safeguard data during transfers.",
-            "Real-Time Sync: Keep everything up-to-date, always.",
+            "Third-Party Integrations: Connect with CRMs, payment gateways, and more.",
+            "Secure & Reliable: Data is encrypted, optimized, and always protected.",
+            "Real-Time Sync: Keep your platforms updated without lifting a finger.",
         ],
     },
     {
         slug: "noetic-marketing",
         title: "Noetic Marketing - SEO/SMM/PPC Advertising",
-        desc: "Strategies to Help You Reach Your Target Audience",
-        howItWorks: "We create marketing strategies that drive results. From SEO to PPC advertising, we help you reach your target audience and grow your business.",
+        desc: "Visibility Without Noise. Strategies That Deliver.",
+        howItWorks: "Marketing isn’t about shouting into the void—it’s about targeted precision. We create data-backed SEO, PPC, and social media strategies that ensure your brand gets in front of the right audience at the right time.",
         whatWeOffer: [
-            "SMM/PPC Advertising: Reach your audience on social media and search engines.",
-            "SEO: Improve your search engine rankings and drive organic traffic.",
-            "Backlinking: Build high-quality backlinks to boost your site's authority.",
+            "High-Impact PPC & SMM: Maximize ROI with strategic ad placements.",
+            "SEO Optimization: Get found with search-friendly content and site structure.",
+            "Backlinking Strategies: Build authority and improve rankings the right way.",
         ],
     },
     {
         slug: "automation-and-web-scraping",
         title: "Noetic Automation & Web Scraping",
-        desc: "Data Gathering for Smarter Decisions",
-        howItWorks: "We build automated tools that scrape, extract, and organize data from websites in real-time. Whether you need competitor analysis, pricing insights, or industry trends, we’ll deliver actionable results.",
+        desc: "Data-Driven Decisions Without the Busywork.",
+        howItWorks: "Why waste time on manual data collection when automation can do it for you? We build powerful web scrapers and automated workflows that extract, organize, and analyze the data you need to stay ahead of the competition.",
         whatWeOffer: [
-            "Automated Scraping: Collect data without manual effort.",
-            "Data Extraction: Pinpoint the exact information you need.",
-            "Workflow Automation: Optimize and simplify processes.",
-            "Task Scheduling: Automate reminders and deadlines.",
-            "Custom Triggers: Automatically respond to critical actions.",
+            "Web Scraping: Extract structured data in real-time.",
+            "Workflow Automation: Cut repetitive tasks and free up valuable time.",
+            "Intelligent Triggers: Get notified when key data points change.",
         ],
     },
     {
         slug: "noetic-chrome-extensions",
         title: "Chrome Extensions",
-        desc: "Custom Browser Tools for Productivity",
-        howItWorks: "Our team creates user-friendly extensions tailored to your workflow. We focus on solving pain points and adding valuable features that enhance your productivity.",
+        desc: "Custom Browser Tools That Work the Way You Do.",
+        howItWorks: "We design Chrome extensions that improve productivity, automate workflows, and bring essential tools right to your browser. Whether it's data storage, advanced bookmarking, or workflow automation, we build solutions that integrate seamlessly into your daily operations.",
         whatWeOffer: [
-            "Store Information: Keep key data at your fingertips.",
-            "Advanced Bookmarking: Organize and retrieve pages effortlessly.",
-            "Automate Tasks: Simplify repetitive browsing actions.",
+            "Data Management: Save and organize critical information in one click.",
+            "Advanced Bookmarking: Never lose an important page again.",
+            "Task Automation: Reduce manual work with smart browsing shortcuts.",
         ],
     },
 ];
+
 
 const LandingPage = () => {
     const router = useRouter();
@@ -108,29 +115,30 @@ const LandingPage = () => {
             <CanonicalURL url={`https://noetics.io/landing/${slug}`} />
             <LandingNavigation />
             <motion.section
-                className="bg-white text-gray-800 dark:bg-gray-900 dark:text-white"
+                className={"bg-white text-zinc-800 dark:bg-zinc-900 dark:text-white" + quantico.className}
                 {...fadeInUp}
             >
-                <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 mt-12">
+                <div className={"min-h-screen bg-zinc-50 dark:bg-zinc-900 py-12 mt-12 " + quantico.className}>
                     {/* Hero Section */}
-                    <header className="bg-blue-600 text-white py-20 text-center">
+                    <header className="bg-zinc-950 text-white py-20 text-center">
                         <div className="max-w-4xl mx-auto px-4">
                             <h1 className="text-5xl font-bold">{service.title}</h1>
-                            <p className="mt-4 text-lg">{service.desc}</p>
+                            <p className="mt-4 text-xl text-red-500">{service.desc}</p>
                         </div>
                     </header>
 
                     {/* What We Offer Section */}
-                    <section className="w-full min-w-full bg-gray-100 dark:bg-gray-800">
+                    <section className="w-full min-w-full bg-zinc-100 dark:bg-zinc-800">
                         <div className="max-w-5xl mx-auto px-4 py-12">
-                            <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">What We Offer</h2>
+                            <h2 className="text-3xl font-bold text-center mb-2 dark:text-white">What We Give</h2>
+                            <div className="border-b-4 border-red-600 mb-6 mx-96"></div>
                             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {service.whatWeOffer.map((offer, index) => (
                                     <li
                                         key={index}
-                                        className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-600"
+                                        className="bg-white dark:bg-zinc-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-zinc-200 dark:border-zinc-600"
                                     >
-                                        <p className="text-gray-700 dark:text-gray-300">{offer}</p>
+                                        <p className="text-zinc-700 dark:text-zinc-300">{offer}</p>
                                     </li>
                                 ))}
                             </ul>
@@ -138,9 +146,10 @@ const LandingPage = () => {
                     </section>
 
                     {/* How It Works Section */}
-                    <section className="max-w-4xl mx-auto px-4 py-12 dark:bg-gray-900">
-                        <h2 className="text-3xl font-bold mb-6 dark:text-white">How It Works</h2>
-                        <p className="text-lg text-gray-700 dark:text-gray-300">{service.howItWorks}</p>
+                    <section className="max-w-4xl mx-auto px-4 py-12 dark:bg-zinc-900">
+                        <h2 className="text-3xl font-bold mb-2 dark:text-white">How this works</h2>
+                        <div className="border-b-4 border-red-600 mb-6 w-1/6"></div>
+                        <p className="text-lg text-zinc-700 dark:text-zinc-300">{service.howItWorks}</p>
                     </section>
 
                     {/* CTA Section */}
@@ -151,8 +160,8 @@ const LandingPage = () => {
                 </div>
 
             </motion.section>
-            <footer className="bg-gray-900 text-white h-min flex flex-col items-center justify-center">
-                <p className="text-sm  pb-10">
+            <footer className="bg-zinc-900 text-white h-min flex py-6 items-center justify-center">
+                <p className={"text-sm " + quantico.className}>
                     &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
                 </p>
             </footer>

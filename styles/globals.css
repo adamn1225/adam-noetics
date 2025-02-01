@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-family: 'Quantico', sans-serif;
 }
 
 :root {
@@ -21,9 +22,9 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
   margin: 0;
+  font-family: 'Quantico', sans-serif; /* Add this line */
 }
 
 * {
@@ -37,7 +38,7 @@ body {
 
 /* From Uiverse.io by satyamchaudharydev */
 .onboardbutton {
-  --primary-color: #2563eb;
+  --primary-color: #09090b;
   --secondary-color: #fff;
   --hover-color: #111827;
   --arrow-width: 10px;

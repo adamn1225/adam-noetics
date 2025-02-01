@@ -86,10 +86,10 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
   return (
     <motion.section
       id="contact"
-      className="bg-blue-600 dark:bg-gray-700 text-white py-20"
+      className="bg-zinc-950 dark:bg-gray-900 text-white py-20"
       {...fadeInUp}
     >
-      <div className="container mx-auto px-4 text-center">
+      <div className="container bg-zinc-950 mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-6">
           {title}
         </h2>
@@ -101,19 +101,19 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
             onClick={() =>
               (window.location.href = "mailto:anoah1225@gmail.com")
             }
-            className="bg-white text-blue-600 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
+            className="bg-white text-red-500 hover:text-red-400 hover:bg-zinc-50 font-bold py-3 px-6 rounded-full"
           >
             Email Us
           </button>
           <button
             onClick={() => (window.location.href = "tel:+1234567890")}
-            className="bg-white text-blue-600 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
+            className="bg-white text-red-500 hover:text-red-400 hover:bg-zinc-50 font-bold py-3 px-6 rounded-full"
           >
             Call Us
           </button>
           <button
             onClick={handleModalToggle}
-            className="bg-white text-blue-600 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
+            className="bg-white text-red-500 hover:text-red-400 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
           >
             Fill Out a Form
           </button>
@@ -122,13 +122,13 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 dark:bg-zinc-950 dark:text-white bg-opacity-50 flex justify-center items-center">
           <div className="bg-white text-gray-900 rounded-lg shadow-lg w-11/12 max-w-md p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Contact Us</h2>
               <button
                 onClick={handleModalToggle}
-                className="text-gray-500 hover:text-gray-800 font-bold text-lg"
+                className="text-gray-500 hover:text-red-800 font-bold text-lg"
               >
                 ×
               </button>
@@ -148,7 +148,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-red-500 sm:text-sm"
                   placeholder="Your Name"
                 />
               </div>

@@ -3,6 +3,14 @@ import Navigation from '@components/Navigation';
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
+import { Quantico } from "next/font/google";
+
+const quantico = Quantico({
+    subsets: ["latin"],
+    weight: ["400", "700"],
+    style: ["normal", "italic"],
+    display: "swap",
+});
 
 interface RootLayoutProps {
     children: ReactNode;
@@ -29,16 +37,16 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                 `}
                 </Script>
             </Head>
-            <div className="antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
-                <header className="bg-white dark:bg-gray-500 z-50 pt-2 fixed top-0 left-0 w-full dark:border-0 dark:border-gray-700">
-                    <Navigation />
+            <div className={" bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-white " + quantico.className}>
+                <header className={"bg-white dark:bg-zinc-500 z-50 pt-2 fixed top-0 left-0 w-full dark:border-0 dark:border-zinc-700 " + quantico.className}>
+                    <Navigation fontClass={quantico.className} />
                 </header>
-                <main className="flex flex-col mt-16 min-h-screen">
+                <main className={"flex flex-col mt-16 min-h-screen " + quantico.className}>
                     {children}
                 </main>
-                <footer className="bg-gray-900 text-white py-6">
-                    <div className="container mx-auto text-center">
-                        <p className="text-sm">
+                <footer className="bg-zinc-950 text-white py-6 flex items-center justify-center">
+                    <div className={"container mx-auto text-center"}>
+                        <p className={"text-sm" + quantico.className}>
                             &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
                         </p>
                         <Link className='underline' href="/privacy-policy">

@@ -90,33 +90,33 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative bg-gray-900 text-gray-100 py-20 border">
+        <section id="hero" className="relative bg-gray-950 text-gray-100 py-20 border">
             <AnimatedBackground />
             <div className="container mx-auto px-4 text-center relative z-10">
                 <motion.h1 className="text-5xl font-bold mb-4" {...fadeInUp}>
-                    Transform Your Ideas
+                    Mediocrity is dead. Creativity reigns.
                 </motion.h1>
-                <motion.p className="text-lg mb-6" {...fadeInUp}>
-                    Expert in building web applications, automations, and tools tailored
-                    to your business needs.
+                <motion.p className="text-lg mb-6 max-w-2xl mx-auto" {...fadeInUp}>
+                    We don’t recycle ideas. We obliterate the ordinary. If it’s been done before, we tear it apart and rebuild something unforgettable.
                 </motion.p>
                 <div className="flex flex-col items-center space-y-4">
                     <motion.button
                         onClick={handleModalToggle}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
+                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
                         {...fadeInUp}
                     >
-                        Request more information
+                        Get in touch =)
                     </motion.button>
                     <motion.a href="/signup" {...fadeInUp}>
                         <button
-                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full"
+                            className="bg-gray-800 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full tracking-wide text-lg shadow-lg transition-all duration-300 flex flex-col items-center"
                         >
-                            Create an account
+                            Sign up <span className="text-xs">Join the creative</span>
                         </button>
                     </motion.a>
                 </div>
             </div>
+
 
             {/* Modal */}
             {isModalOpen && (

@@ -10,8 +10,8 @@ const Home = () => {
     <RootLayout>
       <div className="space-y-20">
         <HeroSection />
-        <AboutSection />
         <ServicesSection />
+        <AboutSection />
         <PortfolioSection />
         <CallToActionSection
           title="Ready to Build Your Online Presence?"

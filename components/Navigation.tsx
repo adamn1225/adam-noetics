@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
-import noeticsLogo from '@public/noeticslogo.png';
-import noeticsLogoDark from '@public/darknoetics.png';
+import deadLogo from '@public/dead_generics-logo.png';
 
 interface NavigationProps {
   isFixed?: boolean;
+  fontClass?: string;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
@@ -35,7 +35,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
   return (
     <motion.header
-      className={`bg-white dark:bg-gray-500 z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
+      className={`bg-white dark:bg-zinc-500 z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -46,18 +46,18 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
           <a href="/">
             {isDarkMode ? (
               <Image
-                src={noeticsLogo}
+                src={deadLogo}
                 alt="Noetics.io Logo"
-                width={200}
-                height={80}
+                width={220}
+                height={100}
                 className="rounded-full"
               />
             ) : (
               <Image
-                src={noeticsLogo}
+                src={deadLogo}
                 alt="Noetics.io Logo"
-                width={200} // Adjust the width as needed
-                height={80} // Adjust the height as needed
+                width={220} // Adjust the width as needed
+                height={100} // Adjust the height as needed
                 className="rounded-full"
               />
             )}
@@ -66,7 +66,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
         </span>
         {/* Hamburger Menu for Smaller Screens */}
         <button
-          className="sm:hidden text-gray-800 dark:text-white hover:text-gray-600"
+          className="sm:hidden text-zinc-800 dark:text-white hover:text-zinc-600"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -106,11 +106,11 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <ul className="absolute top-14 left-0 w-full bg-white dark:bg-gray-900 shadow-md flex flex-col items-center gap-4 py-4 sm:hidden">
+          <ul className="absolute top-14 left-0 w-full bg-white dark:bg-zinc-900 shadow-md flex flex-col items-center gap-4 py-4 sm:hidden">
             <li>
               <a
                 href="#about"
-                className="hover:underline text-gray-800 dark:text-white"
+                className="hover:underline text-zinc-800 dark:text-white"
                 onClick={toggleMenu}
               >
                 About
@@ -119,7 +119,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             <li>
               <a
                 href="#services"
-                className="hover:underline text-gray-800 dark:text-white"
+                className="hover:underline text-zinc-800 dark:text-white"
                 onClick={toggleMenu}
               >
                 Services
@@ -128,7 +128,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             <li>
               <a
                 href="#portfolio"
-                className="hover:underline text-gray-800 dark:text-white"
+                className="hover:underline text-zinc-800 dark:text-white"
                 onClick={toggleMenu}
               >
                 Portfolio
