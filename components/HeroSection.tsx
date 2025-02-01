@@ -94,7 +94,7 @@ const HeroSection = () => {
             <AnimatedBackground />
             <div className="container mx-auto px-4 text-center relative z-10">
                 <motion.h1 className="text-5xl font-bold mb-4" {...fadeInUp}>
-                    Mediocrity is dead. Creativity reigns.
+                    Mediocrity died. Creativity reigns.
                 </motion.h1>
                 <motion.p className="text-lg mb-6 max-w-2xl mx-auto" {...fadeInUp}>
                     We don’t recycle ideas. We obliterate the ordinary. If it’s been done before, we tear it apart and rebuild something unforgettable.
