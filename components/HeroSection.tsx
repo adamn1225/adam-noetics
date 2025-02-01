@@ -106,16 +106,19 @@ const HeroSection = () => {
                         className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
                         {...fadeInUp}
                     >
-                        Get in touch =)
+                        Get in touch
                     </motion.button>
                     <motion.a href="/signup" {...fadeInUp}>
                         <div className="flex flex-col items-center gap-2">
-                            <span className="font-semibold text-lg">Sign up - join the creative</span>
-                            <button
-                                className="bg-gray-800 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full tracking-wide text-lg shadow-lg transition-all duration-300 flex flex-col items-center"
+                            <a
+                                href="/signup"
+                                className="onboardbutton py-3 px-6 rounded-full"
                             >
-                                Sign up
-                            </button>
+                                join the creative
+                                <div className="arrow-wrapper">
+                                    <div className="arrow"></div>
+                                </div>
+                            </a>
                         </div>
                     </motion.a>
                 </div>

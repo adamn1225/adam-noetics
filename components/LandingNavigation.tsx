@@ -39,20 +39,20 @@ const LandingNavigation = () => {
 
     return (
         <motion.header
-            className={"bg-white dark:bg-zinc-500 py-4 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl"}
+            className={"bg-white dark:bg-zinc-500 pt-2 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl"}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <nav className={"container mx-auto px-4 flex text-zinc-800 justify-between items-center " + quantico.className}>
+            <nav className={"container mx-auto px-4 pb-2 flex text-zinc-800 justify-between items-center " + quantico.className}>
                 {/* Logo */}
                 <div className="flex items-center gap-4">
                     <a href="/">
                         <Image
                             src={isDarkMode ? deadLogo : deadLogo}
                             alt="Noetics.io Logo"
-                            width={200} // Adjust the width as needed
-                            height={80} // Adjust the height as needed
+                            width={175}
+                            height={75}
                             className="rounded-full"
                         />
                     </a>

@@ -115,7 +115,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             </li>
             <li>
               <a
-                href="login/"
+                href="/login/"
                 className="onboardbutton py-2 px-4 rounded-full"
                 onClick={toggleMenu}
               >

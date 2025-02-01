@@ -195,15 +195,15 @@ const SignupPage: React.FC = () => {
     return (
         <>
             <LandingNavigation />
-            <div className="bg-gray-200 dark:bg-gray-900 min-h-screen flex items-center justify-center">
-                <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded shadow">
-                    <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Sign Up</h1>
+            <div className="bg-gray-200 dark:bg-zinc-700 min-h-screen flex items-center justify-center">
+                <div className="w-full max-w-md p-8 bg-white dark:bg-zinc-800 rounded shadow">
+                    <h1 className="text-2xl font-bold mb-6 text-zinc-900 dark:text-white">Sign Up</h1>
                     {error && <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>}
                     {successMessage && <p className="text-green-600 dark:text-green-400 mb-4">{successMessage}</p>}
                     {!isTokenSent ? (
                         <form onSubmit={handleSignup} className="space-y-4">
                             <div>
-                                <label htmlFor="organizationName" className="block font-medium text-gray-900 dark:text-white">Organization Name (optional)</label>
+                                <label htmlFor="organizationName" className="block font-medium text-zinc-900 dark:text-white">Organization Name (optional)</label>
                                 <input
                                     type="text"
                                     id="organizationName"
@@ -211,11 +211,11 @@ const SignupPage: React.FC = () => {
                                     placeholder='Your organization name (recommended)'
                                     value={organizationName}
                                     onChange={(e) => setOrganizationName(e.target.value)}
-                                    className="w-full p-2 border rounded bg-gray-100 text-gray-900"
+                                    className="w-full p-2 border rounded bg-zinc-100 text-zinc-900"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="email" className="block font-medium text-gray-900 dark:text-white">Login Email</label>
+                                <label htmlFor="email" className="block font-medium text-zinc-900 dark:text-white">Login Email</label>
                                 <input
                                     type="email"
                                     id="email"
@@ -223,12 +223,12 @@ const SignupPage: React.FC = () => {
                                     placeholder="Enter a valid email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full p-2 border rounded bg-gray-100 text-gray-900"
+                                    className="w-full p-2 border rounded bg-zinc-100 text-zinc-900"
                                     required
                                 />
                             </div>
                             <div className="relative">
-                                <label htmlFor="password" className="block font-medium text-gray-900 dark:text-white">Password</label>
+                                <label htmlFor="password" className="block font-medium text-zinc-900 dark:text-white">Password</label>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     id="password"
@@ -236,19 +236,19 @@ const SignupPage: React.FC = () => {
                                     placeholder='At least 8 characters'
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="shadow-sm w-full p-2 border rounded bg-gray-100 text-gray-900"
+                                    className="shadow-sm w-full p-2 border rounded bg-zinc-100 text-zinc-900"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-gray-500"
+                                    className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-zinc-500"
                                 >
                                     {showPassword ? <EyeOff /> : <Eye />}
                                 </button>
                             </div>
                             <div className="relative">
-                                <label htmlFor="confirmPassword" className="block font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                                <label htmlFor="confirmPassword" className="block font-medium text-zinc-900 dark:text-white">Confirm Password</label>
                                 <input
                                     type={showConfirmPassword ? 'text' : 'password'}
                                     id="confirmPassword"
@@ -256,13 +256,13 @@ const SignupPage: React.FC = () => {
                                     placeholder='Confirm your password'
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="shadow-sm w-full p-2 border rounded bg-gray-100 text-gray-900"
+                                    className="shadow-sm w-full p-2 border rounded bg-zinc-100 text-zinc-900"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-gray-500"
+                                    className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-zinc-500"
                                 >
                                     {showConfirmPassword ? <EyeOff /> : <Eye />}
                                 </button>
@@ -277,14 +277,14 @@ const SignupPage: React.FC = () => {
                     ) : (
                         <form onSubmit={handleVerifyToken} className="space-y-4">
                             <div>
-                                <label htmlFor="token" className="block font-medium text-gray-900 dark:text-white">6-Digit Token</label>
+                                <label htmlFor="token" className="block font-medium text-zinc-900 dark:text-white">6-Digit Token</label>
                                 <input
                                     type="text"
                                     id="token"
                                     name="token"
                                     value={token}
                                     onChange={(e) => setToken(e.target.value)}
-                                    className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+                                    className="w-full p-2 border rounded bg-zinc-100 dark:bg-zinc-700 dark:text-white"
                                     required
                                 />
                             </div>

@@ -186,16 +186,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-5/6 md:w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white text-center mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-100 dark:bg-zinc-700">
+      <div className="bg-white dark:bg-zinc-800 p-8 rounded-lg shadow-md w-5/6 md:w-full max-w-md">
+        <h1 className="text-2xl font-bold text-zinc-800 dark:text-white text-center mb-6">
           Client Login
         </h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-900"
+              className="block text-sm font-medium text-zinc-900 dark:text-white"
             >
               Email
             </label>
@@ -205,14 +205,14 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full text-gray-900 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full text-zinc-900 px-3 py-2 border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="you@example.com"
             />
           </div>
           <div className="relative">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-900 "
+              className="block text-sm font-medium text-zinc-900 dark:text-white"
             >
               Password
             </label>
@@ -222,19 +222,19 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border text-gray-900 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border text-zinc-900 border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="Enter your password"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-gray-500"
+              className="absolute inset-y-0 top-1/3 right-0 pr-3 flex items-center text-zinc-500"
             >
               {showPassword ? <EyeOff /> : <Eye />}
             </button>
           </div>
           <div className="flex flex-col gap-1">
-            <p className="text-sm text-blue-600 hover:underline">
+            <p className="text-sm text-blue-500 hover:underline">
               <Link href="/reset-password">Forgot Password?</Link>
             </p>
           </div>
@@ -251,12 +251,12 @@ const LoginPage = () => {
           </button>
           {!isVerified && (
             <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Didn't receive the verification email?</p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-50">Didn't receive the verification email?</p>
               <button
                 type="button"
                 onClick={handleResendVerification}
                 disabled={loading}
-                className="text-blue-600 hover:underline"
+                className="text-blue-600 font-semibold hover:underline dark:text-white"
               >
                 Resend Verification Email
               </button>
@@ -266,7 +266,7 @@ const LoginPage = () => {
             <button
               type="button" // Change to type="button" to prevent form submission
               onClick={handleGoogleLogin}
-              className="flex items-center shadow-md justify-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 w-full"
+              className="flex items-center shadow-md justify-center bg-white border border-zinc-300 text-zinc-700 px-4 py-2 rounded hover:bg-zinc-100 w-full"
             >
               <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px">
                 <path fill="#4285F4" d="M24 9.5c3.1 0 5.7 1.1 7.8 3.1l5.8-5.8C33.9 3.5 29.3 1.5 24 1.5 14.8 1.5 7.3 7.9 4.5 16.1l6.9 5.4C13.1 15.1 18 9.5 24 9.5z" />
@@ -278,7 +278,7 @@ const LoginPage = () => {
               Log In with Google
             </button>
           </div>
-          <p className="text-lg text-center text-blue-600 underline hover:text-blue-600/80">
+          <p className="text-lg text-center text-blue-600 dark:text-blue-500 underline hover:text-blue-600/80">
             <Link href="/">Go back to homepage</Link>
           </p>
           <p className="text-lg text-center">

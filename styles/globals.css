@@ -33,11 +33,11 @@ body {
 .dark body {
   color: var(--foreground);
   background: var(--background);
-}
+} 
 
 /* From Uiverse.io by satyamchaudharydev */
 .onboardbutton {
-  --primary-color: #ef4444;
+  --primary-color: #1d4ed8;
   --secondary-color: #fff;
   --hover-color: #111827;
   --arrow-width: 10px;
@@ -162,4 +162,9 @@ a.active::after {
 .opt-btn {
   @apply bg-white text-red-500 font-bold py-3 px-6 rounded-full *:border border-red-500 hover:border-red-400
   hover:bg-red-500 hover:text-white;
+}
+
+.opt-two {
+  @apply bg-blue-700 text-white font-bold py-3 px-6 rounded-full *:border border-red-500 hover:border-red-400
+  hover:bg-blue-600 hover:text-white;
 }
