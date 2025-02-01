@@ -171,7 +171,7 @@ const LandingPage = () => {
                 </div>
 
             </motion.section>
-            <footer className="bg-zinc-900 text-white h-min flex py-6 items-center justify-center">
+            <footer className="bg-zinc-800 text-white h-min flex py-6 items-center justify-center">
                 <p className={"text-sm " + quantico.className}>
                     &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
                 </p>

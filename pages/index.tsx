@@ -14,8 +14,8 @@ const Home = () => {
         <AboutSection />
         <PortfolioSection />
         <CallToActionSection
-          title="Ready to Build Your Online Presence?"
-          subtitle="Let's Build Something. Contact us today to get started!"
+          title="Ready for the next mission?"
+          subtitle="We have the skills, tools, focus, and intensity to ensure it's complete. Let's talk."
         />
       </div>
     </RootLayout>
