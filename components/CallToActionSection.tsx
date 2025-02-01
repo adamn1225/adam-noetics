@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { fadeInUp } from "../motionConfig";
+import { slideInFromTop } from "../motionConfig";
 import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 
 interface CallToActionSectionProps {
@@ -86,10 +86,10 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
   return (
     <motion.section
       id="contact"
-      className="bg-zinc-950 dark:bg-gray-900 text-white py-20"
-      {...fadeInUp}
+      className="bg-zinc-950 dark:bg-zinc-900 text-white pb-12"
+      {...slideInFromTop}
     >
-      <div className="container bg-zinc-950 mx-auto px-4 text-center">
+      <div className="container bg-zinc-950 mx-auto px-4 py-8 text-center">
         <h2 className="text-4xl font-bold mb-6">
           {title}
         </h2>
@@ -101,19 +101,19 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
             onClick={() =>
               (window.location.href = "mailto:anoah1225@gmail.com")
             }
-            className="bg-white text-red-500 hover:text-red-400 hover:bg-zinc-50 font-bold py-3 px-6 rounded-full"
+            className="opt-btn"
           >
             Email Us
           </button>
           <button
             onClick={() => (window.location.href = "tel:+1234567890")}
-            className="bg-white text-red-500 hover:text-red-400 hover:bg-zinc-50 font-bold py-3 px-6 rounded-full"
+            className="opt-btn"
           >
             Call Us
           </button>
           <button
             onClick={handleModalToggle}
-            className="bg-white text-red-500 hover:text-red-400 hover:bg-gray-50 font-bold py-3 px-6 rounded-full"
+            className="opt-btn"
           >
             Fill Out a Form
           </button>
@@ -122,8 +122,8 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 dark:bg-zinc-950 dark:text-white bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white text-gray-900 rounded-lg shadow-lg w-11/12 max-w-md p-6">
+        <div className="fixed inset-0 dark:bg-zinc-950/80 dark:text-white bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white text-gray-900 rounded-lg shadow-xl w-11/12 max-w-md p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Contact Us</h2>
               <button
@@ -195,7 +195,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md"
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-md"
               >
                 {loading ? "Submitting..." : "Send Message"}
               </button>

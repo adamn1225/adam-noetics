@@ -12,10 +12,10 @@ const AnimatedBackground = () => {
     useAnimationFrame((t) => {
         if (!cubeRef.current) return;
 
-        const rotateX = Math.sin(t / 5000) * 360; // Smooth 3D rotation
-        const rotateY = Math.cos(t / 5000) * 360;
-        const x = Math.sin(t / 3000) * 180; // Larger X-axis range
-        const y = Math.cos(t / 3000) * 180; // Larger Y-axis range
+        const rotateX = Math.sin(t / 6000) * 360; // Smooth 3D rotation
+        const rotateY = Math.cos(t / 6000) * 360;
+        const x = Math.sin(t / 3000) * 400; // Larger X-axis range
+        const y = Math.cos(t / 3000) * 300; // Larger Y-axis range
 
         cubeRef.current.style.transform = `translate(${x}px, ${y}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
@@ -42,13 +42,13 @@ const AnimatedBackground = () => {
                     onMouseEnter={() => setIsAlive(true)}
                     onMouseLeave={() => setIsAlive(false)}
                 >
-                    <img
+                    {/* <img
                         src="/rose-life.gif"
                         alt="Rose Life"
                         width="300"
                         height="300"
                         className={`rose ${isAlive ? "alive" : ""}`}
-                    />
+                    /> */}
 
                 </div>
             </div>
@@ -79,7 +79,7 @@ function StyleSheet() {
             position: absolute;
             width: 200px;
             height: 200px;
-            background: rgba(59, 130, 246, 0.4); /* Tailwind gray-200 with opacity */
+            background: rgba(243, 244, 246, 0.4); /* Tailwind gray-200 with opacity */
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(0, 0, 0, 0.05);
         }
@@ -93,12 +93,12 @@ function StyleSheet() {
         .bottom { transform: rotateX(-90deg) translateZ(100px); }
 
         /* Add subtle gradients for depth */
-        .front { background: linear-gradient(145deg, rgba(59, 130, 246, 0.4), rgba(226, 232, 240, 0.4)); }
-        .back { background: linear-gradient(145deg, rgba(59, 130, 246, 0.4), rgba(203, 213, 225, 0.4)); }
-        .left { background: linear-gradient(145deg, rgba(17, 24, 39, 0.4), rgba(148, 163, 184, 0.4)); }
-        .right { background: linear-gradient(145deg, rgba(17, 24, 39, 0.4), rgba(226, 232, 240, 0.4)); }
-        .top { background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(248, 250, 252, 0.4)); }
-        .bottom { background: linear-gradient(145deg, rgba(203, 213, 225, 0.4), rgba(148, 163, 184, 0.4)); }
+        .front { background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(226, 232, 240, 0.2)); }
+        .back { background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(203, 213, 225, 0.2)); }
+        .left { background: linear-gradient(145deg, rgba(17, 24, 39, 0.2), rgba(148, 163, 184, 0.2)); }
+        .right { background: linear-gradient(145deg, rgba(17, 24, 39, 0.2), rgba(226, 232, 240, 0.2)); }
+        .top { background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(248, 250, 252, 0.2)); }
+        .bottom { background: linear-gradient(145deg, rgba(203, 213, 225, 0.2), rgba(148, 163, 184, 0.2)); }
 
         /* Inner object (the rose inside the cube) */
         .inner-object {

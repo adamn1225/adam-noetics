@@ -1,17 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeInUp } from "../motionConfig";
+import { fadeInRight } from "../motionConfig";
 
 const ServicesSection = () => {
   return (
-    <motion.section id="services" className="bg-zinc-900 dark:bg-zinc-800 py-20" {...fadeInUp}>
+    <motion.section id="services" className="bg-zinc-900 dark:bg-zinc-800 py-20" {...fadeInRight}>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl text-red-500 font-bold mb-10">Arsenal</h2>
         <h2 className="text-1xl text-white font-bold mb-10">Engineered Solutions &#9670; System Components &#9670; Beyond the Basics</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              title: "Bespoke Web Apps",
+              title: "Web Applications",
               desc: "Forget off-the-shelf. We build high-performance, scalable web applications designed around your unique needs.",
               list: ["Sleek, Intuitive UX", "Enterprise-Grade Scalability", "Feature-Rich Customization"],
               link: `/landing/noetic-web-apps`,

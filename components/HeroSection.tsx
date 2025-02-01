@@ -91,14 +91,14 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative bg-gray-950 text-gray-100 py-20 border">
+        <section id="hero" className="relative bg-gray-950 text-gray-100 h-screen py-20 border">
             <AnimatedBackground />
-            <div className="container mx-auto px-4 text-center relative z-10">
+            <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
                 <motion.h1 className="text-5xl font-bold mb-4" {...fadeInUp}>
-                    Mediocrity died. Creativity reigns.
+                    Mediocrity dies when creativity reigns.
                 </motion.h1>
-                <motion.p className="text-lg mb-6 max-w-2xl mx-auto" {...fadeInUp}>
-                    We don’t recycle ideas. We obliterate the ordinary. If it’s been done before, we tear it apart and rebuild something unforgettable.
+                <motion.p className="text-xl mb-6 max-w-2xl mx-auto font-medium" {...fadeInUp}>
+                    We don’t recycle ideas; <span className="font-bold">we obliterate the ordinary.</span> If it’s been done before, we tear it apart and rebuild something unforgettable.
                 </motion.p>
                 <div className="flex flex-col items-center space-y-4">
                     <motion.button
@@ -109,11 +109,14 @@ const HeroSection = () => {
                         Get in touch =)
                     </motion.button>
                     <motion.a href="/signup" {...fadeInUp}>
-                        <button
-                            className="bg-gray-800 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full tracking-wide text-lg shadow-lg transition-all duration-300 flex flex-col items-center"
-                        >
-                            Sign up <span className="text-xs">Join the creative</span>
-                        </button>
+                        <div className="flex flex-col items-center gap-2">
+                            <span className="font-semibold text-lg">Sign up - join the creative</span>
+                            <button
+                                className="bg-gray-800 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full tracking-wide text-lg shadow-lg transition-all duration-300 flex flex-col items-center"
+                            >
+                                Sign up
+                            </button>
+                        </div>
                     </motion.a>
                 </div>
             </div>

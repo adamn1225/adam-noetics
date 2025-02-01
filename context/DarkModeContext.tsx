@@ -8,12 +8,14 @@ interface DarkModeContextProps {
 const DarkModeContext = createContext<DarkModeContextProps | undefined>(undefined);
 
 export const DarkModeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
 
     useEffect(() => {
         const savedMode = localStorage.getItem("darkMode");
         if (savedMode) {
             setIsDarkMode(savedMode === "true");
+        } else {
+            setIsDarkMode(true); // Default to dark mode if no preference is saved
         }
     }, []);
 

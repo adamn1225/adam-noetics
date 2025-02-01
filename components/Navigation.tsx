@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
 import deadLogo from '@public/dead_generics-logo.png';
+import { useDarkMode } from "@context/DarkModeContext";
 
 interface NavigationProps {
   isFixed?: boolean;
@@ -12,22 +13,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setIsDarkMode(darkModeMediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-    };
-
-    darkModeMediaQuery.addEventListener('change', handleChange);
-
-    return () => {
-      darkModeMediaQuery.removeEventListener('change', handleChange);
-    };
-  }, []);
+  const { isDarkMode } = useDarkMode();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -44,25 +30,15 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
         {/* Logo */}
         <span className="flex items-center gap-4">
           <a href="/">
-            {isDarkMode ? (
-              <Image
-                src={deadLogo}
-                alt="Noetics.io Logo"
-                width={220}
-                height={100}
-                className="rounded-full"
-              />
-            ) : (
-              <Image
-                src={deadLogo}
-                alt="Noetics.io Logo"
-                width={220} // Adjust the width as needed
-                height={100} // Adjust the height as needed
-                className="rounded-full"
-              />
-            )}
+            <Image
+              src={deadLogo}
+              alt="Noetics.io Logo"
+              width={175}
+              height={75}
+              className="rounded-full"
+            />
           </a>
-          <DarkModeToggle />
+          {/* <DarkModeToggle /> */}
         </span>
         {/* Hamburger Menu for Smaller Screens */}
         <button
@@ -76,9 +52,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
         {/* Desktop Navigation */}
         <ul className="hidden sm:flex items-center gap-6">
           <li>
-            <a href="#about" className="hover:underline dark:text-white">
-              About
-            </a>
+            <DarkModeToggle />
           </li>
           <li>
             <a href="#services" className="hover:underline dark:text-white">
@@ -91,9 +65,14 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             </a>
           </li>
           <li>
+            <a href="#about" className="hover:underline dark:text-white">
+              About
+            </a>
+          </li>
+          <li>
             <a
               href="/login"
-              className="onboardbutton py-3 px-6 rounded-full"
+              className="onboardbutton bg-red-500 py-3 px-6 rounded-full"
               onClick={toggleMenu}
             >
               Login
