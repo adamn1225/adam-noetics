@@ -3,7 +3,7 @@ import React from "react";
 import Head from 'next/head';
 import LandingNavigation from "@components/LandingNavigation";
 import { motion } from "framer-motion";
-import { fadeInUp } from "../../motionConfig";
+import { fadeInUp, slideInFromTop, slideInFromLeft, slideInFromBottom, slideInFromRight } from "../../motionConfig";
 import CallToActionSection from "@components/CallToActionSection";
 import { NextSeo } from 'next-seo';
 import CanonicalURL from '@components/CanonicalURL';
@@ -120,15 +120,21 @@ const LandingPage = () => {
             >
                 <div className={"min-h-screen bg-zinc-50 dark:bg-zinc-900 py-12 mt-12 " + quantico.className}>
                     {/* Hero Section */}
-                    <header className="bg-zinc-950 text-white py-20 text-center">
+                    <motion.header
+                        className="bg-zinc-950 text-white py-20 text-center"
+                        {...slideInFromTop}
+                    >
                         <div className="max-w-4xl mx-auto px-4">
                             <h1 className="text-5xl font-bold">{service.title}</h1>
                             <p className="mt-4 text-xl text-red-500">{service.desc}</p>
                         </div>
-                    </header>
+                    </motion.header>
 
                     {/* What We Offer Section */}
-                    <section className="w-full min-w-full bg-zinc-100 dark:bg-zinc-800">
+                    <motion.section
+                        className="w-full min-w-full bg-zinc-100 dark:bg-zinc-800"
+                        {...slideInFromLeft}
+                    >
                         <div className="max-w-5xl mx-auto px-4 py-12">
                             <h2 className="text-3xl font-bold text-center mb-2 dark:text-white">What We Give</h2>
                             <div className="border-b-4 border-red-600 mb-6 mx-96"></div>
@@ -143,20 +149,25 @@ const LandingPage = () => {
                                 ))}
                             </ul>
                         </div>
-                    </section>
+                    </motion.section>
 
                     {/* How It Works Section */}
-                    <section className="max-w-4xl mx-auto px-4 py-12 dark:bg-zinc-900">
+                    <motion.section
+                        className="max-w-4xl mx-auto px-4 py-12 dark:bg-zinc-900"
+                        {...slideInFromRight}
+                    >
                         <h2 className="text-3xl font-bold mb-2 dark:text-white">How this works</h2>
                         <div className="border-b-4 border-red-600 mb-6 w-1/6"></div>
                         <p className="text-lg text-zinc-700 dark:text-zinc-300">{service.howItWorks}</p>
-                    </section>
+                    </motion.section>
 
                     {/* CTA Section */}
-                    <CallToActionSection
-                        title={`Looking for ${service.title}?`}
-                        subtitle="Contact us today to get started!"
-                    />
+                    <motion.div {...slideInFromBottom}>
+                        <CallToActionSection
+                            title={`Looking for ${service.title}?`}
+                            subtitle="Contact us today to get started!"
+                        />
+                    </motion.div>
                 </div>
 
             </motion.section>
