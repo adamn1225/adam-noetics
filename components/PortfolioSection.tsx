@@ -6,7 +6,7 @@ const PortfolioSection = () => {
   return (
     <motion.section id="portfolio" className="bg-zinc-950 dark:bg-zinc-800 py-20" {...fadeInUp}>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-10 text-red-500 dark:text-white">Case Files (Declassified)</h2>
+        <h2 className="text-4xl font-bold mb-10 text-red-500 dark:text-white">Declassified</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {

@@ -1,3 +1,4 @@
+'use client";'
 import React, { useState } from "react";
 import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 import AnimatedBackground from "./ui/AnimatedBackground"; // Import the AnimatedBackground component

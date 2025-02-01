@@ -1,31 +1,56 @@
 "use client";
 
 import { useAnimationFrame } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Image from "next/image";
 
 const AnimatedBackground = () => {
-    const ref = useRef<HTMLDivElement>(null);
+    const cubeRef = useRef<HTMLDivElement>(null);
+    const objectRef = useRef<HTMLDivElement>(null);
+    const [isAlive, setIsAlive] = useState(false);
 
     useAnimationFrame((t) => {
-        if (!ref.current) return;
+        if (!cubeRef.current) return;
 
         const rotateX = Math.sin(t / 5000) * 360; // Smooth 3D rotation
         const rotateY = Math.cos(t / 5000) * 360;
         const x = Math.sin(t / 3000) * 180; // Larger X-axis range
         const y = Math.cos(t / 3000) * 180; // Larger Y-axis range
 
-        ref.current.style.transform = `translate(${x}px, ${y}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        cubeRef.current.style.transform = `translate(${x}px, ${y}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+        // Keep the inner object centered while rotating
+        if (objectRef.current) {
+            objectRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${-rotateY}deg)`;
+        }
     });
 
     return (
         <div className="absolute inset-0 overflow-hidden flex justify-center items-center pointer-events-none">
-            <div className="cube" ref={ref}>
+            <div className="cube" ref={cubeRef}>
                 <div className="side front" />
                 <div className="side back" />
                 <div className="side left" />
                 <div className="side right" />
                 <div className="side top" />
                 <div className="side bottom" />
+
+                {/* Object Inside the Cube - Mouse Enter/Leave to Activate */}
+                <div
+                    className="inner-object"
+                    ref={objectRef}
+                    onMouseEnter={() => setIsAlive(true)}
+                    onMouseLeave={() => setIsAlive(false)}
+                >
+                    <img
+                        src="/rose-life.gif"
+                        alt="Rose Life"
+                        width="300"
+                        height="300"
+                        className={`rose ${isAlive ? "alive" : ""}`}
+                    />
+
+                </div>
             </div>
             <StyleSheet />
         </div>
@@ -37,7 +62,7 @@ const AnimatedBackground = () => {
  */
 function StyleSheet() {
     return (
-        <style>{`
+        <style suppressHydrationWarning>{`
         .absolute {
             perspective: 2000px;
             z-index: 0; /* Keep cube behind text */
@@ -74,6 +99,18 @@ function StyleSheet() {
         .right { background: linear-gradient(145deg, rgba(17, 24, 39, 0.4), rgba(226, 232, 240, 0.4)); }
         .top { background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(248, 250, 252, 0.4)); }
         .bottom { background: linear-gradient(145deg, rgba(203, 213, 225, 0.4), rgba(148, 163, 184, 0.4)); }
+
+        /* Inner object (the rose inside the cube) */
+        .inner-object {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
         `}</style>
     );
 }
