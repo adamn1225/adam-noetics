@@ -258,6 +258,20 @@ const ClientCms = () => {
                         />
                     </div>
                     <div>
+                        <label htmlFor="slug" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                            Slug
+                        </label>
+                        <input
+                            type="text"
+                            id="slug"
+                            name="slug"
+                            value={formValues.slug}
+                            onChange={handleChange}
+                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                            readOnly
+                        />
+                    </div>
+                    <div>
                         <label htmlFor="content" className="block text-sm font-semibold mb-1 text-gray-700 dark:text-white">
                             Content
                         </label>
