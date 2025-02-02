@@ -26,6 +26,14 @@ interface FormValues {
     slug: string;
 }
 
+const generateSlug = (title: string) => {
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+};
+
+
 const ClientCms = () => {
     const [posts, setPosts] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
@@ -198,6 +206,15 @@ const ClientCms = () => {
         }
 
         setOptedIn(true);
+    };
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const title = e.target.value;
+        setFormValues({
+            ...formValues,
+            title,
+            slug: generateSlug(title),
+        });
     };
 
     return (
