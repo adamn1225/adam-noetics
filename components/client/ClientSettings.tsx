@@ -65,6 +65,16 @@ const ClientSettings = () => {
         if (error) {
             console.error('Error updating CMS token:', error);
         }
+
+        // Update the profile in the admin view
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .update({ cms_token: newToken })
+            .eq('user_id', user.id);
+
+        if (profileError) {
+            console.error('Error updating CMS token in profile:', profileError);
+        }
     };
 
     return (

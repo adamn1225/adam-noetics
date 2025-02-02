@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import placeholderAvatar from '@public/placeholder-avatar.png';
-import deadLogo from '@public/dead_generics-logo.png';
+import deadLogo from '@public/dark_dead_generics-logo.png';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -118,7 +118,7 @@ const Sidebar = () => {
       {loading && (
         <div className="absolute top-0 left-0 w-full h-1 bg-blue-700 animate-pulse"></div>
       )}
-      {/* <div className='flex items-center justify-center p-4'>
+      <div className='flex items-center justify-center p-4'>
         <Image
           src={isDarkMode ? deadLogo : deadLogo}
           alt="Noetics.io Logo"
@@ -126,7 +126,7 @@ const Sidebar = () => {
           height={40} // Adjust the height as needed
           className="rounded-full"
         />
-      </div> */}
+      </div>
       <div className="flex items-center justify-between p-4">
 
         <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>

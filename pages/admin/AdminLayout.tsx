@@ -10,7 +10,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     return (
         <div className="grid grid-cols-[200px,1fr] min-h-screen">
             <AdminSidebar />
-            <div className="ml-0 mt-32 md:mt-20 xl:ml-52 p-4 z-0 relative">
+            <div className="ml-0 mt-32 md:mt-20 xl:ml-32 p-4 z-0 relative">
                 {children}
             </div>
         </div>

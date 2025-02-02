@@ -3,7 +3,9 @@ import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
 import AdminLayout from '../../AdminLayout';
 
-type Profile = Database['public']['Tables']['profiles']['Row'];
+type Profile = Database['public']['Tables']['profiles']['Row'] & {
+    cms_token: string | null;
+};
 type Organization = Database['public']['Tables']['organizations']['Row'];
 type OrganizationMember = Database['public']['Tables']['organization_members']['Row'];
 
@@ -81,6 +83,7 @@ const AdminClientsPage = () => {
                             <th className="py-2 px-4 border-b">Company</th>
                             <th className="py-2 px-4 border-b">Role</th>
                             <th className="py-2 px-4 border-b">Organization</th>
+                            <th className="py-2 px-4 border-b">CMS Token</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +99,7 @@ const AdminClientsPage = () => {
                                     <td className="py-2 px-4 border-b text-center">{client.company_name}</td>
                                     <td className="py-2 px-4 border-b text-center">{client.role}</td>
                                     <td className="py-2 px-4 border-b text-center">{organization?.name || 'N/A'}</td>
+                                    <td className="py-2 px-4 border-b text-center">{client.cms_token || 'None Generated'}</td>
                                 </tr>
                             );
                         })}

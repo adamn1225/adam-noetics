@@ -91,7 +91,7 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative bg-gray-950 text-gray-100 h-[60vh] py-20 border">
+        <section id="hero" className="relative bg-gray-950 text-gray-100 h-[70vh] md:h-[60vh] py-20 border">
             <AnimatedBackground />
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
                 <motion.h1 className="text-5xl font-bold mb-4" {...fadeInUp}>

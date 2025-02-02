@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Spinner from './ui/Spinner'; // Import Spinner component
 import placeholderAvatar from '@public/placeholder-avatar.png';
-import deadLogo from '@public/dead-generics_logo.png';
+import deadLogo from '@public/dark_dead_generics-logo.png';
 
 const adminNavItems = [
     { name: "Dashboard", href: "/admin", icon: Home },
