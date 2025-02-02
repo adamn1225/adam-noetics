@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import AdminLayout from '../../AdminLayout';
+import AdminClientPost from '@components/AdminClientPost';
 import { v4 as uuidv4 } from 'uuid';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -208,6 +209,7 @@ const AdminClientCMS = () => {
                                 </button>
                             </div>
                         </div>
+                        <AdminClientPost userId={selectedProfile.id} />
                     </div>
                 )}
             </div>

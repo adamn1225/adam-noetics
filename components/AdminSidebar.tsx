@@ -114,8 +114,8 @@ const AdminSidebar = () => {
     };
 
     return (
-        <aside className={`bg-gray-900 dark:bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
-            <div className='flex items-center justify-between gap-2 w-full p-4'>
+        <aside className={`bg-gray-900 dark:bg-gray-900 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
+            <div className='flex items-start justify-between gap-2 w-full p-4'>
                 <Image
                     src={isDarkMode ? deadLogo : deadLogo}
                     alt="Noetics.io Logo"
@@ -160,7 +160,7 @@ const AdminSidebar = () => {
                     <p className="text-sm font-bold">{profile?.name}</p>
                 </div>
             </div>
-            <nav className="mt-4 flex flex-col justify-between h-full">
+            <nav className="mt-4 flex flex-col justify-start gap-32 h-full">
                 <ul>
                     {adminNavItems.map((item) => (
                         <li key={item.name} className="mb-2">
@@ -173,7 +173,7 @@ const AdminSidebar = () => {
                         </li>
                     ))}
                 </ul>
-                <div className="mb-32">
+                <div className="">
                     <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
                         <li className="mb-6">
                             <button
