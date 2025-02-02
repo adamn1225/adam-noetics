@@ -326,6 +326,7 @@ export type Database = {
       }
       organization_members: {
         Row: {
+          cms_token: string | null
           created_at: string | null
           organization_id: string
           organization_name: string | null
@@ -333,6 +334,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          cms_token?: string | null
           created_at?: string | null
           organization_id: string
           organization_name?: string | null
@@ -340,6 +342,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          cms_token?: string | null
           created_at?: string | null
           organization_id?: string
           organization_name?: string | null

@@ -37,10 +37,11 @@ const ClientCms = () => {
         template: 'basic',
         scheduled_publish_date: '',
         featured_image: '',
-        slug: '', // Initialize slug field
+        slug: '',
     });
-    const [optedIn, setOptedIn] = useState(false); // State to track opt-in status
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+    const [optedIn, setOptedIn] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [cmsToken, setCmsToken] = useState('');
 
     useEffect(() => {
         const checkOptInStatus = async () => {
@@ -119,7 +120,7 @@ const ClientCms = () => {
         setEditingPost(post);
         setFormValues({
             ...post,
-            slug: post.slug || '', // Ensure slug is included
+            slug: post.slug || '',
         });
     };
 
@@ -172,18 +173,55 @@ const ClientCms = () => {
         }));
     };
 
+    const handleCmsTokenSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        if (userError || !user) {
+            console.error('User not authenticated');
+            return;
+        }
+
+        const { data: member, error: memberError } = await supabase
+            .from('organization_members')
+            .select('cms_token')
+            .eq('user_id', user.id)
+            .single();
+
+        if (memberError || !member) {
+            console.error('Failed to fetch CMS token', memberError);
+            return;
+        }
+
+        if (member.cms_token !== cmsToken) {
+            console.error('Invalid CMS token');
+            return;
+        }
+
+        setOptedIn(true);
+    };
+
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
                 {!optedIn && (
                     <div className="absolute inset-0 bg-gray-100 bg-opacity-75 flex flex-col items-center justify-center z-10">
-                        <p className="text-lg font-semibold mb-4">Please contact us to opt-in for this feature.</p>
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
-                        >
-                            Contact Us
-                        </button>
+                        <p className="text-lg font-semibold mb-4">Please enter your CMS token to opt-in for this feature.</p>
+                        <form onSubmit={handleCmsTokenSubmit} className="flex flex-col items-center">
+                            <input
+                                type="text"
+                                value={cmsToken}
+                                onChange={(e) => setCmsToken(e.target.value)}
+                                className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                                placeholder="Enter CMS token"
+                                required
+                            />
+                            <button
+                                type="submit"
+                                className="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
+                            >
+                                Connect
+                            </button>
+                        </form>
                     </div>
                 )}
                 <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
@@ -206,7 +244,7 @@ const ClientCms = () => {
                         <label htmlFor="content" className="block text-sm font-semibold mb-1 text-gray-700 dark:text-white">
                             Content
                         </label>
-                        <div className="border border-gray-300  text-zinc-900 rounded-md shadow-sm p-2">
+                        <div className="border border-gray-300 text-zinc-900 rounded-md shadow-sm p-2">
                             <Editor
                                 apiKey='xuegfwom0nawuekck2prc9yboegxm372icviucpytplmzjr7'
                                 value={formValues.content}
@@ -236,7 +274,7 @@ const ClientCms = () => {
                             name="status"
                             value={formValues.status}
                             onChange={handleChange}
-                            className="mt-1 block w-full border  text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                             required
                         >
                             <option value="draft">Draft</option>
@@ -252,7 +290,7 @@ const ClientCms = () => {
                             name="template"
                             value={formValues.template}
                             onChange={handleChange}
-                            className="mt-1 block w-full  text-zinc-900 border border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full text-zinc-900 border border-gray-300 rounded-md shadow-sm p-2"
                             required
                         >
                             <option value="basic">Basic</option>
@@ -270,7 +308,7 @@ const ClientCms = () => {
                             name="scheduled_publish_date"
                             value={formValues.scheduled_publish_date}
                             onChange={handleChange}
-                            className="mt-1 block w-full border  text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                         />
                     </div>
                     <div>
@@ -282,7 +320,7 @@ const ClientCms = () => {
                             id="featured_image"
                             name="featured_image"
                             onChange={handleImageUpload}
-                            className="mt-1 block w-full border  text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                         />
                         {formValues.featured_image && (
                             <img src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
