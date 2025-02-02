@@ -87,7 +87,11 @@ const ClientCms = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const updatedFormValues = { ...formValues };
+
+        const updatedFormValues = {
+            ...formValues,
+            scheduled_publish_date: formValues.scheduled_publish_date || null,
+        };
 
         const { error } = editingPost
             ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id)
@@ -325,6 +329,7 @@ const ClientCms = () => {
                             <option value="basic">Basic</option>
                             <option value="minimal">Minimal</option>
                             <option value="modern">Modern</option>
+                            <option value="none">No template available</option>
                         </select>
                     </div>
                     <div>
