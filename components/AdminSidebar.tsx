@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useTransition } from 'react';
-import { Home, FileText, ClipboardList, BarChart, User, LogOut, List, UserPlus, Moon, Sun } from "lucide-react";
+import { Home, FileText, ClipboardList, BarChart, User, LogOut, List, UserPlus, Moon, Sun, MonitorCog } from "lucide-react";
 import { supabase } from "@lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
@@ -9,11 +9,11 @@ import Link from 'next/link';
 import Spinner from './ui/Spinner'; // Import Spinner component
 import placeholderAvatar from '@public/placeholder-avatar.png';
 import deadLogo from '@public/dead-generics_logo.png';
-import noeticsLogoDark from '@public/noeticslogo-dark.png';
 
 const adminNavItems = [
     { name: "Dashboard", href: "/admin", icon: Home },
     { name: "Admin Tasks", href: "/admin/clients/tasks", icon: List },
+    { name: "Client's CMS", href: "/admin/clients/client-cms", icon: MonitorCog },
     { name: "Client Files", href: "/admin/clients/clientfiles", icon: ClipboardList },
     { name: "Analytics", href: "/admin/clients/analytics", icon: BarChart },
     { name: "Users", href: "/admin/clients/users", icon: User },

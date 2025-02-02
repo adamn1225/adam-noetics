@@ -170,7 +170,7 @@ const ClientCms = () => {
 
     return (
         <>
-            <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md relative">
+            <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
                 {!optedIn && (
                     <div className="absolute inset-0 bg-gray-100 bg-opacity-75 flex flex-col items-center justify-center z-10">
                         <p className="text-lg font-semibold mb-4">Please contact us to opt-in for this feature.</p>
@@ -185,7 +185,7 @@ const ClientCms = () => {
                 <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
                 <form onSubmit={handleSubmit} className={`space-y-4 ${!optedIn ? 'opacity-50 pointer-events-none' : ''}`}>
                     <div>
-                        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="title" className="block text-sm font-semibold text-gray-700 dark:text-white">
                             Title
                         </label>
                         <input
@@ -194,15 +194,15 @@ const ClientCms = () => {
                             name="title"
                             value={formValues.title}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                             required
                         />
                     </div>
                     <div>
-                        <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="content" className="block text-sm font-semibold mb-1 text-gray-700 dark:text-white">
                             Content
                         </label>
-                        <div className="border border-gray-300 rounded-md shadow-sm p-2">
+                        <div className="border border-gray-300  text-zinc-900 rounded-md shadow-sm p-2">
                             <Editor
                                 apiKey='xuegfwom0nawuekck2prc9yboegxm372icviucpytplmzjr7'
                                 value={formValues.content}
@@ -224,7 +224,7 @@ const ClientCms = () => {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="status" className="block text-sm font-semibold text-gray-700 dark:text-white">
                             Status
                         </label>
                         <select
@@ -232,7 +232,7 @@ const ClientCms = () => {
                             name="status"
                             value={formValues.status}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border  text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                             required
                         >
                             <option value="draft">Draft</option>
@@ -240,7 +240,7 @@ const ClientCms = () => {
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="template" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="template" className="block text-sm font-semibold text-gray-700 dark:text-white">
                             Template
                         </label>
                         <select
@@ -248,7 +248,7 @@ const ClientCms = () => {
                             name="template"
                             value={formValues.template}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full  text-zinc-900 border border-gray-300 rounded-md shadow-sm p-2"
                             required
                         >
                             <option value="basic">Basic</option>
@@ -257,7 +257,7 @@ const ClientCms = () => {
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="scheduled_publish_date" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="scheduled_publish_date" className="block text-sm font-semibold text-gray-700 dark:text-white">
                             Scheduled Publish Date
                         </label>
                         <input
@@ -266,11 +266,11 @@ const ClientCms = () => {
                             name="scheduled_publish_date"
                             value={formValues.scheduled_publish_date}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border  text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                         />
                     </div>
                     <div>
-                        <label htmlFor="featured_image" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="featured_image" className="block text-sm font-semibold text-gray-700 dark:text-white">
                             Featured Image
                         </label>
                         <input
@@ -278,7 +278,7 @@ const ClientCms = () => {
                             id="featured_image"
                             name="featured_image"
                             onChange={handleImageUpload}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            className="mt-1 block w-full border  text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                         />
                         {formValues.featured_image && (
                             <img src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
@@ -286,28 +286,28 @@ const ClientCms = () => {
                     </div>
                     <button
                         type="submit"
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
+                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-700 hover:bg-blue-800"
                         disabled={loading}
                     >
                         {editingPost ? 'Update Post' : 'Add Post'}
                     </button>
                 </form>
 
-                <h3 className="text-xl font-semibold mt-6">Existing Posts</h3>
+                <h3 className="text-xl font-semibold mt-6 dark:text-white">Existing Posts</h3>
                 <ul className="mt-4 space-y-4">
                     {posts.map((post) => (
                         <li key={post.id} className="p-4 border rounded-md flex justify-between items-center">
-                            <span className="font-medium">{post.title}</span>
+                            <span className="font-semibold">{post.title}</span>
                             <div>
                                 <button
                                     onClick={() => handleEdit(post)}
-                                    className="mr-2 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                                    className="mr-2 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-green-600 hover:bg-green-700"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => handleDelete(post.id)}
-                                    className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
+                                    className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700"
                                 >
                                     Delete
                                 </button>

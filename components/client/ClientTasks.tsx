@@ -51,7 +51,7 @@ const ClientTasks = () => {
                     {
                         id: 1,
                         title: 'Finish the onboarding form',
-                        description: 'Complete the <a href="/dashboard/index.tsx" class="text-blue-600 font-semibold underline">Onboarding Form</a> in the dashboard.',
+                        description: 'Complete the <a href="/dashboard/" class="text-blue-600 font-semibold underline">Onboarding Form</a> in the dashboard.',
                         due_date: null,
                         is_request: false,
                         status: profileData.onboarding_completed ? 'Completed' : 'Pending',
@@ -62,7 +62,7 @@ const ClientTasks = () => {
                     {
                         id: 2,
                         title: 'Upload branding content',
-                        description: '<a href="/dashboard/files/index.tsx" class="text-blue-600 font-semibold underline">Go to Files Page</a> page and upload any branding content you have. ',
+                        description: '<a href="/dashboard/files/" class="text-blue-600 font-semibold underline">Go to Files Page</a> page and upload any branding content you have. ',
                         due_date: null,
                         is_request: false,
                         status: profileData.branding_content_uploaded ? 'Completed' : 'Pending',
@@ -166,8 +166,8 @@ const ClientTasks = () => {
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">Your Tasks</h1>
                 <div className='container mx-auto'>
                     <div className="overflow-x-auto">
-                        <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
+                        <table className="min-w-full border border-gray-200 bg-white dark:bg-stone-700 dark:text-white divide-y divide-gray-200">
+                            <thead className="dark:bg-zinc-800">
                                 <tr>
                                     <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
                                     <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
@@ -177,7 +177,7 @@ const ClientTasks = () => {
                                     <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white divide-y border border-gray-200 divide-gray-200">
+                            <tbody className="divide-y border border-gray-200 divide-gray-200">
                                 {clientTasks.map((task) => (
                                     <tr key={task.id} className="divide-x divide-gray-200">
                                         <td className="py-2 px-4 whitespace-nowrap text-center">{task.title}</td>
@@ -220,8 +220,8 @@ const ClientTasks = () => {
                 <h2 className="text-2xl font-bold mt-8 mb-4 dark:text-white">Developer Tasks</h2>
                 <div className='container mx-auto'>
                     <div className="overflow-x-auto">
-                        <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
+                        <table className="min-w-full border border-gray-200 bg-white dark:bg-stone-700 dark:text-white divide-y divide-gray-200">
+                            <thead className="dark:bg-zinc-800">
                                 <tr>
                                     <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
                                     <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>
@@ -332,8 +332,8 @@ const ClientTasks = () => {
                     <h2 className="text-2xl font-bold mb-4 dark:text-white">Requested Tasks</h2>
                     <div className='container mx-auto'>
                         <div className="overflow-x-auto">
-                            <table className="min-w-full border border-gray-200 bg-white divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                            <table className="min-w-full border border-gray-200 bg-white dark:bg-stone-700 dark:text-white divide-y divide-gray-200">
+                                <thead className="dark:bg-zinc-800">
                                     <tr>
                                         <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Title</th>
                                         <th className="py-2 px-4 border-b border-gray-200 whitespace-nowrap">Description</th>

@@ -110,15 +110,14 @@ const HeroSection = () => {
                     </motion.button>
                     <motion.a href="/signup" {...fadeInUp}>
                         <div className="flex flex-col items-center gap-2">
-                            <a
-                                href="/signup"
+                            <span
                                 className="onboardbutton py-3 px-6 rounded-full"
                             >
                                 join the creative
                                 <div className="arrow-wrapper">
                                     <div className="arrow"></div>
                                 </div>
-                            </a>
+                            </span>
                         </div>
                     </motion.a>
                 </div>

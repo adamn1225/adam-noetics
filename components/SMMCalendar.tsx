@@ -179,7 +179,7 @@ const SMMCalendar = () => {
             `}</style>
             <div className="flex flex-col lg:flex-row gap-6">
                 <div className="lg:w-1/6">
-                    <div className="bg-white px-2 py-4 shadow-md mt-3 flex flex-col items-start justify-start gap-2 rounded-md">
+                    <div className="bg-white dark:bg-zinc-800 px-2 py-4 shadow-md mt-3 flex flex-col items-start justify-start gap-2 rounded-md">
                         <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-white">
                             Connect to Your Social Media Platforms
                         </h2>
@@ -219,11 +219,11 @@ const SMMCalendar = () => {
 
             {isModalVisible && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <span className="text-gray-600 cursor-pointer float-right mb-2" onClick={() => setIsModalVisible(false)}><CircleX /></span>
+                    <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 w-full max-w-lg">
+                        <span className="text-gray-600 dark:text-gray-300 cursor-pointer float-right mb-2" onClick={() => setIsModalVisible(false)}><CircleX /></span>
                         <form onSubmit={handleAddEvent} className="space-y-4">
                             <div>
-                                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
                                 <input
                                     type="text"
                                     id="title"
@@ -231,22 +231,22 @@ const SMMCalendar = () => {
                                     value={formValues.title || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                                 <textarea
                                     id="description"
                                     name="description"
                                     value={formValues.description || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="post_due_date" className="block text-sm font-medium text-gray-700">Post Due Date</label>
+                                <label htmlFor="post_due_date" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Post Due Date</label>
                                 <input
                                     type="datetime-local"
                                     id="post_due_date"
@@ -254,18 +254,18 @@ const SMMCalendar = () => {
                                     value={formValues.post_due_date || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="sm_platform" className="block text-sm font-medium text-gray-700">Social Media Platform</label>
+                                <label htmlFor="sm_platform" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Social Media Platform</label>
                                 <select
                                     id="sm_platform"
                                     name="sm_platform"
                                     value={formValues.sm_platform || 'Facebook'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Facebook">Facebook</option>
                                     <option value="Twitter">Twitter</option>
@@ -275,14 +275,14 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+                                <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                                 <select
                                     id="status"
                                     name="status"
                                     value={formValues.status || 'Draft'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Draft">Draft</option>
                                     <option value="Scheduled">Scheduled</option>
@@ -290,24 +290,24 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div className="flex items-center">
-                                <label htmlFor="post_automatically" className="block text-sm font-medium text-gray-700 mr-2">Auto Post?</label>
+                                <label htmlFor="post_automatically" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Auto Post?</label>
                                 <input
                                     type="checkbox"
                                     id="post_automatically"
                                     name="post_automatically"
                                     checked={formValues.post_automatically || false}
                                     onChange={handleChange}
-                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                    className="h-4 w-4 text-indigo-600 border-gray-300 dark:border-gray-600 rounded"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="blog_post_id" className="block text-sm font-medium text-gray-700">Blog Post</label>
+                                <label htmlFor="blog_post_id" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Blog Post</label>
                                 <select
                                     id="blog_post_id"
                                     name="blog_post_id"
                                     value={formValues.blog_post_id || ''}
                                     onChange={handleChange}
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="">None</option>
                                     {posts.map((post) => (
@@ -327,11 +327,11 @@ const SMMCalendar = () => {
 
             {isEventDetailsModalVisible && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <span className="text-gray-600 cursor-pointer float-right mb-2" onClick={() => setIsModalVisible(false)}><CircleX /></span>
+                    <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 w-full max-w-lg">
+                        <span className="text-gray-600 dark:text-gray-300 cursor-pointer float-right mb-2" onClick={() => setIsEventDetailsModalVisible(false)}><CircleX /></span>
                         <form onSubmit={handleUpdateEvent} className="space-y-4">
                             <div>
-                                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
                                 <input
                                     type="text"
                                     id="title"
@@ -339,22 +339,22 @@ const SMMCalendar = () => {
                                     value={formValues.title || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border p-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border p-1 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                                 <textarea
                                     id="description"
                                     name="description"
                                     value={formValues.description || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border p-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border p-1 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="post_due_date" className="block text-sm font-medium text-gray-700">Post Due Date</label>
+                                <label htmlFor="post_due_date" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Post Due Date</label>
                                 <input
                                     type="datetime-local"
                                     id="post_due_date"
@@ -362,18 +362,18 @@ const SMMCalendar = () => {
                                     value={formValues.post_due_date || ''}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border p-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border p-1 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="sm_platform" className="block text-sm font-medium text-gray-700">Social Media Platform</label>
+                                <label htmlFor="sm_platform" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Social Media Platform</label>
                                 <select
                                     id="sm_platform"
                                     name="sm_platform"
                                     value={formValues.sm_platform || 'Facebook'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Facebook">Facebook</option>
                                     <option value="Twitter">Twitter</option>
@@ -383,14 +383,14 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div>
-                                <label htmlFor="status" className="block p-1 text-sm font-medium text-gray-700">Status</label>
+                                <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                                 <select
                                     id="status"
                                     name="status"
                                     value={formValues.status || 'Draft'}
                                     onChange={handleChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="Draft">Draft</option>
                                     <option value="Scheduled">Scheduled</option>
@@ -398,24 +398,24 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div className="flex items-center">
-                                <label htmlFor="post_automatically" className="block text-sm font-medium text-gray-700 mr-2">Auto Post?</label>
+                                <label htmlFor="post_automatically" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Auto Post?</label>
                                 <input
                                     type="checkbox"
                                     id="post_automatically"
                                     name="post_automatically"
                                     checked={formValues.post_automatically || false}
                                     onChange={handleChange}
-                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                    className="h-4 w-4 text-indigo-600 border-gray-300 dark:border-gray-600 rounded"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="blog_post_id" className="block text-sm font-medium text-gray-700">Blog Post</label>
+                                <label htmlFor="blog_post_id" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Blog Post</label>
                                 <select
                                     id="blog_post_id"
                                     name="blog_post_id"
                                     value={formValues.blog_post_id || ''}
                                     onChange={handleChange}
-                                    className="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 p-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                     <option value="">None</option>
                                     {posts.map((post) => (
@@ -435,8 +435,8 @@ const SMMCalendar = () => {
             )}
             {isAccessTokenModalVisible && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <span className="text-gray-500 cursor-pointer float-right" onClick={() => setIsAccessTokenModalVisible(false)}>&times;</span>
+                    <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 w-full max-w-lg">
+                        <span className="text-gray-500 dark:text-gray-300 cursor-pointer float-right" onClick={() => setIsAccessTokenModalVisible(false)}>&times;</span>
                         <AddAccessToken />
                     </div>
                 </div>

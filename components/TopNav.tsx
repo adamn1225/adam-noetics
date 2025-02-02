@@ -72,7 +72,7 @@ const TopNav: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex justify-end items-center gap-6 p-4 bg-white shadow-md pr-12">
+        <div className="flex justify-end items-center gap-6 p-4 bg-white shadow-md pr-12 dark:bg-zinc-500 ">
             <Notifications />
             {profile && profile.profile_image ? (
                 <Image
