@@ -3,9 +3,6 @@
   functions = "netlify/functions"
   publish = ".next"
 
-[build.environment]
-  NODE_ENV = "production"
-
 [functions]
   directory = "netlify/functions"
 
