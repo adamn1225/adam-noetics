@@ -33,7 +33,6 @@ const generateSlug = (title: string) => {
         .replace(/(^-|-$)/g, '');
 };
 
-
 const ClientCms = () => {
     const [posts, setPosts] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
@@ -252,7 +251,7 @@ const ClientCms = () => {
                             id="title"
                             name="title"
                             value={formValues.title}
-                            onChange={handleChange}
+                            onChange={handleTitleChange}
                             className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                             required
                         />
@@ -268,7 +267,6 @@ const ClientCms = () => {
                             value={formValues.slug}
                             onChange={handleChange}
                             className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                            readOnly
                         />
                     </div>
                     <div>
