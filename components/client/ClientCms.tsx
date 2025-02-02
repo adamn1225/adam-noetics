@@ -13,6 +13,7 @@ interface Post {
     created_at?: string;
     scheduled_publish_date?: string;
     featured_image?: string;
+    slug?: string;
 }
 
 interface FormValues {
@@ -22,6 +23,7 @@ interface FormValues {
     template: string;
     scheduled_publish_date?: string;
     featured_image?: string;
+    slug: string;
 }
 
 const ClientCms = () => {
@@ -35,6 +37,7 @@ const ClientCms = () => {
         template: 'basic',
         scheduled_publish_date: '',
         featured_image: '',
+        slug: '', // Initialize slug field
     });
     const [optedIn, setOptedIn] = useState(false); // State to track opt-in status
     const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
@@ -107,7 +110,7 @@ const ClientCms = () => {
         }
 
         setLoading(false);
-        setFormValues({ title: '', content: '', status: 'draft', template: 'basic', scheduled_publish_date: '', featured_image: '' });
+        setFormValues({ title: '', content: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '' });
         setEditingPost(null);
         fetchPosts();
     };
@@ -116,6 +119,7 @@ const ClientCms = () => {
         setEditingPost(post);
         setFormValues({
             ...post,
+            slug: post.slug || '', // Ensure slug is included
         });
     };
 
