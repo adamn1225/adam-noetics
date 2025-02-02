@@ -8,7 +8,7 @@ import RootLayout from './layout';
 const Home = () => {
   return (
     <RootLayout>
-      <div className="space-y-16">
+      <div className="space-y-20">
         <HeroSection />
         <ServicesSection />
         <AboutSection />
