@@ -36,6 +36,7 @@ exports.handler = async (event) => {
             };
         }
 
+        console.log("No action taken (status not published or missing webhook URL)");
         return {
             statusCode: 200,
             body: JSON.stringify({ message: 'No action taken (status not published or missing webhook URL)' }),
