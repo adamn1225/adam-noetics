@@ -38,7 +38,7 @@ export const handler = async (event) => {
                 throw new Error(`Failed to trigger Netlify build. Status: ${response.status}, Response: ${errorText}`);
             }
 
-            console.log("✅ Netlify Build Triggered Successfully!");
+            console.log(" Netlify Build Triggered Successfully!");
             return {
                 statusCode: 200,
                 body: JSON.stringify({ message: "Netlify build triggered successfully" }),
