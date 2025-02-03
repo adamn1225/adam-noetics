@@ -1,10 +1,10 @@
-const fetch = require('node-fetch');
-const dotenv = require('dotenv');
+import fetch from "node-fetch";
+import dotenv from "dotenv";
+
 dotenv.config();
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     try {
-        // Ensure the event body is valid JSON
         if (!event.body) {
             console.error("Missing event body");
             return {
@@ -15,31 +15,40 @@ exports.handler = async (event) => {
 
         const { status } = JSON.parse(event.body);
 
-        // Validate status and environment variable
-        if (status === 'published' && process.env.NEXT_NETLIFY_WEBHOOK) {
-            console.log("Triggering Netlify Build...");
-
-            const response = await fetch(process.env.NEXT_NETLIFY_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ trigger: "CMS Update" }), // Optional payload
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to trigger Netlify build. Status: ${response.status}`);
-            }
-
-            console.log("Netlify Build Triggered Successfully");
+        // Validate status and ensure the webhook is configured
+        if (!status || typeof status !== "string") {
+            console.error("Invalid or missing status field in request.");
             return {
-                statusCode: 200,
-                body: JSON.stringify({ message: 'Netlify build triggered successfully' }),
+                statusCode: 400,
+                body: JSON.stringify({ error: "Invalid or missing status field." }),
             };
         }
 
-        console.log("No action taken (status not published or missing webhook URL)");
+        if (status === "published" && process.env.NEXT_NETLIFY_WEBHOOK) {
+            console.log("🚀 Triggering Netlify Build...");
+
+            const response = await fetch(process.env.NEXT_NETLIFY_WEBHOOK, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ trigger: "CMS Update" }),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to trigger Netlify build. Status: ${response.status}, Response: ${errorText}`);
+            }
+
+            console.log("✅ Netlify Build Triggered Successfully!");
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: "Netlify build triggered successfully" }),
+            };
+        }
+
+        console.log("⚠️ No action taken (status not published or missing webhook URL)");
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'No action taken (status not published or missing webhook URL)' }),
+            body: JSON.stringify({ message: "No action taken (status not published or missing webhook URL)" }),
         };
     } catch (error) {
         console.error("Error in Netlify Function:", error.message);
