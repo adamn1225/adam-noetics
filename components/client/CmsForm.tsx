@@ -164,7 +164,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
             </button>
             <button
                 type="button"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 ml-2"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 mt-2"
                 onClick={() => setShowPreview(!showPreview)}
             >
                 {showPreview ? 'Hide Preview' : 'Show Preview'}

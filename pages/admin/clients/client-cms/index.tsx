@@ -203,7 +203,7 @@ const AdminClientCMS = () => {
                                 </div>
                                 <button
                                     onClick={handleGenerateCmsToken}
-                                    className="mt-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
+                                    className="my-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
                                 >
                                     Generate CMS Token
                                 </button>

@@ -228,7 +228,7 @@ const ClientCms = () => {
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
-                {!optedIn && (
+                {/* {!optedIn && (
                     <div className="absolute inset-0 bg-gray-100 bg-opacity-75 flex flex-col items-center justify-center z-10">
                         <p className="text-lg font-semibold mb-4">Please enter your CMS token to opt-in for this feature.</p>
                         <form onSubmit={handleCmsTokenSubmit} className="flex flex-col items-center">
@@ -248,7 +248,7 @@ const ClientCms = () => {
                             </button>
                         </form>
                     </div>
-                )}
+                )} */}
                 <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
                 <CmsForm
                     formValues={formValues}

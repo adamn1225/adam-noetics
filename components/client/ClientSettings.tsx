@@ -115,6 +115,7 @@ const ClientSettings = () => {
                         >
                             Generate CMS Token
                         </button>
+                        <p className='text-zinc-900 dark:text-white italic font-semibold'>This token is meant to go into your environment tables - if you do not know what that is please contact your developer for assistance while we work on our documentation section.</p>
                     </div>
                 </div>
             )}

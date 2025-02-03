@@ -5,6 +5,7 @@ import { supabase } from '@lib/supabaseClient';
 import ContactModal from '@components/ContactModal';
 import AdminCmsForm from './AdminCmsForm';
 import AdminPostList from './AdminPostList';
+import CmsPreview from './client/CmsPreview';
 
 interface Post {
     id: number;
@@ -21,6 +22,7 @@ interface Post {
 interface FormValues {
     title: string;
     content: string;
+    content_html?: string;
     status: string;
     template: string;
     scheduled_publish_date?: string;
@@ -42,6 +44,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
     const [formValues, setFormValues] = useState<FormValues>({
         title: '',
         content: '',
+        content_html: '',
         status: 'draft',
         template: 'basic',
         scheduled_publish_date: '',
@@ -49,6 +52,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
         slug: '',
     });
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showPreview, setShowPreview] = useState(false);
 
     useEffect(() => {
         fetchPosts();
@@ -102,7 +106,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
         }
 
         setLoading(false);
-        setFormValues({ title: '', content: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '' });
+        setFormValues({ title: '', content: '', content_html: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '' });
         setEditingPost(null);
         fetchPosts();
     };
@@ -188,6 +192,27 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
                     loading={loading}
                     editingPost={editingPost}
                 />
+
+                {showPreview && (
+                    <div className="mt-6">
+                        <h3 className="text-xl font-semibold mb-4 dark:text-white">Preview</h3>
+                        <CmsPreview
+                            title={formValues.title}
+                            content={formValues.content}
+                            content_html={formValues.content_html}
+                            template={formValues.template}
+                            featured_image={formValues.featured_image}
+                        />
+                    </div>
+                )}
+
+                <button
+                    type="button"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 mt-2"
+                    onClick={() => setShowPreview(!showPreview)}
+                >
+                    {showPreview ? 'Hide Preview' : 'Show Preview'}
+                </button>
 
                 <AdminPostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>
