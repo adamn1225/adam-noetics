@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import { Editor } from '@tinymce/tinymce-react';
 import ContactModal from '@components/ContactModal';
 import CmsPreview from './CmsPreview';
+import CmsForm from './CmsForm';
+import PostList from './PostList';
 
 interface Post {
     id: number;
@@ -107,7 +108,6 @@ const ClientCms = () => {
         } else {
             console.log('Post saved successfully');
 
-            // Trigger Netlify build when publishing
             if (formValues.status === 'published') {
                 try {
                     const response = await fetch('/.netlify/functions/triggerWebhook', {
@@ -250,136 +250,19 @@ const ClientCms = () => {
                     </div>
                 )}
                 <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
-                <form onSubmit={handleSubmit} className={`space-y-4 ${!optedIn ? 'opacity-50 pointer-events-none' : ''}`}>
-                    <div>
-                        <label htmlFor="title" className="block text-sm font-semibold text-gray-700 dark:text-white">
-                            Title
-                        </label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            value={formValues.title}
-                            onChange={handleTitleChange}
-                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="slug" className="block text-sm font-semibold text-gray-700 dark:text-white">
-                            Slug
-                        </label>
-                        <input
-                            type="text"
-                            id="slug"
-                            name="slug"
-                            value={formValues.slug}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="content" className="block text-sm font-semibold mb-1 text-gray-700 dark:text-white">
-                            Content
-                        </label>
-                        <div className="border border-gray-300 text-zinc-900 rounded-md shadow-sm p-2">
-                            <Editor
-                                apiKey='xuegfwom0nawuekck2prc9yboegxm372icviucpytplmzjr7'
-                                value={formValues.content}
-                                onEditorChange={handleContentChange}
-                                init={{
-                                    height: 300,
-                                    menubar: false,
-                                    plugins: [
-                                        'advlist autolink lists link image charmap print preview anchor',
-                                        'searchreplace visualblocks code fullscreen',
-                                        'insertdatetime media table paste code help wordcount'
-                                    ],
-                                    toolbar:
-                                        'undo redo | formatselect | bold italic backcolor | \
-                                        alignleft aligncenter alignright alignjustify | \
-                                        bullist numlist outdent indent | removeformat | help'
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="status" className="block text-sm font-semibold text-gray-700 dark:text-white">
-                            Status
-                        </label>
-                        <select
-                            id="status"
-                            name="status"
-                            value={formValues.status}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                            required
-                        >
-                            <option value="draft">Draft</option>
-                            <option value="published">Published</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="template" className="block text-sm font-semibold text-gray-700 dark:text-white">
-                            Template
-                        </label>
-                        <select
-                            id="template"
-                            name="template"
-                            value={formValues.template}
-                            onChange={handleChange}
-                            className="mt-1 block w-full text-zinc-900 border border-gray-300 rounded-md shadow-sm p-2"
-                            required
-                        >
-                            <option value="basic">Basic</option>
-                            <option value="minimal">Minimal</option>
-                            <option value="modern">Modern</option>
-                            <option value="none">No template available</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="scheduled_publish_date" className="block text-sm font-semibold text-gray-700 dark:text-white">
-                            Scheduled Publish Date
-                        </label>
-                        <input
-                            type="datetime-local"
-                            id="scheduled_publish_date"
-                            name="scheduled_publish_date"
-                            value={formValues.scheduled_publish_date}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="featured_image" className="block text-sm font-semibold text-gray-700 dark:text-white">
-                            Featured Image
-                        </label>
-                        <input
-                            type="file"
-                            id="featured_image"
-                            name="featured_image"
-                            onChange={handleImageUpload}
-                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                        />
-                        {formValues.featured_image && (
-                            <img src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
-                        )}
-                    </div>
-                    <button
-                        type="submit"
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-700 hover:bg-blue-800"
-                        disabled={loading}
-                    >
-                        {editingPost ? 'Update Post' : 'Add Post'}
-                    </button>
-                    <button
-                        type="button"
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 ml-2"
-                        onClick={() => setShowPreview(!showPreview)}
-                    >
-                        {showPreview ? 'Hide Preview' : 'Show Preview'}
-                    </button>
-                </form>
+                <CmsForm
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    handleSubmit={handleSubmit}
+                    handleTitleChange={handleTitleChange}
+                    handleChange={handleChange}
+                    handleContentChange={handleContentChange}
+                    handleImageUpload={handleImageUpload}
+                    loading={loading}
+                    editingPost={editingPost}
+                    showPreview={showPreview}
+                    setShowPreview={setShowPreview}
+                />
 
                 {showPreview && (
                     <div className="mt-6">
@@ -394,28 +277,7 @@ const ClientCms = () => {
                     </div>
                 )}
 
-                <h3 className="text-xl font-semibold mt-6 dark:text-white">Existing Posts</h3>
-                <ul className="mt-4 space-y-4">
-                    {posts.map((post) => (
-                        <li key={post.id} className="p-4 border rounded-md flex justify-between items-center">
-                            <span className="font-semibold">{post.title}</span>
-                            <div>
-                                <button
-                                    onClick={() => handleEdit(post)}
-                                    className="mr-2 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-green-600 hover:bg-green-700"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(post.id)}
-                                    className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700"
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                <PostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>
             <ContactModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
         </>
