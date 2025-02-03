@@ -1,9 +1,9 @@
-
 'use client';
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Editor } from '@tinymce/tinymce-react';
 import ContactModal from '@components/ContactModal';
+import CmsPreview from './CmsPreview';
 
 interface Post {
     id: number;
@@ -50,6 +50,7 @@ const ClientCms = () => {
     const [optedIn, setOptedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [cmsToken, setCmsToken] = useState('');
+    const [showPreview, setShowPreview] = useState(false);
 
     useEffect(() => {
         const checkOptInStatus = async () => {
@@ -221,6 +222,7 @@ const ClientCms = () => {
         });
     };
 
+
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
@@ -368,7 +370,26 @@ const ClientCms = () => {
                     >
                         {editingPost ? 'Update Post' : 'Add Post'}
                     </button>
+                    <button
+                        type="button"
+                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 ml-2"
+                        onClick={() => setShowPreview(!showPreview)}
+                    >
+                        {showPreview ? 'Hide Preview' : 'Show Preview'}
+                    </button>
                 </form>
+
+                {showPreview && (
+                    <div className="mt-6">
+                        <h3 className="text-xl font-semibold mb-4 dark:text-white">Preview</h3>
+                        <CmsPreview
+                            title={formValues.title}
+                            content={formValues.content}
+                            template={formValues.template}
+                            featured_image={formValues.featured_image}
+                        />
+                    </div>
+                )}
 
                 <h3 className="text-xl font-semibold mt-6 dark:text-white">Existing Posts</h3>
                 <ul className="mt-4 space-y-4">

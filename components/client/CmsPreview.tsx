@@ -1,4 +1,5 @@
 import React from 'react';
+import TemplateLoader from './TemplateLoader';
 
 interface PreviewProps {
     title: string;
@@ -10,9 +11,7 @@ interface PreviewProps {
 const CmsPreview: React.FC<PreviewProps> = ({ title, content, template, featured_image }) => {
     return (
         <div className="preview-container">
-            <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-            {featured_image && <img src={featured_image} alt="Featured" className="mb-4 w-full h-auto object-cover" />}
-            <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
+            <TemplateLoader title={title} content={content} template={template} featured_image={featured_image} />
         </div>
     );
 };
