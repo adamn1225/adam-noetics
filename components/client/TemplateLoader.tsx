@@ -1,26 +1,47 @@
-import React from 'react';
-import MinimalTemplate from './templates/MinimalTemplate';
-import BasicTemplate from './templates/BasicTemplate';
-import ModernTemplate from './templates/ModernTemplate';
+import React, { useEffect, useState } from 'react';
 
 interface TemplateLoaderProps {
     title: string;
     content: string;
+    content_html?: string;
     template: string;
     featured_image?: string;
 }
 
-const TemplateLoader: React.FC<TemplateLoaderProps> = ({ title, content, template, featured_image }) => {
-    switch (template) {
-        case 'minimal':
-            return <MinimalTemplate title={title} content={content} featured_image={featured_image} />;
-        case 'basic':
-            return <BasicTemplate title={title} content={content} featured_image={featured_image} />;
-        case 'modern':
-            return <ModernTemplate title={title} content={content} featured_image={featured_image} />;
-        default:
-            return <div>Unknown template</div>;
+const TemplateLoader: React.FC<TemplateLoaderProps> = ({ title, content, content_html, template, featured_image }) => {
+    const [templateHtml, setTemplateHtml] = useState<string | null>(null);
+    const [templateCss, setTemplateCss] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchTemplate = async () => {
+            try {
+                // Fetch the template HTML and CSS from the Astro project
+                const htmlResponse = await fetch(`/templates/${template}.html`);
+                const cssResponse = await fetch(`/templates/${template}.css`);
+
+                const html = await htmlResponse.text();
+                const css = await cssResponse.text();
+
+                setTemplateHtml(html);
+                setTemplateCss(css);
+            } catch (error) {
+                console.error('Error fetching template:', error);
+            }
+        };
+
+        fetchTemplate();
+    }, [template]);
+
+    if (!templateHtml || !templateCss) {
+        return <div>Loading template...</div>;
     }
+
+    return (
+        <div className="template-preview">
+            <style>{templateCss}</style>
+            <div dangerouslySetInnerHTML={{ __html: content_html || content }} />
+        </div>
+    );
 };
 
 export default TemplateLoader;

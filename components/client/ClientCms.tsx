@@ -9,6 +9,7 @@ interface Post {
     id: number;
     title: string;
     content: string;
+    content_html?: string;
     status: string;
     template: string;
     created_at?: string;
@@ -20,6 +21,7 @@ interface Post {
 interface FormValues {
     title: string;
     content: string;
+    content_html?: string;
     status: string;
     template: string;
     scheduled_publish_date?: string;
@@ -41,6 +43,7 @@ const ClientCms = () => {
     const [formValues, setFormValues] = useState<FormValues>({
         title: '',
         content: '',
+        content_html: '',
         status: 'draft',
         template: 'basic',
         scheduled_publish_date: '',
@@ -124,7 +127,7 @@ const ClientCms = () => {
         }
 
         setLoading(false);
-        setFormValues({ title: '', content: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '' });
+        setFormValues({ title: '', content: '', content_html: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '' });
         setEditingPost(null);
         fetchPosts();
     };
@@ -221,7 +224,6 @@ const ClientCms = () => {
             slug: generateSlug(title),
         });
     };
-
 
     return (
         <>
@@ -385,6 +387,7 @@ const ClientCms = () => {
                         <CmsPreview
                             title={formValues.title}
                             content={formValues.content}
+                            content_html={formValues.content_html}
                             template={formValues.template}
                             featured_image={formValues.featured_image}
                         />
