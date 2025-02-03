@@ -6,6 +6,7 @@ import ContactModal from '@components/ContactModal';
 import AdminCmsForm from './AdminCmsForm';
 import AdminPostList from './AdminPostList';
 import CmsPreview from './client/CmsPreview';
+import FullPageModal from './FullPageModal';
 
 interface Post {
     id: number;
@@ -51,8 +52,8 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
         featured_image: '',
         slug: '',
     });
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showPreview, setShowPreview] = useState(false);
+    const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
     useEffect(() => {
         fetchPosts();
@@ -179,7 +180,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
 
     return (
         <>
-            <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
+            <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-lg shadow-md relative">
                 <h2 className="text-2xl font-semibold mb-4">Post on Behalf of Client</h2>
                 <AdminCmsForm
                     formValues={formValues}
@@ -193,30 +194,27 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
                     editingPost={editingPost}
                 />
 
-                {showPreview && (
-                    <div className="mt-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white">Preview</h3>
-                        <CmsPreview
-                            title={formValues.title}
-                            content={formValues.content}
-                            content_html={formValues.content_html}
-                            template={formValues.template}
-                            featured_image={formValues.featured_image}
-                        />
-                    </div>
-                )}
-
                 <button
                     type="button"
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 mt-2"
-                    onClick={() => setShowPreview(!showPreview)}
+                    onClick={() => setIsPreviewModalOpen(true)}
                 >
-                    {showPreview ? 'Hide Preview' : 'Show Preview'}
+                    Show Preview
                 </button>
+
+                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)}>
+                    <CmsPreview
+                        title={formValues.title}
+                        content={formValues.content}
+                        content_html={formValues.content_html}
+                        template={formValues.template}
+                        featured_image={formValues.featured_image}
+                    />
+                </FullPageModal>
 
                 <AdminPostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>
-            <ContactModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+            <ContactModal isOpen={isContactModalOpen} closeModal={() => setIsContactModalOpen(false)} />
         </>
     );
 };

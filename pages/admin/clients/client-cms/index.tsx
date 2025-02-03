@@ -24,6 +24,7 @@ interface OrganizationMember {
     role: string;
     created_at: string | null;
     organization_name: string | null;
+    website_url: string | null;
 }
 
 const AdminClientCMS = () => {
@@ -32,6 +33,8 @@ const AdminClientCMS = () => {
     const [organizationMember, setOrganizationMember] = useState<OrganizationMember | null>(null);
     const [loading, setLoading] = useState(true);
     const [showToken, setShowToken] = useState(false);
+    const [websiteUrl, setWebsiteUrl] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchProfiles = async () => {
@@ -76,6 +79,7 @@ const AdminClientCMS = () => {
             }
 
             setOrganizationMember(organizationMemberData);
+            setWebsiteUrl(organizationMemberData.website_url || '');
         };
 
         fetchOrganizationMember();
@@ -119,6 +123,29 @@ const AdminClientCMS = () => {
             console.error('Error updating CMS token:', error);
         } else {
             setOrganizationMember(updatedOrganizationMember);
+        }
+    };
+
+    const handleWebsiteUrlChange = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!websiteUrl.startsWith('http://') && !websiteUrl.startsWith('https://')) {
+            setError('URL must start with http:// or https://');
+            return;
+        }
+
+        if (!selectedProfile || !organizationMember) return;
+
+        const { error } = await supabase
+            .from('organization_members')
+            .update({ website_url: websiteUrl })
+            .eq('user_id', organizationMember.user_id)
+            .eq('organization_id', organizationMember.organization_id);
+
+        if (error) {
+            console.error('Error updating website URL:', error);
+        } else {
+            console.log('Website URL updated successfully');
+            setOrganizationMember({ ...organizationMember, website_url: websiteUrl });
         }
     };
 
@@ -177,6 +204,10 @@ const AdminClientCMS = () => {
                                 <p className="mt-1 text-gray-900">{selectedProfile.user_id}</p>
                             </div>
                             <div>
+                                <label className="block text-sm font-medium text-gray-700">Website URL</label>
+                                <p className="mt-1 text-gray-900">{organizationMember?.website_url || 'No website URL'}</p>
+                            </div>
+                            <div>
                                 <label className="block text-sm font-medium text-gray-700">CMS Enabled</label>
                                 <button
                                     onClick={toggleCMSEnabled}
@@ -207,6 +238,22 @@ const AdminClientCMS = () => {
                                 >
                                     Generate CMS Token
                                 </button>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Update Website URL</label>
+                                <input
+                                    type="text"
+                                    value={websiteUrl}
+                                    onChange={(e) => setWebsiteUrl(e.target.value)}
+                                    className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                                />
+                                <button
+                                    onClick={handleWebsiteUrlChange}
+                                    className="my-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
+                                >
+                                    Save Website URL
+                                </button>
+                                {error && <p className="text-red-500">{error}</p>}
                             </div>
                         </div>
                         <AdminClientPost userId={selectedProfile.id} />

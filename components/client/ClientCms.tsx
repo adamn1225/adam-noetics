@@ -1,10 +1,12 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import ContactModal from '@components/ContactModal';
 import CmsPreview from './CmsPreview';
 import CmsForm from './CmsForm';
 import PostList from './PostList';
+import FullPageModal from '@components/FullPageModal';
 
 interface Post {
     id: number;
@@ -228,27 +230,6 @@ const ClientCms = () => {
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
-                {/* {!optedIn && (
-                    <div className="absolute inset-0 bg-gray-100 bg-opacity-75 flex flex-col items-center justify-center z-10">
-                        <p className="text-lg font-semibold mb-4">Please enter your CMS token to opt-in for this feature.</p>
-                        <form onSubmit={handleCmsTokenSubmit} className="flex flex-col items-center">
-                            <input
-                                type="text"
-                                value={cmsToken}
-                                onChange={(e) => setCmsToken(e.target.value)}
-                                className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                placeholder="Enter CMS token"
-                                required
-                            />
-                            <button
-                                type="submit"
-                                className="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
-                            >
-                                Connect
-                            </button>
-                        </form>
-                    </div>
-                )} */}
                 <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
                 <CmsForm
                     formValues={formValues}
@@ -264,18 +245,23 @@ const ClientCms = () => {
                     setShowPreview={setShowPreview}
                 />
 
-                {showPreview && (
-                    <div className="mt-6">
-                        <h3 className="text-xl font-semibold mb-4 dark:text-white">Preview</h3>
-                        <CmsPreview
-                            title={formValues.title}
-                            content={formValues.content}
-                            content_html={formValues.content_html}
-                            template={formValues.template}
-                            featured_image={formValues.featured_image}
-                        />
-                    </div>
-                )}
+                <button
+                    type="button"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 mt-2"
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    Show Preview
+                </button>
+
+                <FullPageModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <CmsPreview
+                        title={formValues.title}
+                        content={formValues.content}
+                        content_html={formValues.content_html}
+                        template={formValues.template}
+                        featured_image={formValues.featured_image}
+                    />
+                </FullPageModal>
 
                 <PostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>

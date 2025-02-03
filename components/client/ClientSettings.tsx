@@ -81,6 +81,11 @@ const ClientSettings = () => {
 
     const handleWebsiteUrlChange = async (e) => {
         e.preventDefault();
+        if (!websiteUrl.startsWith('http://') && !websiteUrl.startsWith('https://')) {
+            setError('URL must start with http:// or https://');
+            return;
+        }
+
         const { error } = await supabase
             .from('organization_members')
             .update({ website_url: websiteUrl })
@@ -147,6 +152,14 @@ const ClientSettings = () => {
                         >
                             Save Website URL
                         </button>
+                    </div>
+                    <div className="mt-4">
+                        <label className="block text-lg font-semibold text-gray-800 dark:text-white">User ID</label>
+                        <p className="mt-1 text-base text-gray-900 dark:text-white">{profile.user_id}</p>
+                    </div>
+                    <div className="mt-4">
+                        <label className="block text-lg font-semibold text-gray-800 dark:text-white">Website URL</label>
+                        <p className="mt-1 text-base text-gray-900 dark:text-white">{websiteUrl || 'No website URL'}</p>
                     </div>
                 </div>
             )}

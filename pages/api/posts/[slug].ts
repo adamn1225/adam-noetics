@@ -23,8 +23,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             if (clientError) return res.status(404).json({ error: "Client URL not found" });
 
+            // Ensure the website_url contains https:// or http://
+            let websiteUrl = clientData.website_url;
+            if (!websiteUrl.startsWith('http://') && !websiteUrl.startsWith('https://')) {
+                websiteUrl = `https://${websiteUrl}`;
+            }
+
             // Construct the template URL
-            const templateUrl = `${clientData.website_url}/templates/${postData.template}.html`;
+            const templateUrl = `${websiteUrl}/templates/${postData.template}.html`;
             const templateHtml = await fetchTemplateHtml(templateUrl);
 
             return res.status(200).json({ ...postData, templateHtml });

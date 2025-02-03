@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import FullPageModal from './FullPageModal';
+import CmsPreview from './client/CmsPreview';
 
 interface Post {
     id: number;
     title: string;
     content: string;
+    content_html?: string;
     status: string;
     template: string;
     created_at?: string;
@@ -19,8 +22,22 @@ interface AdminPostListProps {
 }
 
 const AdminPostList: React.FC<AdminPostListProps> = ({ posts, handleEdit, handleDelete }) => {
+    const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+
     const draftPosts = posts.filter(post => post.status === 'draft');
     const publishedPosts = posts.filter(post => post.status === 'published');
+
+    const handlePreview = (post: Post) => {
+        setSelectedPost(post);
+        setIsPreviewModalOpen(true);
+    };
+
+    const confirmDelete = (id: number) => {
+        if (window.confirm('Are you sure you want to delete this post?')) {
+            handleDelete(id);
+        }
+    };
 
     return (
         <div>
@@ -37,10 +54,16 @@ const AdminPostList: React.FC<AdminPostListProps> = ({ posts, handleEdit, handle
                                 Edit
                             </button>
                             <button
-                                onClick={() => handleDelete(post.id)}
-                                className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700"
+                                onClick={() => confirmDelete(post.id)}
+                                className="mr-2 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700"
                             >
                                 Delete
+                            </button>
+                            <button
+                                onClick={() => handlePreview(post)}
+                                className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                            >
+                                Preview
                             </button>
                         </div>
                     </li>
@@ -60,15 +83,33 @@ const AdminPostList: React.FC<AdminPostListProps> = ({ posts, handleEdit, handle
                                 Edit
                             </button>
                             <button
-                                onClick={() => handleDelete(post.id)}
-                                className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700"
+                                onClick={() => confirmDelete(post.id)}
+                                className="mr-2 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700"
                             >
                                 Delete
+                            </button>
+                            <button
+                                onClick={() => handlePreview(post)}
+                                className="inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                            >
+                                Preview
                             </button>
                         </div>
                     </li>
                 ))}
             </ul>
+
+            {selectedPost && (
+                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)}>
+                    <CmsPreview
+                        title={selectedPost.title}
+                        content={selectedPost.content}
+                        content_html={selectedPost.content_html}
+                        template={selectedPost.template}
+                        featured_image={selectedPost.featured_image}
+                    />
+                </FullPageModal>
+            )}
         </div>
     );
 };
