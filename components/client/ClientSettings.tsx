@@ -11,6 +11,7 @@ const ClientSettings = () => {
     const [error, setError] = useState<string | null>(null);
     const [cmsToken, setCmsToken] = useState<string | null>(null);
     const [showToken, setShowToken] = useState(false);
+    const [websiteUrl, setWebsiteUrl] = useState('');
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -30,13 +31,14 @@ const ClientSettings = () => {
 
                 const { data: member, error: memberError } = await supabase
                     .from('organization_members')
-                    .select('cms_token')
+                    .select('cms_token, website_url')
                     .eq('user_id', user.id)
                     .single();
 
                 if (memberError) throw memberError;
 
                 setCmsToken(member.cms_token);
+                setWebsiteUrl(member.website_url || '');
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -74,6 +76,20 @@ const ClientSettings = () => {
 
         if (profileError) {
             console.error('Error updating CMS token in profile:', profileError);
+        }
+    };
+
+    const handleWebsiteUrlChange = async (e) => {
+        e.preventDefault();
+        const { error } = await supabase
+            .from('organization_members')
+            .update({ website_url: websiteUrl })
+            .eq('user_id', profile.id);
+
+        if (error) {
+            console.error('Error updating website URL:', error);
+        } else {
+            console.log('Website URL updated successfully');
         }
     };
 
@@ -116,6 +132,21 @@ const ClientSettings = () => {
                             Generate CMS Token
                         </button>
                         <p className='text-zinc-900 dark:text-white italic font-semibold'>This token is meant to go into your environment tables - if you do not know what that is please contact your developer for assistance while we work on our documentation section.</p>
+                    </div>
+                    <div className="mt-4">
+                        <label className="block text-lg font-semibold text-gray-800 dark:text-white">Website URL</label>
+                        <input
+                            type="text"
+                            value={websiteUrl}
+                            onChange={(e) => setWebsiteUrl(e.target.value)}
+                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                        />
+                        <button
+                            onClick={handleWebsiteUrlChange}
+                            className="mt-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
+                        >
+                            Save Website URL
+                        </button>
                     </div>
                 </div>
             )}

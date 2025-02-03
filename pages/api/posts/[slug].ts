@@ -5,25 +5,35 @@ import { fetchTemplateHtml } from "@lib/fetchTemplateHtml";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
         if (req.query.slug) {
-            const { data, error } = await supabase
+            // Fetch the blog post
+            const { data: postData, error: postError } = await supabase
                 .from("blog_posts")
-                .select("id, title, content, content_html, status, template, created_at, scheduled_publish_date, featured_image, slug")
+                .select("id, title, content, content_html, status, template, created_at, scheduled_publish_date, featured_image, slug, user_id")
                 .eq("slug", req.query.slug)
                 .single();
 
-            if (error) return res.status(404).json({ error: "Post not found" });
+            if (postError) return res.status(404).json({ error: "Post not found" });
 
-            // Fetch the template HTML content dynamically
-            const templateUrl = `https://your-template-url.com/templates/${data.template}.html`;
+            // Fetch the client's URL from the organization_members table
+            const { data: clientData, error: clientError } = await supabase
+                .from("organization_members")
+                .select("website_url")
+                .eq("user_id", postData.user_id)
+                .single();
+
+            if (clientError) return res.status(404).json({ error: "Client URL not found" });
+
+            // Construct the template URL
+            const templateUrl = `${clientData.website_url}/templates/${postData.template}.html`;
             const templateHtml = await fetchTemplateHtml(templateUrl);
 
-            return res.status(200).json({ ...data, templateHtml });
+            return res.status(200).json({ ...postData, templateHtml });
         }
 
         // Fetch all published blog posts
         const { data, error } = await supabase
             .from("blog_posts")
-            .select("id, title, content, content_html, status, template, created_at, scheduled_publish_date, featured_image, slug")
+            .select("id, title, content, content_html, status, template, created_at, scheduled_publish_date, featured_image, slug, user_id")
             .eq("status", "published");
 
         if (error) return res.status(500).json({ error: error.message });
