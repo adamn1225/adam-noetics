@@ -114,7 +114,7 @@ const AdminSidebar = () => {
     };
 
     return (
-        <aside className={`bg-gray-900 dark:bg-gray-900 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
+        <aside className={`bg-gray-900 dark:bg-gray-900 text-white transition-all h-full duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
             <div className='flex items-start justify-between gap-2 w-full p-4'>
                 <Image
                     src={isDarkMode ? deadLogo : deadLogo}
@@ -160,7 +160,7 @@ const AdminSidebar = () => {
                     <p className="text-sm font-bold">{profile?.name}</p>
                 </div>
             </div>
-            <nav className="mt-4 flex flex-col justify-start gap-32 h-full">
+            <nav className="mt-4 flex flex-col justify-between gap-32">
                 <ul>
                     {adminNavItems.map((item) => (
                         <li key={item.name} className="mb-2">
@@ -175,7 +175,7 @@ const AdminSidebar = () => {
                 </ul>
                 <div className="">
                     <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
-                        <li className="mb-6">
+                        <li className="mb-2">
                             <button
                                 onClick={toggleDarkMode}
                                 className="flex items-center justify-start p-2 text-nowrap text-sm font-semibold text-gray-800 bg-gray-300 dark:bg-gray-800 dark:text-gray-200 rounded w-full text-left"
@@ -184,7 +184,7 @@ const AdminSidebar = () => {
                                 <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Enable Light Mode' : 'Enable Dark Mode'}</span>
                             </button>
                         </li>
-                        <li className="mb-2">
+                        <li className="mb-2 w-full">
                             <button onClick={handleLogout} className="flex items-center p-2 text-base font-medium hover:bg-gray-700 rounded w-full text-left">
                                 <LogOut className="mr-2" />
                                 <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Logout</span>
