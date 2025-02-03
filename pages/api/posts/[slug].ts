@@ -1,18 +1,26 @@
-// Noetics API: pages/api/posts/[slug].ts
 import { NextApiRequest, NextApiResponse } from "next";
-import { supabase } from "@lib/supabaseClient"; // If using Supabase
+import { supabase } from "@lib/supabaseClient";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
-        const { slug } = req.query;
+        if (req.query.slug) {
+            const { data, error } = await supabase
+                .from("blog_posts")
+                .select("*")
+                .eq("slug", req.query.slug)
+                .single();
+
+            if (error) return res.status(404).json({ error: "Post not found" });
+            return res.status(200).json(data);
+        }
+
+        // Fetch all published blog posts
         const { data, error } = await supabase
             .from("blog_posts")
             .select("*")
-            .eq("slug", slug)
-            .single();
+            .eq("status", "published");
 
-        if (error) return res.status(404).json({ error: "Post not found" });
-
+        if (error) return res.status(500).json({ error: error.message });
         return res.status(200).json(data);
     }
 
