@@ -198,6 +198,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
         }
     };
 
+
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-lg shadow-md relative">
@@ -222,7 +223,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
                     Show Preview
                 </button>
 
-                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)}>
+                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)} htmlContent={previewHtml}>
                     {previewHtml ? (
                         <div className="preview-container">
                             <h2>Live Preview</h2>

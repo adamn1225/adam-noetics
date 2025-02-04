@@ -4,9 +4,10 @@ interface FullPageModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    htmlContent?: string; // Add an optional prop for HTML content
 }
 
-const FullPageModal: React.FC<FullPageModalProps> = ({ isOpen, onClose, children }) => {
+const FullPageModal: React.FC<FullPageModalProps> = ({ isOpen, onClose, children, htmlContent }) => {
     if (!isOpen) return null;
 
     return (
@@ -18,7 +19,13 @@ const FullPageModal: React.FC<FullPageModalProps> = ({ isOpen, onClose, children
                 >
                     Close
                 </button>
-                <div className="p-6">{children}</div>
+                <div className="p-6">
+                    {htmlContent ? (
+                        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                    ) : (
+                        children
+                    )}
+                </div>
             </div>
         </div>
     );

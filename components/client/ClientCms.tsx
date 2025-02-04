@@ -261,8 +261,6 @@ const ClientCms = () => {
                     handleImageUpload={handleImageUpload}
                     loading={loading}
                     editingPost={editingPost}
-                    showPreview={showPreview}
-                    setShowPreview={setShowPreview}
                 />
 
                 <button
@@ -273,7 +271,7 @@ const ClientCms = () => {
                     Show Preview
                 </button>
 
-                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)}>
+                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml}>
                     {previewHtml ? (
                         <div className="preview-container">
                             <h2>Live Preview</h2>
