@@ -1,19 +1,19 @@
 import React from 'react';
 
-interface TemplateProps {
+interface BasicProps {
     title: string;
     content: string;
     featured_image?: string;
 }
 
-const BasicTemplate: React.FC<TemplateProps> = ({ title, content, featured_image }) => {
+const Basic: React.FC<BasicProps> = ({ title, content, featured_image }) => {
     return (
-        <div className="basic-template">
-            <h1>{title}</h1>
+        <div>
             {featured_image && <img src={featured_image} alt="Featured" />}
+            <h1>{title}</h1>
             <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
     );
 };
 
-export default BasicTemplate;
+export default Basic;

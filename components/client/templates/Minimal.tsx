@@ -6,9 +6,9 @@ interface TemplateProps {
     featured_image?: string;
 }
 
-const ModernTemplate: React.FC<TemplateProps> = ({ title, content, featured_image }) => {
+const Minimal: React.FC<TemplateProps> = ({ title, content, featured_image }) => {
     return (
-        <div className="modern-template">
+        <div className="minimal-template">
             <h1>{title}</h1>
             {featured_image && <img src={featured_image} alt="Featured" />}
             <div dangerouslySetInnerHTML={{ __html: content }} />
@@ -16,4 +16,4 @@ const ModernTemplate: React.FC<TemplateProps> = ({ title, content, featured_imag
     );
 };
 
-export default ModernTemplate;
+export default Minimal;

@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 
-interface TemplateProps {
+interface BlogTemplateProps {
     title: string;
     content: string;
     featured_image?: string;
 }
 
-const MinimalTemplate: React.FC<TemplateProps> = ({ title, content, featured_image }) => {
+const BlogTemplate: React.FC<BlogTemplateProps> = ({ title, content, featured_image }) => {
     return (
-        <div className="minimal-template">
-            <h1>{title}</h1>
+        <div>
             {featured_image && <img src={featured_image} alt="Featured" />}
+            <h1>{title}</h1>
             <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
     );
 };
 
-export default MinimalTemplate;
+export default BlogTemplate;

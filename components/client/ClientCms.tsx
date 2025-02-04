@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import ContactModal from '@components/ContactModal';
-import CmsPreview from './CmsPreview';
 import CmsForm from './CmsForm';
 import PostList from './PostList';
 import FullPageModal from '@components/FullPageModal';
@@ -57,6 +56,7 @@ const ClientCms = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [cmsToken, setCmsToken] = useState('');
     const [showPreview, setShowPreview] = useState(false);
+    const [previewHtml, setPreviewHtml] = useState<string | null>(null);
 
     useEffect(() => {
         const checkOptInStatus = async () => {
@@ -227,6 +227,26 @@ const ClientCms = () => {
         });
     };
 
+    const handlePreview = async () => {
+        try {
+            const response = await fetch("/api/blog-preview", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formValues),
+            });
+
+            const data = await response.json();
+            if (data.previewHtml) {
+                setPreviewHtml(data.previewHtml);
+                setShowPreview(true);
+            } else {
+                console.error("Failed to generate preview");
+            }
+        } catch (error) {
+            console.error("Error fetching preview:", error);
+        }
+    };
+
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
@@ -248,19 +268,20 @@ const ClientCms = () => {
                 <button
                     type="button"
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 mt-2"
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={handlePreview}
                 >
                     Show Preview
                 </button>
 
-                <FullPageModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <CmsPreview
-                        title={formValues.title}
-                        content={formValues.content}
-                        content_html={formValues.content_html}
-                        template={formValues.template}
-                        featured_image={formValues.featured_image}
-                    />
+                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)}>
+                    {previewHtml ? (
+                        <div className="preview-container">
+                            <h2>Live Preview</h2>
+                            <iframe srcDoc={previewHtml} className="w-full h-[500px] border rounded-lg" />
+                        </div>
+                    ) : (
+                        <p>Loading preview...</p>
+                    )}
                 </FullPageModal>
 
                 <PostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
