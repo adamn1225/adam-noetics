@@ -52,7 +52,7 @@ const PrivacyPolicyPage = () => {
                     If you have any questions about this policy, contact us at [Your Email].
                 </p>
             </div>
-            <footer className="bg-gray-900 text-white py-6">
+            <footer className="bg-gray-950 text-white py-6">
                 <div className="container mx-auto text-center">
                     <p className="text-sm">
                         &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.

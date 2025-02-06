@@ -44,7 +44,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                 <main className={"flex flex-col mt-16 min-h-screen " + quantico.className}>
                     {children}
                 </main>
-                <footer className="bg-zinc-800 text-white py-6 flex items-center justify-center">
+                <footer className="bg-zinc-800 dark:bg-zinc-900 text-white py-6 flex items-center justify-center">
                     <div className={"container mx-auto text-center"}>
                         <p className={"text-sm" + quantico.className}>
                             &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
