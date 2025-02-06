@@ -118,12 +118,12 @@ const Sidebar = () => {
       {loading && (
         <div className="absolute top-0 left-0 w-full h-1 bg-blue-700 animate-pulse"></div>
       )}
-      <div className='flex items-center justify-center p-4'>
+      <div className='flex items-center justify-start gap-1 w-full py-4 pr-4 pl-1'>
         <Image
           src={isDarkMode ? nextlogo : nextlogo}
           alt="Noetics.io Logo"
-          width={200} // Adjust the width as needed
-          height={60} // Adjust the height as needed
+          width={140} // Adjust the width as needed
+          height={100} // Adjust the height as needed
           className="rounded-full"
         />
       </div>

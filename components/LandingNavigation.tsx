@@ -51,8 +51,8 @@ const LandingNavigation = () => {
                         <Image
                             src={nextlogo}
                             alt="Noetics.io Logo"
-                            width={300}
-                            height={150}
+                            width={250}
+                            height={175}
                             className="rounded-full"
                         />
                     </a>

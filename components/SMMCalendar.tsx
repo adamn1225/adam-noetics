@@ -184,7 +184,7 @@ const SMMCalendar = () => {
                             Connect to Your Social Media Platforms
                         </h2>
                         <button
-                            className="text-base bg-blue-700 mv-2 self-center w-full text-white font-semibold px-3 py-1 shadow-md rounded-md"
+                            className="text-base bg-blue-500 mv-2 self-center w-full text-white font-semibold px-3 py-1 shadow-md rounded-md"
                             onClick={() => setIsAccessTokenModalVisible(true)}
                         >
                             Add Access Token
@@ -197,13 +197,13 @@ const SMMCalendar = () => {
                     </h2>
                     <div className="flex items-center justify-start mb-2 w-full">
                         <button
-                            className="text-lg bg-blue-700 text-white px-3 py-1 shadow-md rounded-md"
+                            className="text-lg bg-blue-500 text-white px-3 py-1 shadow-md rounded-md"
                             onClick={() => setIsModalVisible(true)}
                         >
                             Add SMM Event
                         </button>
                     </div>
-                    <div className="p-1 text-nowrap rounded-lg shadow-md h-full w-full">
+                    <div className="p-1 text-nowrap rounded-lg text-foreground shadow-md h-full w-full">
                         <div style={{ height: 500 }}>
                             <Calendar
                                 localizer={localizer}
@@ -318,7 +318,7 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div className="flex justify-end">
-                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700">Add Event</button>
+                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-500">Add Event</button>
                             </div>
                         </form>
                     </div>
@@ -426,7 +426,7 @@ const SMMCalendar = () => {
                                 </select>
                             </div>
                             <div className="flex justify-end space-x-4">
-                                <button type="submit" className="bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700">Update Event</button>
+                                <button type="submit" className="bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-500">Update Event</button>
                                 <button type="button" onClick={handleDeleteEvent} className="bg-red-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-700">Delete Event</button>
                             </div>
                         </form>

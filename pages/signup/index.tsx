@@ -197,7 +197,7 @@ const SignupPage: React.FC = () => {
             <LandingNavigation />
             <div className="bg-gray-200 dark:bg-zinc-700 min-h-screen flex items-center justify-center">
                 <div className="w-full max-w-md p-8 bg-white dark:bg-zinc-800 rounded shadow">
-                    <h1 className="text-2xl font-bold mb-6 text-zinc-900 dark:text-white">Sign Up</h1>
+                    <h1 className="text-2xl font-bold mb-6 text-zinc-900 dark:text-secondary">Sign Up</h1>
                     {error && <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>}
                     {successMessage && <p className="text-green-600 dark:text-green-400 mb-4">{successMessage}</p>}
                     {!isTokenSent ? (
@@ -269,7 +269,7 @@ const SignupPage: React.FC = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="shadow-md bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+                                className="shadow-md dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
                             >
                                 Sign Up
                             </button>

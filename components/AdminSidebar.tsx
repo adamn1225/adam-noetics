@@ -115,12 +115,12 @@ const AdminSidebar = () => {
 
     return (
         <aside className={`bg-gray-900 dark:bg-gray-900 text-white transition-all h-full duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
-            <div className='flex items-start justify-between gap-2 w-full p-4'>
+            <div className='flex items-center justify-start gap-1 w-full py-4 pr-4 pl-1'>
                 <Image
                     src={isDarkMode ? nextlogo : nextlogo}
                     alt="Noetics.io Logo"
-                    width={120} // Adjust the width as needed
-                    height={40} // Adjust the height as needed
+                    width={140} // Adjust the width as needed
+                    height={100} // Adjust the height as needed
                     className="rounded-full"
                 />
                 <button

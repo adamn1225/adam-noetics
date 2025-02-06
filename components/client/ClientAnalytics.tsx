@@ -143,7 +143,7 @@ const ClientAnalytics = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 bg-blue-700 text-nowrap text-sm md:text-normal hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:text-gray-50"
+                            className="mt-4 bg-blue-500 text-nowrap text-sm md:text-normal hover:bg-blue-600 text-white font-bold py-2 px-4 rounded dark:text-gray-50"
                         >
                             Integrate Google Analytics
                         </button>
@@ -175,7 +175,7 @@ const ClientAnalytics = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 text-sm md:text-normal bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+                            className="mt-4 text-sm md:text-normal bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded "
                         >
                             Integrate SEMrush
                         </button>
@@ -207,7 +207,7 @@ const ClientAnalytics = () => {
                         </div>
                         <button
                             type="submit"
-                            className="mt-4 text-sm md:text-normal bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="mt-4 text-sm md:text-normal bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                         >
                             Integrate Ahrefs
                         </button>

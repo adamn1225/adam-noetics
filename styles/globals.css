@@ -183,3 +183,7 @@ a.active::after {
 .onboardbutton-login {
   @apply bg-foreground text-white font-bold py-3 px-6 rounded-full *:border border-foreground hover:border-red-400 hover:bg-secondary hover:text-white;
 }
+
+.rbc-btn-group {
+  @apply dark:text-foreground !important;
+}

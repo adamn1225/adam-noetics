@@ -281,7 +281,7 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                         <button
                             type="button"
                             onClick={handleSave}
-                            className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700"
+                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                         >
                             Save Changes
                         </button>
@@ -333,7 +333,7 @@ const OnboardingFormReview: React.FC<OnboardingFormReviewProps> = ({ formData, o
                         <p className="text-gray-700 dark:text-gray-300">{updatedFormData.other_info}</p>
                         <button
                             onClick={() => setIsEditing(true)}
-                            className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700"
+                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                         >
                             Edit
                         </button>

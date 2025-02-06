@@ -94,7 +94,7 @@ const HeroSection = () => {
         <section id="hero" className="relative hero-gradient text-gray-100 h-[70vh] md:h-[60vh] py-20">
             <AnimatedBackground />
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
-                <motion.h1 className="text-6xl font-bold mb-4" {...fadeInUp}>
+                <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
                     Mediocrity ends when it reigns creativity.
                 </motion.h1>
                 <motion.p className="text-2xl font-bold mb-6 max-w-3xl mx-auto" {...fadeInUp}>

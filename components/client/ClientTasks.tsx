@@ -51,7 +51,7 @@ const ClientTasks = () => {
                     {
                         id: 1,
                         title: 'Finish the onboarding form',
-                        description: 'Complete the <a href="/dashboard/" class="text-blue-600 font-semibold underline">Onboarding Form</a> in the dashboard.',
+                        description: 'Complete the <a href="/dashboard/" class="text-blue-500 font-semibold underline">Onboarding Form</a> in the dashboard.',
                         due_date: null,
                         is_request: false,
                         status: profileData.onboarding_completed ? 'Completed' : 'Pending',
@@ -62,7 +62,7 @@ const ClientTasks = () => {
                     {
                         id: 2,
                         title: 'Upload branding content',
-                        description: '<a href="/dashboard/files/" class="text-blue-600 font-semibold underline">Go to Files Page</a> page and upload any branding content you have. ',
+                        description: '<a href="/dashboard/files/" class="text-blue-500 font-semibold underline">Go to Files Page</a> page and upload any branding content you have. ',
                         due_date: null,
                         is_request: false,
                         status: profileData.branding_content_uploaded ? 'Completed' : 'Pending',
@@ -190,7 +190,7 @@ const ClientTasks = () => {
                                         <td className="py-2 px-4 whitespace-nowrap text-center">
                                             <button
                                                 onClick={() => setSelectedTaskId(task.id)}
-                                                className="bg-blue-700 text-white py-1 px-2 rounded"
+                                                className="bg-blue-500 text-white py-1 px-2 rounded"
                                             >
                                                 Add Note
                                             </button>
@@ -244,7 +244,7 @@ const ClientTasks = () => {
                                         <td className="py-2 px-4 whitespace-nowrap text-center">
                                             <button
                                                 onClick={() => setSelectedTaskId(task.id)}
-                                                className="bg-blue-700 text-white py-1 px-2 rounded"
+                                                className="bg-primary text-white py-1 px-2 rounded"
                                             >
                                                 Add Note
                                             </button>
@@ -274,7 +274,7 @@ const ClientTasks = () => {
                 <h2 className="text-2xl font-bold mt-8 mb-4 dark:text-white">Request a Task</h2>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-700 text-white py-2 px-4 rounded"
+                    className="bg-blue-500 text-white py-2 px-4 rounded"
                 >
                     Request a Task
                 </button>

@@ -145,7 +145,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                     id="featured_image"
                     name="featured_image"
                     onChange={handleImageUpload}
-                    className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                    className="mt-1 block w-full border text-gray-300 border-gray-300 rounded-md shadow-sm p-2"
                 />
                 {formValues.featured_image && (
                     <img src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
@@ -153,7 +153,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
             </div>
             <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-700 hover:bg-blue-800"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700"
                 disabled={loading}
             >
                 {editingPost ? 'Update Post' : 'Add Post'}

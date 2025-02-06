@@ -243,7 +243,7 @@ const ClientDashboard = () => {
                             <div className="bg-white p-4 rounded-lg shadow">
                                 <h2 className="text-lg font-bold">Tasks</h2>
                                 <p className="text-sm text-gray-600">
-                                    <span className="inline-block w-4 h-4 rounded-full bg-blue-700 mr-2"></span>
+                                    <span className="inline-block w-4 h-4 rounded-full bg-orange-400 mr-2"></span>
                                     {tasksInProgress} tasks in progress
                                 </p>
                                 <p className="text-sm text-gray-600">
@@ -251,7 +251,7 @@ const ClientDashboard = () => {
                                     {tasksPending} tasks pending
                                 </p>
                                 <p className="text-sm text-gray-600">
-                                    <span className="inline-block w-4 h-4 rounded-full bg-green-500 mr-2"></span>
+                                    <span className="inline-block w-4 h-4 rounded-full bg-foreground mr-2"></span>
                                     {tasksCompleted} tasks completed
                                 </p>
                             </div>

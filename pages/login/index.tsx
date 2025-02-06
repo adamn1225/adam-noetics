@@ -234,7 +234,7 @@ const LoginPage = () => {
             </button>
           </div>
           <div className="flex flex-col gap-1">
-            <p className="text-sm text-blue-500 hover:underline">
+            <p className="text-sm text-blue-500 dark:text-blue-400 hover:underline">
               <Link href="/reset-password">Forgot Password?</Link>
             </p>
           </div>
@@ -256,7 +256,7 @@ const LoginPage = () => {
                 type="button"
                 onClick={handleResendVerification}
                 disabled={loading}
-                className="text-blue-600 font-semibold hover:underline dark:text-white"
+                className="text-blue-500 hover:text-blue-600 dark:hover:text-blue-600 dark:text-blue-400 font-semibold hover:underline"
               >
                 Resend Verification Email
               </button>
@@ -278,11 +278,11 @@ const LoginPage = () => {
               Log In with Google
             </button>
           </div>
-          <p className="text-lg text-center text-blue-600 dark:text-blue-500 underline hover:text-blue-600/80">
+          <p className="text-lg text-center text-blue-500 hover:text-blue-500 dark:hover:text-blue-500 dark:text-blue-400 underline ">
             <Link href="/">Go back to homepage</Link>
           </p>
           <p className="text-lg text-center">
-            <Link className='underline text-sm' href="/privacy-policy">
+            <Link className='underline text-sm text-blue-500 hover:text-blue-500 dark:hover:text-blue-400 dark:text-blue-300' href="/privacy-policy">
               Privacy Policy
             </Link>
           </p>

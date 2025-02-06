@@ -132,7 +132,7 @@ const ClientSettings = () => {
                         </div>
                         <button
                             onClick={handleGenerateCmsToken}
-                            className="mt-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
+                            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                         >
                             Generate CMS Token
                         </button>
@@ -148,7 +148,7 @@ const ClientSettings = () => {
                         />
                         <button
                             onClick={handleWebsiteUrlChange}
-                            className="mt-2 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
+                            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                         >
                             Save Website URL
                         </button>

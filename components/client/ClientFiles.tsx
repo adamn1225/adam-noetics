@@ -264,7 +264,7 @@ const ClientFiles = () => {
                 <button
                     onClick={() => uploadFiles([])}
                     disabled={uploading}
-                    className="bg-blue-700 text-white py-2 px-4 rounded"
+                    className="bg-blue-500 text-white py-2 px-4 rounded"
                 >
                     {uploading ? 'Uploading...' : 'Upload'}
                 </button>
@@ -291,7 +291,7 @@ const ClientFiles = () => {
                                 <p className="text-sm text-gray-900">{file.file_description}</p>
                                 <p className="text-sm text-gray-900">{new Date(file.created_at!).toLocaleDateString()}</p>
                                 <div className='flex justify-between items-center mt-4'>
-                                    <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                    <a href={file.signedURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
                                         View File
                                     </a>
                                     <button
