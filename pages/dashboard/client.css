@@ -8,42 +8,30 @@ html {
 
 :root {
   --primary: #238d9b;
-  /* Tailwind teal.500 */
   --secondary: #46d1db;
-  /* Tailwind blue.500 */
   --foreground: #46d1db;
-  /* Tailwind teal.300 */
   --background: #e7e7e7;
-  @apply dark:bg-gray-950 !important;
-  /* Set your background color */
 }
 
 .hero-gradient {
   background: linear-gradient(45deg,
       rgb(101, 248, 226) 10%,
-      /* #5EEAD4 */
       rgb(18, 166, 177) 40%,
-      /* #3B82F6 */
-      rgb(16, 145, 130) 100%
-      /* #14B8A6 */
-    );
+      rgb(16, 145, 130) 100%);
 }
 
 .nn-gradient {
   background: linear-gradient(45deg,
       rgb(101, 248, 226) 10%,
-      /* #5EEAD4 */
       rgb(18, 166, 177) 40%,
-      /* #3B82F6 */
-      rgb(16, 145, 130) 100%
-      /* #14B8A6 */
-    );
+      rgb(16, 145, 130) 100%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #f9fafb;
+    --primary: #238d9b;
   }
 }
 
@@ -59,11 +47,10 @@ body {
 }
 
 .dark body {
-  color: #238d9b;
-  background: #1f1d1d;
+  color: var(--primary);
+  background: var(--background);
 }
 
-/* From Uiverse.io by satyamchaudharydev */
 /* From Uiverse.io by satyamchaudharydev */
 .onboardbutton {
   --secondary-color: #fff;
@@ -75,12 +62,8 @@ body {
   color: var(--secondary-color);
   background: linear-gradient(45deg,
       rgb(95, 211, 194) 0%,
-      /* #5EEAD4 */
       rgb(23, 181, 192) 50%,
-      /* #3B82F6 */
-      rgb(16, 145, 130) 100%
-      /* #14B8A6 */
-    );
+      rgb(16, 145, 130) 100%);
   display: flex;
   transition: 0.2s var(--background);
   align-items: center;
@@ -129,11 +112,6 @@ body {
   right: 0;
 }
 
-.onboardbutton:hover .arrow {
-  background: #fff;
-}
-
-/* Dark Mode Toggle Styles */
 .theme {
   display: flex;
   align-items: center;
@@ -177,7 +155,6 @@ body {
   box-shadow: 0 0 0 0.125em hsl(210, 50%, 70%);
 }
 
-/* Add this to your global stylesheet or a CSS module */
 a.active {
   position: relative;
 }
@@ -193,5 +170,6 @@ a.active::after {
 }
 
 .rbc-btn-group>button {
-  @apply dark:text-foreground !important;
+  @apply text-gray-900 dark:text-foreground !important;
+  @apply text-gray-900 !important;
 }

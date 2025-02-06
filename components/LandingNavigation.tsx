@@ -16,22 +16,6 @@ const quantico = Quantico({
 
 const LandingNavigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(true);
-
-    useEffect(() => {
-        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        setIsDarkMode(darkModeMediaQuery.matches);
-
-        const handleChange = (e: MediaQueryListEvent) => {
-            setIsDarkMode(e.matches);
-        };
-
-        darkModeMediaQuery.addEventListener('change', handleChange);
-
-        return () => {
-            darkModeMediaQuery.removeEventListener('change', handleChange);
-        };
-    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -64,7 +48,7 @@ const LandingNavigation = () => {
 
                     {/* Hamburger Menu for Smaller Screens */}
                     <button
-                        className="sm:hidden text-zinc-800 dark:text-white dark:hover:text-white hover:text-zinc-600"
+                        className="md:hidden text-zinc-800 dark:text-white dark:hover:text-white hover:text-zinc-600"
                         onClick={toggleMenu}
                         aria-label="Toggle Menu"
                     >

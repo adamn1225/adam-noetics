@@ -153,10 +153,10 @@ const ClientSettings = () => {
                             Save Website URL
                         </button>
                     </div>
-                    <div className="mt-4">
+                    {/* <div className="mt-4">
                         <label className="block text-lg font-semibold text-gray-800 dark:text-white">User ID</label>
                         <p className="mt-1 text-base text-gray-900 dark:text-white">{profile.user_id}</p>
-                    </div>
+                    </div> */}
                     <div className="mt-4">
                         <label className="block text-lg font-semibold text-gray-800 dark:text-white">Website URL</label>
                         <p className="mt-1 text-base text-gray-900 dark:text-white">{websiteUrl || 'No website URL'}</p>

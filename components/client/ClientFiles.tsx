@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
@@ -269,7 +267,8 @@ const ClientFiles = () => {
                     {uploading ? 'Uploading...' : 'Upload'}
                 </button>
                 <div className="mt-8">
-                    <div className="mb-4">
+                    {/* Dropdown for mobile */}
+                    <div className="block md:hidden mb-4">
                         <label htmlFor="category" className="block text-sm font-medium text-gray-900 dark:text-white">Category</label>
                         <select
                             id="category"
@@ -283,6 +282,39 @@ const ClientFiles = () => {
                             <option value="images">Images</option>
                             <option value="data-files">Data Files</option>
                         </select>
+                    </div>
+                    {/* Tabs for desktop */}
+                    <div className="hidden md:flex rounded-t-md rounded-s-none mb-4 space-x-1">
+                        <button
+                            onClick={() => setCategory('all')}
+                            className={`px-4 py-2 rounded-t-md ${category === 'all' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                        >
+                            All
+                        </button>
+                        <button
+                            onClick={() => setCategory('favorites')}
+                            className={`px-4 py-2 rounded-t-md ${category === 'favorites' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                        >
+                            Favorites
+                        </button>
+                        <button
+                            onClick={() => setCategory('content')}
+                            className={`px-4 py-2 rounded-t-md ${category === 'content' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                        >
+                            Content
+                        </button>
+                        <button
+                            onClick={() => setCategory('images')}
+                            className={`px-4 py-2 rounded-t-md ${category === 'images' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                        >
+                            Images
+                        </button>
+                        <button
+                            onClick={() => setCategory('data-files')}
+                            className={`px-4 py-2 rounded-t-md ${category === 'data-files' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                        >
+                            Data Files
+                        </button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredFiles.map((file) => (

@@ -6,17 +6,23 @@ const DarkModeToggle: React.FC = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
 
     return (
-        <button
+        <div
             onClick={toggleDarkMode}
-            className="flex items-center justify-center w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full focus:outline-none"
-            aria-label="Toggle Dark Mode"
+            className={`relative inline-flex items-center h-8 w-20 rounded-full cursor-pointer transition-colors duration-300 ${isDarkMode ? "bg-gray-700" : "bg-gray-400"
+                }`}
         >
-            {isDarkMode ? (
-                <FaSun className="text-yellow-500 w-6 h-6" />
-            ) : (
-                <FaMoon className="text-gray-800 dark:text-gray-300 w-6 h-6" />
-            )}
-        </button>
+            <span className="sr-only">Toggle Dark Mode</span>
+            <span
+                className={`absolute left-1 top-1 inline-flex justify-center w-10 h-6 transform bg-white rounded-full transition-transform duration-300 ${isDarkMode ? "translate-x-8" : "translate-x-0"
+                    }`}
+            >
+                {isDarkMode ? (
+                    <FaSun className="text-yellow-500 w-4 h-4 m-1" />
+                ) : (
+                    <FaMoon className="text-gray-800 w-4 h-4 m-1" />
+                )}
+            </span>
+        </div>
     );
 };
 

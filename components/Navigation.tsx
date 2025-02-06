@@ -1,10 +1,10 @@
+'use client';
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
 import nextlogo from '@public/next_noetics.png';
-import { useDarkMode } from "@context/DarkModeContext";
 
 interface NavigationProps {
   isFixed?: boolean;
@@ -13,7 +13,6 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isDarkMode } = useDarkMode();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -38,7 +37,9 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
               className="rounded-full"
             />
           </a>
-          {/* <DarkModeToggle /> */}
+          <span className="md:hidden flex justify-end w-full mx-8 items-start gap-4">
+            <DarkModeToggle />
+          </span>
         </span>
         {/* Hamburger Menu for Smaller Screens */}
         <button

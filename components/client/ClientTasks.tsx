@@ -162,8 +162,8 @@ const ClientTasks = () => {
 
     return (
         <>
-            <div className='px-4 py-6 md:px-8 md:py-12'>
-                <h1 className="text-2xl font-bold mb-4 dark:text-white">Your Tasks</h1>
+            <div className='px-4 py-6 md:px-8 md:py-12 text-gray-950 dark:text-primary'>
+                <h1 className="text-2xl font-bold mb-4 text-gray-950 dark:text-white">Your Tasks</h1>
                 <div className='container mx-auto'>
                     <div className="overflow-x-auto">
                         <table className="min-w-full border border-gray-200 bg-white dark:bg-stone-700 dark:text-white divide-y divide-gray-200">

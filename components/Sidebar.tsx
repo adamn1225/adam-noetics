@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import placeholderAvatar from '@public/placeholder-avatar.png';
 import nextlogo from '@public/next_noetics.png';
+import DarkModeToggle from './DarkModeToggle';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -22,11 +23,11 @@ const navItems = [
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [profile, setProfile] = useState<any>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const currentPath = usePathname();
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -108,11 +109,6 @@ const Sidebar = () => {
     }
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark', !isDarkMode);
-  };
-
   return (
     <aside className={`bg-gray-900 dark:bg-gray-900 pb-28 text-white transition-all duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
       {loading && (
@@ -120,7 +116,7 @@ const Sidebar = () => {
       )}
       <div className='flex items-center justify-start gap-1 w-full py-4 pr-4 pl-1'>
         <Image
-          src={isDarkMode ? nextlogo : nextlogo}
+          src={nextlogo}
           alt="Noetics.io Logo"
           width={140} // Adjust the width as needed
           height={100} // Adjust the height as needed
@@ -162,8 +158,11 @@ const Sidebar = () => {
           <p className="text-sm font-medium">Welcome,</p>
           <p className="text-sm font-bold">{profile?.name}</p>
         </div>
+        <span className=" inline-flex justify-center w-3/5 items-center">
+          <DarkModeToggle />
+        </span>
       </div>
-      <nav className="mt-4 flex flex-col justify-between h-full">
+      <nav className="flex flex-col justify-between h-full pb-8">
         <ul>
           {navItems.map((item) => (
             <li key={item.name} className="mb-2">
@@ -178,15 +177,7 @@ const Sidebar = () => {
         </ul>
         <div className="mb-32">
           <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
-            <li className="mb-6">
-              <button
-                onClick={toggleDarkMode}
-                className="flex items-center justify-start p-2 text-nowrap text-sm font-semibold text-gray-800 bg-gray-300 dark:bg-gray-800 dark:text-gray-200 rounded w-full text-left"
-              >
-                {isDarkMode ? <Sun className="mr-1" /> : <Moon className="mr-1" />}
-                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{isDarkMode ? 'Enable Light Mode' : 'Enable Dark Mode'}</span>
-              </button>
-            </li>
+
             <li className="mb-2">
               <Link href="/dashboard/settings" passHref legacyBehavior>
                 <a className={`flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded ${currentPath === '/dashboard/settings' ? 'active' : ''}`}>
