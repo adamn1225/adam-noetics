@@ -91,19 +91,19 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative bg-gray-950 text-gray-100 h-[70vh] md:h-[60vh] py-20 border">
+        <section id="hero" className="relative hero-gradient text-gray-100 h-[70vh] md:h-[60vh] py-20">
             <AnimatedBackground />
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
-                <motion.h1 className="text-5xl font-bold mb-4" {...fadeInUp}>
-                    Mediocrity dies when creativity reigns.
+                <motion.h1 className="text-6xl font-bold mb-4" {...fadeInUp}>
+                    Mediocrity ends when it reigns creativity.
                 </motion.h1>
-                <motion.p className="text-xl mb-6 max-w-2xl mx-auto font-medium" {...fadeInUp}>
+                <motion.p className="text-2xl font-bold mb-6 max-w-3xl mx-auto" {...fadeInUp}>
                     We don’t recycle ideas; <span className="font-bold">we obliterate the ordinary.</span> If it’s been done before, we tear it apart and rebuild something unforgettable.
                 </motion.p>
                 <div className="flex flex-col items-center space-y-4">
                     <motion.button
                         onClick={handleModalToggle}
-                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
+                        className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
                         {...fadeInUp}
                     >
                         Get in touch
@@ -113,10 +113,7 @@ const HeroSection = () => {
                             <span
                                 className="onboardbutton py-3 px-6 rounded-full"
                             >
-                                join the creative
-                                <div className="arrow-wrapper">
-                                    <div className="arrow"></div>
-                                </div>
+                                Sign Up
                             </span>
                         </div>
                     </motion.a>

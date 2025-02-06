@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Spinner from './ui/Spinner'; // Import Spinner component
 import placeholderAvatar from '@public/placeholder-avatar.png';
-import deadLogo from '@public/dark_dead_generics-logo.png';
+import nextlogo from '@public/next_noetics.png';
 
 const adminNavItems = [
     { name: "Dashboard", href: "/admin", icon: Home },
@@ -117,7 +117,7 @@ const AdminSidebar = () => {
         <aside className={`bg-gray-900 dark:bg-gray-900 text-white transition-all h-full duration-300 ${isCollapsed ? 'w-14' : 'w-44'} overflow-hidden relative`}>
             <div className='flex items-start justify-between gap-2 w-full p-4'>
                 <Image
-                    src={isDarkMode ? deadLogo : deadLogo}
+                    src={isDarkMode ? nextlogo : nextlogo}
                     alt="Noetics.io Logo"
                     width={120} // Adjust the width as needed
                     height={40} // Adjust the height as needed

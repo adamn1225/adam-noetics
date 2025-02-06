@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
-import deadLogo from '@public/dead_generics-logo.png';
+import nextlogo from '@public/next_noetics.png';
 import { useDarkMode } from "@context/DarkModeContext";
 
 interface NavigationProps {
@@ -21,7 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
   return (
     <motion.header
-      className={`bg-white dark:bg-zinc-500 z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
+      className={`bg-white dark:bg-gray-950 z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -31,10 +31,10 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
         <span className="flex items-center gap-4">
           <a href="/">
             <Image
-              src={deadLogo}
+              src={nextlogo}
               alt="Noetics.io Logo"
-              width={175}
-              height={75}
+              width={300}
+              height={150}
               className="rounded-full"
             />
           </a>

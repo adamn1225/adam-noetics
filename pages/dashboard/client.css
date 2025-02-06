@@ -7,14 +7,42 @@ html {
 }
 
 :root {
+  --primary: #238d9b;
+  /* Tailwind teal.500 */
+  --secondary: #46d1db;
+  /* Tailwind blue.500 */
+  --foreground: #46d1db;
+  /* Tailwind teal.300 */
   --background: #ffffff;
-  --foreground: #1f2937;
+  /* Set your background color */
+}
+
+.hero-gradient {
+  background: linear-gradient(45deg,
+      rgb(101, 248, 226) 10%,
+      /* #5EEAD4 */
+      rgb(18, 166, 177) 40%,
+      /* #3B82F6 */
+      rgb(16, 145, 130) 100%
+      /* #14B8A6 */
+    );
+}
+
+.nn-gradient {
+  background: linear-gradient(45deg,
+      rgb(101, 248, 226) 10%,
+      /* #5EEAD4 */
+      rgb(18, 166, 177) 40%,
+      /* #3B82F6 */
+      rgb(16, 145, 130) 100%
+      /* #14B8A6 */
+    );
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #1f2937;
+    --foreground: #f9fafb;
   }
 }
 
@@ -35,18 +63,25 @@ body {
 }
 
 /* From Uiverse.io by satyamchaudharydev */
+/* From Uiverse.io by satyamchaudharydev */
 .onboardbutton {
-  --primary-color: #1d4ed8;
   --secondary-color: #fff;
-  --hover-color: #111827;
+  --hover-color: #238d9b;
   --arrow-width: 10px;
   --arrow-stroke: 2px;
   box-sizing: border-box;
   border: 0;
   color: var(--secondary-color);
-  background: var(--primary-color);
+  background: linear-gradient(45deg,
+      rgb(95, 211, 194) 0%,
+      /* #5EEAD4 */
+      rgb(23, 181, 192) 50%,
+      /* #3B82F6 */
+      rgb(16, 145, 130) 100%
+      /* #14B8A6 */
+    );
   display: flex;
-  transition: 0.2s background;
+  transition: 0.2s var(--background);
   align-items: center;
   gap: 0.6em;
   font-weight: bold;
@@ -61,7 +96,7 @@ body {
 .onboardbutton .arrow {
   margin-top: 1px;
   width: var(--arrow-width);
-  background: var(--primary-color);
+  background: #fff;
   height: var(--arrow-stroke);
   position: relative;
   transition: 0.2s;
@@ -82,21 +117,19 @@ body {
 }
 
 .onboardbutton:hover {
-  background-color: #0c0a09;
+  background-color: #3bacb4;
 }
 
 .onboardbutton:hover .arrow {
-  background: var(--secondary-color);
+  background: #fff;
 }
 
 .onboardbutton:hover .arrow:before {
   right: 0;
 }
 
-/* Dark Mode Toggle Styles */
-.dark body {
-  color: var(--foreground);
-  background: var(--background);
+.onboardbutton:hover .arrow {
+  background: #fff;
 }
 
 /* Dark Mode Toggle Styles */

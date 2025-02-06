@@ -101,19 +101,19 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
             onClick={() =>
               (window.location.href = "mailto:anoah1225@gmail.com")
             }
-            className="opt-btn"
+            className="opt-btn text-lg"
           >
             Email Us
           </button>
           <button
             onClick={() => (window.location.href = "tel:+1234567890")}
-            className="opt-btn"
+            className="opt-btn text-lg"
           >
             Call Us
           </button>
           <button
             onClick={handleModalToggle}
-            className="opt-btn"
+            className="opt-btn text-lg"
           >
             Fill Out a Form
           </button>
@@ -128,7 +128,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
               <h2 className="text-xl font-bold">Contact Us</h2>
               <button
                 onClick={handleModalToggle}
-                className="text-gray-500 hover:text-red-800 font-bold text-lg"
+                className="text-gray-500 hover:text-primary font-bold text-lg"
               >
                 ×
               </button>

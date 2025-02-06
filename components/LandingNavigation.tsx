@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, MoreHorizontal, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
-import noeticsLogo from '@public/noeticslogo.png';
+import nextlogo from '@public/next_noetics.png';
 import deadLogo from '@public/dead_generics-logo.png';
 import { Quantico } from "next/font/google";
 
@@ -39,20 +39,20 @@ const LandingNavigation = () => {
 
     return (
         <motion.header
-            className={"bg-white dark:bg-zinc-500 pt-2 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl"}
+            className={"bg-white dark:bg-gray-950 pt-2 fixed top-0 left-0 w-screen z-50 dark:border-0 dark:border-b-zinc-950 shadow-2xl"}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <nav className={"container mx-auto px-4 pb-2 flex text-zinc-800 justify-between items-center " + quantico.className}>
+            <nav className={"container mx-auto px-4 pb-2 flex text-gray-800 justify-between items-center " + quantico.className}>
                 {/* Logo */}
                 <div className="flex items-center gap-4">
                     <a href="/">
                         <Image
-                            src={isDarkMode ? deadLogo : deadLogo}
+                            src={nextlogo}
                             alt="Noetics.io Logo"
-                            width={175}
-                            height={75}
+                            width={300}
+                            height={150}
                             className="rounded-full"
                         />
                     </a>
@@ -64,7 +64,7 @@ const LandingNavigation = () => {
 
                     {/* Hamburger Menu for Smaller Screens */}
                     <button
-                        className="sm:hidden text-zinc-800 hover:text-zinc-600"
+                        className="sm:hidden text-zinc-800 dark:text-white dark:hover:text-white hover:text-zinc-600"
                         onClick={toggleMenu}
                         aria-label="Toggle Menu"
                     >
@@ -76,7 +76,7 @@ const LandingNavigation = () => {
                         <li>
                             <a
                                 href="#cta"
-                                className={"text-base hover:underline text-nowrap underline-offset-4 text-zinc-950 dark:text-white underline font-extrabold " + quantico.className}
+                                className={"text-base hover:underline text-nowrap underline-offset-4 text-gray-950 dark:text-white hover- underline font-extrabold " + quantico.className}
                                 onClick={toggleMenu}
                             >
                                 Learn More

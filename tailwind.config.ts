@@ -10,8 +10,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: "var(--primary, theme('colors.teal.500'))",
+        secondary: "var(--secondary, theme('colors.blue.500'))",
+        foreground: "var(--foreground, theme('colors.teal.300'))",
         background: "var(--background)",
-        foreground: "var(--foreground)",
       },
     },
   },

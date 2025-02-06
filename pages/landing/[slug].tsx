@@ -126,7 +126,7 @@ const LandingPage = () => {
                     >
                         <div className="max-w-4xl mx-auto px-4">
                             <h1 className="text-5xl font-bold">{service.title}</h1>
-                            <p className="mt-4 text-xl text-red-500">{service.desc}</p>
+                            <p className="mt-4 text-xl text-secondary">{service.desc}</p>
                         </div>
                     </motion.header>
 
@@ -137,7 +137,7 @@ const LandingPage = () => {
                     >
                         <div className="max-w-5xl mx-auto px-4 py-12">
                             <h2 className="text-3xl font-bold text-center mb-2 dark:text-white">What We Give</h2>
-                            <div className="border-b-4 border-red-600 mb-6 mx-96"></div>
+                            <div className="border-b-4 border-secondary mb-6 mx-96"></div>
                             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {service.whatWeOffer.map((offer, index) => (
                                     <li
@@ -157,7 +157,7 @@ const LandingPage = () => {
                         {...slideInFromRight}
                     >
                         <h2 className="text-3xl font-bold mb-2 dark:text-white">How this works</h2>
-                        <div className="border-b-4 border-red-600 mb-6 w-1/6"></div>
+                        <div className="border-b-4 border-secondary mb-6 w-1/6"></div>
                         <p className="text-lg text-zinc-700 dark:text-zinc-300">{service.howItWorks}</p>
                     </motion.section>
 

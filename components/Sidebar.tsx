@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import placeholderAvatar from '@public/placeholder-avatar.png';
-import deadLogo from '@public/dark_dead_generics-logo.png';
+import nextlogo from '@public/next_noetics.png';
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: Home },
@@ -120,10 +120,10 @@ const Sidebar = () => {
       )}
       <div className='flex items-center justify-center p-4'>
         <Image
-          src={isDarkMode ? deadLogo : deadLogo}
+          src={isDarkMode ? nextlogo : nextlogo}
           alt="Noetics.io Logo"
-          width={160} // Adjust the width as needed
-          height={40} // Adjust the height as needed
+          width={200} // Adjust the width as needed
+          height={60} // Adjust the height as needed
           className="rounded-full"
         />
       </div>

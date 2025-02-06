@@ -7,8 +7,14 @@ html {
 }
 
 :root {
+  --primary: #238d9b;
+  /* Tailwind teal.500 */
+  --secondary: #46d1db;
+  /* Tailwind blue.500 */
+  --foreground: #46d1db;
+  /* Tailwind teal.300 */
   --background: #ffffff;
-  --foreground: #1f2937;
+  /* Set your background color */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,11 +40,25 @@ body {
   background: var(--background);
 }
 
+.nn-gradient {
+  background: linear-gradient(45deg,
+      rgb(101, 248, 226) 10%,
+      /* #5EEAD4 */
+      rgb(18, 166, 177) 40%,
+      /* #3B82F6 */
+      rgb(16, 145, 130) 100%
+      /* #14B8A6 */
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* From Uiverse.io by satyamchaudharydev */
 .onboardbutton {
-  --primary-color: #1d4ed8;
+  --primary-color: #46d1db;
   --secondary-color: #fff;
-  --hover-color: #111827;
+  --hover-color: #46d1db;
   --arrow-width: 10px;
   --arrow-stroke: 2px;
   box-sizing: border-box;
@@ -46,7 +66,7 @@ body {
   color: var(--secondary-color);
   background: var(--primary-color);
   display: flex;
-  transition: 0.2s background;
+  transition: 0.2s var(--background);
   align-items: center;
   gap: 0.6em;
   font-weight: bold;
@@ -61,7 +81,7 @@ body {
 .onboardbutton .arrow {
   margin-top: 1px;
   width: var(--arrow-width);
-  background: var(--primary-color);
+  background: #111827;
   height: var(--arrow-stroke);
   position: relative;
   transition: 0.2s;
@@ -86,7 +106,7 @@ body {
 }
 
 .onboardbutton:hover .arrow {
-  background: var(--secondary-color);
+  background: #111827;
 }
 
 .onboardbutton:hover .arrow:before {
@@ -153,9 +173,13 @@ a.active::after {
 }
 
 .opt-btn {
-  @apply bg-white text-red-500 font-bold py-3 px-6 rounded-full *:border border-red-500 hover:border-red-400 hover:bg-red-500 hover:text-white;
+  @apply bg-white text-secondary font-bold py-3 px-6 rounded-full *:border border-foreground hover:border-red-400 hover:bg-foreground hover:text-white;
 }
 
 .opt-two {
-  @apply bg-blue-700 text-white font-bold py-3 px-6 rounded-full *:border border-red-500 hover:border-red-400 hover:bg-blue-600 hover:text-white;
+  @apply bg-secondary text-white font-bold py-3 px-6 rounded-full *:border border-red-500 hover:border-red-400 hover:bg-blue-600 hover:text-white;
+}
+
+.onboardbutton-login {
+  @apply bg-foreground text-white font-bold py-3 px-6 rounded-full *:border border-foreground hover:border-red-400 hover:bg-secondary hover:text-white;
 }
