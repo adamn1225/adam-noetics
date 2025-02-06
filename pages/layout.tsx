@@ -49,7 +49,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                         <p className={"text-sm" + quantico.className}>
                             &copy; {new Date().getFullYear()} Adam Noetics. All rights reserved.
                         </p>
-                        <Link className='underline' href="/privacy-policy">
+                        <Link className='underline text-secondary text-base track-wider' href="/privacy-policy">
                             Privacy Policy
                         </Link>
                     </div>

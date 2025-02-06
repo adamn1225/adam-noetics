@@ -13,7 +13,8 @@ html {
   /* Tailwind blue.500 */
   --foreground: #46d1db;
   /* Tailwind teal.300 */
-  --background: #111827f3;
+  --background: #e7e7e7;
+  @apply dark:bg-gray-950 !important;
   /* Set your background color */
 }
 
@@ -58,8 +59,8 @@ body {
 }
 
 .dark body {
-  color: var(--foreground);
-  background: var(--background);
+  color: #238d9b;
+  background: #1f1d1d;
 }
 
 /* From Uiverse.io by satyamchaudharydev */

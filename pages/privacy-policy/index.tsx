@@ -4,9 +4,9 @@ const PrivacyPolicyPage = () => {
     return (
         <>
             <LandingNavigation />
-            <div className="container mx-auto border border-gray-200 shadow-sm my-32 p-8">
+            <div className="container mx-auto border text-gray-700 dark:text-primary border-gray-200 shadow-sm my-32 p-8">
                 <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
-                <p className="text-sm text-gray-600 mb-4">Last Updated: 01-24-2025</p>
+                <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">Last Updated: 01-24-2025</p>
                 <p className="mb-4">
                     Welcome to noetics.io ("we," "our," or "us"). We respect your privacy and are committed to protecting any information you provide when using our application.
                 </p>
