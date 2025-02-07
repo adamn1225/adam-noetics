@@ -41,7 +41,19 @@ const GAnalyticsGraph = ({ ga4Data }) => {
         ],
     };
 
-    return <Line data={data} />;
-};
+    return (
+        <div className="w-full">
+            <Line data={data} 
+                options={{
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }}
+                />
+        </div>
+    );
+}
 
 export default GAnalyticsGraph;
