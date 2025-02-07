@@ -16,11 +16,13 @@ const ClientAnalytics = () => {
     const [activeDateRange, setActiveDateRange] = useState('1month'); // New state for active date range
     const rowsPerPage = 10;
 
-    interface GA4Data {
-        error?: string;
-        rows?: any[];
-        [key: string]: any;
-    }
+interface GAnalyticsProps {
+  currentRows: any[]; // Specify the type here, e.g., any[], string[], number[], etc.
+  handlePageChange: (pageNumber: number) => void; // Specify the type for the function
+  currentPage: number;
+  indexOfLastRow: number;
+  totalRows: number;
+}
 
     const [ga4Data, setGa4Data] = useState<GA4Data | null>(null);
 
