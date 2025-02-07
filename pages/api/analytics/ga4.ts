@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { google } from 'googleapis';
+import { google, Auth } from 'googleapis';
 import { supabase } from '@lib/supabaseClient';
 import path from 'path';
 import fs from 'fs';
@@ -32,7 +32,7 @@ async function getGA4Data(userId: string, startDate: string, endDate: string) {
     console.log('Fetched Google Analytics property ID:', googleAnalyticsPropertyId);
 
     // Use OAuth2 to authenticate and fetch data
-    const client = await auth.getClient();
+    const client = await auth.getClient() as Auth.OAuth2Client;
     google.options({
         auth: client,
     });
