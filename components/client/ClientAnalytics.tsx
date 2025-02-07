@@ -5,6 +5,22 @@ import { supabase } from '@lib/supabaseClient';
 import GAnalytics from './GAnalytics';
 import GAnalyticsGraph from './GAnalyticsGraph';
 
+interface GA4Data {
+    rows: {
+        dimensionValues: { value: string }[];
+        metricValues: { value: string }[];
+    }[];
+    error?: string;
+}
+
+interface GAnalyticsProps {
+    currentRows: any[]; // Specify the type here, e.g., any[], string[], number[], etc.
+    handlePageChange: (pageNumber: number) => void; // Specify the type for the function
+    currentPage: number;
+    indexOfLastRow: number;
+    totalRows: number;
+}
+
 const ClientAnalytics = () => {
     const [googleAnalyticsPropertyId, setGoogleAnalyticsPropertyId] = useState('');
     const [loading, setLoading] = useState(false);
@@ -15,14 +31,6 @@ const ClientAnalytics = () => {
     const [endDate, setEndDate] = useState('today');
     const [activeDateRange, setActiveDateRange] = useState('1month'); // New state for active date range
     const rowsPerPage = 10;
-
-interface GAnalyticsProps {
-  currentRows: any[]; // Specify the type here, e.g., any[], string[], number[], etc.
-  handlePageChange: (pageNumber: number) => void; // Specify the type for the function
-  currentPage: number;
-  indexOfLastRow: number;
-  totalRows: number;
-}
 
     const [ga4Data, setGa4Data] = useState<GA4Data | null>(null);
 
