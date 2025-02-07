@@ -7,10 +7,22 @@ html {
 }
 
 :root {
-  --primary: #238d9b;
-  --secondary: #46d1db;
-  --foreground: #46d1db;
-  --background: #e7e7e7;
+  --text-color-light: #1f2937;
+  /* gray-950 */
+  --text-color-dark: #3b82f6;
+  /* text-primary */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: var(--text-color-dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --text-color: var(--text-color-light);
+  }
 }
 
 .hero-gradient {
@@ -27,13 +39,7 @@ html {
       rgb(16, 145, 130) 100%);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #f9fafb;
-    --primary: #238d9b;
-  }
-}
+
 
 body {
   color: var(--foreground);

@@ -54,24 +54,24 @@ const GAnalyticsGraph = ({ ga4Data }) => {
         plugins: {
             legend: {
                 labels: {
-                    color: 'var(--text-primary)', // Use CSS variable for primary text color
+                    color: 'var(--text-color)', // Use CSS variable for text color
                 },
             },
             title: {
                 display: true,
                 text: 'Google Analytics Data',
-                color: 'var(--text-primary)', // Use CSS variable for primary text color
+                color: 'var(--text-color)', // Use CSS variable for text color
             },
         },
         scales: {
             x: {
                 ticks: {
-                    color: 'var(--text-primary)', // Use CSS variable for primary text color
+                    color: 'var(--text-color)', // Use CSS variable for text color
                 },
             },
             y: {
                 ticks: {
-                    color: 'var(--text-primary)', // Use CSS variable for primary text color
+                    color: 'var(--text-color)', // Use CSS variable for text color
                 },
             },
         },
