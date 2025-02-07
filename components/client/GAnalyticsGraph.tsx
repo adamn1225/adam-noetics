@@ -1,15 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -50,34 +41,7 @@ const GAnalyticsGraph = ({ ga4Data }) => {
         ],
     };
 
-    const options = {
-        plugins: {
-            legend: {
-                labels: {
-                    color: 'var(--text-color)', // Use CSS variable for text color
-                },
-            },
-            title: {
-                display: true,
-                text: 'Google Analytics Data',
-                color: 'var(--text-color)', // Use CSS variable for text color
-            },
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: 'var(--text-color)', // Use CSS variable for text color
-                },
-            },
-            y: {
-                ticks: {
-                    color: 'var(--text-color)', // Use CSS variable for text color
-                },
-            },
-        },
-    };
-
-    return <Line data={data} options={options} />;
+    return <Line data={data} />;
 };
 
 export default GAnalyticsGraph;

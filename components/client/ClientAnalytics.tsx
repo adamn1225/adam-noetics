@@ -16,7 +16,7 @@ const ClientAnalytics = () => {
     const [showAhrefsKey, setShowAhrefsKey] = useState(false);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [activeTab, setActiveTab] = useState('table');
+    const [activeTab, setActiveTab] = useState('graph');
     const [searchQuery, setSearchQuery] = useState('');
     const rowsPerPage = 10;
 
