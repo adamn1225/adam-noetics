@@ -3,7 +3,19 @@ import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
-const GAnalyticsGraph = ({ ga4Data }) => {
+interface GA4Data {
+    rows: {
+        dimensionValues: { value: string }[];
+        metricValues: { value: string }[];
+    }[];
+    error?: string;
+}
+
+interface GAnalyticsGraphProps {
+    ga4Data: GA4Data | null;
+}
+
+const GAnalyticsGraph = ({ ga4Data }: GAnalyticsGraphProps) => {
     const data = ga4Data?.rows?.map(row => ({
         pagePath: row.dimensionValues[0]?.value || 'N/A',
         activeUsers: parseInt(row.metricValues[0]?.value || '0', 10),
