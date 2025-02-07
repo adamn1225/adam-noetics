@@ -112,7 +112,7 @@ const AdminAnalyticsPage = () => {
                 {message && <div className="mb-4 text-green-500">{message}</div>}
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold">Google Analytics</h2>
-                    <p className="text-gray-600 mb-4">To integrate to any of your analytic tools, enter your API Key below. Don't have any analytic tools or not sure where to find your API Key? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
+                    <p className="text-gray-600 mb-4">To integrate to any of your analytic tools, enter your API Key below. Don&apos;t have any analytic tools or not sure where to find your API Key? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
                     <form onSubmit={handleGoogleAnalyticsSubmit}>
                         <label htmlFor="googleAnalyticsKey" className="block text-sm font-semibold text-gray-700">
                             Google Analytics API Key

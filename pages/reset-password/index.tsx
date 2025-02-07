@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@lib/supabaseClient';
+import Link from 'next/link';
 
 const ResetPasswordPage = () => {
   const [email, setEmail] = useState('');
@@ -69,9 +70,9 @@ const ResetPasswordPage = () => {
         </form>
         <p className="text-sm text-gray-600 mt-4 text-center">
           Remember your password?{' '}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <Link href="/login" className="text-blue-600 hover:underline">
             Log In
-          </a>
+          </Link>
         </p>
       </div>
     </div>

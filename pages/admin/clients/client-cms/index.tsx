@@ -6,6 +6,7 @@ import AdminLayout from '../../AdminLayout';
 import AdminClientPost from '@components/AdminClientPost';
 import { v4 as uuidv4 } from 'uuid';
 import { Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
 
 interface Profile {
     id: string;
@@ -47,7 +48,12 @@ const AdminClientCMS = () => {
                     throw new Error('Failed to fetch profiles');
                 }
 
-                setProfiles(profilesData || []);
+                const formattedProfiles = profilesData.map((profile: any) => ({
+                    ...profile,
+                    cms_enabled: profile.cms_enabled ?? false, // Ensure cms_enabled is a boolean
+                }));
+
+                setProfiles(formattedProfiles);
             } catch (error) {
                 if (error instanceof Error) {
                     console.error(error.message);
@@ -64,7 +70,7 @@ const AdminClientCMS = () => {
 
     useEffect(() => {
         const fetchOrganizationMember = async () => {
-            if (!selectedProfile) return;
+            if (!selectedProfile || !selectedProfile.organization_id) return;
 
             const { data: organizationMemberData, error: organizationMemberError } = await supabase
                 .from('organization_members')
@@ -194,7 +200,7 @@ const AdminClientCMS = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Profile Image</label>
                                 {selectedProfile.profile_image ? (
-                                    <img src={selectedProfile.profile_image} alt="Profile" className="mt-2 h-32 w-32 object-cover" />
+                                    <Image src={selectedProfile.profile_image} alt="Profile" className="mt-2 h-32 w-32 object-cover" />
                                 ) : (
                                     <p className="mt-1 text-gray-900">No profile image</p>
                                 )}

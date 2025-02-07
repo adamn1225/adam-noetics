@@ -12,7 +12,7 @@ async function getGA4Data(userId: string) {
         .eq('user_id', userId)
         .single();
 
-    if (profileError || !profile) {
+    if (profileError || !profile || !profile.google_analytics_key) {
         throw new Error('Failed to fetch Google Analytics key');
     }
 

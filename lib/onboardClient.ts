@@ -1,4 +1,3 @@
-// filepath: /home/adam-noah/adam-noah/lib/onboardClient.ts
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
 
@@ -56,6 +55,8 @@ export const onboardNewClient = async (email: string, password: string, profileD
             const { error: profileError } = await supabase.from('profiles').insert([
                 {
                     ...profileData,
+                    email, // Ensure email is included
+                    name: profileData.name || '', // Ensure name is included
                     user_id: existingUser?.id, // Use the existing user id from auth.users
                 },
             ]);
@@ -77,6 +78,8 @@ export const onboardNewClient = async (email: string, password: string, profileD
     const { error: profileError } = await supabase.from('profiles').insert([
         {
             ...profileData,
+            email, // Ensure email is included
+            name: profileData.name || '', // Ensure name is included
             user_id: user?.id, // Use the generated user id from auth.users
         },
     ]);

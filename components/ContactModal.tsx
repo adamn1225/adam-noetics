@@ -14,7 +14,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, closeModal }) => {
         hostingProviderOther: '',
         setupEmail: '',
         platformTypeOther: '',
-        preferredTemplates: [],
+        preferredTemplates: [] as string[], // Set initial state to string[]
         customTemplate: '',
         customDomain: false,
         additionalNotes: '',

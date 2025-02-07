@@ -3,11 +3,13 @@ import { supabase } from "@lib/supabaseClient";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
-        if (req.query.slug) {
+        const { slug } = req.query;
+
+        if (typeof slug === 'string') {
             const { data, error } = await supabase
                 .from("blog_posts")
                 .select("*")
-                .eq("slug", req.query.slug)
+                .eq("slug", slug)
                 .single();
 
             if (error) return res.status(404).json({ error: "Post not found" });

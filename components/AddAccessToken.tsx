@@ -39,7 +39,7 @@ const AddAccessToken = () => {
     return (
         <form onSubmit={handleAddToken} className="space-y-4">
             <div>
-                <label htmlFor="platform" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="platform" className="block text-sm font-medium  text-gray-950 dark:text-primary">
                     Platform
                 </label>
                 <select
@@ -47,7 +47,7 @@ const AddAccessToken = () => {
                     name="platform"
                     value={formValues.platform}
                     onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                    className="mt-1 block text-gray-950 dark:text-primary w-full border border-gray-300 rounded-md shadow-sm p-2"
                     required
                 >
                     <option value="">Select Platform</option>
@@ -59,7 +59,7 @@ const AddAccessToken = () => {
                 </select>
             </div>
             <div>
-                <label htmlFor="access_token" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="access_token" className="block text-sm font-medium  text-gray-950 dark:text-primary">
                     Access Token
                 </label>
                 <input
@@ -68,13 +68,13 @@ const AddAccessToken = () => {
                     name="access_token"
                     value={formValues.access_token}
                     onChange={handleChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                    className="mt-1 block text-gray-950 dark:text-primary w-full border border-gray-300 rounded-md shadow-sm p-2"
                     required
                 />
             </div>
             <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-700"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600"
                 disabled={loading}
             >
                 {loading ? 'Adding...' : 'Add Access Token'}

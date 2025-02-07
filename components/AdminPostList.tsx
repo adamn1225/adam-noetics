@@ -8,7 +8,7 @@ interface Post {
     content: string;
     content_html?: string;
     status: string;
-    template: string;
+    template: 'basic' | 'minimal' | 'modern'; // Update the template type
     created_at?: string;
     scheduled_publish_date?: string;
     featured_image?: string;

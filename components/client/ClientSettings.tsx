@@ -67,19 +67,9 @@ const ClientSettings = () => {
         if (error) {
             console.error('Error updating CMS token:', error);
         }
-
-        // Update the profile in the admin view
-        const { error: profileError } = await supabase
-            .from('profiles')
-            .update({ cms_token: newToken })
-            .eq('user_id', user.id);
-
-        if (profileError) {
-            console.error('Error updating CMS token in profile:', profileError);
-        }
     };
 
-    const handleWebsiteUrlChange = async (e) => {
+    const handleWebsiteUrlChange = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!websiteUrl.startsWith('http://') && !websiteUrl.startsWith('https://')) {
             setError('URL must start with http:// or https://');
@@ -140,26 +130,20 @@ const ClientSettings = () => {
                     </div>
                     <div className="mt-4">
                         <label className="block text-lg font-semibold text-gray-800 dark:text-white">Website URL</label>
-                        <input
-                            type="text"
-                            value={websiteUrl}
-                            onChange={(e) => setWebsiteUrl(e.target.value)}
-                            className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                        />
-                        <button
-                            onClick={handleWebsiteUrlChange}
-                            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                        >
-                            Save Website URL
-                        </button>
-                    </div>
-                    {/* <div className="mt-4">
-                        <label className="block text-lg font-semibold text-gray-800 dark:text-white">User ID</label>
-                        <p className="mt-1 text-base text-gray-900 dark:text-white">{profile.user_id}</p>
-                    </div> */}
-                    <div className="mt-4">
-                        <label className="block text-lg font-semibold text-gray-800 dark:text-white">Website URL</label>
-                        <p className="mt-1 text-base text-gray-900 dark:text-white">{websiteUrl || 'No website URL'}</p>
+                        <form onSubmit={handleWebsiteUrlChange}>
+                            <input
+                                type="text"
+                                value={websiteUrl}
+                                onChange={(e) => setWebsiteUrl(e.target.value)}
+                                className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
+                            />
+                            <button
+                                type="submit"
+                                className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                            >
+                                Save Website URL
+                            </button>
+                        </form>
                     </div>
                 </div>
             )}

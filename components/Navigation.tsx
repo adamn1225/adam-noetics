@@ -5,6 +5,7 @@ import { Menu, X, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
 import nextlogo from '@public/next_noetics.png';
+import Link from 'next/link';
 
 interface NavigationProps {
   isFixed?: boolean;
@@ -28,7 +29,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
       <nav className="container mx-auto px-4 pb-2 flex justify-between items-center">
         {/* Logo */}
         <span className="flex items-center gap-4">
-          <a href="/">
+          <Link href="/">
             <Image
               src={nextlogo}
               alt="Noetics.io Logo"
@@ -36,7 +37,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
               height={175}
               className="rounded-full"
             />
-          </a>
+          </Link>
           <span className="md:hidden flex justify-end w-full mx-8 items-start gap-4">
             <DarkModeToggle />
           </span>
@@ -56,22 +57,22 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             <DarkModeToggle />
           </li>
           <li>
-            <a href="#services" className="hover:underline dark:text-white">
+            <Link href="#services" className="hover:underline dark:text-white">
               Services
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#portfolio" className="hover:underline dark:text-white">
+            <Link href="#portfolio" className="hover:underline dark:text-white">
               Portfolio
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#about" className="hover:underline dark:text-white">
+            <Link href="#about" className="hover:underline dark:text-white">
               About
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/login"
               className="onboardbutton bg-red-500 py-3 px-6 rounded-full"
               onClick={toggleMenu}
@@ -80,7 +81,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
               <div className="arrow-wrapper">
                 <div className="arrow"></div>
               </div>
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -88,34 +89,34 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
         {isMenuOpen && (
           <ul className="absolute top-14 left-0 w-full bg-white dark:bg-zinc-900 shadow-md flex flex-col items-center gap-4 py-4 sm:hidden">
             <li>
-              <a
+              <Link
                 href="#about"
                 className="hover:underline text-zinc-800 dark:text-white"
                 onClick={toggleMenu}
               >
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="#services"
                 className="hover:underline text-zinc-800 dark:text-white"
                 onClick={toggleMenu}
               >
                 Services
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="#portfolio"
                 className="hover:underline text-zinc-800 dark:text-white"
                 onClick={toggleMenu}
               >
                 Portfolio
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/login/"
                 className="onboardbutton py-2 px-4 rounded-full"
                 onClick={toggleMenu}
@@ -124,7 +125,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
                 <div className="arrow-wrapper">
                   <div className="arrow"></div>
                 </div>
-              </a>
+              </Link>
             </li>
           </ul>
         )}

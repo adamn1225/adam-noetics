@@ -189,3 +189,23 @@ a.active::after {
 .rbc-btn-group {
   @apply dark:text-foreground !important;
 }
+
+.rbc-btn-group>button {
+  @apply text-gray-900 dark:text-foreground !important;
+  @apply text-gray-900 !important;
+}
+
+.rbc-row-bg>.rbc-off-range-bg {
+  @apply bg-gray-300 !important;
+  @apply dark:bg-zinc-950 !important;
+}
+
+.rbc-row-bg>.rbc-today {
+  @apply bg-blue-100 !important;
+  @apply dark:bg-gray-500 !important;
+}
+
+.rbc-day-bg {
+  @apply dark:bg-gray-800 !important;
+  background-color: white !important;
+}

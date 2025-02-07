@@ -1,5 +1,6 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import Image from 'next/image';
 
 interface FormValues {
     title: string;
@@ -148,7 +149,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                     className="mt-1 block w-full border text-gray-300 border-gray-300 rounded-md shadow-sm p-2"
                 />
                 {formValues.featured_image && (
-                    <img src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
+                    <Image src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
                 )}
             </div>
             <button

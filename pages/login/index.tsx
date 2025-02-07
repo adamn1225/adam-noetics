@@ -251,7 +251,7 @@ const LoginPage = () => {
           </button>
           {!isVerified && (
             <div className="mt-4 text-center">
-              <p className="text-sm text-zinc-600 dark:text-zinc-50">Didn't receive the verification email?</p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-50">Didn&quot;t receive the verification email?</p>
               <button
                 type="button"
                 onClick={handleResendVerification}

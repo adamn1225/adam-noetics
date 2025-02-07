@@ -1,9 +1,49 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import Image from 'next/image';
 import placeholderAvatar from '@public/placeholder-avatar.png'; // Import the placeholder image
+
+const fetchProfileData = async () => {
+    const { data: authData, error: authError } = await supabase.auth.getUser();
+    if (authError) {
+        throw authError;
+    }
+
+    const userId = authData?.user?.id;
+    if (!userId) {
+        throw new Error('User ID not found');
+    }
+
+    const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+    if (profileError) {
+        throw profileError;
+    }
+
+    const organizationId = profileData.organization_id;
+
+    if (!organizationId) {
+        throw new Error('Organization ID not found');
+    }
+
+    const { data: members, error: membersError } = await supabase
+        .from('organization_members')
+        .select('profiles(email, name)')
+        .eq('organization_id', organizationId);
+
+    if (membersError) throw membersError;
+
+    return {
+        profile: profileData,
+        teamMembers: members.map((member: any) => member.profiles),
+    };
+};
 
 const ClientProfile = () => {
     const [profile, setProfile] = useState<any>(null);
@@ -15,40 +55,10 @@ const ClientProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                // Get the current user
-                const { data: authData, error: authError } = await supabase.auth.getUser();
-                if (authError) {
-                    throw authError;
-                }
-
-                const userId = authData?.user?.id;
-                if (!userId) {
-                    throw new Error('User ID not found');
-                }
-
-                // Fetch user profile
-                const { data: profileData, error: profileError } = await supabase
-                    .from('profiles')
-                    .select('*')
-                    .eq('user_id', userId)
-                    .single();
-
-                if (profileError) {
-                    throw profileError;
-                }
-
-                setProfile(profileData);
-                setAvatarUrl(profileData?.profile_image || null);
-
-                // Fetch team members
-                const { data: members, error: membersError } = await supabase
-                    .from('organization_members')
-                    .select('profiles(email, name)')
-                    .eq('organization_id', profileData.organization_id);
-
-                if (membersError) throw membersError;
-
-                setTeamMembers(members.map((member: any) => member.profiles));
+                const data = await fetchProfileData();
+                setProfile(data.profile);
+                setAvatarUrl(data.profile.profile_image || null);
+                setTeamMembers(data.teamMembers);
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -60,6 +70,8 @@ const ClientProfile = () => {
     }, []);
 
     const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault(); // Prevent default form submission behavior
+
         if (!event.target.files || event.target.files.length === 0) {
             return;
         }
@@ -102,6 +114,10 @@ const ClientProfile = () => {
             }
 
             setAvatarUrl(publicUrl);
+            setProfile((prevProfile: any) => ({
+                ...prevProfile,
+                profile_image: publicUrl,
+            }));
         } catch (error: any) {
             setError(error.message);
         } finally {

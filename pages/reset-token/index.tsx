@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@lib/supabaseClient';
+import Link from 'next/link';
 
 const ResetPasswordTokenPage = () => {
     const router = useRouter();
@@ -93,9 +94,9 @@ const ResetPasswordTokenPage = () => {
                 </form>
                 <p className="text-sm text-gray-600 mt-4 text-center">
                     Remember your password?{' '}
-                    <a href="/login" className="text-blue-600 hover:underline">
+                    <Link href="/login" className="text-blue-600 hover:underline">
                         Log In
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

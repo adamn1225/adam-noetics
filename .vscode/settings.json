@@ -1,0 +1,14 @@
+{
+    "workbench.editor.wrapTabs": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "[html]": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true
+    },
+    "html.format.extraLiners": "",
+    "outputCapture": "std",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.suggest.showIssues": true,
+}

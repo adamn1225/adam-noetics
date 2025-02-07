@@ -181,6 +181,10 @@ const ClientDashboard = () => {
 
             const organizationId = profileData.organization_id;
 
+            if (!organizationId) {
+                throw new Error('Organization ID not found');
+            }
+
             const { data: orgData, error: orgError } = await supabase
                 .from('organizations')
                 .select('name')

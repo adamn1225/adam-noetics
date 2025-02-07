@@ -22,14 +22,19 @@ const AdminClientsPage = () => {
                 // Fetch clients
                 const { data: clientsData, error: clientsError } = await supabase
                     .from('profiles')
-                    .select('*')
+                    .select('*, organization_members (cms_token)')
                     .eq('role', 'client');
 
                 if (clientsError) {
                     throw clientsError;
                 }
 
-                setClients(clientsData || []);
+                const clientsWithToken = clientsData.map((client: any) => ({
+                    ...client,
+                    cms_token: client.organization_members?.cms_token || null,
+                }));
+
+                setClients(clientsWithToken || []);
 
                 // Fetch organizations
                 const { data: organizationsData, error: organizationsError } = await supabase

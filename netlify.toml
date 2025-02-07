@@ -2,10 +2,7 @@
   command = "npm run build"
   functions = "netlify/functions"
   publish = ".next"
-
-[functions]
-  directory = "netlify/functions"
-
+  
 # Schedule the function to run every hour
 [functions.scheduledPost]
   schedule = "@hourly"

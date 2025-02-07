@@ -1,5 +1,6 @@
 import React from 'react';
 import LandingNavigation from '@components/LandingNavigation';
+
 const PrivacyPolicyPage = () => {
     return (
         <>
@@ -8,7 +9,7 @@ const PrivacyPolicyPage = () => {
                 <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
                 <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">Last Updated: 01-24-2025</p>
                 <p className="mb-4">
-                    Welcome to noetics.io ("we," "our," or "us"). We respect your privacy and are committed to protecting any information you provide when using our application.
+                    Welcome to noetics.io (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We respect your privacy and are committed to protecting any information you provide when using our application.
                 </p>
                 <h2 className="text-xl font-semibold mb-2">1. Information We Collect</h2>
                 <p className="mb-4">

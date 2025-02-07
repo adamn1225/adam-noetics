@@ -24,6 +24,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                 <meta name="description" content="Noetic Software and Web Key Solutions" />
                 <link rel="canonical" href="https://noetics.io" />
                 <title>Noetics Web Creations</title>
+                </Head>
                 <Script
                     src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
                     strategy="afterInteractive"
@@ -36,7 +37,6 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                     gtag('config', 'G-S9Q4511QJC');
                 `}
                 </Script>
-            </Head>
             <div className={" bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-white " + quantico.className}>
                 <header className={"bg-white dark:bg-zinc-500 z-50 pt-2 fixed top-0 left-0 w-full dark:border-0 dark:border-zinc-700 " + quantico.className}>
                     <Navigation fontClass={quantico.className} />

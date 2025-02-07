@@ -123,9 +123,11 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
             const { error: fileError } = await supabase.from('files').insert([
                 {
                     file_id: fileName,
+                    file_name: fileName,
+                    file_url: `public/${fileName}`,
                     user_id: user.user.id,
                     organization_id: profileData.organization_id,
-                    description: 'Onboarding Form',
+                    file_description: 'Onboarding Form',
                     category: 'onboarding',
                 },
             ]);
@@ -141,6 +143,7 @@ const OnboardingForm: React.FC<OnboardingFormProps> = ({ onComplete }) => {
             setIsSubmitting(false);
         }
     };
+
 
     return (
         <>

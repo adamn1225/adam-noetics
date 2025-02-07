@@ -14,11 +14,11 @@ const withAdminAuth = (Component: React.ComponentType) => {
         useEffect(() => {
             const checkAdminRole = async () => {
                 const { data: user } = await supabase.auth.getUser();
-                if (user) {
+                if (user && user.user && user.user.id) {
                     const { data: profile } = await supabase
                         .from('profiles')
                         .select('role')
-                        .eq('id', user?.user?.id)
+                        .eq('id', user.user.id)
                         .single();
 
                     if (profile?.role === 'admin') {

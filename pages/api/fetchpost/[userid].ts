@@ -6,12 +6,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "GET") {
         const { userId, template } = req.query;
 
-        if (!userId) {
-            return res.status(400).json({ error: "Missing userId parameter" });
+        if (!userId || Array.isArray(userId)) {
+            return res.status(400).json({ error: "Invalid or missing userId parameter" });
         }
 
-        if (!template) {
-            return res.status(400).json({ error: "Missing template parameter" });
+        if (!template || Array.isArray(template)) {
+            return res.status(400).json({ error: "Invalid or missing template parameter" });
         }
 
         // Fetch the client's URL from the organization_members table
@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             .eq("user_id", userId)
             .single();
 
-        if (clientError) {
+        if (clientError || !clientData || !clientData.website_url) {
             console.error("Error fetching client URL:", clientError);
             return res.status(404).json({ error: "Client URL not found" });
         }

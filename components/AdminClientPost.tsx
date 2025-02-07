@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import ContactModal from '@components/ContactModal';
 import AdminCmsForm from './AdminCmsForm';
@@ -55,18 +55,18 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const [previewHtml, setPreviewHtml] = useState<string | null>(null);
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-
-    const fetchPosts = async () => {
+    const fetchPosts = useCallback(async () => {
         const { data, error } = await supabase.from('blog_posts').select('*').eq('user_id', userId);
         if (error) {
             console.error('Error fetching posts:', error);
         } else {
             setPosts(data);
         }
-    };
+    }, [userId]);
+
+    useEffect(() => {
+        fetchPosts();
+    }, [fetchPosts]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -80,7 +80,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
 
         const { error } = editingPost
             ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id)
-            : await supabase.from('blog_posts').insert([{ ...updatedFormValues, created_at: new Date() }]);
+            : await supabase.from('blog_posts').insert([{ ...updatedFormValues, created_at: new Date().toISOString() }]);
 
         if (error) {
             console.error('Error saving post:', error);
@@ -121,7 +121,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
     };
 
     const handleDelete = async (id: number) => {
-        const { error } = await supabase.from('blog_posts').delete().eq('id', id);
+        const { error } = await supabase.from('blog_posts').delete().eq('id', id.toString());
         if (error) {
             console.error('Error deleting post:', error);
         } else {
@@ -198,7 +198,6 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
         }
     };
 
-
     return (
         <>
             <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-lg shadow-md relative">
@@ -223,7 +222,7 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
                     Show Preview
                 </button>
 
-                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)} htmlContent={previewHtml}>
+                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)} htmlContent={previewHtml || undefined}>
                     {previewHtml ? (
                         <div className="preview-container">
                             <h2>Live Preview</h2>

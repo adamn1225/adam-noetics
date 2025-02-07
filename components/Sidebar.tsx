@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useTransition } from 'react';
-import { Home, Folder, ClipboardList, BarChart, User, LogOut, Settings, Moon, Sun, Calendar, MonitorCog } from 'lucide-react';
+import { Home, Folder, ClipboardList, BarChart, User, LogOut, Settings, Calendar, MonitorCog } from 'lucide-react';
 import { supabase } from '@lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -20,14 +20,19 @@ const navItems = [
   { name: 'Profile', href: '/dashboard/profile', icon: User },
 ];
 
+interface Profile {
+  user_id: string;
+  profile_image?: string;
+  name?: string;
+}
+
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const currentPath = usePathname();
-
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -88,7 +93,12 @@ const Sidebar = () => {
         }
       }
 
-      setProfile(profile);
+      // Ensure user_id is a string
+      if (profile.user_id) {
+        setProfile(profile as Profile);
+      } else {
+        console.error('Invalid user_id');
+      }
     };
 
     fetchUserProfile();
@@ -124,7 +134,6 @@ const Sidebar = () => {
         />
       </div>
       <div className="flex items-center justify-between p-4">
-
         <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>
           Dashboard
         </h2>
@@ -166,24 +175,19 @@ const Sidebar = () => {
         <ul>
           {navItems.map((item) => (
             <li key={item.name} className="mb-2">
-              <Link href={item.href} passHref legacyBehavior>
-                <a className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 text-sm font-medium hover:bg-gray-700 rounded ${currentPath === item.href ? 'active' : ''}`}>
-                  <item.icon className="md:mr-2" />
-                  <span className={`text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
-                </a>
+              <Link href={item.href} passHref className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 text-sm font-medium hover:bg-gray-700 rounded ${currentPath === item.href ? 'active' : ''}`}>
+                <item.icon className="md:mr-2" />
+                <span className={`text-base ${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
               </Link>
             </li>
           ))}
         </ul>
         <div className="mb-32">
           <ul className={`flex flex-col gap-1 ${isCollapsed ? 'items-center' : 'items-start ml-2'}`}>
-
             <li className="mb-2">
-              <Link href="/dashboard/settings" passHref legacyBehavior>
-                <a className={`flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded ${currentPath === '/dashboard/settings' ? 'active' : ''}`}>
-                  <Settings className="mr-2" />
-                  <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Settings</span>
-                </a>
+              <Link href="/dashboard/settings" passHref className={`flex items-center${isCollapsed ? 'justify-center' : 'justify-normal'}  p-2 text-base font-medium hover:bg-gray-700 rounded ${currentPath === '/dashboard/settings' ? 'active' : ''}`}>
+                <Settings className="mr-2" />
+                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Settings</span>
               </Link>
             </li>
             <li className="mb-2">

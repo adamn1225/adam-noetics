@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import { Database } from '@lib/database.types';
@@ -81,7 +83,7 @@ const AdminTasksPage = () => {
 
     useEffect(() => {
         const fetchTasks = async () => {
-            if (!selectedClient) return;
+            if (!selectedClient || !selectedClient.user_id) return;
 
             try {
                 // Fetch tasks for the selected client
@@ -142,48 +144,50 @@ const AdminTasksPage = () => {
         if (!selectedClient || newTaskTitle.trim() === '') return;
 
         // Check if the user is part of the organization
-        const { data: memberData, error: memberError } = await supabase
-            .from('organization_members')
-            .select('*')
-            .eq('user_id', selectedClient.user_id)
-            .eq('organization_id', selectedOrganization?.id);
+        if (selectedClient.user_id && selectedOrganization?.id) {
+            const { data: memberData, error: memberError } = await supabase
+                .from('organization_members')
+                .select('*')
+                .eq('user_id', selectedClient.user_id)
+                .eq('organization_id', selectedOrganization.id);
 
-        if (memberError || memberData.length === 0) {
-            console.error('User is not part of the organization');
-            return;
-        }
+            if (memberError || memberData.length === 0) {
+                console.error('User is not part of the organization');
+                return;
+            }
 
-        const { data, error } = await supabase.from('tasks').insert([
-            {
-                title: newTaskTitle,
-                description: newTaskDescription,
-                status: newTaskStatus,
-                due_date: newTaskDueDate,
-                user_id: selectedClient.user_id, // Ensure correct reference
-                is_request: false, // Admin added tasks are not requests
-                task_type: 'developer', // Admin added tasks are for developers
-            },
-        ]);
+            const { data, error } = await supabase.from('tasks').insert([
+                {
+                    title: newTaskTitle,
+                    description: newTaskDescription,
+                    status: newTaskStatus,
+                    due_date: newTaskDueDate,
+                    user_id: selectedClient.user_id, // Ensure correct reference
+                    is_request: false, // Admin added tasks are not requests
+                    task_type: 'developer', // Admin added tasks are for developers
+                },
+            ]);
 
-        if (!error) {
-            setTasks((prev) => [...prev, ...(data || [])]);
-            setNewTaskTitle('');
-            setNewTaskDescription('');
-            setNewTaskStatus('Pending');
-            setNewTaskDueDate('');
-        } else {
-            console.error('Error adding task:', error.message);
-        }
-    };
-
-    const handleDeleteTask = async (taskId: string) => {
-        const { error } = await supabase.from('tasks').delete().eq('id', taskId);
-        if (!error) {
-            setTasks((prev) => prev.filter(task => task.id !== Number(taskId)));
-        } else {
-            console.error('Error deleting task:', error.message);
+            if (!error) {
+                setTasks((prev) => [...prev, ...(data || [])]);
+                setNewTaskTitle('');
+                setNewTaskDescription('');
+                setNewTaskStatus('Pending');
+                setNewTaskDueDate('');
+            } else {
+                console.error('Error adding task:', error.message);
+            }
         }
     };
+
+const handleDeleteTask = async (taskId: string) => {
+    const { error } = await supabase.from('tasks').delete().eq('id', Number(taskId));
+    if (!error) {
+        setTasks((prev) => prev.filter(task => task.id !== Number(taskId)));
+    } else {
+        console.error('Error deleting task:', error.message);
+    }
+};
 
     const handleUpdateTask = async (taskId: string) => {
         setEditingTaskId(taskId);
@@ -197,32 +201,32 @@ const AdminTasksPage = () => {
         }
     };
 
-    const handleSaveTask = async (taskId: string) => {
-        const { error } = await supabase.from('tasks').update({
-            title: editingTaskTitle,
-            description: editingTaskDescription,
-            status: editingTaskStatus,
-            due_date: editingTaskDueDate,
-            notes: editingTaskNotes,
-        }).eq('id', taskId);
-        if (!error) {
-            setTasks((prev) =>
-                prev.map((task) =>
-                    task.id === Number(taskId) ? {
-                        ...task,
-                        title: editingTaskTitle,
-                        description: editingTaskDescription,
-                        status: editingTaskStatus,
-                        due_date: editingTaskDueDate,
-                        notes: editingTaskNotes,
-                    } : task
-                )
-            );
-            setEditingTaskId(null);
-        } else {
-            console.error('Error updating task:', error.message);
-        }
-    };
+const handleSaveTask = async (taskId: string) => {
+    const { error } = await supabase.from('tasks').update({
+        title: editingTaskTitle,
+        description: editingTaskDescription,
+        status: editingTaskStatus,
+        due_date: editingTaskDueDate,
+        notes: editingTaskNotes,
+    }).eq('id', Number(taskId));
+    if (!error) {
+        setTasks((prev) =>
+            prev.map((task) =>
+                task.id === Number(taskId) ? {
+                    ...task,
+                    title: editingTaskTitle,
+                    description: editingTaskDescription,
+                    status: editingTaskStatus,
+                    due_date: editingTaskDueDate,
+                    notes: editingTaskNotes,
+                } : task
+            )
+        );
+        setEditingTaskId(null);
+    } else {
+        console.error('Error updating task:', error.message);
+    }
+};
 
     if (loading) {
         return <p>Loading...</p>;
@@ -342,6 +346,17 @@ const AdminTasksPage = () => {
                                             />
                                         ) : (
                                             task.title
+                                        )}
+                                    </td>
+                                    <td className="py-2 px-4 text-center">
+                                        {editingTaskId === task.id.toString() ? (
+                                            <textarea
+                                                value={editingTaskDescription}
+                                                onChange={(e) => setEditingTaskDescription(e.target.value)}
+                                                className="p-2 border border-gray-300 rounded mr-2"
+                                            />
+                                        ) : (
+                                            task.description
                                         )}
                                     </td>
                                     <td className="py-2 px-4 text-center">

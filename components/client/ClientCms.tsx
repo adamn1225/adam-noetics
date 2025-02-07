@@ -77,7 +77,7 @@ const ClientCms = () => {
                 return;
             }
 
-            setOptedIn(profile.cms_enabled);
+            setOptedIn(profile.cms_enabled ?? false); // Ensure cms_enabled is a boolean
         };
 
         checkOptInStatus();
@@ -103,7 +103,7 @@ const ClientCms = () => {
 
         const { error } = editingPost
             ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id)
-            : await supabase.from('blog_posts').insert([{ ...updatedFormValues, created_at: new Date() }]);
+            : await supabase.from('blog_posts').insert([{ ...updatedFormValues, created_at: new Date().toISOString() }]);
 
         if (error) {
             console.error('Error saving post:', error);
@@ -143,7 +143,7 @@ const ClientCms = () => {
     };
 
     const handleDelete = async (id: number) => {
-        const { error } = await supabase.from('blog_posts').delete().eq('id', id);
+        const { error } = await supabase.from('blog_posts').delete().eq('id', id.toString());
         if (error) {
             console.error('Error deleting post:', error);
         } else {
@@ -271,7 +271,7 @@ const ClientCms = () => {
                     Show Preview
                 </button>
 
-                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml}>
+                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml ?? undefined}>
                     {previewHtml ? (
                         <div className="preview-container">
                             <h2>Live Preview</h2>

@@ -7,11 +7,11 @@ interface TemplateLoaderProps {
     title: string;
     content: string;
     content_html?: string;
-    template: string;
+    template: 'basic' | 'minimal' | 'modern';
     featured_image?: string;
 }
 
-const templates = {
+const templates: Record<TemplateLoaderProps['template'], React.FC<any>> = {
     basic: Basic,
     minimal: Minimal,
     modern: Modern,

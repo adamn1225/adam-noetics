@@ -37,11 +37,17 @@ const ClientFiles = () => {
                     throw profileError;
                 }
 
+                const organizationId = profileData.organization_id;
+
+                if (!organizationId) {
+                    throw new Error('Organization ID not found');
+                }
+
                 // Fetch files for the organization
                 const { data: filesData, error: filesError } = await supabase
                     .from('files')
                     .select('*')
-                    .eq('organization_id', profileData.organization_id);
+                    .eq('organization_id', organizationId);
 
                 if (filesError) {
                     throw new Error('Failed to fetch files');
@@ -100,6 +106,12 @@ const ClientFiles = () => {
                 throw profileError;
             }
 
+            const organizationId = profileData.organization_id;
+
+            if (!organizationId) {
+                throw new Error('Organization ID not found');
+            }
+
             for (const file of filesArray) {
                 const fileId = uuidv4(); // Generate a UUID for the file_id
                 console.log(`Uploading file: ${file.name} with fileId: ${fileId}`);
@@ -122,7 +134,7 @@ const ClientFiles = () => {
                 const { error: insertError } = await supabase.from('files').insert([
                     {
                         user_id: user.user.id,
-                        organization_id: profileData.organization_id,
+                        organization_id: organizationId,
                         file_name: file.name,
                         file_id: fileId,
                         file_url: fileUrl,
@@ -152,7 +164,7 @@ const ClientFiles = () => {
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
-                .eq('organization_id', profileData.organization_id);
+                .eq('organization_id', organizationId);
 
             if (filesError) {
                 throw new Error('Failed to fetch files');
@@ -207,10 +219,16 @@ const ClientFiles = () => {
                 throw profileError;
             }
 
+            const organizationId = profileData.organization_id;
+
+            if (!organizationId) {
+                throw new Error('Organization ID not found');
+            }
+
             const { data: filesData, error: filesError } = await supabase
                 .from('files')
                 .select('*')
-                .eq('organization_id', profileData.organization_id);
+                .eq('organization_id', organizationId);
 
             if (filesError) {
                 throw new Error('Failed to fetch files');
@@ -241,6 +259,7 @@ const ClientFiles = () => {
     };
 
     const filteredFiles = files.filter(file => category === 'all' || file.category === category);
+
 
     return (
         <>

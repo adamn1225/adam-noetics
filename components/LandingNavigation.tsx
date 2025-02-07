@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, MoreHorizontal, LayoutGrid } from "lucide-react";
 import DarkModeToggle from "@components/DarkModeToggle";
 import Image from 'next/image';
+import Link from 'next/link';
 import nextlogo from '@public/next_noetics.png';
 import deadLogo from '@public/dead_generics-logo.png';
 import { Quantico } from "next/font/google";
@@ -31,7 +32,7 @@ const LandingNavigation = () => {
             <nav className={"container mx-auto px-4 pb-2 flex text-gray-800 justify-between items-center " + quantico.className}>
                 {/* Logo */}
                 <div className="flex items-center gap-4">
-                    <a href="/">
+                    <Link href="/">
                         <Image
                             src={nextlogo}
                             alt="Noetics.io Logo"
@@ -39,7 +40,7 @@ const LandingNavigation = () => {
                             height={175}
                             className="rounded-full"
                         />
-                    </a>
+                    </Link>
                 </div>
                 <div className={"flex items-center"}>
                     <span className="flex justify-end w-full mx-8 items-start gap-4">
@@ -58,16 +59,16 @@ const LandingNavigation = () => {
                     {/* Desktop Navigation */}
                     <ul className={"hidden sm:flex items-center gap-6"}>
                         <li>
-                            <a
+                            <Link
                                 href="#cta"
                                 className={"text-base hover:underline text-nowrap underline-offset-4 text-gray-950 dark:text-white hover- underline font-extrabold " + quantico.className}
                                 onClick={toggleMenu}
                             >
                                 Learn More
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
+                            <Link
                                 href="/login"
                                 className="onboardbutton py-3 px-6 rounded-full"
                                 onClick={toggleMenu}
@@ -76,7 +77,7 @@ const LandingNavigation = () => {
                                 <div className="arrow-wrapper">
                                     <div className="arrow"></div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +87,7 @@ const LandingNavigation = () => {
                     <ul className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-4 py-4 sm:hidden">
 
                         <li>
-                            <a
+                            <Link
                                 href="/login"
                                 className="onboardbutton py-3 px-6 rounded-full"
                                 onClick={toggleMenu}
@@ -95,7 +96,7 @@ const LandingNavigation = () => {
                                 <div className="arrow-wrapper">
                                     <div className="arrow"></div>
                                 </div>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 )}

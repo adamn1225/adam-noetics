@@ -5,7 +5,7 @@ interface PreviewProps {
     title: string;
     content: string;
     content_html?: string;
-    template: string;
+    template: 'basic' | 'minimal' | 'modern';
     featured_image?: string;
 }
 

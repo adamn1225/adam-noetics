@@ -18,7 +18,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 return res.status(200).json({ message: 'Netlify build triggered successfully' });
             } catch (error) {
-                return res.status(500).json({ error: error.message });
+                if (error instanceof Error) {
+                    return res.status(500).json({ error: error.message });
+                } else {
+                    return res.status(500).json({ error: 'An unknown error occurred' });
+                }
             }
         }
 
