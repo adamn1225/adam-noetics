@@ -39,7 +39,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label htmlFor="title" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                <label htmlFor="title" className="block text-sm font-semibold text-gray-950 dark:text-primary">
                     Title
                 </label>
                 <input
@@ -53,7 +53,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                 />
             </div>
             <div>
-                <label htmlFor="slug" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                <label htmlFor="slug" className="block text-sm font-semibold text-gray-950 dark:text-primary">
                     Slug
                 </label>
                 <input
@@ -66,7 +66,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                 />
             </div>
             <div>
-                <label htmlFor="content" className="block text-sm font-semibold mb-1 text-gray-700 dark:text-white">
+                <label htmlFor="content" className="block text-sm font-semibold mb-1 text-gray-950 dark:text-primary">
                     Content
                 </label>
                 <div className="border border-gray-300 text-zinc-900 rounded-md shadow-sm p-2">
@@ -91,7 +91,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                 </div>
             </div>
             <div>
-                <label htmlFor="status" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                <label htmlFor="status" className="block text-sm font-semibold text-gray-950 dark:text-primary">
                     Status
                 </label>
                 <select
@@ -107,7 +107,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                 </select>
             </div>
             <div>
-                <label htmlFor="template" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                <label htmlFor="template" className="block text-sm font-semibold text-gray-950 dark:text-primary">
                     Template
                 </label>
                 <select
@@ -125,7 +125,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                 </select>
             </div>
             <div>
-                <label htmlFor="scheduled_publish_date" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                <label htmlFor="scheduled_publish_date" className="block text-sm font-semibold text-gray-950 dark:text-primary">
                     Scheduled Publish Date
                 </label>
                 <input
@@ -138,7 +138,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                 />
             </div>
             <div>
-                <label htmlFor="featured_image" className="block text-sm font-semibold text-gray-700 dark:text-white">
+                <label htmlFor="featured_image" className="block text-sm font-semibold text-gray-950 dark:text-primary">
                     Featured Image
                 </label>
                 <input

@@ -249,8 +249,8 @@ const ClientCms = () => {
 
     return (
         <>
-            <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 dark:text-white rounded-lg shadow-md relative">
-                <h2 className="text-2xl font-semibold mb-4">CMS Dashboard</h2>
+            <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
+                <h2 className="text-2xl text-gray-950 dark:text-primary font-semibold mb-4">CMS Dashboard</h2>
                 <CmsForm
                     formValues={formValues}
                     setFormValues={setFormValues}

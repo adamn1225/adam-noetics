@@ -4,6 +4,7 @@ import ServicesSection from "@components/ServicesSection";
 import PortfolioSection from "@components/PortfolioSection";
 import CallToActionSection from "@components/CallToActionSection";
 import RootLayout from './layout';
+import AboutNoeticsDash from "@components/AboutNoeticsDash";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <div className="space-y-20">
         <HeroSection />
         <ServicesSection />
+        <AboutNoeticsDash />
         <AboutSection />
         <PortfolioSection />
         <CallToActionSection

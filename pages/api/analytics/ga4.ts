@@ -15,7 +15,7 @@ const auth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
 });
 
-async function getGA4Data(userId: string) {
+async function getGA4Data(userId: string, startDate: string, endDate: string) {
     // Fetch the user's Google Analytics property ID from the database
     const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -40,9 +40,19 @@ async function getGA4Data(userId: string) {
     const response = await analytics.properties.runReport({
         property: `properties/${googleAnalyticsPropertyId}`, // Use the user's property ID to specify the property
         requestBody: {
-            dimensions: [{ name: 'pagePath' }],
-            metrics: [{ name: 'activeUsers' }],
-            dateRanges: [{ startDate: '2023-01-01', endDate: '2025-01-31' }],
+            dimensions: [
+                { name: 'pagePath' },
+                { name: 'sessionSourceMedium' },
+                { name: 'country' },
+                { name: 'deviceCategory' }
+            ],
+            metrics: [
+                { name: 'screenPageViews' },
+                { name: 'eventCount' },
+                { name: 'engagementRate' },
+                { name: 'conversions' }
+            ],
+            dateRanges: [{ startDate, endDate }],
         },
     });
 
@@ -54,9 +64,11 @@ async function getGA4Data(userId: string) {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         const userId = req.query.userId as string;
+        const startDate = req.query.startDate as string;
+        const endDate = req.query.endDate as string;
 
         try {
-            const data = await getGA4Data(userId);
+            const data = await getGA4Data(userId, startDate, endDate);
             res.status(200).json(data);
         } catch (error: any) {
             console.error('Error fetching GA4 data:', error);
