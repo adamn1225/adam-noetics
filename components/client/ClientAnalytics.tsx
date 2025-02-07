@@ -3,17 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@lib/supabaseClient';
+import GAnalytics from './GAnalytics';
+import GAnalyticsGraph from './GAnalyticsGraph';
 
 const ClientAnalytics = () => {
-    const [googleAnalyticsKey, setGoogleAnalyticsKey] = useState('');
+    const [googleAnalyticsPropertyId, setGoogleAnalyticsPropertyId] = useState('');
     const [semrushKey, setSemrushKey] = useState('');
     const [ahrefsKey, setAhrefsKey] = useState('');
     const [message, setMessage] = useState('');
-    const [showGoogleAnalyticsKey, setShowGoogleAnalyticsKey] = useState(false);
+    const [showGoogleAnalyticsPropertyId, setShowGoogleAnalyticsPropertyId] = useState(false);
     const [showSemrushKey, setShowSemrushKey] = useState(false);
     const [showAhrefsKey, setShowAhrefsKey] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [activeTab, setActiveTab] = useState('table');
+    const [searchQuery, setSearchQuery] = useState('');
+    const rowsPerPage = 10;
+
     interface GA4Data {
         error?: string;
+        rows?: any[];
         [key: string]: any;
     }
 
@@ -30,7 +39,7 @@ const ClientAnalytics = () => {
                     .single();
 
                 if (profile) {
-                    setGoogleAnalyticsKey(profile.google_analytics_key || '');
+                    setGoogleAnalyticsPropertyId(profile.google_analytics_key || '');
                     setSemrushKey(profile.semrush_key || '');
                     setAhrefsKey(profile.ahrefs_key || '');
                 }
@@ -50,11 +59,11 @@ const ClientAnalytics = () => {
         if (user) {
             const { error } = await supabase
                 .from('profiles')
-                .update({ google_analytics_key: googleAnalyticsKey })
+                .update({ google_analytics_key: googleAnalyticsPropertyId })
                 .eq('user_id', user.id);
 
             if (error) {
-                console.error('Error updating Google Analytics key:', error);
+                console.error('Error updating Google Analytics property ID:', error);
                 setMessage('Failed to integrate Google Analytics.');
             } else {
                 setMessage('Google Analytics integrated successfully!');
@@ -99,46 +108,59 @@ const ClientAnalytics = () => {
     };
 
     const fetchGA4Data = async () => {
+        setLoading(true);
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
             const response = await fetch(`/api/analytics/ga4?userId=${user.id}`);
             const data = await response.json();
             setGa4Data(data);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
         fetchGA4Data();
     }, []);
 
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const indexOfLastRow = currentPage * rowsPerPage;
+    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+    const filteredRows = ga4Data?.rows?.filter(row => 
+        row.dimensionValues[0]?.value.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
+    const currentRows = filteredRows.slice(indexOfFirstRow, indexOfLastRow);
+
     return (
         <>
-            <div className="p-8">
+            <div className="p-8  text-gray-950 dark:text-gray-200">
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">Analytics Integration</h1>
                 {message && <div className="mb-4 text-green-500">{message}</div>}
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold dark:text-gray-100">Google Analytics</h2>
-                    <p className="text-gray-600 mb-4 dark:text-gray-200">To integrate to any of your analytic tools, enter your API Key below. Don&apos;t have any analytic tools or not sure where to find your API Key? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
+                    <p className="text-gray-600 mb-4 dark:text-gray-200">To integrate to any of your analytic tools, enter your Property ID below. Don&apos;t have any analytic tools or not sure where to find your Property ID? <a className="font-semibold text-blue-600 underline hover:text-blue-500" href="#" >Speak with a support agent</a></p>
                     <form onSubmit={handleGoogleAnalyticsSubmit}>
-                        <label htmlFor="googleAnalyticsKey" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
-                            Google Analytics API Key
+                        <label htmlFor="googleAnalyticsPropertyId" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
+                            Google Analytics Property ID
                         </label>
                         <div className="relative">
                             <input
-                                type={showGoogleAnalyticsKey ? 'text' : 'password'}
-                                id="googleAnalyticsKey"
-                                value={googleAnalyticsKey}
-                                onChange={(e) => setGoogleAnalyticsKey(e.target.value)}
+                                type={showGoogleAnalyticsPropertyId ? 'text' : 'password'}
+                                id="googleAnalyticsPropertyId"
+                                value={googleAnalyticsPropertyId}
+                                onChange={(e) => setGoogleAnalyticsPropertyId(e.target.value)}
                                 required
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                placeholder="Your GA4 API Key"
+                                placeholder="Your GA4 Property ID"
                             />
                             <button
                                 type="button"
-                                onClick={() => setShowGoogleAnalyticsKey(!showGoogleAnalyticsKey)}
+                                onClick={() => setShowGoogleAnalyticsPropertyId(!showGoogleAnalyticsPropertyId)}
                                 className="absolute inset-y-0 right-0 md:top-1/3 pr-3 flex items-center text-gray-500"
                             >
-                                {showGoogleAnalyticsKey ? <EyeOff /> : <Eye />}
+                                {showGoogleAnalyticsPropertyId ? <EyeOff /> : <Eye />}
                             </button>
                         </div>
                         <button
@@ -221,14 +243,55 @@ const ClientAnalytics = () => {
                     <h2 className="text-xl font-semibold mb-2 dark:text-gray-100">Hotjar (Coming Soon)</h2>
                     <p className="text-gray-600 dark:text-gray-200">Integration with Hotjar will be available soon.</p>
                 </div>
-                {ga4Data && !ga4Data.error && (
+                <div className="flex space-x-4 mb-8">
+                    <button
+                        onClick={() => setActiveTab('table')}
+                        className={`px-4 py-2 rounded ${activeTab === 'table' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                    >
+                        Table View
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('graph')}
+                        className={`px-4 py-2 rounded ${activeTab === 'graph' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                    >
+                        Graph View
+                    </button>
+                </div>
+                {loading ? (
                     <div className="mt-8">
-                        <h2 className="text-xl font-semibold mb-2 dark:text-gray-200">Google Analytics Data</h2>
-                        <pre className="bg-gray-100 p-4 rounded">{JSON.stringify(ga4Data, null, 2)}</pre>
+                        <h2 className="text-xl font-semibold mb-2 dark:text-gray-200">Loading Google Analytics Data...</h2>
                     </div>
+                ) : (
+                    ga4Data && !ga4Data.error && (
+                        <div className="mt-8">
+                            <h2 className="text-xl font-semibold mb-2 dark:text-gray-200">Google Analytics Data</h2>
+                            <input
+                                type="text"
+                                placeholder="Search by Page Path"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="mb-4 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
+                            {ga4Data.rows && ga4Data.rows.length > 0 ? (
+                                activeTab === 'table' ? (
+                                    <GAnalytics
+                                        currentRows={currentRows}
+                                        handlePageChange={handlePageChange}
+                                        currentPage={currentPage}
+                                        indexOfLastRow={indexOfLastRow}
+                                        totalRows={filteredRows.length}
+                                    />
+                                ) : (
+                                    <GAnalyticsGraph ga4Data={ga4Data} />
+                                )
+                            ) : (
+                                <p className="text-gray-600 dark:text-gray-200">No data available for the selected date range.</p>
+                            )}
+                        </div>
+                    )
                 )}
             </div>
-        </ >
+        </>
     );
 };
 

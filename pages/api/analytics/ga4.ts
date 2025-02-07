@@ -1,11 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { google } from 'googleapis';
 import { supabase } from '@lib/supabaseClient';
+import path from 'path';
+import fs from 'fs';
 
 const analytics = google.analyticsdata('v1beta');
 
+// Load OAuth2 credentials from a JSON file
+const keyFilePath = path.join(process.cwd(), 'credentials/service-account-key.json');
+const keyFile = JSON.parse(fs.readFileSync(keyFilePath, 'utf8'));
+
+const auth = new google.auth.GoogleAuth({
+    keyFile: keyFilePath,
+    scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
+});
+
 async function getGA4Data(userId: string) {
-    // Fetch the user's Google Analytics API key from the database
+    // Fetch the user's Google Analytics property ID from the database
     const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('google_analytics_key')
@@ -13,24 +24,29 @@ async function getGA4Data(userId: string) {
         .single();
 
     if (profileError || !profile || !profile.google_analytics_key) {
-        throw new Error('Failed to fetch Google Analytics key');
+        console.error('Failed to fetch Google Analytics property ID:', profileError);
+        throw new Error('Failed to fetch Google Analytics property ID');
     }
 
-    const googleAnalyticsKey = profile.google_analytics_key;
+    const googleAnalyticsPropertyId = profile.google_analytics_key;
+    console.log('Fetched Google Analytics property ID:', googleAnalyticsPropertyId);
 
-    // Use the API key to authenticate and fetch data
+    // Use OAuth2 to authenticate and fetch data
+    const client = await auth.getClient();
     google.options({
-        auth: googleAnalyticsKey,
+        auth: client,
     });
 
     const response = await analytics.properties.runReport({
-        property: `properties/YOUR_PROPERTY_ID`,
+        property: `properties/${googleAnalyticsPropertyId}`, // Use the user's property ID to specify the property
         requestBody: {
             dimensions: [{ name: 'pagePath' }],
             metrics: [{ name: 'activeUsers' }],
-            dateRanges: [{ startDate: '2023-01-01', endDate: '2023-01-31' }],
+            dateRanges: [{ startDate: '2023-01-01', endDate: '2025-01-31' }],
         },
     });
+
+    console.log('GA4 API Response:', response.data); // Log the full API response
 
     return response.data;
 }
@@ -43,6 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const data = await getGA4Data(userId);
             res.status(200).json(data);
         } catch (error: any) {
+            console.error('Error fetching GA4 data:', error);
             res.status(500).json({ error: error.message });
         }
     } else {
