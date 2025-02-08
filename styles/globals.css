@@ -20,6 +20,13 @@ html {
       rgb(16, 145, 130) 100%);
 }
 
+.btn-gradient {
+  background: linear-gradient(45deg,
+      rgb(101, 248, 226) 0%,
+      rgb(18, 166, 177) 20%,
+      rgb(15, 199, 177) 50%);
+}
+
 .nn-gradient {
   background: linear-gradient(45deg,
       rgb(101, 248, 226) 10%,

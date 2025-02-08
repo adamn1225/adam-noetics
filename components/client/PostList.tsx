@@ -2,17 +2,24 @@ import React, { useState } from 'react';
 import FullPageModal from '../FullPageModal';
 import CmsPreview from './CmsPreview';
 
+interface CustomField {
+    name: string;
+    type: 'text' | 'image' | 'header' | 'color';
+    value?: string;
+}
+
 interface Post {
     id: number;
     title: string;
     content: string;
     content_html?: string;
-    status: string;
-    template: 'basic' | 'minimal' | 'modern'; // Update the template type
+    status: 'draft' | 'published';
+    template: 'basic' | 'minimal' | 'modern';
     created_at?: string;
     scheduled_publish_date?: string;
     featured_image?: string;
     slug?: string;
+    customFields?: CustomField[];
 }
 
 interface PostListProps {

@@ -4,31 +4,40 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import ContactModal from '@components/ContactModal';
 import CmsForm from './CmsForm';
+import CmsEditor from './CmsEditor';
 import PostList from './PostList';
 import FullPageModal from '@components/FullPageModal';
+
+interface CustomField {
+    name: string;
+    type: 'text' | 'image' | 'header' | 'color';
+    value?: string;
+}
 
 interface Post {
     id: number;
     title: string;
     content: string;
     content_html?: string;
-    status: string;
-    template: string;
+    status: 'draft' | 'published';
+    template: 'basic' | 'minimal' | 'modern';
     created_at?: string;
     scheduled_publish_date?: string;
     featured_image?: string;
     slug?: string;
+    customFields?: CustomField[];
 }
 
 interface FormValues {
     title: string;
     content: string;
     content_html?: string;
-    status: string;
-    template: string;
+    status: 'draft' | 'published';
+    template: 'basic' | 'minimal' | 'modern';
     scheduled_publish_date?: string;
     featured_image?: string;
     slug: string;
+    customFields?: CustomField[];
 }
 
 const generateSlug = (title: string) => {
@@ -39,9 +48,9 @@ const generateSlug = (title: string) => {
 };
 
 const ClientCms = () => {
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(false);
-    const [editingPost, setEditingPost] = useState<any>(null);
+    const [editingPost, setEditingPost] = useState<Post | null>(null);
     const [formValues, setFormValues] = useState<FormValues>({
         title: '',
         content: '',
@@ -51,6 +60,7 @@ const ClientCms = () => {
         scheduled_publish_date: '',
         featured_image: '',
         slug: '',
+        customFields: [],
     });
     const [optedIn, setOptedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,7 +98,7 @@ const ClientCms = () => {
         if (error) {
             console.error('Error fetching posts:', error);
         } else {
-            setPosts(data);
+            setPosts(data.map((post: any) => ({ ...post, id: Number(post.id) })));
         }
     };
 
@@ -102,7 +112,7 @@ const ClientCms = () => {
         };
 
         const { error } = editingPost
-            ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id)
+            ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id.toString())
             : await supabase.from('blog_posts').insert([{ ...updatedFormValues, created_at: new Date().toISOString() }]);
 
         if (error) {
@@ -129,7 +139,7 @@ const ClientCms = () => {
         }
 
         setLoading(false);
-        setFormValues({ title: '', content: '', content_html: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '' });
+        setFormValues({ title: '', content: '', content_html: '', status: 'draft', template: 'basic', slug: '', scheduled_publish_date: '', featured_image: '', customFields: [] });
         setEditingPost(null);
         fetchPosts();
     };
@@ -139,6 +149,7 @@ const ClientCms = () => {
         setFormValues({
             ...post,
             slug: post.slug || '',
+            customFields: post.customFields || [],
         });
     };
 
@@ -248,8 +259,14 @@ const ClientCms = () => {
     };
 
     return (
-        <>
-            <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
+        <div className="flex justify-center w-full">
+            <div className="w-1/4 p-4 bg-gray-100 dark:bg-zinc-900">
+                <CmsEditor
+                    customFields={formValues.customFields || []}
+                    setCustomFields={(value: React.SetStateAction<CustomField[]>) => setFormValues((prevValues) => ({ ...prevValues, customFields: typeof value === 'function' ? value(prevValues.customFields || []) : value }))}
+                />
+            </div>
+            <div className="w-2/3 p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
                 <h2 className="text-2xl text-gray-950 dark:text-primary font-semibold mb-4">CMS Dashboard</h2>
                 <CmsForm
                     formValues={formValues}
@@ -263,14 +280,16 @@ const ClientCms = () => {
                     editingPost={editingPost}
                 />
 
-                <button
-                    type="button"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-gray-700 hover:bg-gray-800 mt-2"
-                    onClick={handlePreview}
-                >
-                    Show Preview
-                </button>
+                <div className='flex justify-start'>
+                    <button
+                        type="button"
+                        className="mt-2 py-2 px-4 w-1/4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 hover:opacity-90 hover:shadow-lg"
+                        onClick={handlePreview}
+                    >
+                        Show Preview
+                    </button>
 
+                </div>
                 <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml ?? undefined}>
                     {previewHtml ? (
                         <div className="preview-container">
@@ -284,8 +303,7 @@ const ClientCms = () => {
 
                 <PostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>
-            <ContactModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
-        </>
+        </div>
     );
 };
 
