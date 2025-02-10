@@ -1,5 +1,4 @@
 import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
 import Image from 'next/image';
 
 interface CustomField {
@@ -95,23 +94,12 @@ const CmsForm: React.FC<CmsFormProps> = ({
                     Content (Body)
                 </label>
                 <div className="border border-gray-300 text-zinc-900 rounded-md shadow-sm p-2">
-                    <Editor
-                        apiKey='xuegfwom0nawuekck2prc9yboegxm372icviucpytplmzjr7'
+                    <textarea
+                        id="content"
+                        name="content"
                         value={formValues.content}
-                        onEditorChange={handleContentChange}
-                        init={{
-                            height: 300,
-                            menubar: false,
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
-                            ],
-                            toolbar:
-                                'undo redo | formatselect | bold italic backcolor | \
-                                alignleft aligncenter alignright alignjustify | \
-                                bullist numlist outdent indent | removeformat | help'
-                        }}
+                        onChange={(e) => handleContentChange(e.target.value)}
+                        className="w-full h-64 p-2 border rounded-md"
                     />
                 </div>
             </div>
@@ -175,7 +163,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                         className="mt-1 block w-full border text-gray-300 border-gray-300 rounded-md shadow-sm p-2"
                     />
                     {formValues.featured_image && (
-                        <Image src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
+                        <Image src={formValues.featured_image} width={100} height={100} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
                     )}
                 </div>
             </div>

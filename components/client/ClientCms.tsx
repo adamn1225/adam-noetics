@@ -7,6 +7,7 @@ import CmsForm from './CmsForm';
 import CmsEditor from './CmsEditor';
 import PostList from './PostList';
 import FullPageModal from '@components/FullPageModal';
+import CmsPreview from './CmsPreview';
 
 interface CustomField {
     name: string;
@@ -290,16 +291,7 @@ const ClientCms = () => {
                     </button>
 
                 </div>
-                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml ?? undefined}>
-                    {previewHtml ? (
-                        <div className="preview-container">
-                            <h2>Live Preview</h2>
-                            <iframe srcDoc={previewHtml} className="w-full h-[500px] border rounded-lg" />
-                        </div>
-                    ) : (
-                        <p>Loading preview...</p>
-                    )}
-                </FullPageModal>
+                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml || ''} />
 
                 <PostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>

@@ -306,31 +306,31 @@ const ClientFiles = () => {
                     <div className="hidden md:flex rounded-t-md rounded-s-none mb-4 space-x-1">
                         <button
                             onClick={() => setCategory('all')}
-                            className={`px-4 py-2 rounded-t-md ${category === 'all' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                            className={`px-4 py-2 rounded-t-md ${category === 'all' ? 'bg-gray-800 dark:bg-gray-600 text-white' : 'bg-gray-200 text-gray-900'}`}
                         >
                             All
                         </button>
                         <button
                             onClick={() => setCategory('favorites')}
-                            className={`px-4 py-2 rounded-t-md ${category === 'favorites' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                            className={`px-4 py-2 rounded-t-md ${category === 'favorites' ? 'bg-gray-800 dark:bg-gray-600 text-white' : 'bg-gray-200 text-gray-900'}`}
                         >
                             Favorites
                         </button>
                         <button
                             onClick={() => setCategory('content')}
-                            className={`px-4 py-2 rounded-t-md ${category === 'content' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                            className={`px-4 py-2 rounded-t-md ${category === 'content' ? 'bg-gray-800 dark:bg-gray-600 text-white' : 'bg-gray-200 text-gray-900'}`}
                         >
                             Content
                         </button>
                         <button
                             onClick={() => setCategory('images')}
-                            className={`px-4 py-2 rounded-t-md ${category === 'images' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                            className={`px-4 py-2 rounded-t-md ${category === 'images' ? 'bg-gray-800 dark:bg-gray-600 text-white' : 'bg-gray-200 text-gray-900'}`}
                         >
                             Images
                         </button>
                         <button
                             onClick={() => setCategory('data-files')}
-                            className={`px-4 py-2 rounded-t-md ${category === 'data-files' ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900'}`}
+                            className={`px-4 py-2 rounded-t-md ${category === 'data-files' ? 'bg-gray-800 dark:bg-gray-600 text-white' : 'bg-gray-200 text-gray-900'}`}
                         >
                             Data Files
                         </button>

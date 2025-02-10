@@ -10,12 +10,12 @@ const config = {
 	],
 	theme: {
 		extend: {
-		      colors: {
-        primary: "var(--primary, theme('colors.teal.500'))",
-        secondary: "var(--secondary, theme('colors.blue.500'))",
-        foreground: "var(--foreground, theme('colors.teal.300'))",
-        background: "var(--background)",
-      },
+			colors: {
+				primary: "var(--primary, theme('colors.teal.500'))",
+				secondary: "var(--secondary, theme('colors.blue.500'))",
+				foreground: "var(--foreground, theme('colors.teal.300'))",
+				background: "var(--background)",
+			},
 			screens: {
 				xs: '480px',
 				sm: '640px',
@@ -37,7 +37,7 @@ const config = {
 			textColor: ['active'],
 		},
 	},
-	plugins: [require('tailwindcss-animate')],
+	plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 };
 
 

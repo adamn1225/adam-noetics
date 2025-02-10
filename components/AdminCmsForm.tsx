@@ -148,7 +148,7 @@ const AdminCmsForm: React.FC<AdminCmsFormProps> = ({
                     className="mt-1 block w-full border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                 />
                 {formValues.featured_image && (
-                    <Image src={formValues.featured_image} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
+                    <Image src={formValues.featured_image} width={400} height={400} alt="Featured" className="mt-2 h-32 w-32 object-cover" />
                 )}
             </div>
             <button

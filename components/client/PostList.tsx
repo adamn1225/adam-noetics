@@ -107,15 +107,11 @@ const PostList: React.FC<PostListProps> = ({ posts, handleEdit, handleDelete }) 
             </ul>
 
             {selectedPost && (
-                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)}>
-                    <CmsPreview
-                        title={selectedPost.title}
-                        content={selectedPost.content}
-                        content_html={selectedPost.content_html}
-                        template={selectedPost.template}
-                        featured_image={selectedPost.featured_image}
-                    />
-                </FullPageModal>
+                <FullPageModal
+                    isOpen={isPreviewModalOpen}
+                    onClose={() => setIsPreviewModalOpen(false)}
+                    htmlContent={selectedPost.content_html ?? ''}
+                />
             )}
         </div>
     );

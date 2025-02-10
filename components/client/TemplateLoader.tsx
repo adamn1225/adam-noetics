@@ -9,6 +9,7 @@ interface TemplateLoaderProps {
     content_html?: string;
     template: 'basic' | 'minimal' | 'modern';
     featured_image?: string;
+    imageDimensions?: { width: number; height: number };
 }
 
 const templates: Record<TemplateLoaderProps['template'], React.FC<any>> = {
@@ -17,7 +18,7 @@ const templates: Record<TemplateLoaderProps['template'], React.FC<any>> = {
     modern: Modern,
 };
 
-const TemplateLoader: React.FC<TemplateLoaderProps> = ({ title, content, content_html, template, featured_image }) => {
+const TemplateLoader: React.FC<TemplateLoaderProps> = ({ title, content, content_html, template, featured_image, imageDimensions }) => {
     const TemplateComponent = templates[template] || Basic;
 
     return (
@@ -26,6 +27,7 @@ const TemplateLoader: React.FC<TemplateLoaderProps> = ({ title, content, content
                 title={title}
                 content={content_html || content}
                 featured_image={featured_image}
+                imageDimensions={imageDimensions}
             />
         </div>
     );

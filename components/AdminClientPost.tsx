@@ -222,16 +222,14 @@ const AdminClientPost = ({ userId }: { userId: string }) => {
                     Show Preview
                 </button>
 
-                <FullPageModal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)} htmlContent={previewHtml || undefined}>
-                    {previewHtml ? (
-                        <div className="preview-container">
-                            <h2>Live Preview</h2>
-                            <iframe srcDoc={previewHtml} className="w-full h-[500px] border rounded-lg" />
-                        </div>
-                    ) : (
-                        <p>Loading preview...</p>
-                    )}
-                </FullPageModal>
+                {isPreviewModalOpen && (
+                    <FullPageModal
+                        isOpen={isPreviewModalOpen}
+                        onClose={() => setIsPreviewModalOpen(false)}
+                        htmlContent={previewHtml || ''}
+                    />
+                )}
+
 
                 <AdminPostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>

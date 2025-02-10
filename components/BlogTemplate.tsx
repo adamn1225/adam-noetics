@@ -1,18 +1,27 @@
-import React from "react";
-import Image from "next/image";
+// Assuming BlogTemplate is defined in BlogTemplate.tsx
+
+// filepath: BlogTemplate.tsx
+import React from 'react';
 
 interface BlogTemplateProps {
     title: string;
     content: string;
     featured_image?: string;
+    imageDimensions?: { width: number; height: number };
 }
 
-const BlogTemplate: React.FC<BlogTemplateProps> = ({ title, content, featured_image }) => {
+const BlogTemplate: React.FC<BlogTemplateProps> = ({ title, content, featured_image, imageDimensions }) => {
     return (
         <div>
-            {featured_image && <Image src={featured_image} alt="Featured" />}
             <h1>{title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div>{content}</div>
+            {featured_image && <img src={featured_image} alt={title} />}
+            {imageDimensions && (
+                <div>
+                    <p>Width: {imageDimensions.width}px</p>
+                    <p>Height: {imageDimensions.height}px</p>
+                </div>
+            )}
         </div>
     );
 };
