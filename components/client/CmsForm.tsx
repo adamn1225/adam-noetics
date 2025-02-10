@@ -61,18 +61,18 @@ const CmsForm: React.FC<CmsFormProps> = ({
         <div>
             <div className="tabs flex gap-1 border-b-2 border-zinc-500 mb-2">
                 <button
-                    className={`tab bg-zinc-600 px-4 py-2 text-white ${activeTab === 'form' ? 'active border-b-0 bg-blue-500 dark:bg-blue-500' : ''}`}
+                    className={`tab bg-zinc-600 text-sm px-4 py-2 text-white ${activeTab === 'form' ? 'active border-b-0 bg-blue-500 dark:bg-blue-500' : ''}`}
                     style={{ borderTopLeftRadius: '0.5rem', borderTopRightRadius: '0.5rem' }}
                     onClick={() => setActiveTab('form')}
                 >
                     Form
                 </button>
                 <button
-                    className={`tab bg-zinc-600 px-4 py-2 text-white ${activeTab === 'posts' ? 'active border-b-0 bg-blue-500 dark:bg-blue-500' : ''}`}
+                    className={`tab bg-zinc-600 text-sm px-4 py-2 text-white ${activeTab === 'posts' ? 'active border-b-0 bg-blue-500 dark:bg-blue-500' : ''}`}
                     style={{ borderTopLeftRadius: '0.5rem', borderTopRightRadius: '0.5rem' }} // Equivalent to rounded-t-lg
                     onClick={() => setActiveTab('posts')}
                 >
-                    Posts
+                    Saved Posts &amp; Templates
                 </button>
             </div>
 
