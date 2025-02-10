@@ -1,12 +1,15 @@
+import React from "react";
 import "@styles/globals.css";
 import type { AppProps } from "next/app";
-import { DarkModeProvider } from "../context/DarkModeContext";
+import { DarkModeProvider } from "@context/DarkModeContext";
+import Navigation from "@components/Navigation";
 
-
-export default function App({ Component, pageProps }: AppProps) {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <DarkModeProvider>
+    <DarkModeProvider initialDarkMode={true}>
       <Component {...pageProps} />
     </DarkModeProvider>
   );
-}
+};
+
+export default MyApp;
