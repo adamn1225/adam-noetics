@@ -106,75 +106,75 @@ const SignupPage: React.FC = () => {
         }
     };
 
-    const handleGoogleSignup = async () => {
-        const { data: signInData, error: signInError } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: 'https://www.noetics.io/dashboard/tasks',
-            },
-        });
+    // const handleGoogleSignup = async () => {
+    //     const { data: signInData, error: signInError } = await supabase.auth.signInWithOAuth({
+    //         provider: 'google',
+    //         options: {
+    //             redirectTo: 'https://www.noetics.io/dashboard/tasks',
+    //         },
+    //     });
 
-        if (signInError) {
-            setError(signInError.message);
-        } else {
-            // Wait for the OAuth sign-in process to complete and fetch the user information
-            const { data: userData, error: userError } = await supabase.auth.getUser();
+    //     if (signInError) {
+    //         setError(signInError.message);
+    //     } else {
+    //         // Wait for the OAuth sign-in process to complete and fetch the user information
+    //         const { data: userData, error: userError } = await supabase.auth.getUser();
 
-            if (userError) {
-                setError(userError.message);
-            } else {
-                const userId = userData.user?.id;
-                const email = userData.user?.email;
+    //         if (userError) {
+    //             setError(userError.message);
+    //         } else {
+    //             const userId = userData.user?.id;
+    //             const email = userData.user?.email;
 
-                if (userId && email) {
-                    // Create profile
-                    const { error: profileError } = await supabase
-                        .from('profiles')
-                        .insert([{ user_id: userId, email, name: email.split('@')[0] }]);
+    //             if (userId && email) {
+    //                 // Create profile
+    //                 const { error: profileError } = await supabase
+    //                     .from('profiles')
+    //                     .insert([{ user_id: userId, email, name: email.split('@')[0] }]);
 
-                    if (profileError) {
-                        setError(profileError.message);
-                        return;
-                    }
+    //                 if (profileError) {
+    //                     setError(profileError.message);
+    //                     return;
+    //                 }
 
-                    // Create organization if not provided
-                    const orgName = `${email.split('@')[0]}'s Organization`;
-                    const { data: orgData, error: orgError } = await supabase
-                        .from('organizations')
-                        .insert([{ name: orgName }])
-                        .select()
-                        .single();
+    //                 // Create organization if not provided
+    //                 const orgName = `${email.split('@')[0]}'s Organization`;
+    //                 const { data: orgData, error: orgError } = await supabase
+    //                     .from('organizations')
+    //                     .insert([{ name: orgName }])
+    //                     .select()
+    //                     .single();
 
-                    if (orgError) {
-                        setError(orgError.message);
-                    } else {
-                        const organizationId = orgData.id;
+    //                 if (orgError) {
+    //                     setError(orgError.message);
+    //                 } else {
+    //                     const organizationId = orgData.id;
 
-                        // Update profile with organization_id
-                        const { error: profileUpdateError } = await supabase
-                            .from('profiles')
-                            .update({ organization_id: organizationId })
-                            .eq('user_id', userId);
+    //                     // Update profile with organization_id
+    //                     const { error: profileUpdateError } = await supabase
+    //                         .from('profiles')
+    //                         .update({ organization_id: organizationId })
+    //                         .eq('user_id', userId);
 
-                        if (profileUpdateError) {
-                            setError(profileUpdateError.message);
-                        } else {
-                            // Insert into organization_members table
-                            const { error: memberError } = await supabase
-                                .from('organization_members')
-                                .insert([{ organization_id: organizationId, user_id: userId, role: 'client' }]);
+    //                     if (profileUpdateError) {
+    //                         setError(profileUpdateError.message);
+    //                     } else {
+    //                         // Insert into organization_members table
+    //                         const { error: memberError } = await supabase
+    //                             .from('organization_members')
+    //                             .insert([{ organization_id: organizationId, user_id: userId, role: 'client' }]);
 
-                            if (memberError) {
-                                setError(memberError.message);
-                            } else {
-                                setSuccessMessage('Signup successful! You can now log in.');
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    };
+    //                         if (memberError) {
+    //                             setError(memberError.message);
+    //                         } else {
+    //                             setSuccessMessage('Signup successful! You can now log in.');
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // };
 
     const handleResendOtp = async () => {
         setError(null);
@@ -304,7 +304,7 @@ const SignupPage: React.FC = () => {
                         </form>
                     )}
                     <div className="mt-6">
-                        <button
+                        {/* <button
                             type="button" // Change to type="button" to prevent form submission
                             onClick={handleGoogleSignup}
                             className="flex items-center shadow-md justify-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 w-full"
@@ -317,7 +317,7 @@ const SignupPage: React.FC = () => {
                                 <path fill="none" d="M0 0h48v48H0z" />
                             </svg>
                             Sign Up with Google
-                        </button>
+                        </button> */}
                         <p className="text-lg text-center mt-8">
                             <Link className='underline text-normal' href="/privacy-policy">
                                 Privacy Policy

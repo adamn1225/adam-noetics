@@ -93,97 +93,97 @@ const LoginPage = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: 'https://www.noetics.io/dashboard/tasks',
-        },
-      });
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     const { data, error } = await supabase.auth.signInWithOAuth({
+  //       provider: 'google',
+  //       options: {
+  //         redirectTo: 'https://www.noetics.io/dashboard/tasks',
+  //       },
+  //     });
 
-      if (error) {
-        setError(error.message);
-        return;
-      }
+  //     if (error) {
+  //       setError(error.message);
+  //       return;
+  //     }
 
-      const { data: userData, error: userError } = await supabase.auth.getUser();
-      if (userError) {
-        setError(userError.message);
-        return;
-      }
+  //     const { data: userData, error: userError } = await supabase.auth.getUser();
+  //     if (userError) {
+  //       setError(userError.message);
+  //       return;
+  //     }
 
-      const userId = userData.user?.id;
-      const userEmail = userData.user?.email;
+  //     const userId = userData.user?.id;
+  //     const userEmail = userData.user?.email;
 
-      if (userId && userEmail) {
-        // Check if user already exists in profiles table
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('user_id', userId)
-          .maybeSingle(); // Use maybeSingle to handle zero or one row
+  //     if (userId && userEmail) {
+  //       // Check if user already exists in profiles table
+  //       const { data: profileData, error: profileError } = await supabase
+  //         .from('profiles')
+  //         .select('*')
+  //         .eq('user_id', userId)
+  //         .maybeSingle(); // Use maybeSingle to handle zero or one row
 
-        if (profileError) {
-          setError(profileError.message);
-          return;
-        }
+  //       if (profileError) {
+  //         setError(profileError.message);
+  //         return;
+  //       }
 
-        if (!profileData) {
-          // Insert user into profiles table
-          const { error: insertError } = await supabase
-            .from('profiles')
-            .insert([{ user_id: userId, email: userEmail, name: userEmail.split('@')[0] }]);
+  //       if (!profileData) {
+  //         // Insert user into profiles table
+  //         const { error: insertError } = await supabase
+  //           .from('profiles')
+  //           .insert([{ user_id: userId, email: userEmail, name: userEmail.split('@')[0] }]);
 
-          if (insertError) {
-            setError(insertError.message);
-            return;
-          }
+  //         if (insertError) {
+  //           setError(insertError.message);
+  //           return;
+  //         }
 
-          // Create organization if not provided
-          const orgName = `${userEmail.split('@')[0]}'s Organization`;
-          const { data: orgData, error: orgError } = await supabase
-            .from('organizations')
-            .insert([{ name: orgName }])
-            .select()
-            .single();
+  //         // Create organization if not provided
+  //         const orgName = `${userEmail.split('@')[0]}'s Organization`;
+  //         const { data: orgData, error: orgError } = await supabase
+  //           .from('organizations')
+  //           .insert([{ name: orgName }])
+  //           .select()
+  //           .single();
 
-          if (orgError) {
-            setError(orgError.message);
-            return;
-          }
+  //         if (orgError) {
+  //           setError(orgError.message);
+  //           return;
+  //         }
 
-          const organizationId = orgData.id;
+  //         const organizationId = orgData.id;
 
-          // Update profile with organization_id
-          const { error: profileUpdateError } = await supabase
-            .from('profiles')
-            .update({ organization_id: organizationId })
-            .eq('user_id', userId);
+  //         // Update profile with organization_id
+  //         const { error: profileUpdateError } = await supabase
+  //           .from('profiles')
+  //           .update({ organization_id: organizationId })
+  //           .eq('user_id', userId);
 
-          if (profileUpdateError) {
-            setError(profileUpdateError.message);
-            return;
-          }
+  //         if (profileUpdateError) {
+  //           setError(profileUpdateError.message);
+  //           return;
+  //         }
 
-          // Insert into organization_members table
-          const { error: memberError } = await supabase
-            .from('organization_members')
-            .insert([{ organization_id: organizationId, user_id: userId, role: 'client' }]);
+  //         // Insert into organization_members table
+  //         const { error: memberError } = await supabase
+  //           .from('organization_members')
+  //           .insert([{ organization_id: organizationId, user_id: userId, role: 'client' }]);
 
-          if (memberError) {
-            setError(memberError.message);
-            return;
-          }
-        }
+  //         if (memberError) {
+  //           setError(memberError.message);
+  //           return;
+  //         }
+  //       }
 
-        router.push('/dashboard');
-      }
-    } catch (err: any) {
-      console.error("Google login failed:", err);
-      setError(err.message || "Failed to log in with Google");
-    }
-  };
+  //       router.push('/dashboard');
+  //     }
+  //   } catch (err: any) {
+  //     console.error("Google login failed:", err);
+  //     setError(err.message || "Failed to log in with Google");
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-100 dark:bg-zinc-700">
@@ -262,7 +262,7 @@ const LoginPage = () => {
               </button>
             </div>
           )}
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <button
               type="button" // Change to type="button" to prevent form submission
               onClick={handleGoogleLogin}
@@ -277,7 +277,7 @@ const LoginPage = () => {
               </svg>
               Log In with Google
             </button>
-          </div>
+          </div> */}
           <p className="text-lg text-center text-blue-500 hover:text-blue-500 dark:hover:text-blue-500 dark:text-blue-400 underline ">
             <Link href="/">Go back to homepage</Link>
           </p>
