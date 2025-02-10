@@ -11,6 +11,7 @@ html {
   --secondary: #46d1db;
   --foreground: #46d1db;
   --background: #e7e7e7;
+  --radius: 0.5rem;
 }
 
 .hero-gradient {

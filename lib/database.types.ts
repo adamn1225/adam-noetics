@@ -24,6 +24,7 @@ export type Database = {
           status: string | null
           tags: string[] | null
           template: string | null
+          template_id: string | null
           template_url: string | null
           title: string
           updated_at: string | null
@@ -43,6 +44,7 @@ export type Database = {
           status?: string | null
           tags?: string[] | null
           template?: string | null
+          template_id?: string | null
           template_url?: string | null
           title: string
           updated_at?: string | null
@@ -62,6 +64,7 @@ export type Database = {
           status?: string | null
           tags?: string[] | null
           template?: string | null
+          template_id?: string | null
           template_url?: string | null
           title?: string
           updated_at?: string | null
@@ -73,6 +76,13 @@ export type Database = {
             columns: ["smm_calendar_id"]
             isOneToOne: false
             referencedRelation: "smm_calendar"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_posts_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "templates"
             referencedColumns: ["id"]
           },
           {
@@ -686,6 +696,41 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      templates: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          sections: Json
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          sections: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          sections?: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "templates_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]

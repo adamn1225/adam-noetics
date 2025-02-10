@@ -2,32 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
-import ContactModal from '@components/ContactModal';
 import CmsForm from './CmsForm';
-import CmsEditor from './CmsEditor';
-import PostList from './PostList';
 import FullPageModal from '@components/FullPageModal';
-import CmsPreview from './CmsPreview';
-
-interface CustomField {
-    name: string;
-    type: 'text' | 'image' | 'header' | 'color';
-    value?: string;
-}
-
-interface Post {
-    id: number;
-    title: string;
-    content: string;
-    content_html?: string;
-    status: 'draft' | 'published';
-    template: 'basic' | 'minimal' | 'modern';
-    created_at?: string;
-    scheduled_publish_date?: string;
-    featured_image?: string;
-    slug?: string;
-    customFields?: CustomField[];
-}
+import CmsEditor from './CmsEditor';
+import { Post, CustomField } from './types'; // Import the Post and CustomField interfaces
 
 interface FormValues {
     title: string;
@@ -63,35 +41,13 @@ const ClientCms = () => {
         slug: '',
         customFields: [],
     });
-    const [optedIn, setOptedIn] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [cmsToken, setCmsToken] = useState('');
     const [showPreview, setShowPreview] = useState(false);
     const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+    const [profiles, setProfiles] = useState<{ id: string }>({ id: '' }); // Add profiles state
 
     useEffect(() => {
-        const checkOptInStatus = async () => {
-            const { data: { user }, error: userError } = await supabase.auth.getUser();
-            if (userError || !user) {
-                console.error('User not authenticated');
-                return;
-            }
-
-            const { data: profile, error: profileError } = await supabase
-                .from('profiles')
-                .select('cms_enabled')
-                .eq('user_id', user.id)
-                .single();
-
-            if (profileError || !profile) {
-                console.error('Failed to fetch user profile', profileError);
-                return;
-            }
-
-            setOptedIn(profile.cms_enabled ?? false); // Ensure cms_enabled is a boolean
-        };
-
-        checkOptInStatus();
+        fetchPosts();
+        fetchProfiles(); // Fetch profiles data
     }, []);
 
     const fetchPosts = async () => {
@@ -99,44 +55,35 @@ const ClientCms = () => {
         if (error) {
             console.error('Error fetching posts:', error);
         } else {
-            setPosts(data.map((post: any) => ({ ...post, id: Number(post.id) })));
+            setPosts(data.map((post: any) => ({ ...post, id: post.id })));
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const fetchProfiles = async () => {
+        const { data, error } = await supabase.from('profiles').select('*').single();
+        if (error) {
+            console.error('Error fetching profiles:', error);
+        } else {
+            setProfiles(data);
+        }
+    };
+
+    const handleSubmit = async (data: FormValues) => {
         setLoading(true);
 
         const updatedFormValues = {
-            ...formValues,
-            scheduled_publish_date: formValues.scheduled_publish_date || null,
+            ...data,
+            scheduled_publish_date: data.scheduled_publish_date || null,
         };
 
         const { error } = editingPost
-            ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id.toString())
+            ? await supabase.from('blog_posts').update(updatedFormValues).eq('id', editingPost.id)
             : await supabase.from('blog_posts').insert([{ ...updatedFormValues, created_at: new Date().toISOString() }]);
 
         if (error) {
             console.error('Error saving post:', error);
         } else {
             console.log('Post saved successfully');
-
-            if (formValues.status === 'published') {
-                try {
-                    const response = await fetch('/.netlify/functions/triggerWebhook', {
-                        method: 'POST',
-                        body: JSON.stringify({ status: formValues.status }),
-                    });
-                    const result = await response.json();
-                    if (response.ok) {
-                        console.log(result.message);
-                    } else {
-                        console.error(result.error);
-                    }
-                } catch (error) {
-                    console.error('Failed to trigger Netlify build:', error);
-                }
-            }
         }
 
         setLoading(false);
@@ -154,29 +101,14 @@ const ClientCms = () => {
         });
     };
 
-    const handleDelete = async (id: number) => {
-        const { error } = await supabase.from('blog_posts').delete().eq('id', id.toString());
+    const handleDelete = async (id: string) => {
+        const { error } = await supabase.from('blog_posts').delete().eq('id', id);
         if (error) {
             console.error('Error deleting post:', error);
         } else {
             console.log('Post deleted');
             fetchPosts();
         }
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value, type, checked } = e.target as HTMLInputElement;
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [name]: type === 'checkbox' ? checked : value,
-        }));
-    };
-
-    const handleContentChange = (content: string) => {
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            content,
-        }));
     };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -203,42 +135,6 @@ const ClientCms = () => {
         }));
     };
 
-    const handleCmsTokenSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
-        if (userError || !user) {
-            console.error('User not authenticated');
-            return;
-        }
-
-        const { data: member, error: memberError } = await supabase
-            .from('organization_members')
-            .select('cms_token')
-            .eq('user_id', user.id)
-            .single();
-
-        if (memberError || !member) {
-            console.error('Failed to fetch CMS token', memberError);
-            return;
-        }
-
-        if (member.cms_token !== cmsToken) {
-            console.error('Invalid CMS token');
-            return;
-        }
-
-        setOptedIn(true);
-    };
-
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const title = e.target.value;
-        setFormValues({
-            ...formValues,
-            title,
-            slug: generateSlug(title),
-        });
-    };
-
     const handlePreview = async () => {
         try {
             const response = await fetch("/api/blog-preview", {
@@ -259,41 +155,43 @@ const ClientCms = () => {
         }
     };
 
+
     return (
         <div className="flex justify-center w-full">
-            <div className="w-1/4 p-4 bg-gray-100 dark:bg-zinc-900">
+            <div className="w-1/5 p-4 bg-gray-100 dark:bg-zinc-900">
+                <div className='flex justify-center mb-12'>
+                    <button
+                        type="button"
+                        className="mt-2 py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 hover:opacity-90 hover:shadow-lg"
+                        onClick={handlePreview}
+                    >
+                        Show Preview
+                    </button>
+                </div>
                 <CmsEditor
                     customFields={formValues.customFields || []}
                     setCustomFields={(value: React.SetStateAction<CustomField[]>) => setFormValues((prevValues) => ({ ...prevValues, customFields: typeof value === 'function' ? value(prevValues.customFields || []) : value }))}
                 />
             </div>
-            <div className="w-2/3 p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
+            <div className="w-full p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
                 <h2 className="text-2xl text-gray-950 dark:text-primary font-semibold mb-4">CMS Dashboard</h2>
+
                 <CmsForm
                     formValues={formValues}
                     setFormValues={setFormValues}
                     handleSubmit={handleSubmit}
-                    handleTitleChange={handleTitleChange}
-                    handleChange={handleChange}
-                    handleContentChange={handleContentChange}
                     handleImageUpload={handleImageUpload}
                     loading={loading}
                     editingPost={editingPost}
+                    profiles={profiles} // Pass profiles to CmsForm
+                    posts={posts} // Pass posts to CmsForm
+                    handleEdit={handleEdit} // Pass handleEdit to CmsForm
+                    handleDelete={handleDelete} // Pass handleDelete to CmsForm
                 />
 
-                <div className='flex justify-start'>
-                    <button
-                        type="button"
-                        className="mt-2 py-2 px-4 w-1/4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 hover:opacity-90 hover:shadow-lg"
-                        onClick={handlePreview}
-                    >
-                        Show Preview
-                    </button>
 
-                </div>
                 <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml || ''} />
 
-                <PostList posts={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
             </div>
         </div>
     );
