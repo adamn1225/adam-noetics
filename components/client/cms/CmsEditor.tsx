@@ -11,34 +11,13 @@ interface CmsEditorProps {
 const CmsEditor: React.FC<CmsEditorProps> = ({ customFields, setCustomFields }) => {
     const [showSectionOptions, setShowSectionOptions] = useState(false);
 
-    const handleFieldChange = (index: number, field: Partial<CustomField>) => {
-        setCustomFields((prevFields) => {
-            const newFields = [...prevFields];
-            newFields[index] = { ...newFields[index], ...field };
-            return newFields;
-        });
-    };
-
     const addField = (type: CustomField['type'], sectionIndex: number, columnIndex: number) => {
         setCustomFields((prevFields) => {
             const newFields = [...prevFields];
             const section = newFields[sectionIndex];
             if (section && section.type === 'section') {
                 const columns = section.value ? JSON.parse(section.value) : [[], [], []];
-                columns[columnIndex].push({ name: '', type, value: '' });
-                section.value = JSON.stringify(columns);
-            }
-            return newFields;
-        });
-    };
-
-    const removeField = (sectionIndex: number, columnIndex: number, fieldIndex: number) => {
-        setCustomFields((prevFields) => {
-            const newFields = [...prevFields];
-            const section = newFields[sectionIndex];
-            if (section && section.type === 'section') {
-                const columns = section.value ? JSON.parse(section.value) : [[], [], []];
-                columns[columnIndex].splice(fieldIndex, 1);
+                columns[columnIndex] = [...columns[columnIndex], { name: '', type, value: '' }];
                 section.value = JSON.stringify(columns);
             }
             return newFields;
@@ -46,8 +25,7 @@ const CmsEditor: React.FC<CmsEditorProps> = ({ customFields, setCustomFields }) 
     };
 
     const addSection = (gridRows: number) => {
-        // Add a new section with the specified grid rows
-        const columns = Array(gridRows).fill([]);
+        const columns = Array.from({ length: gridRows }, () => []);
         setCustomFields((prevFields) => [
             ...prevFields,
             { name: `Section ${prevFields.length + 1}`, type: 'section', value: JSON.stringify(columns) },
@@ -56,7 +34,6 @@ const CmsEditor: React.FC<CmsEditorProps> = ({ customFields, setCustomFields }) 
     };
 
     const handleDrop = (item: any) => {
-        // Handle the drop event
         console.log('Dropped item:', item);
     };
 
@@ -123,68 +100,6 @@ const CmsEditor: React.FC<CmsEditorProps> = ({ customFields, setCustomFields }) 
                                     {field.value && JSON.parse(field.value).map((column: CustomField[], columnIndex: number) => (
                                         <div key={columnIndex} className="p-2 border">
                                             <h4 className="text-sm font-semibold mb-2">Column {columnIndex + 1}</h4>
-                                            {column.map((colField, fieldIndex) => (
-                                                <div key={fieldIndex} className="mb-2">
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Field Name"
-                                                        value={colField.name}
-                                                        onChange={(e) => handleFieldChange(sectionIndex, { name: e.target.value })}
-                                                        className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                                    />
-                                                    <select
-                                                        value={colField.type}
-                                                        onChange={(e) => handleFieldChange(sectionIndex, { type: e.target.value as CustomField['type'] })}
-                                                        className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                                    >
-                                                        <option value="text">Text</option>
-                                                        <option value="image">Image</option>
-                                                        <option value="header">Header</option>
-                                                        <option value="color">Background Color</option>
-                                                    </select>
-                                                    {colField.type === 'text' && (
-                                                        <textarea
-                                                            placeholder="Text Field"
-                                                            value={colField.value}
-                                                            onChange={(e) => handleFieldChange(sectionIndex, { value: e.target.value })}
-                                                            className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                                        />
-                                                    )}
-                                                    {colField.type === 'image' && (
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Image URL"
-                                                            value={colField.value}
-                                                            onChange={(e) => handleFieldChange(sectionIndex, { value: e.target.value })}
-                                                            className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                                        />
-                                                    )}
-                                                    {colField.type === 'header' && (
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Header Text"
-                                                            value={colField.value}
-                                                            onChange={(e) => handleFieldChange(sectionIndex, { value: e.target.value })}
-                                                            className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                                        />
-                                                    )}
-                                                    {colField.type === 'color' && (
-                                                        <input
-                                                            type="color"
-                                                            value={colField.value}
-                                                            onChange={(e) => handleFieldChange(sectionIndex, { value: e.target.value })}
-                                                            className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
-                                                        />
-                                                    )}
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => removeField(sectionIndex, columnIndex, fieldIndex)}
-                                                        className="mt-2 py-1 px-2 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-500 hover:opacity-90 hover:shadow-lg"
-                                                    >
-                                                        Remove Field
-                                                    </button>
-                                                </div>
-                                            ))}
                                             <div className='grid grid-cols-1 gap-2'>
                                                 <button
                                                     type="button"

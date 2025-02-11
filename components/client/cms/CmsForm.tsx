@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormValues, CustomField } from '../types';
 import DraggableItem from './DraggableItem';
@@ -32,6 +32,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
     const { register, handleSubmit: handleFormSubmit } = useForm<FormValues>({
         defaultValues: formValues,
     });
+    const [CustomFields, setCustomFields] = useState<CustomField[]>(formValues.customFields || []);
 
     const moveField = (dragIndex: number, hoverIndex: number) => {
         const draggedField = formValues.customFields?.[dragIndex];
@@ -41,6 +42,19 @@ const CmsForm: React.FC<CmsFormProps> = ({
             newFields.splice(hoverIndex, 0, draggedField);
             setFormValues((prevValues) => ({ ...prevValues, customFields: newFields }));
         }
+    };
+
+    const removeField = (sectionIndex: number, columnIndex: number, fieldIndex: number) => {
+        setCustomFields((prevFields) => {
+            const newFields = [...prevFields];
+            const section = newFields[sectionIndex];
+            if (section && section.type === 'section') {
+                const columns = section.value ? JSON.parse(section.value) : [[], [], []];
+                columns[columnIndex].splice(fieldIndex, 1);
+                section.value = JSON.stringify(columns);
+            }
+            return newFields;
+        });
     };
 
     const getGridClass = (gridRows: string) => {
@@ -120,6 +134,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                                     <div key={columnIndex} className="p-2 border">
                                         {column.map((colField, fieldIndex) => (
                                             <div key={fieldIndex} className="mb-2">
+                                                <h4 className="text-sm font-semibold mb-2">Column {columnIndex + 1}</h4>
                                                 <input
                                                     type="text"
                                                     placeholder="Field Name"
@@ -225,6 +240,13 @@ const CmsForm: React.FC<CmsFormProps> = ({
                                                         className="block w-full mb-2 border text-zinc-900 border-gray-300 rounded-md shadow-sm p-2"
                                                     />
                                                 )}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeField(sectionIndex, columnIndex, fieldIndex)}
+                                                    className="mt-2 py-1 px-2 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-500 hover:opacity-90 hover:shadow-lg"
+                                                >
+                                                    Remove Field
+                                                </button>
                                             </div>
                                         ))}
                                     </div>

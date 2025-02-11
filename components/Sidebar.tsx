@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import placeholderAvatar from '@public/placeholder-avatar.png';
 import nextlogo from '@public/next_noetics.png';
+import logomin from '@public/next_noetics_ico.png';
 import DarkModeToggle from './DarkModeToggle';
 
 const navItems = [
@@ -33,6 +34,14 @@ const Sidebar = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const currentPath = usePathname();
+
+  useEffect(() => {
+    if (currentPath === '/dashboard/content') {
+      setIsCollapsed(true);
+    } else {
+      setIsCollapsed(false);
+    }
+  }, [currentPath]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -124,22 +133,22 @@ const Sidebar = () => {
       {loading && (
         <div className="absolute top-0 left-0 w-full h-1 bg-blue-700 animate-pulse"></div>
       )}
-      <div className='flex items-center justify-start gap-1 w-full py-4 pr-4 pl-1'>
+      <div className={`flex items-center ${isCollapsed ? 'justify-center pt-2 pb-4' : 'justify-start  py-4 pr-4'} gap-1 w-full pl-1`}>
         <Image
-          src={nextlogo}
+          src={isCollapsed ? logomin : nextlogo}
           alt="Noetics.io Logo"
-          width={140} // Adjust the width as needed
-          height={100} // Adjust the height as needed
-          className="rounded-full"
+          width={isCollapsed ? 40 : 140} // Adjust the width as needed
+          height={isCollapsed ? 40 : 100} // Adjust the height as needed
+          className="rounded-full "
         />
       </div>
-      <div className="flex items-center justify-between pl-4">
-        <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'hidden' : 'block'}`}>
+      <div className="flex items-center justify-between">
+        <h2 className={`text-xl font-bold transition-all duration-300 ${isCollapsed ? 'hidden' : 'block  pl-4'}`}>
           Dashboard
         </h2>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="text-white font-extra flex justify-center w-full bold text-xl focus:outline-none underline"
+          className={`text-white font-extrabold flex justify-center w-full text-3xl focus:outline-none underline`}
           style={{ zIndex: 10 }}
         >
           {isCollapsed ? '>' : '<'}
@@ -152,7 +161,7 @@ const Sidebar = () => {
           <p className="text-sm 2xl:text-base font-bold">{profile?.name}</p>
         </div>
         <span className=" inline-flex justify-center w-full items-center">
-          <DarkModeToggle />
+          {/* <DarkModeToggle /> */}
         </span>
       </div>
       <nav className="flex flex-col justify-between h-full pb-8  text-xs xl:text-base">

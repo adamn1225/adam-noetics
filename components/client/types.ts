@@ -8,9 +8,11 @@ export interface DraggableItem {
 
 export interface CustomField {
     name: string;
-    type: 'text' | 'image' | 'header' | 'color' | 'section';
-    value?: string;
-    alt?: string;
+    type: string;
+    value: string;
+    padding?: string;
+    margin?: string;
+    textAlign?: string;
 }
 
 export interface Post {
