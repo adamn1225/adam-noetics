@@ -59,17 +59,15 @@ const CmsForm: React.FC<CmsFormProps> = ({
 
     return (
         <div>
-            <div className="tabs flex gap-1 border-b-2 border-zinc-500 mb-2">
+            <div className="tabs flex gap-1 border-b-2 border-zinc-300 dark:border-zinc-500 mb-2">
                 <button
-                    className={`tab bg-zinc-600 text-sm px-4 py-2 text-white ${activeTab === 'form' ? 'active border-b-0 bg-blue-500 dark:bg-blue-500' : ''}`}
-                    style={{ borderTopLeftRadius: '0.5rem', borderTopRightRadius: '0.5rem' }}
+                    className={`tab bg-zinc-500 text-sm px-4 py-2 text-white rounded-t-lg ${activeTab === 'form' ? 'active border-b-0 bg-stone-950 dark:bg-blue-500' : ''}`}
                     onClick={() => setActiveTab('form')}
                 >
                     Form
                 </button>
                 <button
-                    className={`tab bg-zinc-600 text-sm px-4 py-2 text-white ${activeTab === 'posts' ? 'active border-b-0 bg-blue-500 dark:bg-blue-500' : ''}`}
-                    style={{ borderTopLeftRadius: '0.5rem', borderTopRightRadius: '0.5rem' }} // Equivalent to rounded-t-lg
+                    className={`tab bg-zinc-500 text-sm px-4 py-2 text-white rounded-t-lg ${activeTab === 'posts' ? 'active border-b-0 bg-stone-950 dark:bg-blue-500' : ''}`}
                     onClick={() => setActiveTab('posts')}
                 >
                     Saved Posts &amp; Templates
@@ -234,7 +232,7 @@ const CmsForm: React.FC<CmsFormProps> = ({
                         <button
                             type="button"
                             onClick={saveTemplate}
-                            className="mt-2 py-2 px-4 w-1/4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 hover:opacity-90 hover:shadow-lg"
+                            className="mt-2 py-2 px-4 w-1/4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:opacity-90 hover:shadow-lg"
                         >
                             Save Template
                         </button>

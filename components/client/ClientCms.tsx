@@ -162,7 +162,7 @@ const ClientCms = () => {
                 <div className='flex justify-center mb-12'>
                     <button
                         type="button"
-                        className="mt-2 py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 hover:opacity-90 hover:shadow-lg"
+                        className="mt-2 py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 dark:bg-blue-600 hover:opacity-90 hover:shadow-lg"
                         onClick={handlePreview}
                     >
                         Show Preview

@@ -15,31 +15,23 @@ html {
 }
 
 .hero-gradient {
-  background: linear-gradient(45deg,
-      rgb(101, 248, 226) 10%,
-      rgb(18, 166, 177) 40%,
-      rgb(16, 145, 130) 100%);
+  background: linear-gradient(45deg, #238d9b, #46d1db);
 }
 
 .btn-gradient {
-  background: linear-gradient(45deg,
-      rgb(101, 248, 226) 0%,
-      rgb(18, 166, 177) 20%,
-      rgb(15, 199, 177) 50%);
+  background: linear-gradient(45deg, #238d9b, #46d1db);
 }
 
 .nn-gradient {
-  background: linear-gradient(45deg,
-      rgb(101, 248, 226) 10%,
-      rgb(18, 166, 177) 40%,
-      rgb(16, 145, 130) 100%);
+  background: linear-gradient(45deg, #238d9b, #46d1db);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #f9fafb;
-    --primary: #238d9b;
+    --primary: #46d1db;
+    --secondary: #238d9b;
+    --foreground: #e7e7e7;
+    --background: #1a1a1a;
   }
 }
 
@@ -55,7 +47,7 @@ body {
 }
 
 .dark body {
-  color: var(--primary);
+  color: var(--foreground);
   background: var(--background);
 }
 
