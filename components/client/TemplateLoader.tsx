@@ -1,7 +1,7 @@
 import React from 'react';
-import Basic from './templates/Basic';
-import Minimal from './templates/Minimal';
-import Modern from './templates/Modern';
+import Basic from './cms/templates/Basic';
+import Minimal from './cms/templates/Minimal';
+import Modern from './cms/templates/Modern';
 
 interface TemplateLoaderProps {
     title: string;

@@ -1,11 +1,11 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import CmsForm from './CmsForm';
 import FullPageModal from '@components/FullPageModal';
 import CmsEditor from './CmsEditor';
-import { Post, CustomField } from './types'; // Import the Post and CustomField interfaces
+import { Post, CustomField } from '../types';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 interface FormValues {
     title: string;
@@ -43,11 +43,11 @@ const ClientCms = () => {
     });
     const [showPreview, setShowPreview] = useState(false);
     const [previewHtml, setPreviewHtml] = useState<string | null>(null);
-    const [profiles, setProfiles] = useState<{ id: string }>({ id: '' }); // Add profiles state
+    const [profiles, setProfiles] = useState<{ id: string }>({ id: '' });
 
     useEffect(() => {
         fetchPosts();
-        fetchProfiles(); // Fetch profiles data
+        fetchProfiles();
     }, []);
 
     const fetchPosts = async () => {
@@ -155,45 +155,44 @@ const ClientCms = () => {
         }
     };
 
-
     return (
-        <div className="flex justify-center w-full">
-            <div className="w-1/5 p-4 bg-gray-100 dark:bg-zinc-900">
-                <div className='flex justify-center mb-12'>
-                    <button
-                        type="button"
-                        className="mt-2 py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 dark:bg-blue-600 hover:opacity-90 hover:shadow-lg"
-                        onClick={handlePreview}
-                    >
-                        Show Preview
-                    </button>
+        <DndProvider backend={HTML5Backend}>
+            <div className="flex justify-center w-full">
+                <div className="w-1/5 p-4 bg-gray-100 dark:bg-zinc-900">
+                    <div className='flex justify-center mb-12'>
+                        <button
+                            type="button"
+                            className="mt-2 py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-blue-500 dark:bg-blue-600 hover:opacity-90 hover:shadow-lg"
+                            onClick={handlePreview}
+                        >
+                            Show Preview
+                        </button>
+                    </div>
+                    <CmsEditor
+                        customFields={formValues.customFields || []}
+                        setCustomFields={(value: React.SetStateAction<CustomField[]>) => setFormValues((prevValues) => ({ ...prevValues, customFields: typeof value === 'function' ? value(prevValues.customFields || []) : value }))}
+                    />
                 </div>
-                <CmsEditor
-                    customFields={formValues.customFields || []}
-                    setCustomFields={(value: React.SetStateAction<CustomField[]>) => setFormValues((prevValues) => ({ ...prevValues, customFields: typeof value === 'function' ? value(prevValues.customFields || []) : value }))}
-                />
+                <div className="w-full p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
+                    <h2 className="text-2xl text-gray-950 dark:text-primary font-semibold mb-4">CMS Dashboard</h2>
+
+                    <CmsForm
+                        formValues={formValues}
+                        setFormValues={setFormValues}
+                        handleSubmit={handleSubmit}
+                        handleImageUpload={handleImageUpload}
+                        loading={loading}
+                        editingPost={editingPost}
+                        profiles={profiles}
+                        posts={posts}
+                        handleEdit={handleEdit}
+                        handleDelete={handleDelete}
+                    />
+
+                    <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml || ''} />
+                </div>
             </div>
-            <div className="w-full p-6 bg-white dark:bg-zinc-800 text-gray-950 dark:text-primary rounded-lg shadow-md relative">
-                <h2 className="text-2xl text-gray-950 dark:text-primary font-semibold mb-4">CMS Dashboard</h2>
-
-                <CmsForm
-                    formValues={formValues}
-                    setFormValues={setFormValues}
-                    handleSubmit={handleSubmit}
-                    handleImageUpload={handleImageUpload}
-                    loading={loading}
-                    editingPost={editingPost}
-                    profiles={profiles} // Pass profiles to CmsForm
-                    posts={posts} // Pass posts to CmsForm
-                    handleEdit={handleEdit} // Pass handleEdit to CmsForm
-                    handleDelete={handleDelete} // Pass handleDelete to CmsForm
-                />
-
-
-                <FullPageModal isOpen={showPreview} onClose={() => setShowPreview(false)} htmlContent={previewHtml || ''} />
-
-            </div>
-        </div>
+        </DndProvider>
     );
 };
 

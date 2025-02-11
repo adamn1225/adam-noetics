@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Post, CustomField } from './types';
-import FullPageModal from '../FullPageModal';
+import { Post, CustomField } from '../types';
+import FullPageModal from '../../FullPageModal';
 
 interface PostListProps {
     posts: Post[];

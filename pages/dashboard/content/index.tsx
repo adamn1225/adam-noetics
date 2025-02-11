@@ -1,5 +1,6 @@
-import React from "react";
-import ClientCms from "@components/client/ClientCms";
+"use client";
+import React, { useState } from "react";
+import ClientCms from "@components/client/cms/ClientCms";
 import DashboardLayout from '../UserLayout';
 
 const ClientCmsPage = () => {
