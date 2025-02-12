@@ -9,7 +9,7 @@ html {
 :root {
   --primary: #238d9b;
   --secondary: #46d1db;
-  --foreground: #46d1db;
+  --foreground: #060f0f;
   --background: #e7e7e7;
   --radius: 0.5rem;
 }
@@ -20,10 +20,13 @@ html {
 
 .btn-gradient {
   background: linear-gradient(45deg, #238d9b, #46d1db);
+  font-weight: bold !important;
+  color: white !important;
 }
 
 .nn-gradient {
   background: linear-gradient(45deg, #238d9b, #46d1db);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -220,4 +223,44 @@ a.active::after {
 
 .cms-row-3 {
   grid-template-columns: repeat(3, 1fr);
+}
+
+.landing-builder-craft-editor {
+  display: flex;
+  width: 100%;
+}
+
+.landing-builder-sidebar {
+  width: 200px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-right: 1px solid #ccc;
+}
+
+.landing-builder-sidebar h3 {
+  margin-top: 0;
+}
+
+.landing-builder-sidebar-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.landing-builder-sidebar-button:hover {
+  background-color: #0056b3;
+}
+
+.landing-builder-droppable-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  min-height: 400px;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import DashboardLayout from '../UserLayout';
+import RootLayout from '../layout';
 import { Toolbox } from '@components/pagebuilder/Toolbox';
 import { SettingsPanel } from '@components/pagebuilder/SettingsPanel';
 import { Container } from '@components/pagebuilder/Container';
@@ -11,7 +11,7 @@ import { Topbar } from '@components/pagebuilder/TopBar';
 
 export default function LandingPageBuilder() {
     return (
-        <DashboardLayout>
+        <RootLayout>
             <div className='bg-white p-6  w-full h-[95vh] mt-6'>
                 <h5 className="text-center text-3xl font-semibold">Noetic Page Builder</h5>
                 <Editor resolver={{ Card, Button, Text, Container, CardTop, CardBottom }}>
@@ -23,7 +23,7 @@ export default function LandingPageBuilder() {
                                     <Element is={Container} padding={5} background="#eee" canvas>
                                         <Card background="#fff" text="Card content" />
                                         <Text text="This can be a title explaining the button below" fontSize="16px" />
-                                        <Button size="small" variant="outlined" color='primary'>Click</Button>
+                                        <Button size="small" color='primary'>Click</Button>
                                         <Element is={Container} padding={6} background="#999" canvas>
                                             <Text fontSize="small" text="It's me again!" />
                                         </Element>
@@ -40,6 +40,6 @@ export default function LandingPageBuilder() {
                     </div>
                 </Editor>
             </div>
-        </DashboardLayout>
+        </RootLayout>
     );
 }

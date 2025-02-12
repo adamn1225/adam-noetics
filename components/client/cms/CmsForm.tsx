@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormValues, CustomField } from '../types';
 import DraggableItem from './DraggableItem';
@@ -32,7 +32,6 @@ const CmsForm: React.FC<CmsFormProps> = ({
     const { register, handleSubmit: handleFormSubmit } = useForm<FormValues>({
         defaultValues: formValues,
     });
-    const [CustomFields, setCustomFields] = useState<CustomField[]>(formValues.customFields || []);
 
     const moveField = (dragIndex: number, hoverIndex: number) => {
         const draggedField = formValues.customFields?.[dragIndex];
@@ -45,15 +44,15 @@ const CmsForm: React.FC<CmsFormProps> = ({
     };
 
     const removeField = (sectionIndex: number, columnIndex: number, fieldIndex: number) => {
-        setCustomFields((prevFields) => {
-            const newFields = [...prevFields];
+        setFormValues((prevValues) => {
+            const newFields = [...(prevValues.customFields || [])];
             const section = newFields[sectionIndex];
             if (section && section.type === 'section') {
                 const columns = section.value ? JSON.parse(section.value) : [[], [], []];
                 columns[columnIndex].splice(fieldIndex, 1);
                 section.value = JSON.stringify(columns);
             }
-            return newFields;
+            return { ...prevValues, customFields: newFields };
         });
     };
 

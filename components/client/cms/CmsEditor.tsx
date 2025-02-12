@@ -17,7 +17,7 @@ const CmsEditor: React.FC<CmsEditorProps> = ({ customFields, setCustomFields }) 
             const section = newFields[sectionIndex];
             if (section && section.type === 'section') {
                 const columns = section.value ? JSON.parse(section.value) : [[], [], []];
-                columns[columnIndex] = [...columns[columnIndex], { name: '', type, value: '' }];
+                columns[columnIndex].push({ name: '', type, value: '' });
                 section.value = JSON.stringify(columns);
             }
             return newFields;
