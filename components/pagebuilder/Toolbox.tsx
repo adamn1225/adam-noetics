@@ -24,7 +24,7 @@ export const Toolbox: React.FC = () => {
         <div className="p-4 w-13">
             <div className="flex flex-col items-center space-y-2">
                 <div className=''>
-                    <span style={{ padding: '8px' }} className="text-sm font-semibold text-gray-100">Drag to add</span>
+                    <span style={{ padding: '8px' }} className="text-xl underline font-semibold text-gray-100">Drag to add</span>
                 </div>
                 <div className="flex flex-col space-y-2 w-full ">
                     <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Element is={Container} padding={20} background="#fff" canvas>{null}</Element>); }} className="btn-gradient py-2 px-4 rounded">Container</DraggableButton>

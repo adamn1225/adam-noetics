@@ -9,20 +9,25 @@ interface CardProps {
     background: string;
     padding?: number;
     text: string;
+    align?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ background, padding = 20 }) => {
+export const Card: React.FC<CardProps> = ({ align, background, padding = 20 }) => {
     return (
         <Container background={background} padding={padding}>
             <Element id="text" is={CardTop} canvas>
-                <Text text="Title" fontSize="20px" />
-                <Text text="Subtitle" fontSize="15px" />
+                <div className="text-center">
+                    <Text text="Title" fontSize="20px" />
+                    <div className="my-2"><Text text="Subtitle" fontSize="14px" /></div>
+                </div>
             </Element>
             <Element id="textarea" is={TextArea} canvas text="Default text">
                 <TextArea text="Default text" />
             </Element>
             <Element id="buttons" is={CardBottom} canvas>
-                <Button size="small" variant="contained" color="primary">Learn more</Button>
+                <div className="flex justify-center">
+                    <Button size="small" variant="contained" color="primary">Learn more</Button>
+                </div>
             </Element>
         </Container>
     )

@@ -48,7 +48,7 @@ export const Text: React.FC<CustomTextProps> & { craft?: any } = ({ text, fontSi
                     )
                 }
                 tagName="p"
-                style={{ fontSize, textAlign, color, fontWeight, fontStyle, border: '1px solid #ddd' }}
+                style={{ fontSize, textAlign, color, fontWeight, fontStyle, border: '1px solid #ddd', padding: '0 4px' }}
             />
         </div>
     )
