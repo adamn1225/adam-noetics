@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
 import ContentEditable from 'react-contenteditable';
 import { Slider } from '@mui/material';
-
 import { CSSProperties } from 'react';
+import { AlignCenter, AlignLeft, AlignRight } from 'lucide-react';
 
 interface TextProps {
     text: string;
@@ -132,6 +132,7 @@ const TextSettings = () => {
                             <option value="%">%</option>
                         </select>
                     </div>
+
                 </div>
                 <div className="flex items-center justify-center gap-2">
                     <div className="flex items-center gap-2">
@@ -140,7 +141,7 @@ const TextSettings = () => {
                             <input className="w-6" type="color" value={color} onChange={handleColorChange} />
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1">
-                            <label className="underline text-sm text-gray-100">Font Weight</label>
+                            <label className="underline font-semibold text-sm text-gray-100">Font Weight</label>
                             <select
                                 value={fontWeight}
                                 onChange={handleFontWeightChange}
@@ -154,7 +155,7 @@ const TextSettings = () => {
                         </div>
 
                         <div className="flex flex-col items-center justify-center gap-1">
-                            <label className="underline text-sm text-gray-100">Font Style</label>
+                            <label className="underline font-semibold text-sm text-gray-100">Font Style</label>
                             <select
                                 value={fontStyle}
                                 onChange={handleFontStyleChange}
@@ -165,6 +166,14 @@ const TextSettings = () => {
                                 <option value="oblique">Oblique</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                    <label className="font-semibold underline text-lg text-gray-100">Text Alignment</label>
+                    <div className="flex space-x-4">
+                        <button className="bg-zinc-950 px-2 py-1 text-gray-100 rounded-md shadow-sm shadow-secondary" onClick={() => setProp((props: { textAlign: string; }) => props.textAlign = 'left')}><AlignLeft /></button>
+                        <button className="bg-zinc-950 px-2 py-1 text-gray-100 rounded-md shadow-sm shadow-secondary" onClick={() => setProp((props: { textAlign: string; }) => props.textAlign = 'center')}><AlignCenter /></button>
+                        <button className="bg-zinc-950 px-2 py-1 text-gray-100 rounded-md shadow-sm shadow-secondary" onClick={() => setProp((props: { textAlign: string; }) => props.textAlign = 'right')}><AlignRight /></button>
                     </div>
                 </div>
 

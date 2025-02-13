@@ -16,7 +16,7 @@ export default function LandingPageBuilder() {
             <div className='bg-white w-full h-full overflow-auto'>
                 <Editor resolver={{ Card, Button, Text, Container, CardTop, CardBottom, TextArea }}>
 
-                    <div className='text-gray-950 h-min w-full bg-gray-800 border-4 border-t-0 border-x-0 border-b-primary pb-4'><Topbar /></div>
+                    <div className='text-gray-950 h-min w-full bg-gray-800 pb-4'><Topbar /></div>
                     <div className="flex flex-col space-y-3">
                         <div className="flex space-x-3">
                             <div className="flex-1 pt-2">
