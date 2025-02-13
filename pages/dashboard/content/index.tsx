@@ -30,7 +30,7 @@ export default function LandingPageBuilder() {
                                 </Frame>
                             </div>
                             <div className="w-1/6 h-screen">
-                                <div className="p-4 h-screen bg-gray-100">
+                                <div className="p-4 h-screen bg-gray-800">
                                     <Toolbox />
                                     <SettingsPanel />
                                 </div>
