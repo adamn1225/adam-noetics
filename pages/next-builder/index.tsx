@@ -13,7 +13,7 @@ export default function LandingPageBuilder() {
     return (
         <RootLayout>
             <div className='bg-white p-6  w-full h-[95vh] mt-6'>
-                <h5 className="text-center text-3xl font-semibold">Noetic Page Builder</h5>
+                <h5 className="text-gradient text-center text-3xl font-semibold">Noetic Page Builder</h5>
                 <Editor resolver={{ Card, Button, Text, Container, CardTop, CardBottom }}>
                     <Topbar />
                     <div className="flex flex-col space-y-3 pt-2">

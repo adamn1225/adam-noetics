@@ -40,5 +40,4 @@ const config = {
 	plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 };
 
-
 module.exports = config;

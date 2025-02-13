@@ -11,7 +11,7 @@ import { Text } from './Text';
 export default function CraftEditor() {
     return (
         <div className="mx-auto w-4/5">
-            <h5 className="text-center text-lg font-semibold">A super simple page editor</h5>
+            <h5 className="text-center text-lg font-semibold">Noetics page editor</h5>
             <div className="flex flex-col space-y-3 pt-2">
                 <Editor resolver={{ Container, Text, Button, Card, CardTop, CardBottom }}>
                     <Topbar />

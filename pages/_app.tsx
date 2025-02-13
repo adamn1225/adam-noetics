@@ -6,7 +6,7 @@ import Navigation from "@components/Navigation";
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <DarkModeProvider initialDarkMode={true}>
+    <DarkModeProvider>
       <Component {...pageProps} />
     </DarkModeProvider>
   );

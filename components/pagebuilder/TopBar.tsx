@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEditor } from "@craftjs/core";
 
 export const Topbar = () => {
     const { actions, query } = useEditor();
+    const [isEnabled, setIsEnabled] = useState(true);
 
     const handleSerialize = () => {
         const json = query.serialize();
         console.log(json);
     };
 
+    const handleToggle = () => {
+        setIsEnabled(!isEnabled);
+    };
+
     return (
-        <div className="px-4 py-2 mt-3 mb-1 bg-gray-200">
+        <div className="px-4 py-2 bg-gray-200">
             <div className="flex items-center">
                 <div className="flex-1">
                     <label className="flex items-center">
-                        <input type="checkbox" checked={true} className="mr-2" />
+                        <input type="checkbox" checked={isEnabled} onChange={handleToggle} className="mr-2" />
                         <span>Enable</span>
                     </label>
                 </div>
