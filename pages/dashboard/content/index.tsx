@@ -1,14 +1,11 @@
-import { useRouter } from 'next/router';
-import CraftEditor from "@components/pagebuilder/CraftEditor";
 import React from "react";
 import DashboardLayout from "../UserLayout";
 
 const PageBuilder = () => {
-
     return (
         <DashboardLayout>
             <div className="w-full h-screen">
-                <CraftEditor />
+                Sorry - code is still crap/in-development
             </div>
         </DashboardLayout>
     );
