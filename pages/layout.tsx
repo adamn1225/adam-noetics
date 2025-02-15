@@ -22,21 +22,21 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="description" content="Noetic Software and Web Key Solutions" />
-                <link rel="canonical" href="https://noetics.io" />
+                <link rel="canonical" href="https://nextnoetics.com" />
                 <title>Noetics Web Creations</title>
-                </Head>
-                <Script
-                    src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
-                    strategy="afterInteractive"
-                />
-                <Script id="ga4-init" strategy="afterInteractive">
-                    {`
+            </Head>
+            <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=G-S9Q4511QJC`}
+                strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+                {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
                     gtag('config', 'G-S9Q4511QJC');
                 `}
-                </Script>
+            </Script>
             <div className={" bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-white " + quantico.className}>
                 <header className={"bg-white dark:bg-zinc-500 z-50 pt-2 fixed top-0 left-0 w-full dark:border-0 dark:border-zinc-700 " + quantico.className}>
                     <Navigation fontClass={quantico.className} />

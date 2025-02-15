@@ -118,7 +118,7 @@ const AdminSidebar = () => {
             <div className='flex items-center justify-start gap-1 w-full py-4 pr-4 pl-1'>
                 <Image
                     src={isDarkMode ? nextlogo : nextlogo}
-                    alt="Noetics.io Logo"
+                    alt="nextnoetics.com Logo"
                     width={140} // Adjust the width as needed
                     height={100} // Adjust the height as needed
                     className="rounded-full"

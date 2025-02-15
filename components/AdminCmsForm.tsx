@@ -1,5 +1,4 @@
 import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
 import Image from 'next/image';
 
 interface FormValues {
@@ -69,23 +68,10 @@ const AdminCmsForm: React.FC<AdminCmsFormProps> = ({
                     Content
                 </label>
                 <div className="border border-gray-300 text-zinc-900 rounded-md shadow-sm p-2">
-                    <Editor
-                        apiKey='xuegfwom0nawuekck2prc9yboegxm372icviucpytplmzjr7'
+                    <textarea
                         value={formValues.content}
-                        onEditorChange={handleContentChange}
-                        init={{
-                            height: 300,
-                            menubar: false,
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
-                            ],
-                            toolbar:
-                                'undo redo | formatselect | bold italic backcolor | \
-                                alignleft aligncenter alignright alignjustify | \
-                                bullist numlist outdent indent | removeformat | help'
-                        }}
+                        onChange={(e) => handleContentChange(e.target.value)}
+                        className="w-full h-64 p-2 border-none focus:ring-0 focus:border-none"
                     />
                 </div>
             </div>

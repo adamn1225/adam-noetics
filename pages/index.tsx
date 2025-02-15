@@ -6,22 +6,24 @@ import CallToActionSection from "@components/CallToActionSection";
 import RootLayout from './layout';
 import AboutNoeticsDash from "@components/AboutNoeticsDash";
 
-const Home = () => {
-  return (
-    <RootLayout>
-      <div className="space-y-20">
-        <HeroSection />
-        <ServicesSection />
-        <AboutNoeticsDash />
-        <AboutSection />
-        <PortfolioSection />
-        <CallToActionSection
-          title="Ready for the next mission?"
-          subtitle="We have the skills, tools, focus, and intensity to ensure it's complete. Let's talk."
-        />
-      </div>
-    </RootLayout>
-  );
+import { FC } from 'react';
+
+const Home: FC = () => {
+    return (
+        <RootLayout>
+            <div className="space-y-20">
+                <HeroSection />
+                <ServicesSection />
+                <AboutNoeticsDash />
+                <AboutSection />
+                <PortfolioSection />
+                <CallToActionSection
+                    title="Ready for the next mission?"
+                    subtitle="We have the skills, tools, focus, and intensity to ensure it's complete. Let's talk."
+                />
+            </div>
+        </RootLayout>
+    );
 };
 
 export default Home;

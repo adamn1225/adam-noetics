@@ -6,13 +6,11 @@ import { supabase } from '@lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import placeholderAvatar from '@public/placeholder-avatar.png';
 import nextlogo from '@public/next_noetics.png';
 import logomin from '@public/next_noetics_ico.png';
-import DarkModeToggle from './DarkModeToggle';
 
 const navItems = [
-  { name: 'Overview', href: '/dashboard', icon: Home },
+  { name: 'Overview', href: '/dashboard/overview', icon: Home },
   { name: 'File Uploads', href: '/dashboard/files', icon: Folder },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardList },
   { name: 'CMS', href: '/dashboard/content', icon: MonitorCog },
@@ -36,6 +34,7 @@ const Sidebar = () => {
   const currentPath = usePathname();
 
   useEffect(() => {
+    console.log('Current Path:', currentPath); // Debugging log
     if (currentPath === '/dashboard/content') {
       setIsCollapsed(true);
     } else {
@@ -136,7 +135,7 @@ const Sidebar = () => {
       <div className={`flex items-center ${isCollapsed ? 'justify-center pt-2 pb-4' : 'justify-start  py-4 pr-4'} gap-1 w-full pl-1`}>
         <Image
           src={isCollapsed ? logomin : nextlogo}
-          alt="Noetics.io Logo"
+          alt="nextnoetics.com Logo"
           width={isCollapsed ? 40 : 140} // Adjust the width as needed
           height={isCollapsed ? 40 : 100} // Adjust the height as needed
           className="rounded-full "

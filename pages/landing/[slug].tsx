@@ -102,7 +102,7 @@ const LandingPage = () => {
         openGraph: {
             title: `${service.title} - Noetic Software and Web Key Solutions`,
             description: service.desc,
-            url: `https://noetics.io/landing/${slug}`,
+            url: `https://nextnoetics.com/landing/${slug}`,
         },
     };
 
@@ -112,7 +112,7 @@ const LandingPage = () => {
                 <title>{service.title} - Noetic Software and Web Key Solutions</title>
                 <meta name="description" content={service.desc} />
             </Head>
-            <CanonicalURL url={`https://noetics.io/landing/${slug}`} />
+            <CanonicalURL url={`https://nextnoetics.com/landing/${slug}`} />
             <LandingNavigation />
             <motion.section
                 className={"bg-white text-zinc-800 dark:bg-zinc-900 dark:text-white" + quantico.className}

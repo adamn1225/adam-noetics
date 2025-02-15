@@ -110,7 +110,7 @@ const SignupPage: React.FC = () => {
     //     const { data: signInData, error: signInError } = await supabase.auth.signInWithOAuth({
     //         provider: 'google',
     //         options: {
-    //             redirectTo: 'https://www.noetics.io/dashboard/tasks',
+    //             redirectTo: 'https://www.nextnoetics.com/dashboard/tasks',
     //         },
     //     });
 

@@ -98,7 +98,7 @@ const LoginPage = () => {
   //     const { data, error } = await supabase.auth.signInWithOAuth({
   //       provider: 'google',
   //       options: {
-  //         redirectTo: 'https://www.noetics.io/dashboard/tasks',
+  //         redirectTo: 'https://www.nextnoetics.com/dashboard/tasks',
   //       },
   //     });
 
@@ -177,7 +177,7 @@ const LoginPage = () => {
   //         }
   //       }
 
-  //       router.push('/dashboard');
+  //       router.push('/dashboard/overview/');
   //     }
   //   } catch (err: any) {
   //     console.error("Google login failed:", err);

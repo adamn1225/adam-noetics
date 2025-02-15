@@ -18,7 +18,7 @@ const ResetPasswordPage = () => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://www.noetics.io/reset-password',
+        redirectTo: 'https://www.nextnoetics.com/reset-password',
       });
       if (error) throw error;
       setSuccess(true);

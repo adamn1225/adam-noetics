@@ -74,7 +74,7 @@ const PublicOnboardingForm: React.FC = () => {
                 const { error: inviteError } = await supabase.auth.signInWithOtp({
                     email: formData.email,
                     options: {
-                        emailRedirectTo: 'https://www.noetics.io/setup-password', // Redirect URL to the password setup page
+                        emailRedirectTo: 'https://www.nextnoetics.com/setup-password', // Redirect URL to the password setup page
                     },
                 });
 

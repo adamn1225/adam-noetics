@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://noetics.io/sitemap.xml
+Sitemap: https://nextnoetics.com/sitemap.xml

@@ -51,7 +51,7 @@ const ClientTasks = () => {
                     {
                         id: 1,
                         title: 'Finish the onboarding form',
-                        description: 'Complete the <a href="/dashboard/" class="text-blue-500 font-semibold underline">Onboarding Form</a> in the dashboard.',
+                        description: 'Complete the <a href="/dashboard/overview" class="text-blue-500 font-semibold underline">Onboarding Form</a> in the dashboard.',
                         due_date: null,
                         is_request: false,
                         status: profileData.onboarding_completed ? 'Completed' : 'Pending',

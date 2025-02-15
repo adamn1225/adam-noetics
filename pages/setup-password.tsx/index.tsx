@@ -29,7 +29,7 @@ const SetupPasswordPage = () => {
             setError(error.message);
         } else {
             setSuccess('Password updated successfully');
-            router.push('/dashboard'); // Redirect to dashboard or any other page
+            router.push('/dashboard/overview/'); // Redirect to dashboard or any other page
         }
     };
 

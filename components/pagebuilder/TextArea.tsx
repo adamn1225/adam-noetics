@@ -1,47 +1,52 @@
 import React from "react";
-import { useNode } from "@craftjs/core";
+import { Draggable } from 'react-beautiful-dnd';
 import ContentEditable from 'react-contenteditable';
 
 interface TextAreaProps {
+    id: string;
     text: string;
     fontSize?: string;
     textAlign?: string;
     height?: string;
     width?: string;
+    index: number;
+    setProp: (callback: (props: any) => void) => void;
 }
 
-export const TextArea: React.FC<TextAreaProps> & { craft?: any } = ({ text, fontSize, textAlign, height = '250px', width = 'auto' }) => {
-    const { connectors: { connect, drag } } = useNode();
-
-    const { actions: { setProp } } = useNode();
+export const TextArea: React.FC<TextAreaProps> = ({ id, text, fontSize, textAlign, height = '250px', width = 'auto', index, setProp }) => {
     return (
-        <div>
-            <div
-                ref={ref => { if (ref) connect(drag(ref)); }}
-                style={{ fontSize, height, width }}
-            >
-                <ContentEditable
-                    html={text}
-                    onChange={e =>
-                        setProp((props: { text: string; }) =>
-                            props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")
-                        )
-                    }
-                    tagName="p"
-                    style={{ fontSize: `${fontSize}px`, textAlign, border: '1px solid #ddd', height, width }}
-                />
-            </div>
-        </div>
-    )
+        <Draggable draggableId={id} index={index}>
+            {(provided) => (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={{ fontSize, height, width, border: '1px solid #ddd' }}
+                >
+                    <ContentEditable
+                        html={text}
+                        onChange={e =>
+                            setProp((props: { text: string; }) =>
+                                props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")
+                            )
+                        }
+                        tagName="p"
+                        style={{ fontSize: `${fontSize}px`, textAlign, height, width }}
+                    />
+                </div>
+            )}
+        </Draggable>
+    );
 };
 
-const TextAreaSettings = () => {
-    const { actions: { setProp }, fontSize, height, width } = useNode((node) => ({
-        fontSize: node.data.props.fontSize,
-        height: node.data.props.height,
-        width: node.data.props.width
-    }));
+interface TextAreaSettingsProps {
+    setProp: (callback: (props: any) => void) => void;
+    fontSize: string;
+    height: string;
+    width: string;
+}
 
+export const TextAreaSettings: React.FC<TextAreaSettingsProps> = ({ setProp, fontSize, height, width }) => {
     return (
         <div className="mt-2">
             <form className="flex flex-col space-y-2 w-fit border border-gray-200 p-2 rounded-md bg-white">
@@ -77,12 +82,5 @@ const TextAreaSettings = () => {
                 />
             </form>
         </div>
-    )
-};
-
-TextArea.craft = {
-    props: { text: 'Default text', fontSize: '16', height: '250px', width: 'auto' },
-    related: {
-        settings: TextAreaSettings
-    }
+    );
 };

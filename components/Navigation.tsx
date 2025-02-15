@@ -32,7 +32,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
           <Link href="/">
             <Image
               src={nextlogo}
-              alt="Noetics.io Logo"
+              alt="nextnoetics.com Logo"
               width={250}
               height={175}
               className="rounded-full"

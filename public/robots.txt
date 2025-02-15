@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://noetics.io
+Host: https://nextnoetics.com
 
 # Sitemaps
-Sitemap: https://noetics.io/sitemap.xml
+Sitemap: https://nextnoetics.com/sitemap.xml
