@@ -31,8 +31,8 @@ const AboutNoeticsDash = () => {
                         </ul>
                     </div>
                     <div className="flex flex-col items-center justify-evenly gap-2 bg-gray-200 dark:bg-zinc-800 p-6 rounded-lg shadow-md">
-                        <h3 className="text-2xl font-semibold mb-2 dark:text-primary">Noetics Content Management System</h3>
-                        <p className="mb-2 text-center text-base">Manage your content, blog posts, & pages.</p>
+                        <h3 className="text-2xl font-semibold mb-2 dark:text-primary">Noetics Landing Pagebuilder &amph; CMS</h3>
+                        <p className="mb-2 text-center text-base">Manage your content, blogs, & landing pages.</p>
                         <Image
                             src={cmsnoetics}
                             alt="Noetics Content Management System"
