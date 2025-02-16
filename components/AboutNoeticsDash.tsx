@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ga4noetics from '/public/ga4-nextnoetics-dark.png';
-import cmsnoetics from '/public/noetic-cms.gif';
+import cmsnoetics from '/public/noetic-builder.png';
 import smmnoetics from '/public/noetic-smm.png';
 import { motion } from "framer-motion";
 import { fadeInRight } from "../motionConfig";
