@@ -21,7 +21,7 @@ const services = [
         slug: "noetic-web-apps",
         title: "Custom Web Apps",
         desc: "Beyond Templates. Tailored, Scalable, and Built for Impact.",
-        howItWorks: "We don’t do one-size-fits-all. We build web applications designed around your business, helping you automate tasks, optimize workflows, and scale effortlessly. Whether you're launching a startup, managing operations, or creating a customer portal, we craft solutions that work exactly how you need them to.",
+        howItWorks: "We don't do one-size-fits-all. We build web applications designed around your business, helping you automate tasks, optimize workflows, and scale effortlessly. Whether you're launching a startup, managing operations, or creating a customer portal, we craft solutions that work exactly how you need them to.",
         whatWeOffer: [
             "User-First Design: Interfaces built for seamless, intuitive navigation.",
             "Scalable Architecture: Future-proof platforms that grow with your business.",
@@ -115,7 +115,7 @@ const LandingPage = () => {
             <CanonicalURL url={`https://nextnoetics.com/landing/${slug}`} />
             <LandingNavigation />
             <motion.section
-                className={"bg-white text-zinc-800 dark:bg-zinc-900 dark:text-white" + quantico.className}
+                className={"bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white" + quantico.className}
                 {...fadeInUp}
             >
                 <div className={"min-h-screen bg-zinc-50 dark:bg-zinc-900 py-12 mt-12 " + quantico.className}>
