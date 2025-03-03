@@ -1,4 +1,5 @@
-export const nextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: "standalone",
   reactStrictMode: false,
   images: {
@@ -16,3 +17,5 @@ export const nextConfig = {
     ],
   },
 };
+
+export default nextConfig;
