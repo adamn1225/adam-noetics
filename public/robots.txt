@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://nextnoetics.com
-
-# Sitemaps
-Sitemap: https://nextnoetics.com/sitemap.xml
