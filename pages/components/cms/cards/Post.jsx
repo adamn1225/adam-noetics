@@ -1,8 +1,11 @@
 "use client";
 import React, { useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { Element, useNode } from "@craftjs/core";
-import Header from "../user/Header";
-import ImageUpload from "../user/ImageUpload";
+
+const Header = dynamic(() => import("../user/Header"));
+const ImageUpload = dynamic(() => import("../user/ImageUpload"));
+export const dynamic = "force-dynamic";
 
 const PostTop = ({ children }) => {
     const { connectors: { connect } } = useNode();

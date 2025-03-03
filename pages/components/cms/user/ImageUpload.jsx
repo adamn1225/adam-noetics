@@ -1,9 +1,12 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { Rnd } from "react-rnd";
 import { useNode } from "@craftjs/core";
-import FetchImages from './FetchImages';
 import { Link2, Link2Off } from 'lucide-react';
+
+const FetchImages = dynamic(() => import('./FetchImages'));
+export const dynamic = "force-dynamic";
 
 const ImageUpload = ({ src = '/chamber-crane.jpeg', alt = '', width = 'auto', height = 'auto', objectFit = 'contain', objectPosition = 'center', overlayColor = 'transparent', overlayOpacity = 0.4, children }) => {
   const { connectors: { connect, drag }, actions: { setProp } } = useNode();

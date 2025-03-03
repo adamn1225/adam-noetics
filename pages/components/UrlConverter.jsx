@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from "next/dynamic";
 
 const DraggableImages = dynamic(() => import("./DraggableImages"), { ssr: false });
+export const dynamic = "force-dynamic";
 
 const UrlConverter = ({ onConvert }) => {
   const [url, setUrl] = useState('');
