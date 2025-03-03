@@ -29,6 +29,8 @@ const IgContainer = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod
 const IgContainerSettings = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.IgContainerSettings), { ssr: false });
 const UrlConverter = dynamic(() => import('./UrlConverter.jsx'), { ssr: false });
 
+export const dynamic = "force-dynamic";
+
 const SmmCards = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState('Facebook');
