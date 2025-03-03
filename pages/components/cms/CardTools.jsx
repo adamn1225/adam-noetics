@@ -1,55 +1,120 @@
 "use client";
-import React, { useRef, useEffect, forwardRef, useState } from 'react';
-import { useEditor } from "@craftjs/core";
-import Container from "./user/Container";
-import Header from "./user/Header";
-import ImageUpload from "./user/ImageUpload";
-import TwoColumnContainer from "./user/gridlayouts/TwoColumnContainer";
-import ThreeColumnContainer from "./user/gridlayouts/ThreeColumnContainer";
-import { Square } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import dynamic from "next/dynamic";
+import { Editor, Frame, Element } from "@craftjs/core";
 
-const DraggableButton = forwardRef((props, ref) => (
-  <button ref={ref} {...props} />
-));
-DraggableButton.displayName = 'DraggableButton';
+const CardTools = dynamic(() => import('./cms/CardTools.jsx'));
+const Layers = dynamic(() => import('@craftjs/layers').then(mod => mod.Layers));
+const FbContainer = dynamic(() => import('./cms/cards/FbContainer.jsx').then(mod => mod.default));
+const FbContainerSettings = dynamic(() => import('./cms/cards/FbContainer.jsx').then(mod => mod.FbContainerSettings));
+const SettingsPanel = dynamic(() => import('./cms/SettingsPanel.jsx'));
+const Container = dynamic(() => import('./cms/user/Container.jsx').then(mod => mod.default));
+const ContainerSettings = dynamic(() => import('./cms/user/Container.jsx').then(mod => mod.ContainerSettings));
+const Post = dynamic(() => import('./cms/cards/Post.jsx'));
+const Header = dynamic(() => import('./cms/user/Header.jsx').then(mod => mod.default));
+const HeaderSettings = dynamic(() => import('./cms/user/Header.jsx').then(mod => mod.HeaderSettings));
+const ImageUpload = dynamic(() => import('./cms/user/ImageUpload.jsx').then(mod => mod.default));
+const ImageUploadSettings = dynamic(() => import('./cms/user/ImageUpload.jsx').then(mod => mod.ImageUploadSettings));
+const OneColumnContainer = dynamic(() => import('./cms/user/gridlayouts/OneColumnContainer.jsx').then(mod => mod.default));
+const OneColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/OneColumnContainer.jsx').then(mod => mod.OneColumnContainerSettings));
+const TwoColumnContainer = dynamic(() => import('./cms/user/gridlayouts/TwoColumnContainer.jsx').then(mod => mod.default));
+const TwoColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/TwoColumnContainer.jsx').then(mod => mod.TwoColumnContainerSettings));
+const ThreeColumnContainer = dynamic(() => import('./cms/user/gridlayouts/ThreeColumnContainer.jsx').then(mod => mod.default));
+const ThreeColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/ThreeColumnContainer.jsx').then(mod => mod.ThreeColumnContainerSettings));
+const SaveTemplate = dynamic(() => import('./SaveTemplate.jsx'));
+const StoredTemplates = dynamic(() => import('./StoredTemplates.jsx'));
+const CustomModal = dynamic(() => import('./CustomModal.jsx'));
+const Topbar = dynamic(() => import('./cms/Topbar.jsx'));
+const IgContainer = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.default));
+const IgContainerSettings = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.IgContainerSettings));
+const UrlConverter = dynamic(() => import('./UrlConverter.jsx'));
 
-const CardTools = () => {
-  const { connectors } = useEditor();
-  const [sectionTab, setSectionTab] = useState('components');
+const SmmCards = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState('Facebook');
+  const [convertedData, setConvertedData] = useState(null);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleCardChange = (card) => {
+    setSelectedCard(card);
+  };
+
+  const handleConvert = (data) => {
+    setConvertedData(data);
+  };
+
+  useEffect(() => {
+    // This effect will run whenever convertedData changes
+    console.log('Converted data updated:', convertedData);
+  }, [convertedData]);
 
   return (
-    <div className="py-6">
-      <div className="flex flex-col items-center space-y-2">
-        <div className='text-nowrap mb-6'>
-          <span className="text-xl underline underline-offset-8 font-bold text-cyan-400">Components</span>
-        </div>
-        <div className='flex gap-2 items-center'>
-          <button onClick={() => setSectionTab('components')} className={` p-2 rounded ${sectionTab === 'components' ? 'btn-gradient' : 'btn-gradient opacity-30 text-white'}`}>Components</button>
-          <button onClick={() => setSectionTab('layouts')} className={`btn-gradient p-2 rounded ${sectionTab === 'layouts' ? 'btn-gradient' : 'btn-gradient opacity-30 text-white'}`}>Layouts</button>
-        </div>
-      </div>
-      <div className="flex flex-col items-center space-y-4">
-        {sectionTab === 'layouts' && (
-          <>
-            <span className="text-lg font-medium text-gray-100 pt-2">Grid Containers Selection</span>
-            <div className="flex justify-center items-center w-fit h-auto gap-2 text-sm border-0 border-b-2 border-white pb-8">
-              <DraggableButton ref={ref => { if (ref) connectors.create(ref, <TwoColumnContainer background="#fff" padding={10} />); }} className="btn-gradient p-2 grid grid-cols-2 justify-items-center place items-stretch gap-0 rounded "><Square className='text-gray-950' size={32} /><Square className='text-gray-950' size={32} /></DraggableButton>
-              <DraggableButton ref={ref => { if (ref) connectors.create(ref, <ThreeColumnContainer background="#fff" padding={5} />); }} className="btn-gradient p-2 justify-items-center grid grid-cols-3 rounded"><Square className='text-gray-950' size={32} /><Square className='text-gray-950' size={32} /><Square className='text-gray-950' size={32} /></DraggableButton>
+    <div className='w-full h-screen bg-white dark:bg-gray-800 overflow-x-hidden'>
+      <Editor resolver={{ Post, Header, HeaderSettings, ImageUploadSettings, ImageUpload, Container, ContainerSettings, TwoColumnContainer, ThreeColumnContainerSettings, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, IgContainer, IgContainerSettings, Post }} >
+        <div className="grid grid-cols-[3fr_1fr] justify-items-between gap-y-4 h-full w-full lg:mb-0">
+          <div className='flex justify-center items-normal h-full w-full'>
+            <UrlConverter onConvert={handleConvert} className="url-converter-sidebar" />
+
+
+            {selectedCard === 'Facebook' && (
+              <div className='flex flex-col justify-normal items-center h-full w-full  mx-2'>
+                <h1 className='text-blue-500 text-center py-5 text-xl font-bold'>Facebook Image Card Preview</h1>
+                <Frame key={`facebook-${JSON.stringify(convertedData)}`}>
+                  <Element is={FbContainer} canvas>
+                    <Element is={Post} background={"#fff"} containerType="facebook" h1={convertedData?.h1} h2={convertedData?.h2} img={convertedData?.img} />
+                  </Element>
+                </Frame>
+              </div>
+            )}
+            {selectedCard === 'Instagram' && (
+              <div className='flex flex-col justify-normal items-center h-full w-full'>
+                <h1 className='text-rose-700 text-center py-5 text-xl font-bold'>Instagram Image Card Preview</h1>
+                <Frame key={`instagram-${JSON.stringify(convertedData)}`}>
+                  <div className='flex justify-center items-start h-full w-full'>
+                    <div style={{ transform: 'scale(0.5)', transformOrigin: 'top' }}>
+                      <Element is={IgContainer} canvas>
+                        <Element is={Post} background={"#fff"} containerType="instagram" h1={convertedData?.h1} h2={convertedData?.h2} img={convertedData?.img} />
+                      </Element>
+                    </div>
+                  </div>
+                </Frame>
+              </div>
+            )}
+          </div>
+          <div className='relative right-0 w-[20vw] max-w-[20vw] min-w-[20vw] bg-stone-900 h-full overflow-y-auto'>
+            <Topbar />
+            <div className='flex flex-col justify-center items-center gap-1 px-2 overflow-y-auto'>
+              <h1 className='text-white text-2xl font-bold'>Social Media Card Types</h1>
+              <select className='bg-white border border-gray-300 rounded-md p-2' value={selectedCard} onChange={(e) => handleCardChange(e.target.value)}>
+                <option value="Facebook">Facebook Card</option>
+                <option value="Instagram">Instagram Card</option>
+              </select>
+              <CardTools />
+              <SettingsPanel />
+              <span className='bg-white w-full mt-4'><Layers expanded /></span>
+              <button onClick={openModal} className="text-gradient font-bold border border-1 border-primary p-2 text-center mt-4 hover:bg-primary hover:text-white ">
+                Save Template
+              </button>
+              <div className='w-full mt-8 bg-white p-4'>
+                <StoredTemplates />
+              </div>
             </div>
-          </>)}
-        {sectionTab === 'components' && (
-          <>
-            <span className="text-lg font-medium text-white pt-2">Add-on Components</span>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2 w-full text-nowrap mx-2 ">
-              <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Header text="Header" />); }} className="p-2 btn-gradient rounded text-center">Text</DraggableButton>
-              <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Container padding={0} background="#fff" canvas>{null}</Container>); }} className="p-2 btn-gradient rounded text-center">Container</DraggableButton>
-              <DraggableButton ref={ref => { if (ref) connectors.create(ref, <ImageUpload src="/simple-blue.png" alt="" width={200} height={200} overlayOpacity={0} />); }} className="p-2 btn-gradient rounded text-center">Image Upload</DraggableButton>
-            </div>
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      </Editor>
+
+      <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
+        <SaveTemplate />
+      </CustomModal>
     </div>
   );
-};
+}
 
-export default CardTools;
+export default SmmCards;

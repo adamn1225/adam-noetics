@@ -1,4 +1,4 @@
-export default {
+export const nextConfig = {
   output: "standalone",
   reactStrictMode: false,
   images: {
