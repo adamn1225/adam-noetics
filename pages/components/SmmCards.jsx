@@ -6,17 +6,12 @@ import { Layers } from '@craftjs/layers';
 import { FbContainerSettings, FbContainer } from './cms/cards/FbContainer';
 import { SettingsPanel } from './cms/SettingsPanel';
 import { Container } from './cms/user/Container';
-import { Button, ButtonSettings } from './cms/user/Button';
-import { CardSettings } from './cms/user/Card';
 import { Post, PostTop } from './cms/cards/Post';
 import { Header } from './cms/user/Header';
-import { TextArea } from './cms/user/TextArea';
 import { ImageUpload, ImageUploadSettings } from './cms/user/ImageUpload';
 import { OneColumnContainer, OneColumnContainerSettings } from './cms/user/gridlayouts/OneColumnContainer';
 import { TwoColumnContainerSettings, TwoColumnContainer } from './cms/user/gridlayouts/TwoColumnContainer';
 import { ThreeColumnContainer, ThreeColumnContainerSettings } from './cms/user/gridlayouts/ThreeColumnContainer';
-import { MainContainerSettings } from './cms/MainContainer';
-import { IconsComponent, IconsSettings } from './cms/cards/IconsComponent';
 import SaveTemplate from './SaveTemplate';
 import StoredTemplates from './StoredTemplates';
 import CustomModal from './CustomModal';
@@ -52,7 +47,7 @@ const SmmCards = () => {
 
   return (
     <div className='w-full h-screen bg-white dark:bg-gray-800 overflow-x-hidden'>
-      <Editor resolver={{ Post, Button, Header, ImageUploadSettings, ImageUpload, Container, PostTop, TwoColumnContainer, ThreeColumnContainerSettings, TextArea, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, MainContainerSettings, ButtonSettings, CardSettings, IconsComponent, IconsSettings, IgContainer, IgContainerSettings, Post }} >
+      <Editor resolver={{ Post, Header, ImageUploadSettings, ImageUpload, Container, PostTop, TwoColumnContainer, ThreeColumnContainerSettings, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, IgContainer, IgContainerSettings, Post }} >
         <div className="grid grid-cols-[3fr_1fr] justify-items-between gap-y-4 h-full w-full lg:mb-0">
           <div className='flex justify-center items-normal h-full w-full'>
             <UrlConverter onConvert={handleConvert} className="url-converter-sidebar" />
