@@ -42,7 +42,7 @@ const Header = ({ text, fontSize, textAlign, color, fontWeight, fontStyle, tagNa
     )
 };
 
-const HeaderSettings = () => {
+export const HeaderSettings = () => {
     const { actions: { setProp }, fontSize, textAlign, color, fontWeight, fontStyle, tagName } = useNode((node) => ({
         fontSize: node.data.props.fontSize,
         textAlign: node.data.props.textAlign,

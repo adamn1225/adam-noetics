@@ -1,27 +1,33 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import dynamic from "next/dynamic";
 import { Editor, Frame, Element } from "@craftjs/core";
-import { CardTools } from './cms/CardTools.jsx';
-import { Layers } from '@craftjs/layers';
-import { FbContainer, FbContainerSettings } from './cms/cards/FbContainer.jsx';
-import { SettingsPanel } from './cms/SettingsPanel.jsx';
-import { Container } from './cms/user/Container.jsx';
-import { CardSettings } from './cms/user/Card.jsx';
-import { Post, PostTop } from './cms/cards/Post.jsx';
-import { Header } from './cms/user/Header.jsx';
-import { TextArea } from './cms/user/TextArea.jsx';
-import { ImageUpload, ImageUploadSettings } from './cms/user/ImageUpload.jsx';
-import { OneColumnContainer, OneColumnContainerSettings } from './cms/user/gridlayouts/OneColumnContainer.jsx';
-import { TwoColumnContainer, TwoColumnContainerSettings } from './cms/user/gridlayouts/TwoColumnContainer.jsx';
-import { ThreeColumnContainer, ThreeColumnContainerSettings } from './cms/user/gridlayouts/ThreeColumnContainer.jsx';
-import { MainContainerSettings } from './cms/MainContainer.jsx';
-import { IconsComponent, IconsSettings } from './cms/cards/IconsComponent.jsx';
-import SaveTemplate from './SaveTemplate.jsx';
-import StoredTemplates from './StoredTemplates.jsx';
-import CustomModal from './CustomModal.jsx';
-import { Topbar } from './cms/Topbar.jsx';
-import { IgContainer, IgContainerSettings } from './cms/cards/IgContainer.jsx';
-import UrlConverter from './UrlConverter.jsx';
+
+const CardTools = dynamic(() => import('./cms/CardTools.jsx'));
+const Layers = dynamic(() => import('@craftjs/layers').then(mod => mod.Layers));
+const FbContainer = dynamic(() => import('./cms/cards/FbContainer.jsx').then(mod => mod.default));
+const FbContainerSettings = dynamic(() => import('./cms/cards/FbContainer.jsx').then(mod => mod.FbContainerSettings));
+const SettingsPanel = dynamic(() => import('./cms/SettingsPanel.jsx'));
+const Container = dynamic(() => import('./cms/user/Container.jsx').then(mod => mod.default));
+const ContainerSettings = dynamic(() => import('./cms/user/Container.jsx').then(mod => mod.ContainerSettings));
+const Post = dynamic(() => import('./cms/cards/Post.jsx'));
+const Header = dynamic(() => import('./cms/user/Header.jsx').then(mod => mod.default));
+const HeaderSettings = dynamic(() => import('./cms/user/Header.jsx').then(mod => mod.HeaderSettings));
+const ImageUpload = dynamic(() => import('./cms/user/ImageUpload.jsx').then(mod => mod.default));
+const ImageUploadSettings = dynamic(() => import('./cms/user/ImageUpload.jsx').then(mod => mod.ImageUploadSettings));
+const OneColumnContainer = dynamic(() => import('./cms/user/gridlayouts/OneColumnContainer.jsx').then(mod => mod.default));
+const OneColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/OneColumnContainer.jsx').then(mod => mod.OneColumnContainerSettings));
+const TwoColumnContainer = dynamic(() => import('./cms/user/gridlayouts/TwoColumnContainer.jsx').then(mod => mod.default));
+const TwoColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/TwoColumnContainer.jsx').then(mod => mod.TwoColumnContainerSettings));
+const ThreeColumnContainer = dynamic(() => import('./cms/user/gridlayouts/ThreeColumnContainer.jsx').then(mod => mod.default));
+const ThreeColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/ThreeColumnContainer.jsx').then(mod => mod.ThreeColumnContainerSettings));
+const SaveTemplate = dynamic(() => import('./SaveTemplate.jsx'));
+const StoredTemplates = dynamic(() => import('./StoredTemplates.jsx'));
+const CustomModal = dynamic(() => import('./CustomModal.jsx'));
+const Topbar = dynamic(() => import('./cms/Topbar.jsx'));
+const IgContainer = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.default));
+const IgContainerSettings = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.IgContainerSettings));
+const UrlConverter = dynamic(() => import('./UrlConverter.jsx'));
 
 const SmmCards = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -51,7 +57,7 @@ const SmmCards = () => {
 
   return (
     <div className='w-full h-screen bg-white dark:bg-gray-800 overflow-x-hidden'>
-      <Editor resolver={{ Post, Header, ImageUploadSettings, ImageUpload, Container, PostTop, TwoColumnContainer, ThreeColumnContainerSettings, TextArea, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, MainContainerSettings, CardSettings, IconsComponent, IconsSettings, IgContainer, IgContainerSettings, Post }} >
+      <Editor resolver={{ Post, Header, HeaderSettings, ImageUploadSettings, ImageUpload, Container, ContainerSettings, TwoColumnContainer, ThreeColumnContainerSettings, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, IgContainer, IgContainerSettings, Post }} >
         <div className="grid grid-cols-[3fr_1fr] justify-items-between gap-y-4 h-full w-full lg:mb-0">
           <div className='flex justify-center items-normal h-full w-full'>
             <UrlConverter onConvert={handleConvert} className="url-converter-sidebar" />

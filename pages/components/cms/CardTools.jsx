@@ -1,16 +1,13 @@
 "use client";
 import React, { useRef, useEffect, forwardRef, useState } from 'react';
 import { useEditor } from "@craftjs/core";
-import { Container } from "./user/Container";
-import { Card } from "./user/Card";
-import { Header } from "./user/Header";
-import { ImageUpload } from "./user/ImageUpload";
-import { OneColumnContainer } from "./user/gridlayouts/OneColumnContainer";
-import { TwoColumnContainer } from "./user/gridlayouts/TwoColumnContainer";
-import { ThreeColumnContainer } from "./user/gridlayouts/ThreeColumnContainer";
+import Container from "./user/Container";
+import Header from "./user/Header";
+import ImageUpload from "./user/ImageUpload";
+import OneColumnContainer from "./user/gridlayouts/OneColumnContainer";
+import TwoColumnContainer from "./user/gridlayouts/TwoColumnContainer";
+import ThreeColumnContainer from "./user/gridlayouts/ThreeColumnContainer";
 import { Square } from "lucide-react";
-import { IconsComponent } from "./cards/IconsComponent";
-import { BeakerIcon } from '@heroicons/react/solid';
 
 const DraggableButton = forwardRef((props, ref) => (
   <button ref={ref} {...props} />
@@ -48,7 +45,6 @@ const CardTools = () => {
               <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Header text="Header" />); }} className="p-2 btn-gradient rounded text-center">Text</DraggableButton>
               <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Container padding={0} background="#fff" canvas>{null}</Container>); }} className="p-2 btn-gradient rounded text-center">Container</DraggableButton>
               <DraggableButton ref={ref => { if (ref) connectors.create(ref, <ImageUpload src="/simple-blue.png" alt="" width={200} height={200} overlayOpacity={0} />); }} className="p-2 btn-gradient rounded text-center">Image Upload</DraggableButton>
-              <DraggableButton ref={ref => { if (ref) connectors.create(ref, <IconsComponent icon="BeakerIcon" width={64} height={64} />); }} className="p-2 btn-gradient rounded text-center">Icon</DraggableButton>
             </div>
           </>
         )}

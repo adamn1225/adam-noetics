@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useEditor } from "@craftjs/core";
@@ -6,6 +7,7 @@ const SaveTemplate = () => {
   const [templateName, setTemplateName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
   const { query } = useEditor();
 
   // Use a valid UUID from your authentication table for testing
@@ -17,6 +19,7 @@ const SaveTemplate = () => {
   const handleSaveTemplate = async () => {
     setLoading(true);
     setError(null);
+    setSuccessMessage(null);
 
     try {
       const jsonData = query.serialize();
@@ -28,7 +31,7 @@ const SaveTemplate = () => {
       if (error) {
         setError(error.message);
       } else {
-        alert('Template saved successfully!');
+        setSuccessMessage('Template saved successfully!');
       }
     } catch (e) {
       setError('Invalid JSON data');
@@ -51,6 +54,7 @@ const SaveTemplate = () => {
         {loading ? 'Saving...' : 'Save Template'}
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
     </div>
   );
 };

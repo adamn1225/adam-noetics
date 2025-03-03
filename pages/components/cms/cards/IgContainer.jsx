@@ -10,7 +10,7 @@ const IgContainer = ({ background, padding = 0, margin = 0, layout = "flex", chi
     if (ref.current) {
       connect(drag(ref.current));
     }
-  }, [connect, drag]);
+  }, [connect, drag, ref]);
 
   return (
     <div
@@ -79,8 +79,7 @@ IgContainer.craft = {
     canDrag: () => true,
     canMoveIn: () => true,
     canMoveOut: () => true
-  },
-  isCanvas: true
+  }
 };
 
 export default IgContainer;

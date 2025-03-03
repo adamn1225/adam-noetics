@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react';
+"use client";
+import React, { forwardRef } from "react";
 import { useEditor } from "@craftjs/core";
 
 const DraggableImages = forwardRef(({ src, alt, ...props }, ref) => {
@@ -6,7 +7,11 @@ const DraggableImages = forwardRef(({ src, alt, ...props }, ref) => {
 
   return (
     <img
-      ref={ref => connectors.create(ref, <img src={src} alt={alt} {...props} />)}
+      ref={(element) => {
+        if (element) {
+          connectors.create(element);
+        }
+      }}
       src={src}
       alt={alt}
       {...props}
@@ -14,6 +19,6 @@ const DraggableImages = forwardRef(({ src, alt, ...props }, ref) => {
   );
 });
 
-DraggableImages.displayName = 'DraggableImage';
+DraggableImages.displayName = "DraggableImage";
 
 export default DraggableImages;

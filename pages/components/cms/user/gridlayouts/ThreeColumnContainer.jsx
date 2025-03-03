@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import { useNode, Element } from "@craftjs/core";
-import { Container } from "../Container";
+import Container from "../Container";
 
 const ThreeColumnContainer = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
     const { connectors: { connect, drag } } = useNode();
@@ -25,7 +25,7 @@ const ThreeColumnContainer = ({ background, padding = 0, borderColor = 'gray-400
             className={`m-2 border-dotted border-2 w-full ${layoutClass}`}
         >
             <Element is={Container} id="column1" background={background} padding={padding} canvas>
-                <span className="w-full h-fit"></span>
+                {/* Add content here */}
             </Element>
             <Element is={Container} id="column2" background={background} padding={padding} canvas>
                 {/* Add content here */}

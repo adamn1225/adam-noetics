@@ -109,12 +109,6 @@ const Topbar = () => {
                 <div className="mt-2">
                     <button
                         className="text-sm px-1 py-1 border border-primary text-primary hover:bg-gray-300 hover:text-zinc-800"
-                        onClick={handleSerialize}
-                    >
-                        Serialize JSON to console
-                    </button>
-                    <button
-                        className="text-sm px-1 py-1 border border-primary text-primary hover:bg-gray-300 hover:text-zinc-800"
                         onClick={handleCopyState}
                     >
                         Copy State

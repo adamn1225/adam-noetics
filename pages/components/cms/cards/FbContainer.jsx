@@ -79,7 +79,6 @@ FbContainer.craft = {
     canMoveIn: () => true,
     canMoveOut: () => false
   },
-  isCanvas: true
 };
 
 export default FbContainer;

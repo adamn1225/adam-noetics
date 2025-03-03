@@ -1,5 +1,8 @@
+"use client";
 import React, { useState, useEffect } from 'react';
-import DraggableImages from './DraggableImages';
+import dynamic from "next/dynamic";
+
+const DraggableImages = dynamic(() => import("./DraggableImages"), { ssr: false });
 
 const UrlConverter = ({ onConvert }) => {
   const [url, setUrl] = useState('');

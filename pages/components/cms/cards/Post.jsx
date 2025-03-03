@@ -1,8 +1,8 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import { Element, useNode } from "@craftjs/core";
-import { Header } from "../user/Header";
-import { ImageUpload } from "../user/ImageUpload";
+import Header from "../user/Header";
+import ImageUpload from "../user/ImageUpload";
 
 const PostTop = ({ children }) => {
     const { connectors: { connect } } = useNode();
@@ -105,8 +105,7 @@ Post.craft = {
         canDrag: () => true,
         canMoveIn: () => true,
         canMoveOut: () => true
-    },
-    isCanvas: true
+    }
 };
 
 export default Post;

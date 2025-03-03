@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 
 const CustomModal = ({ isOpen, onClose, children }) => {
