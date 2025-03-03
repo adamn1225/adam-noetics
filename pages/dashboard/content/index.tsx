@@ -1,12 +1,12 @@
 import React from "react";
-import DashboardLayout from "../UserLayout";
+import BuilderLayout from "../BuilderLayout";
 import SmmCards from "../../components/SmmCards";
 
 const PageBuilder = () => {
     return (
-        <DashboardLayout>
+        <BuilderLayout>
             <SmmCards />
-        </DashboardLayout>
+        </BuilderLayout>
     );
 }
 
