@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".", // Set the base URL for module resolution
+        "paths": {
+            "@/*": [
+                "./*"
+            ], // Map the @/ prefix to the root directory
+            "@lib/*": [
+                "lib/*"
+            ], // Map the @lib/ prefix to the lib directory
+            "@styles/*": [
+                "styles/*"
+            ], // Map the @styles/ prefix to the styles directory
+            "@components/*": [
+                "components/*"
+            ], // Map the @components/ prefix to the components directory
+            "@public/*": [
+                "public/*"
+            ] // Map the @public/ prefix to the public directory
+        }
+    },
+    "include": [
+        "**/*.js",
+        "**/*.jsx"
+    ], // Include all JavaScript and JSX files
+    "exclude": [
+        "node_modules"
+    ] // Exclude the node_modules directory
+}
