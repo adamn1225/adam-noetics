@@ -3,7 +3,7 @@ import React from "react";
 import { useNode } from "@craftjs/core";
 import { AlignCenter, AlignLeft, AlignRight } from 'lucide-react';
 
-export const Button = ({ size, variant, color, background, textColor, borderRadius, alignment, fontWeight, url, children }) => {
+const Button = ({ size, variant, color, background, textColor, borderRadius, alignment, fontWeight, url, children }) => {
     const { connectors: { connect, drag } } = useNode();
     const sizeClass = size === 'small' ? 'py-1 px-2' : size === 'medium' ? 'py-2 px-4' : 'py-3 px-6';
     const variantClass = variant === 'outlined' ? 'border border-gray-500' : variant === 'contained' ? 'bg-blue-500 text-white' : '';
@@ -99,12 +99,14 @@ export const ButtonSettings = () => {
 };
 
 Button.craft = {
-    props: { alignment: 'center'},
+    props: { alignment: 'center' },
     related: {
         settings: ButtonSettings,
     },
-    
+
     related: {
         settings: ButtonSettings,
     },
 };
+
+export default Button;

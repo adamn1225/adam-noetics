@@ -5,7 +5,7 @@ import { useNode } from "@craftjs/core";
 import FetchImages from './FetchImages';
 import { Link2, Link2Off } from 'lucide-react';
 
-export const ImageUpload = ({ src = '/chamber-crane.jpeg', alt = '', width = 'auto', height = 'auto', objectFit = 'contain', objectPosition = 'center', overlayColor = 'transparent', overlayOpacity = 0.4, children }) => {
+const ImageUpload = ({ src = '/chamber-crane.jpeg', alt = '', width = 'auto', height = 'auto', objectFit = 'contain', objectPosition = 'center', overlayColor = 'transparent', overlayOpacity = 0.4, children }) => {
   const { connectors: { connect, drag }, actions: { setProp } } = useNode();
   const ref = useRef(null);
 
@@ -125,7 +125,7 @@ export const ImageUploadSettings = () => {
           >
             {showImageLibrary ? 'Hide Image Library' : 'Show Image Library'}
           </button>
-        {showImageLibrary && <FetchImages onSelectImage={handleSelectImage} />}
+          {showImageLibrary && <FetchImages onSelectImage={handleSelectImage} />}
         </span>
         <label className="font-semibold text-sm underline">Upload Image</label>
         <input
@@ -222,3 +222,5 @@ ImageUpload.craft = {
     canMoveOut: () => true
   }
 };
+
+export default ImageUpload;

@@ -5,7 +5,7 @@ import { OneColumnContainer } from "./gridlayouts/OneColumnContainer";
 import { TwoColumnContainer } from "./gridlayouts/TwoColumnContainer";
 import { ThreeColumnContainer } from "./gridlayouts/ThreeColumnContainer";
 
-export const Sections = () => {
+const Sections = () => {
     const { connectors: { connect, drag } } = useNode();
     const [sections, setSections] = useState([{ id: 1, columns: 1, selected: true }]);
 
@@ -67,3 +67,6 @@ export const Sections = () => {
         </div>
     );
 };
+
+
+export default Sections;

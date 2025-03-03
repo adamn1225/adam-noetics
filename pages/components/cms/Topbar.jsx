@@ -5,7 +5,7 @@ import { supabase } from '../../../lib/supabaseClient';
 import lz from "lzutf8";
 import copy from 'copy-to-clipboard';
 
-export const Topbar = () => {
+const Topbar = () => {
     const { actions, query } = useEditor();
     const [isEnabled, setIsEnabled] = useState(true);
     const [templateName, setTemplateName] = useState('');
@@ -74,13 +74,13 @@ export const Topbar = () => {
                         <span>Enable JSON</span>
                     </label>
                 </div>
-                    <input
-                        type="text"
-                        placeholder="Template Name"
-                        value={templateName}
-                        onChange={(e) => setTemplateName(e.target.value)}
-                        className="w-fit p-2 border border-gray-300 rounded mb-2"
-                    />
+                <input
+                    type="text"
+                    placeholder="Template Name"
+                    value={templateName}
+                    onChange={(e) => setTemplateName(e.target.value)}
+                    className="w-fit p-2 border border-gray-300 rounded mb-2"
+                />
                 <div className="flex flex-wrap justify-center gap-1 text-gray-950">
                     <button
                         className="text-sm px-1 py-1 border border-primary text-primary hover:bg-gray-300 hover:text-zinc-800"
@@ -150,3 +150,5 @@ export const Topbar = () => {
         </div>
     );
 };
+
+export default Topbar;

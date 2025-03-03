@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import { useNode, Element } from "@craftjs/core";
 import { Container } from "../Container";
 
-export const OneColumnContainer = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
+const OneColumnContainer = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
     const { connectors: { connect, drag } } = useNode();
     const ref = useRef(null);
 
@@ -82,3 +82,5 @@ OneColumnContainer.craft = {
         canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode => incomingNode.data.type === Container),
     }
 };
+
+export default OneColumnContainer;

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEditor } from "@craftjs/core";
 
-export const SettingsPanel = () => {
+const SettingsPanel = () => {
     const { actions, selected } = useEditor((state, query) => {
         const [currentNodeId] = state.events.selected;
         let selected;
@@ -28,9 +28,9 @@ export const SettingsPanel = () => {
             <div className="flex flex-col space-y-2">
 
                 <div className='border border-gray-200 px-6 py-3 shadow-md shadow-secondary'>
-                
+
                     <div className="flex items-center justify-center text-gray-100 pb-2">
-                            <span className="px-2 py-1 underline underline-offset-4 text-center text-white text-lg  font-medium">{selected.name} Component Selected</span>
+                        <span className="px-2 py-1 underline underline-offset-4 text-center text-white text-lg  font-medium">{selected.name} Component Selected</span>
                     </div>
                     {selected.settings && React.createElement(selected.settings)}</div>
                 {selected.isDeletable && (
@@ -49,3 +49,5 @@ export const SettingsPanel = () => {
         </div>
     ) : null;
 };
+
+export default SettingsPanel;

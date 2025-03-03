@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNode } from "@craftjs/core";
 
-export const IconsComponent = ({ icon = 'BeakerIcon', iconSize = 64, iconColor = '#000', ...props }) => {
+const IconsComponent = ({ icon = 'BeakerIcon', iconSize = 64, iconColor = '#000', ...props }) => {
   const { connectors: { connect, drag } } = useNode();
   const IconComponent = iconList[icon];
 
@@ -67,3 +67,5 @@ IconsComponent.craft = {
     canMoveOut: () => true
   },
 };
+
+export default IconsComponent;

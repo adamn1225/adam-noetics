@@ -5,7 +5,7 @@ import ContentEditable from 'react-contenteditable';
 import { Slider } from '@mui/material';
 import { AlignCenter, AlignLeft, AlignRight } from 'lucide-react';
 
-export const TextArea = ({ text, fontSize, textAlign, color, fontWeight, fontStyle, height = '250px', width = 'auto' }) => {
+const TextArea = ({ text, fontSize, textAlign, color, fontWeight, fontStyle, height = '250px', width = 'auto' }) => {
     const { connectors: { connect, drag }, hasSelectedNode, actions: { setProp } } = useNode((state) => ({
         hasSelectedNode: state.events.selected,
     }));
@@ -192,3 +192,5 @@ TextArea.craft = {
         }
     },
 };
+
+export default TextArea;

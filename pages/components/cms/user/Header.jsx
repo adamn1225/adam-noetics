@@ -6,7 +6,7 @@ import { Slider } from '@mui/material';
 import { AlignCenter, AlignLeft, AlignRight } from 'lucide-react';
 import { Rnd } from "react-rnd";
 
-export const Header = ({ text, fontSize, textAlign, color, fontWeight, fontStyle, tagName }) => {
+const Header = ({ text, fontSize, textAlign, color, fontWeight, fontStyle, tagName }) => {
     const { connectors: { connect, drag }, hasSelectedNode, actions: { setProp } } = useNode((state) => ({
         hasSelectedNode: state.events.selected,
     }));
@@ -97,19 +97,19 @@ const HeaderSettings = () => {
                 </button>
             </div>
             <div className={activeTab === 'slider' ? 'space-y-2 mt-6' : 'hidden'}>
-            
+
                 <div className="flex items-center justify-center gap-1">
-                    
+
                     <div className="flex items-center justify-stretch w-full gap-2">
-                         <label className="w-full font-semibold text-sm underline text-gray-100">Font Size
-                        <Slider
-                            value={fontSize ? parseInt(fontSize, 10) : 0}
-                            onChange={(e, value) => handleFontSizeChange(value.toString())}
-                            step={1}
-                            min={7}
-                            max={100}
-                            valueLabelDisplay="auto"
-                        /></label>
+                        <label className="w-full font-semibold text-sm underline text-gray-100">Font Size
+                            <Slider
+                                value={fontSize ? parseInt(fontSize, 10) : 0}
+                                onChange={(e, value) => handleFontSizeChange(value.toString())}
+                                step={1}
+                                min={7}
+                                max={100}
+                                valueLabelDisplay="auto"
+                            /></label>
                         <input
                             value={fontSize ? parseInt(fontSize, 10) : 0}
                             onChange={(e) => handleFontSizeChange(e.target.value)}
@@ -144,36 +144,36 @@ const HeaderSettings = () => {
                         </select>
                     </div>
                     <div className="flex flex-col items-center justify-center gap-1">
-                            <label className="underline font-semibold text-normal text-gray-100">Font Weight</label>
-                            <select
-                                value={fontWeight}
-                                onChange={handleFontWeightChange}
-                                className="border border-gray-300 rounded-sm p-1 text-zinc-900"
-                            >
-                                <option value="normal">Normal</option>
-                                <option value="bold">Bold</option>
-                                <option value="bolder">Bolder</option>
-                                <option value="lighter">Lighter</option>
-                            </select>
-                        </div>
-                        <div className="flex flex-col items-center justify-center gap-1">
-                            <label className="underline font-semibold text-sm text-gray-100">Font Style</label>
-                            <select
-                                value={fontStyle}
-                                onChange={handleFontStyleChange}
-                                className="border border-gray-300 rounded-md p-1 text-zinc-900"
-                            >
-                                <option value="normal">Normal</option>
-                                <option value="italic">Italic</option>
-                                <option value="oblique">Oblique</option>
-                            </select>
-                        </div>
-                        <div className="flex flex-col items-start justify-center gap-1">
-                            <label className="underline text-sm font-semibold text-gray-100">Color</label>
-                            <input className="w-6" type="color" value={color} onChange={handleColorChange} />
-                        </div>
+                        <label className="underline font-semibold text-normal text-gray-100">Font Weight</label>
+                        <select
+                            value={fontWeight}
+                            onChange={handleFontWeightChange}
+                            className="border border-gray-300 rounded-sm p-1 text-zinc-900"
+                        >
+                            <option value="normal">Normal</option>
+                            <option value="bold">Bold</option>
+                            <option value="bolder">Bolder</option>
+                            <option value="lighter">Lighter</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-col items-center justify-center gap-1">
+                        <label className="underline font-semibold text-sm text-gray-100">Font Style</label>
+                        <select
+                            value={fontStyle}
+                            onChange={handleFontStyleChange}
+                            className="border border-gray-300 rounded-md p-1 text-zinc-900"
+                        >
+                            <option value="normal">Normal</option>
+                            <option value="italic">Italic</option>
+                            <option value="oblique">Oblique</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-col items-start justify-center gap-1">
+                        <label className="underline text-sm font-semibold text-gray-100">Color</label>
+                        <input className="w-6" type="color" value={color} onChange={handleColorChange} />
+                    </div>
                 </div>
-                
+
                 <div className="flex items-center justify-center gap-2">
 
                 </div>
@@ -223,3 +223,5 @@ Header.craft = {
         }
     }
 };
+
+export default Header;

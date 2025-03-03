@@ -17,15 +17,15 @@ export const CardTop = ({ children }) => {
 
 CardTop.craft = {
     rules: {
-        canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode => 
-            incomingNode.data.type === Header || 
-            incomingNode.data.type === TextArea || 
+        canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode =>
+            incomingNode.data.type === Header ||
+            incomingNode.data.type === TextArea ||
             incomingNode.data.type === Button
         )
     }
 };
 
-export const Card = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
+const Card = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
     const { connectors: { connect, drag } } = useNode();
     const ref = useRef(null);
 
@@ -36,29 +36,29 @@ export const Card = ({ background, padding = 0, borderColor = 'gray-400', height
     }, [connect, drag]);
 
     const layoutClass = layout === "grid"
-    ? `flex flex-col gap-${gap}`
-    : "flex flex-col gap-2";
+        ? `flex flex-col gap-${gap}`
+        : "flex flex-col gap-2";
 
-    return (    
+    return (
         <div
-        ref={ref}
-        style={{ background, padding: `${padding}px`, borderColor, height: height || 'min-content' }}
-        className={`m-2 border-dotted border-2 w-full ${layoutClass}`}
-    >            <Element is={Header} text="Header"  id="title" background={background} fontSize={20} canvas>
-                  <Header text="Header Title" fontSize={20} canvas />
-                </Element>
-                <Element is={Header} text="Subtitle" id="subtitle" background={background} fontSize={15} canvas>
+            ref={ref}
+            style={{ background, padding: `${padding}px`, borderColor, height: height || 'min-content' }}
+            className={`m-2 border-dotted border-2 w-full ${layoutClass}`}
+        >            <Element is={Header} text="Header" id="title" background={background} fontSize={20} canvas>
+                <Header text="Header Title" fontSize={20} canvas />
+            </Element>
+            <Element is={Header} text="Subtitle" id="subtitle" background={background} fontSize={15} canvas>
                 <Header text="Subtitle" fontSize={15} canvas />
-                </Element>
-                <Element is={TextArea} id="textarea" background={background} canvas>
+            </Element>
+            <Element is={TextArea} id="textarea" background={background} canvas>
                 <TextArea text="Purpose" />
-                </Element>
-                <Element is={Button} id="button" background={background} canvas>
-                     <Button size="small" variant="contained" color="primary" canvas >
-                         Learn more
-                     </Button>
-                </Element>
-            </div>
+            </Element>
+            <Element is={Button} id="button" background={background} canvas>
+                <Button size="small" variant="contained" color="primary" canvas >
+                    Learn more
+                </Button>
+            </Element>
+        </div>
     );
 };
 
@@ -109,3 +109,5 @@ Card.craft = {
         canDrop: () => true
     }
 };
+
+export default Card;

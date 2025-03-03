@@ -4,7 +4,7 @@ import { Element, useNode } from "@craftjs/core";
 import { Header } from "../user/Header";
 import { ImageUpload } from "../user/ImageUpload";
 
-export const PostTop = ({ children }) => {
+const PostTop = ({ children }) => {
     const { connectors: { connect } } = useNode();
     return (
         <div ref={connect} className="text-only flex flex-col gap-10">
@@ -15,8 +15,8 @@ export const PostTop = ({ children }) => {
 
 PostTop.craft = {
     rules: {
-        canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode => 
-            incomingNode.data.type === Header || 
+        canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode =>
+            incomingNode.data.type === Header ||
             incomingNode.data.type === TextArea
         )
     }
@@ -46,18 +46,18 @@ export const Post = ({ background, padding = 0, borderColor = 'gray-400', height
         position: 'relative'
     };
 
-    return (    
+    return (
         <div
-        ref={ref}
-        style={containerStyles}
-        className={`w-full`}
-      >                   
-        <div className="flex flex-col justify-normal items-start gap-y-12">
-         <div> <Element is={Header} text={h1 || "Company Logo"} id="title" background={background} fontSize={isFacebook ? 28 : 24} className="mb-4" /></div>
-          <div><Element is={Header} text={h2 || "Subtitle"} fontSize={isFacebook ? 20 : 18} id="subtitle" background={background} className="mt-4" /></div>
+            ref={ref}
+            style={containerStyles}
+            className={`w-full`}
+        >
+            <div className="flex flex-col justify-normal items-start gap-y-12">
+                <div> <Element is={Header} text={h1 || "Company Logo"} id="title" background={background} fontSize={isFacebook ? 28 : 24} className="mb-4" /></div>
+                <div><Element is={Header} text={h2 || "Subtitle"} fontSize={isFacebook ? 20 : 18} id="subtitle" background={background} className="mt-4" /></div>
+            </div>
+            <Element is={ImageUpload} id="image" src={img || '/default-image.jpg'} width={isFacebook ? 1200 : 1350} height={isFacebook ? 628 : 1080} alt="" canvas style={{ position: 'absolute', bottom: '10px', left: '10px' }} />
         </div>
-        <Element is={ImageUpload} id="image" src={img || '/default-image.jpg'} width={isFacebook ? 1200 : 1350} height={isFacebook ? 628 : 1080} alt="" canvas style={{ position: 'absolute', bottom: '10px', left: '10px' }} />
-      </div>
     );
 };
 
@@ -108,3 +108,5 @@ Post.craft = {
     },
     isCanvas: true
 };
+
+export default Post;
