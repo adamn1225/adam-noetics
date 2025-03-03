@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@lib/supabaseClient';
 import Image from 'next/image';
 import Notifications from '@components/Notifications';
-import DarkModeToggle from './DarkModeToggle';
 
 const BuilderTopNav = () => {
     const [profile, setProfile] = useState < any > (null);
@@ -74,7 +73,6 @@ const BuilderTopNav = () => {
 
     return (
         <div className="flex justify-end items-center gap-6 py-2 bg-white shadow-md pr-12 dark:bg-gray-900 ">
-            <DarkModeToggle />
             <Notifications />
             {profile && profile.profile_image ? (
                 <Image
