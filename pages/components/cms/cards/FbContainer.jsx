@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { useNode } from "@craftjs/core";
 
-const FbContainer = ({ background, padding = 0, margin = 0, layout = "flex", children }) => {
+export const FbContainer = ({ background, padding = 0, margin = 0, layout = "flex", children }) => {
   const { connectors: { connect, drag } } = useNode();
   const ref = useRef(null);
 
@@ -79,6 +79,5 @@ FbContainer.craft = {
     canMoveIn: () => true,
     canMoveOut: () => false
   },
+  isCanvas: true
 };
-
-export default FbContainer;

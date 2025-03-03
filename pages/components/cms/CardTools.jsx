@@ -4,7 +4,6 @@ import { useEditor } from "@craftjs/core";
 import Container from "./user/Container";
 import Header from "./user/Header";
 import ImageUpload from "./user/ImageUpload";
-import OneColumnContainer from "./user/gridlayouts/OneColumnContainer";
 import TwoColumnContainer from "./user/gridlayouts/TwoColumnContainer";
 import ThreeColumnContainer from "./user/gridlayouts/ThreeColumnContainer";
 import { Square } from "lucide-react";

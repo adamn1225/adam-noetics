@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Link2, Link2Off } from 'lucide-react';
 
-const BackgroundImage = ({ src, alt, objectFit = 'cover', objectPosition = 'center' }) => {
+export const BackgroundImage = ({ src, alt, objectFit = 'cover', objectPosition = 'center' }) => {
   const { connectors: { connect, drag } } = useNode();
   const ref = useRef(null);
 
@@ -188,5 +188,3 @@ BackgroundImage.craft = {
     canMoveOut: () => false
   }
 };
-
-export default BackgroundImage;

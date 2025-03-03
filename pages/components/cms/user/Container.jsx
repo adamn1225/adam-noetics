@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { useNode } from "@craftjs/core";
 
-const Container = ({ background, padding = 0, margin = 0, layout = "flex", children }) => {
+export const Container = ({ background, padding = 0, margin = 0, layout = "flex", children }) => {
     const { connectors: { connect, drag }, actions: { setProp } } = useNode();
     const ref = useRef(null);
 
@@ -101,7 +101,6 @@ Container.craft = {
         canDrop: () => {
             return true; // Allow dropping
         }
-    }
+    },
+    isCanvas: true
 };
-
-export default Container;

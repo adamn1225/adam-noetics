@@ -5,7 +5,7 @@ import { supabase } from '../../../lib/supabaseClient';
 import lz from "lzutf8";
 import copy from 'copy-to-clipboard';
 
-const Topbar = () => {
+export const Topbar = () => {
     const { actions, query } = useEditor();
     const [isEnabled, setIsEnabled] = useState(true);
     const [templateName, setTemplateName] = useState('');
@@ -109,6 +109,12 @@ const Topbar = () => {
                 <div className="mt-2">
                     <button
                         className="text-sm px-1 py-1 border border-primary text-primary hover:bg-gray-300 hover:text-zinc-800"
+                        onClick={handleSerialize}
+                    >
+                        Serialize JSON to console
+                    </button>
+                    <button
+                        className="text-sm px-1 py-1 border border-primary text-primary hover:bg-gray-300 hover:text-zinc-800"
                         onClick={handleCopyState}
                     >
                         Copy State
@@ -144,5 +150,3 @@ const Topbar = () => {
         </div>
     );
 };
-
-export default Topbar;

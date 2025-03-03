@@ -1,9 +1,7 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import { useNode, Element } from "@craftjs/core";
-import dynamic from "next/dynamic";
-const Container = dynamic(() => import("../Container"));
-export const dynamic = "force-dynamic";
+import { Container } from "../Container";
 
 const OneColumnContainer = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
     const { connectors: { connect, drag } } = useNode();
