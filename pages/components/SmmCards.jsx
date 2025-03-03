@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from "next/dynamic";
 import { Editor, Frame, Element } from "@craftjs/core";
-
+import CustomModal from './CustomModal';
 const CardTools = dynamic(() => import('./cms/CardTools.jsx'), { ssr: false });
 const Layers = dynamic(() => import('@craftjs/layers').then(mod => mod.Layers), { ssr: false });
 const FbContainer = dynamic(() => import('./cms/cards/FbContainer.jsx').then(mod => mod.default), { ssr: false });
@@ -23,7 +23,6 @@ const ThreeColumnContainer = dynamic(() => import('./cms/user/gridlayouts/ThreeC
 const ThreeColumnContainerSettings = dynamic(() => import('./cms/user/gridlayouts/ThreeColumnContainer.jsx').then(mod => mod.ThreeColumnContainerSettings), { ssr: false });
 const SaveTemplate = dynamic(() => import('./SaveTemplate.jsx'), { ssr: false });
 const StoredTemplates = dynamic(() => import('./StoredTemplates.jsx'), { ssr: false });
-const CustomModal = dynamic(() => import('./CustomModal.jsx'), { ssr: false });
 const Topbar = dynamic(() => import('./cms/Topbar.jsx'), { ssr: false });
 const IgContainer = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.default), { ssr: false });
 const IgContainerSettings = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.IgContainerSettings), { ssr: false });
