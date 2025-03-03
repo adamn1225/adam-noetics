@@ -3,7 +3,6 @@ import React, { useRef, useEffect, forwardRef } from 'react';
 import { useEditor } from "@craftjs/core";
 import { Container } from "./user/Container";
 import { Card } from "./user/Card";
-import { Button } from "./user/Button";
 import { Header } from "./user/Header";
 import { TextArea } from "./user/TextArea";
 import { ImageUpload } from "./user/ImageUpload";
@@ -44,7 +43,6 @@ const Toolbox = () => {
                 <div className="grid grid-cols-2 gap-x-8 gap-y-2 w-fit text-nowrap mx-2 ">
                     <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Container padding={0} background="#fff" canvas>{null}</Container>); }} className="p-2 btn-gradient rounded text-center">Container</DraggableButton>
                     <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Header text="Header" />); }} className="btn-gradient py-1 px-2 rounded text-gray-950">Header</DraggableButton>
-                    <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Button size="small" variant="contained" color="secondary" className="text-gray-950">Click me</Button>); }} className="btn-gradient py-1 px-2 rounded text-gray-950">Button</DraggableButton>
                     <DraggableButton ref={ref => { if (ref) connectors.create(ref, <Card background="#fff" padding={0} text="Card content" />); }} className="btn-gradient py-1 px-2 rounded text-gray-950">Card</DraggableButton>
                     <DraggableButton ref={ref => { if (ref) connectors.create(ref, <TextArea text="This is a text area" />); }} className="btn-gradient py-1 px-2 rounded text-gray-950">TextArea</DraggableButton>
                     <DraggableButton ref={ref => { if (ref) connectors.create(ref, <ImageUpload src="" alt="" width="100%" height="auto" />); }} className="btn-gradient py-1 px-2 rounded text-gray-950">ImageUpload</DraggableButton>

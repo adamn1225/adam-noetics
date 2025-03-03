@@ -12,7 +12,7 @@
                 "styles/*"
             ], // Map the @styles/ prefix to the styles directory
             "@components/*": [
-                "components/*"
+                "pages/components/*"
             ], // Map the @components/ prefix to the components directory
             "@public/*": [
                 "public/*"

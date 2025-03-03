@@ -6,7 +6,6 @@ import { Layers } from '@craftjs/layers';
 import { FbContainer, FbContainerSettings } from './cms/cards/FbContainer.jsx';
 import { SettingsPanel } from './cms/SettingsPanel.jsx';
 import { Container } from './cms/user/Container.jsx';
-import { Button, ButtonSettings } from './cms/user/Button.jsx';
 import { CardSettings } from './cms/user/Card.jsx';
 import { Post, PostTop } from './cms/cards/Post.jsx';
 import { Header } from './cms/user/Header.jsx';
@@ -52,7 +51,7 @@ const SmmCards = () => {
 
   return (
     <div className='w-full h-screen bg-white dark:bg-gray-800 overflow-x-hidden'>
-      <Editor resolver={{ Post, Button, Header, ImageUploadSettings, ImageUpload, Container, PostTop, TwoColumnContainer, ThreeColumnContainerSettings, TextArea, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, MainContainerSettings, ButtonSettings, CardSettings, IconsComponent, IconsSettings, IgContainer, IgContainerSettings, Post }} >
+      <Editor resolver={{ Post, Header, ImageUploadSettings, ImageUpload, Container, PostTop, TwoColumnContainer, ThreeColumnContainerSettings, TextArea, ThreeColumnContainer, TwoColumnContainerSettings, OneColumnContainer, OneColumnContainerSettings, FbContainerSettings, FbContainer, MainContainerSettings, CardSettings, IconsComponent, IconsSettings, IgContainer, IgContainerSettings, Post }} >
         <div className="grid grid-cols-[3fr_1fr] justify-items-between gap-y-4 h-full w-full lg:mb-0">
           <div className='flex justify-center items-normal h-full w-full'>
             <UrlConverter onConvert={handleConvert} className="url-converter-sidebar" />
