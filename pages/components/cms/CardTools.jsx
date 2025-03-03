@@ -28,7 +28,7 @@ const Topbar = dynamic(() => import('./cms/Topbar.jsx'));
 const IgContainer = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.default));
 const IgContainerSettings = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.IgContainerSettings));
 const UrlConverter = dynamic(() => import('./UrlConverter.jsx'));
-export const dynamic = "force-dynamic";
+
 
 const SmmCards = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
