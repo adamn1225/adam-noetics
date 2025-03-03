@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from "next/dynamic";
 import { Editor, Frame, Element } from "@craftjs/core";
 import CustomModal from './CustomModal';
+
 const CardTools = dynamic(() => import('./cms/CardTools.jsx'), { ssr: false });
 const Layers = dynamic(() => import('@craftjs/layers').then(mod => mod.Layers), { ssr: false });
 const FbContainer = dynamic(() => import('./cms/cards/FbContainer.jsx').then(mod => mod.default), { ssr: false });
@@ -27,8 +28,6 @@ const Topbar = dynamic(() => import('./cms/Topbar.jsx'), { ssr: false });
 const IgContainer = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.default), { ssr: false });
 const IgContainerSettings = dynamic(() => import('./cms/cards/IgContainer.jsx').then(mod => mod.IgContainerSettings), { ssr: false });
 const UrlConverter = dynamic(() => import('./UrlConverter.jsx'), { ssr: false });
-
-export const dynamic = "force-dynamic";
 
 const SmmCards = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
