@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { useNode } from "@craftjs/core";
 
-export const IgContainer = ({ background, padding = 0, margin = 0, layout = "flex", children }) => {
+const IgContainer = ({ background, padding = 0, margin = 0, layout = "flex", children }) => {
   const { connectors: { connect, drag } } = useNode();
   const ref = useRef(null);
 
@@ -23,7 +23,7 @@ export const IgContainer = ({ background, padding = 0, margin = 0, layout = "fle
   );
 };
 
-export const IgContainerSettings = () => {
+const IgContainerSettings = () => {
   const { actions: { setProp }, background, padding, margin } = useNode((node) => ({
     background: node.data.props.background,
     padding: node.data.props.padding,
@@ -79,6 +79,7 @@ IgContainer.craft = {
     canDrag: () => true,
     canMoveIn: () => true,
     canMoveOut: () => true
-  },
-  isCanvas: true
+  }
 };
+
+export { IgContainer, IgContainerSettings };

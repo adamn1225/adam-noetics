@@ -4,7 +4,7 @@ import { Element, useNode } from "@craftjs/core";
 import { Header } from "../user/Header";
 import { ImageUpload } from "../user/ImageUpload";
 
-export const PostTop = ({ children }) => {
+const PostTop = ({ children }) => {
     const { connectors: { connect } } = useNode();
     return (
         <div ref={connect} className="text-only flex flex-col gap-10">
@@ -22,7 +22,7 @@ PostTop.craft = {
     }
 };
 
-export const Post = ({ background, padding = 0, borderColor = 'gray-400', height = 'auto', width = 'auto', containerType, h1, h2, img }) => {
+const Post = ({ background, padding = 0, borderColor = 'gray-400', height = 'auto', width = 'auto', containerType, h1, h2, img }) => {
     const { connectors: { connect, drag } } = useNode();
     const ref = useRef(null);
 
@@ -61,7 +61,7 @@ export const Post = ({ background, padding = 0, borderColor = 'gray-400', height
     );
 };
 
-export const PostSettings = () => {
+const PostSettings = () => {
     const { actions: { setProp }, background, padding, height, width, gap } = useNode((node) => ({
         background: node.data.props.background,
         padding: node.data.props.padding,
@@ -105,6 +105,7 @@ Post.craft = {
         canDrag: () => true,
         canMoveIn: () => true,
         canMoveOut: () => true
-    },
-    isCanvas: true
+    }
 };
+
+export { Post, PostSettings }

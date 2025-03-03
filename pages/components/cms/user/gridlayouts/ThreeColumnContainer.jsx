@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import { useNode, Element } from "@craftjs/core";
 import { Container } from "../Container";
 
-export const ThreeColumnContainer = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
+const ThreeColumnContainer = ({ background, padding = 0, borderColor = 'gray-400', height = '', gap = '4', layout = 'grid' }) => {
     const { connectors: { connect, drag } } = useNode();
     const ref = useRef(null);
 
@@ -37,7 +37,7 @@ export const ThreeColumnContainer = ({ background, padding = 0, borderColor = 'g
     );
 };
 
-export const ThreeColumnContainerSettings = () => {
+const ThreeColumnContainerSettings = () => {
     const { actions: { setProp }, background, padding, height, gap, layout } = useNode((node) => ({
         background: node.data.props.background,
         padding: node.data.props.padding,
@@ -88,3 +88,5 @@ ThreeColumnContainer.craft = {
         canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode => incomingNode.data.type === Container),
     }
 };
+
+export { ThreeColumnContainer, ThreeColumnContainerSettings };

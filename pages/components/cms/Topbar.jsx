@@ -5,7 +5,7 @@ import { supabase } from '../../../lib/supabaseClient';
 import lz from "lzutf8";
 import copy from 'copy-to-clipboard';
 
-export const Topbar = () => {
+const Topbar = () => {
     const { actions, query } = useEditor();
     const [isEnabled, setIsEnabled] = useState(true);
     const [templateName, setTemplateName] = useState('');
@@ -150,3 +150,5 @@ export const Topbar = () => {
         </div>
     );
 };
+
+export default Topbar;

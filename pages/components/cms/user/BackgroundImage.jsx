@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Link2, Link2Off } from 'lucide-react';
 
-export const BackgroundImage = ({ src, alt, objectFit = 'cover', objectPosition = 'center' }) => {
+const BackgroundImage = ({ src, alt, objectFit = 'cover', objectPosition = 'center' }) => {
   const { connectors: { connect, drag } } = useNode();
   const ref = useRef(null);
 
@@ -33,7 +33,7 @@ export const BackgroundImage = ({ src, alt, objectFit = 'cover', objectPosition 
   );
 };
 
-export const BackgroundImageSettings = () => {
+const BackgroundImageSettings = () => {
   const { actions: { setProp }, src, alt, width, height, objectFit, objectPosition, overlayColor, overlayOpacity } = useNode((node) => ({
     src: node.data.props.src,
     alt: node.data.props.alt,
@@ -188,3 +188,5 @@ BackgroundImage.craft = {
     canMoveOut: () => false
   }
 };
+
+export { BackgroundImage, BackgroundImageSettings };

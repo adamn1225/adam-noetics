@@ -34,7 +34,7 @@ const TwoColumnContainer = ({ background, padding = 0, borderColor = 'gray-400',
     );
 };
 
-export const TwoColumnContainerSettings = () => {
+const TwoColumnContainerSettings = () => {
     const { actions: { setProp }, background, padding, height, gap, layout } = useNode((node) => ({
         background: node.data.props.background,
         padding: node.data.props.padding,
@@ -86,4 +86,4 @@ TwoColumnContainer.craft = {
     }
 };
 
-export default TwoColumnContainer;
+export { TwoColumnContainer, TwoColumnContainerSettings };

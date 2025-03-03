@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEditor } from "@craftjs/core";
 
-export const SettingsPanel = () => {
+const SettingsPanel = () => {
     const { actions, selected } = useEditor((state, query) => {
         const [currentNodeId] = state.events.selected;
         let selected;
@@ -49,3 +49,5 @@ export const SettingsPanel = () => {
         </div>
     ) : null;
 };
+
+export default SettingsPanel;

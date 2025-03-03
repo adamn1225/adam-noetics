@@ -14,7 +14,7 @@ const DraggableButton = forwardRef((props, ref) => (
 ));
 DraggableButton.displayName = 'DraggableButton';
 
-export const Toolbox = () => {
+const Toolbox = () => {
     const { connectors } = useEditor();
     const inputRef = useRef(null);
 
@@ -47,3 +47,5 @@ export const Toolbox = () => {
         </div>
     )
 };
+
+export default Toolbox;

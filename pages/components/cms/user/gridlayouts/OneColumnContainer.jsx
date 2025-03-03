@@ -31,7 +31,7 @@ const OneColumnContainer = ({ background, padding = 0, borderColor = 'gray-400',
     );
 };
 
-export const OneColumnContainerSettings = () => {
+const OneColumnContainerSettings = () => {
     const { actions: { setProp }, background, padding, height, gap, layout } = useNode((node) => ({
         background: node.data.props.background,
         padding: node.data.props.padding,
@@ -83,4 +83,4 @@ OneColumnContainer.craft = {
     }
 };
 
-export default OneColumnContainer;
+export { OneColumnContainer, OneColumnContainerSettings };

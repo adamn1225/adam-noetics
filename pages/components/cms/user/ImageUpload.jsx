@@ -50,7 +50,7 @@ const ImageUpload = ({ src = '/chamber-crane.jpeg', alt = '', width = 'auto', he
   );
 };
 
-export const ImageUploadSettings = () => {
+const ImageUploadSettings = () => {
   const { actions: { setProp }, src, alt, width, height, objectFit, objectPosition, overlayColor, overlayOpacity } = useNode((node) => ({
     src: node.data.props.src,
     alt: node.data.props.alt,
@@ -223,4 +223,4 @@ ImageUpload.craft = {
   }
 };
 
-export default ImageUpload;
+export { ImageUpload, ImageUploadSettings };
