@@ -83,4 +83,5 @@ OneColumnContainer.craft = {
     }
 };
 
-export { OneColumnContainer, OneColumnContainerSettings };
+export default OneColumnContainer;
+export { OneColumnContainerSettings };

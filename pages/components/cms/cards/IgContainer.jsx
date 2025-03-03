@@ -82,4 +82,5 @@ IgContainer.craft = {
   }
 };
 
-export { IgContainer, IgContainerSettings };
+export default IgContainer;
+export { IgContainerSettings };

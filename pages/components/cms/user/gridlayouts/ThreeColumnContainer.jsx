@@ -89,4 +89,5 @@ ThreeColumnContainer.craft = {
     }
 };
 
-export { ThreeColumnContainer, ThreeColumnContainerSettings };
+export default ThreeColumnContainer;
+export { ThreeColumnContainerSettings };

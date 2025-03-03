@@ -223,4 +223,5 @@ ImageUpload.craft = {
   }
 };
 
-export { ImageUpload, ImageUploadSettings };
+export default ImageUpload;
+export { ImageUploadSettings };

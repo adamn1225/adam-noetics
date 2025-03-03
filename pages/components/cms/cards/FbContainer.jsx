@@ -81,4 +81,5 @@ FbContainer.craft = {
   }
 };
 
-export { FbContainer, FbContainerSettings };
+export default FbContainer;
+export { FbContainerSettings };

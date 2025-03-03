@@ -86,4 +86,5 @@ TwoColumnContainer.craft = {
     }
 };
 
-export { TwoColumnContainer, TwoColumnContainerSettings };
+export default TwoColumnContainer;
+export { TwoColumnContainerSettings };

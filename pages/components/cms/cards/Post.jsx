@@ -108,4 +108,5 @@ Post.craft = {
     }
 };
 
-export { Post, PostSettings }
+export default Post;
+export { PostSettings }

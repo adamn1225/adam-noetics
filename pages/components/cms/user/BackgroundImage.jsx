@@ -189,4 +189,5 @@ BackgroundImage.craft = {
   }
 };
 
-export { BackgroundImage, BackgroundImageSettings };
+export default BackgroundImage;
+export { BackgroundImageSettings };

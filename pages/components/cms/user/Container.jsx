@@ -105,4 +105,5 @@ Container.craft = {
     isCanvas: true
 };
 
-export { Container, ContainerSettings };
+export default Container;
+export { ContainerSettings };

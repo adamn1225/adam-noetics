@@ -224,4 +224,5 @@ Header.craft = {
     }
 };
 
-export { Header, HeaderSettings };
+export default Header;
+export { HeaderSettings };
