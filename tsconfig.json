@@ -55,7 +55,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/pagebuilder/CraftEditor.tsx"
+    "components/pagebuilder/CraftEditor.tsx",
+    "pages/dashboard/content/index.jsx"
   ],
   "exclude": [
     "node_modules"
