@@ -4,7 +4,6 @@ import { Element, useNode } from "@craftjs/core";
 import { Container, ContainerSettings } from "./Container";
 import { TextArea, TextAreaSettings } from "./TextArea";
 import { Header, HeaderSettings } from "./Header";
-import { Button, ButtonSettings } from "./Button";
 
 export const CardTop = ({ children }) => {
     const { connectors: { connect } } = useNode();
@@ -19,8 +18,7 @@ CardTop.craft = {
     rules: {
         canMoveIn: (incomingNodes) => incomingNodes.every(incomingNode =>
             incomingNode.data.type === Header ||
-            incomingNode.data.type === TextArea ||
-            incomingNode.data.type === Button
+            incomingNode.data.type === TextArea
         )
     }
 };
@@ -52,11 +50,6 @@ const Card = ({ background, padding = 0, borderColor = 'gray-400', height = '', 
             </Element>
             <Element is={TextArea} id="textarea" background={background} canvas>
                 <TextArea text="Purpose" />
-            </Element>
-            <Element is={Button} id="button" background={background} canvas>
-                <Button size="small" variant="contained" color="primary" canvas >
-                    Learn more
-                </Button>
             </Element>
         </div>
     );
