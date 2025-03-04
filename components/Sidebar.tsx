@@ -13,7 +13,7 @@ const navItems = [
   { name: 'Overview', href: '/dashboard/overview', icon: Home },
   { name: 'File Uploads', href: '/dashboard/files', icon: Folder },
   { name: 'Tasks', href: '/dashboard/tasks', icon: ClipboardList },
-  { name: 'CMS', href: '/dashboard/content', icon: MonitorCog },
+  { name: 'CMS', href: 'https://app.nextnoetics.com', icon: MonitorCog },
   { name: 'Calendar', href: '/dashboard/smcalendar', icon: Calendar },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart },
   { name: 'Profile', href: '/dashboard/profile', icon: User },
@@ -166,11 +166,28 @@ const Sidebar = () => {
       <nav className="flex flex-col justify-between h-full pb-8  text-xs xl:text-base">
         <ul>
           {navItems.map((item) => (
-            <li key={item.name} className="mb-2  text-xs 2xl:text-base">
-              <Link href={item.href} passHref className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 font-medium hover:bg-gray-700 rounded ${currentPath === item.href ? 'active' : ''}`}>
-                <item.icon className="mr-2" />
-                <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
-              </Link>
+            <li key={item.name} className="mb-2 text-xs 2xl:text-base">
+              {item.href.startsWith("http") ? (
+                <a
+                  href={item.href}
+                  target="_self"
+                  rel="noopener noreferrer"
+                  className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 font-medium hover:bg-gray-700 rounded`}
+                >
+                  <item.icon className="mr-2" />
+                  <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
+                </a>
+              ) : (
+                // Internal Link (Next.js Routing)
+                <Link
+                  href={item.href}
+                  passHref
+                  className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-2'} p-2 font-medium hover:bg-gray-700 rounded ${currentPath === item.href ? 'active' : ''}`}
+                >
+                  <item.icon className="mr-2" />
+                  <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.name}</span>
+                </Link>
+              )}
             </li>
           ))}
         </ul>
