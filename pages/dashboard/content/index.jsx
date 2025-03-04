@@ -1,12 +1,11 @@
 import React from "react";
-import BuilderLayout from "../BuilderLayout";
-import SmmCards from "../../components/SmmCards";
+import DashboardLayout from "../UserLayout";
 
 const PageBuilder = () => {
     return (
-        <BuilderLayout>
-            <SmmCards />
-        </BuilderLayout>
+        <DashboardLayout>
+            <div className="h-full w-full flex justify-center items-center text-lg text-gradient"> <p>coming soon</p></div>
+        </DashboardLayout>
     );
 }
 
