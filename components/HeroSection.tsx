@@ -4,7 +4,7 @@ import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 import AnimatedBackground from "./ui/AnimatedBackground"; // Import the AnimatedBackground component
 import { motion } from "motion/react";
 import { fadeInUp } from "../motionConfig"; // Import the fadeInUp configuration
-import nnbuilder from "./SMM-Post_builder.png";
+import nnbuilder from "./public/SMM-Post_builder.png";
 import Image from "next/image";
 
 const HeroSection = () => {
