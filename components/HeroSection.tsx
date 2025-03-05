@@ -1,9 +1,11 @@
-'use client";'
+'use client';
 import React, { useState } from "react";
 import { supabase } from "@lib/supabaseClient"; // Import Supabase client
 import AnimatedBackground from "./ui/AnimatedBackground"; // Import the AnimatedBackground component
 import { motion } from "motion/react";
 import { fadeInUp } from "../motionConfig"; // Import the fadeInUp configuration
+import nnbuilder from "./SMM-Post_builder.png";
+import Image from "next/image";
 
 const HeroSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -92,23 +94,31 @@ const HeroSection = () => {
 
     return (
         <section id="hero" className="relative hero-gradient text-gray-100 h-[70vh] md:h-[60vh] py-20">
-            <AnimatedBackground />
+            {/* <AnimatedBackground /> */}
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
                 <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
-                    Mediocrity ends when it reigns creativity.
+                    Social Media Marketing, <strong>Building,</strong> done like never before.
                 </motion.h1>
+                {/* <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
+                    Mediocrity ends when it reigns creativity.
+                </motion.h1> */}
                 <motion.p className="text-2xl font-bold mb-6 max-w-3xl mx-auto" {...fadeInUp}>
-                    We don’t recycle ideas; <span className="font-bold">we obliterate the ordinary.</span> If it’s been done before, we tear it apart and rebuild something unforgettable.
+                    Let&apos;s build something unforgettable.
                 </motion.p>
                 <div className="flex flex-col items-center space-y-4">
-                    <motion.button
-                        onClick={handleModalToggle}
-                        className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
+                    <motion.a
+                        href="https://app.nextnoetics.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         {...fadeInUp}
                     >
-                        Get in touch
-                    </motion.button>
-                    <motion.a href="/signup" {...fadeInUp}>
+                        <button
+                            className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
+                        >
+                            Try it here for free!
+                        </button>
+                    </motion.a>
+                    {/* <motion.a href="/signup" {...fadeInUp}>
                         <div className="flex flex-col items-center gap-2">
                             <span
                                 className="onboardbutton py-3 px-6 rounded-full"
@@ -116,10 +126,21 @@ const HeroSection = () => {
                                 Sign Up
                             </span>
                         </div>
-                    </motion.a>
+                    </motion.a> */}
                 </div>
             </div>
 
+            {/* Background Image */}
+            <div className="absolute bottom-0 left-0 w-full h-full z-0">
+                <Image
+                    src={nnbuilder}
+                    alt="NnBuilder"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="bottom"
+                    className="opacity-50"
+                />
+            </div>
 
             {/* Modal */}
             {isModalOpen && (

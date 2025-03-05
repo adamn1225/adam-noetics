@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ga4noetics from '/public/ga4-nextnoetics-dark.png';
-import cmsnoetics from '/public/noetic-builder.png';
+import nnbuilder from "./SMM-Post_builder.png";
 import smmnoetics from '/public/noetic-smm.png';
 import { motion } from "framer-motion";
 import { fadeInRight } from "../motionConfig";
@@ -34,7 +34,7 @@ const AboutNoeticsDash = () => {
                         <h3 className="text-2xl font-semibold mb-2 dark:text-primary">Noetics Landing Pagebuilder &amp; CMS</h3>
                         <p className="mb-2 text-center text-base">Manage your content, blogs, & landing pages.</p>
                         <Image
-                            src={cmsnoetics}
+                            src={nnbuilder}
                             alt="Noetics Content Management System"
                             width={450}
                             height={200}
