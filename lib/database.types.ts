@@ -417,6 +417,7 @@ export type Database = {
           onboarding_completed: boolean | null
           organization_id: string | null
           phone: string | null
+          plan: string | null
           profile_image: string | null
           role: string | null
           semrush_key: string | null
@@ -436,6 +437,7 @@ export type Database = {
           onboarding_completed?: boolean | null
           organization_id?: string | null
           phone?: string | null
+          plan?: string | null
           profile_image?: string | null
           role?: string | null
           semrush_key?: string | null
@@ -455,6 +457,7 @@ export type Database = {
           onboarding_completed?: boolean | null
           organization_id?: string | null
           phone?: string | null
+          plan?: string | null
           profile_image?: string | null
           role?: string | null
           semrush_key?: string | null
@@ -586,6 +589,7 @@ export type Database = {
           sm_platform: string
           status: string | null
           tags: string | null
+          template_id: string | null
           title: string
           user_id: string | null
         }
@@ -601,6 +605,7 @@ export type Database = {
           sm_platform: string
           status?: string | null
           tags?: string | null
+          template_id?: string | null
           title: string
           user_id?: string | null
         }
@@ -616,6 +621,7 @@ export type Database = {
           sm_platform?: string
           status?: string | null
           tags?: string | null
+          template_id?: string | null
           title?: string
           user_id?: string | null
         }
@@ -625,6 +631,13 @@ export type Database = {
             columns: ["blog_post_id"]
             isOneToOne: false
             referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_template"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "templates"
             referencedColumns: ["id"]
           },
           {
@@ -702,30 +715,83 @@ export type Database = {
       }
       templates: {
         Row: {
+          content: string | null
+          content_html: string | null
           created_at: string | null
+          description: string | null
+          excerpt: string | null
+          featured_image: string | null
           id: string
           name: string
+          published_at: string | null
+          scheduled_publish_date: string | null
           sections: Json
+          smm_calendar_id: number | null
+          status: string | null
+          tags: string[] | null
+          template: string | null
+          template_url: string | null
+          title: string | null
           updated_at: string | null
           user_id: string | null
         }
         Insert: {
+          content?: string | null
+          content_html?: string | null
           created_at?: string | null
+          description?: string | null
+          excerpt?: string | null
+          featured_image?: string | null
           id?: string
           name: string
+          published_at?: string | null
+          scheduled_publish_date?: string | null
           sections: Json
+          smm_calendar_id?: number | null
+          status?: string | null
+          tags?: string[] | null
+          template?: string | null
+          template_url?: string | null
+          title?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
         Update: {
+          content?: string | null
+          content_html?: string | null
           created_at?: string | null
+          description?: string | null
+          excerpt?: string | null
+          featured_image?: string | null
           id?: string
           name?: string
+          published_at?: string | null
+          scheduled_publish_date?: string | null
           sections?: Json
+          smm_calendar_id?: number | null
+          status?: string | null
+          tags?: string[] | null
+          template?: string | null
+          template_url?: string | null
+          title?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_smm_calendar"
+            columns: ["smm_calendar_id"]
+            isOneToOne: false
+            referencedRelation: "smm_calendar"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_user"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "templates_user_id_fkey"
             columns: ["user_id"]
