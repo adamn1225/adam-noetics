@@ -38,9 +38,9 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
               className="rounded-full"
             />
           </Link>
-          <span className="md:hidden flex justify-end w-full mx-8 items-start gap-4">
+          {/* <span className="md:hidden flex justify-end w-full mx-8 items-start gap-4">
             <DarkModeToggle />
-          </span>
+          </span> */}
         </span>
         {/* Hamburger Menu for Smaller Screens */}
         <button
@@ -53,12 +53,12 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
         {/* Desktop Navigation */}
         <ul className="hidden sm:flex items-center gap-6">
-          <li>
+          {/* <li>
             <DarkModeToggle />
-          </li>
+          </li> */}
           <li>
-            <Link href="#services" className="hover:underline text-secondary font-semibold">
-              Services
+            <Link href="#learn" className="hover:underline text-secondary font-semibold">
+              Learn
             </Link>
           </li>
           {/* <li>
@@ -67,8 +67,8 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             </Link>
           </li> */}
           <li>
-            <Link href="#about" className="hover:underline text-secondary font-semibold">
-              About
+            <Link href="#services" className="hover:underline text-secondary font-semibold">
+              More Services
             </Link>
           </li>
           <li>
