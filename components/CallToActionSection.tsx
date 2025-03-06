@@ -97,17 +97,17 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
           {subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <motion.a
+          <a
             href="https://noetics.io/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button
+            <motion.button
               className="bg-primary hover:bg-primary hover:opacity-90 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
             >
-              Go Live
-            </button>
-          </motion.a>
+              Try it here for free!
+            </motion.button>
+          </a>
         </div>
       </div>
 

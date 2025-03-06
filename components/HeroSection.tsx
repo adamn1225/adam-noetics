@@ -106,18 +106,18 @@ const HeroSection = () => {
                     Create, Schedule, and Automate Social Media Posts Effortlessly.
                 </motion.h2>
                 <div className="flex flex-col items-center space-y-4">
-                    <motion.a
+                    <a
                         href="https://noetics.io/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        {...fadeInUp}
                     >
-                        <button
+                        <motion.button
                             className="bg-primary hover:bg-primary hover:opacity-90 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
+                            {...fadeInUp}
                         >
                             Try it here for free!
-                        </button>
-                    </motion.a>
+                        </motion.button>
+                    </a>
                     {/* <motion.a href="/signup" {...fadeInUp}>
                         <div className="flex flex-col items-center gap-2">
                             <span
