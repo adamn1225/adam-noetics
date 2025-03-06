@@ -9,7 +9,7 @@ import { fadeInRight } from "../motionConfig";
 
 const AboutNoeticsDash = () => {
     return (
-        <motion.section id="services" className="bg-zinc-900 dark:bg-zinc-950 py-20" {...fadeInRight}>
+        <motion.section id="learn" className="bg-zinc-900 dark:bg-zinc-950 py-20" {...fadeInRight}>
             <div className="p-12 container mx-auto">
                 <h2 className="text-4xl font-bold mb-6 text-secondary text-center">Effortless Social Media Management: Design, Schedule, Publish with Noetics</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
