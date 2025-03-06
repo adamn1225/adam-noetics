@@ -16,10 +16,10 @@ const Home: FC = () => {
                 <AboutNoeticsDash />
                 <ServicesSection />
                 <AboutSection />
-                <PortfolioSection />
+                {/* <PortfolioSection /> */}
                 <CallToActionSection
-                    title="Ready for the next mission?"
-                    subtitle="We have the skills, tools, focus, and intensity to ensure it's complete. Let's talk."
+                    title="From Creation to Publishing—Automate Your Social Media Workflow"
+                    subtitle="Stay Ahead of the Curve—Create, Automate, and Grow."
                 />
             </div>
         </RootLayout>

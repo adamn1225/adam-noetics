@@ -61,11 +61,11 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
               Services
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="#portfolio" className="hover:underline text-secondary font-semibold">
               Portfolio
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="#about" className="hover:underline text-secondary font-semibold">
               About

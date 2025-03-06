@@ -86,7 +86,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
   return (
     <motion.section
       id="contact"
-      className="bg-zinc-950 dark:bg-zinc-900 text-white pb-12"
+      className="bg-zinc-950 dark:bg-zinc-900 text-secondary pb-12"
       {...slideInFromTop}
     >
       <div className="container bg-zinc-950 mx-auto px-4 py-8 text-center">
@@ -97,26 +97,17 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
           {subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() =>
-              (window.location.href = "mailto:anoah1225@gmail.com")
-            }
-            className="opt-btn text-base md:text-lg"
+          <motion.a
+            href="https://app.nextnoetics.com/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Email Us
-          </button>
-          <button
-            onClick={() => (window.location.href = "tel:+1234567890")}
-            className="opt-btn text-base md:text-lg"
-          >
-            Call Us
-          </button>
-          <button
-            onClick={handleModalToggle}
-            className="opt-btn text-base md:text-lg"
-          >
-            Fill Out a Form
-          </button>
+            <button
+              className="bg-primary hover:bg-primary hover:opacity-90 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
+            >
+              Go Live
+            </button>
+          </motion.a>
         </div>
       </div>
 

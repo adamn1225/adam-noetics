@@ -10,7 +10,7 @@ const AboutSection = () => {
       {...fadeInUp}
     >
       <div className="container mx-auto px-4 text-center">
-        <motion.h2 className="text-4xl text-primary font-bold mb-6" {...fadeInUp}>
+        <motion.h2 className="text-4xl text-secondary font-bold mb-6" {...fadeInUp}>
           Foundry
         </motion.h2>
         <motion.p className="text-lg leading-relaxed mb-8 max-w-3xl mx-auto" {...fadeInUp}>

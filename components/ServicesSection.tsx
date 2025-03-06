@@ -7,7 +7,7 @@ const ServicesSection = () => {
     <motion.section id="services" className="bg-zinc-900 dark:bg-zinc-800 py-20" {...fadeInRight}>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-5xl text-secondary font-bold mb-10">Arsenal</h2>
-        <h2 className="text-1xl text-white font-bold mb-10">Engineered Solutions &#9670; System Components &#9670; Beyond the Basics</h2>
+        <h2 className="text-1xl text-white font-bold mb-10">Other Engineered Solutions &#9670; System Components &#9670; Beyond the Basics</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
