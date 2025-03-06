@@ -93,18 +93,18 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative hero-gradient opacity-80 text-white h-[70vh] md:h-[60vh] py-20">
+        <section id="hero" className="relative bg-foreground opacity-80 text-white h-[70vh] md:h-[60vh] py-20">
             {/* <AnimatedBackground /> */}
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
-                <motion.h1 className="relative z-50 text-4xl md:text-6xl font-bold mb-4 text-white " {...fadeInUp}>
-                    Social Media Marketing, <strong>Building,</strong> done like never before.
+                <motion.h1 className="relative z-50 text-2xl md:text-5xl font-bold mb-4 text-white " {...fadeInUp}>
+                    Automated SMM Post Builder &amp; Scheduler
                 </motion.h1>
                 {/* <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
                     Mediocrity ends when it reigns creativity.
                 </motion.h1> */}
-                <motion.p className="text-2xl font-bold mb-6 max-w-3xl mx-auto" {...fadeInUp}>
-                    Let&apos;s build something unforgettable.
-                </motion.p>
+                <motion.h2 className="text-2xl font-bold mb-6 max-w-3xl mx-auto" {...fadeInUp}>
+                    Create, Schedule, and Automate Social Media Posts Effortlessly.
+                </motion.h2>
                 <div className="flex flex-col items-center space-y-4">
                     <motion.a
                         href="https://app.nextnoetics.com/"
