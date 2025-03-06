@@ -93,10 +93,10 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative hero-gradient text-gray-100 h-[70vh] md:h-[60vh] py-20">
+        <section id="hero" className="relative hero-gradient opacity-80 text-white h-[70vh] md:h-[60vh] py-20">
             {/* <AnimatedBackground /> */}
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
-                <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
+                <motion.h1 className="relative z-50 text-4xl md:text-6xl font-bold mb-4 text-white " {...fadeInUp}>
                     Social Media Marketing, <strong>Building,</strong> done like never before.
                 </motion.h1>
                 {/* <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
@@ -131,15 +131,18 @@ const HeroSection = () => {
             </div>
 
             {/* Background Image */}
-            <div className="absolute bottom-0 left-0 w-full h-full z-0">
-                <Image
-                    src={nnbuilder}
-                    alt="NnBuilder"
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="bottom"
-                    className="opacity-50"
-                />
+
+            <div className="flex justify-center items-end h-[500px] pt-12">
+                <div className="absolute bottom-0 w-[900px] h-[500px] z-0  pt-12">
+                    <Image
+                        src={nnbuilder}
+                        alt="NnBuilder"
+                        layout="fill"
+                        objectFit="contain"
+                        objectPosition="center"
+                        className="opacity-50"
+                    />
+                </div>
             </div>
 
             {/* Modal */}
