@@ -107,7 +107,7 @@ const HeroSection = () => {
                 </motion.h2>
                 <div className="flex flex-col items-center space-y-4">
                     <motion.a
-                        href="https://app.nextnoetics.com/"
+                        href="https://noetics.io/"
                         target="_blank"
                         rel="noopener noreferrer"
                         {...fadeInUp}

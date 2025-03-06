@@ -98,7 +98,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({ title, subtit
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <motion.a
-            href="https://app.nextnoetics.com/"
+            href="https://noetics.io/"
             target="_blank"
             rel="noopener noreferrer"
           >
