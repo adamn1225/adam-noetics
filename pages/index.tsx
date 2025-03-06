@@ -13,8 +13,8 @@ const Home: FC = () => {
         <RootLayout>
             <div className="space-y-20">
                 <HeroSection />
-                <ServicesSection />
                 <AboutNoeticsDash />
+                <ServicesSection />
                 <AboutSection />
                 <PortfolioSection />
                 <CallToActionSection

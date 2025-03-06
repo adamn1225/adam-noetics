@@ -11,10 +11,10 @@ const AboutNoeticsDash = () => {
     return (
         <motion.section id="services" className="bg-zinc-900 dark:bg-zinc-950 py-20" {...fadeInRight}>
             <div className="p-8">
-                <h2 className="text-4xl font-bold mb-6 text-primary text-center">The Noetic Dashboard</h2>
+                <h2 className="text-4xl font-bold mb-6 text-secondary text-center">Social Media post builder with Noetics</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="flex flex-col items-center justify-evenly gap-2 bg-gray-100 dark:bg-zinc-800 p-6 rounded-lg shadow-md">
-                        <h3 className="text-2xl font-semibold mb-2 dark:text-primary  text-center">Google Analytics 4 Dashboard</h3>
+                        <h3 className="text-2xl font-semibold mb-2 dark:text-secondary  text-center">Google Analytics 4 Dashboard</h3>
                         <p className="mb-2 text-center text-base">View your GA4 data - search pages, easier to read, & customizable.</p>
                         <Image
                             src={ga4noetics}

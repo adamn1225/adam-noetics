@@ -21,7 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
 
   return (
     <motion.header
-      className={`bg-white dark:bg-gray-950 z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
+      className={`bg-gray-950 shadow-md shadow-secondary z-50 pt-2 ${isFixed ? 'fixed top-0 left-0 w-full' : ''} dark:border-0 dark:border-b-zinc-950 shadow-2xl`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -57,17 +57,17 @@ const Navigation: React.FC<NavigationProps> = ({ isFixed = true }) => {
             <DarkModeToggle />
           </li>
           <li>
-            <Link href="#services" className="hover:underline dark:text-white">
+            <Link href="#services" className="hover:underline text-secondary font-semibold">
               Services
             </Link>
           </li>
           <li>
-            <Link href="#portfolio" className="hover:underline dark:text-white">
+            <Link href="#portfolio" className="hover:underline text-secondary font-semibold">
               Portfolio
             </Link>
           </li>
           <li>
-            <Link href="#about" className="hover:underline dark:text-white">
+            <Link href="#about" className="hover:underline text-secondary font-semibold">
               About
             </Link>
           </li>

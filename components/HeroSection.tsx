@@ -93,16 +93,16 @@ const HeroSection = () => {
     };
 
     return (
-        <section id="hero" className="relative bg-foreground opacity-80 text-white h-[70vh] md:h-[60vh] py-20">
+        <section id="hero" className="relative bg-zinc-950  h-[70vh] md:h-[60vh] py-20">
             {/* <AnimatedBackground /> */}
             <div className="container mx-auto px-4 text-center h-full flex flex-col justify-center items-center relative z-10">
-                <motion.h1 className="relative z-50 text-2xl md:text-5xl font-bold mb-4 text-white " {...fadeInUp}>
+                <motion.h1 className="relative z-50 text-2xl md:text-5xl font-bold mb-4 text-secondary " {...fadeInUp}>
                     Automated SMM Post Builder &amp; Scheduler
                 </motion.h1>
                 {/* <motion.h1 className="text-4xl md:text-6xl font-bold mb-4" {...fadeInUp}>
                     Mediocrity ends when it reigns creativity.
                 </motion.h1> */}
-                <motion.h2 className="text-2xl font-bold mb-6 max-w-3xl mx-auto" {...fadeInUp}>
+                <motion.h2 className="text-2xl font-bold mb-6 max-w-3xl mx-auto text-secondary" {...fadeInUp}>
                     Create, Schedule, and Automate Social Media Posts Effortlessly.
                 </motion.h2>
                 <div className="flex flex-col items-center space-y-4">
@@ -113,7 +113,7 @@ const HeroSection = () => {
                         {...fadeInUp}
                     >
                         <button
-                            className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
+                            className="bg-primary hover:bg-primary hover:opacity-90 text-white font-bold py-3 px-6 rounded-full tracking-wide shadow-lg transition-all duration-300"
                         >
                             Try it here for free!
                         </button>
