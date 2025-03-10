@@ -421,6 +421,7 @@ export type Database = {
           profile_image: string | null
           role: string | null
           semrush_key: string | null
+          subscription_id: string | null
           updated_at: string | null
           user_id: string | null
         }
@@ -441,6 +442,7 @@ export type Database = {
           profile_image?: string | null
           role?: string | null
           semrush_key?: string | null
+          subscription_id?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
@@ -461,6 +463,7 @@ export type Database = {
           profile_image?: string | null
           role?: string | null
           semrush_key?: string | null
+          subscription_id?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
@@ -798,6 +801,41 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_access_tokens: {
+        Row: {
+          access_token: string | null
+          created_at: string | null
+          id: number
+          platform: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string | null
+          id?: number
+          platform?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string | null
+          id?: number
+          platform?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_access_tokens_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
